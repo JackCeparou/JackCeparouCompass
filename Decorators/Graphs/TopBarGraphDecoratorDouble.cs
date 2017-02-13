@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Turbo.Plugins.JackCeparouCompass.Decorator.Graphs
+namespace Turbo.Plugins.JackCeparouCompass.Decorators.Graphs
 {
     public class TopBarGraphDecoratorDouble : AbstractTopBarGraphDecorator<double>
     {

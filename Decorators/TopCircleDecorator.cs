@@ -1,6 +1,6 @@
 ﻿using Turbo.Plugins.Default;
 
-namespace Turbo.Plugins.JackCeparouCompass.Decorator
+namespace Turbo.Plugins.JackCeparouCompass.Decorators
 {
 
     // this is not a plugin, just a helper class to display a circle on the ground

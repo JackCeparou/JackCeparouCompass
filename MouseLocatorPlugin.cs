@@ -1,5 +1,5 @@
 using Turbo.Plugins.Default;
-using Turbo.Plugins.JackCeparouCompass.Decorator;
+using Turbo.Plugins.JackCeparouCompass.Decorators;
 
 namespace Turbo.Plugins.JackCeparouCompass
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using SharpDX;
 using SharpDX.Direct2D1;
 
-namespace Turbo.Plugins.JackCeparouCompass.Decorator.Graphs
+namespace Turbo.Plugins.JackCeparouCompass.Decorators.Graphs
 {
     public interface ITopBarGraphDecorator
     {
