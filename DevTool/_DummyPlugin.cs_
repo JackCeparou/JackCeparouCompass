@@ -1,0 +1,21 @@
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins
+{
+    public class DummyPlugin : BasePlugin
+    {
+        public DummyPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+        }
+
+        public override void Customize()
+        {
+        }
+    }
+}

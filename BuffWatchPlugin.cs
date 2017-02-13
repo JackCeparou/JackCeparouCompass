@@ -1,0 +1,210 @@
+// based on the original work of LegendOfBerrett v6 xml
+namespace Turbo.Plugins.JackCeparouCompass
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Turbo.Plugins.Default;
+
+    public class BuffWatchPlugin : BasePlugin
+    {
+        public IFont WarningFont { get; set; }
+        private List<string> warnings;
+        private Dictionary<HeroClass, Action> warningsChecks;
+        private HeroClass currentHeroClass { get { return Hud.Game.Me.HeroClassDefinition.HeroClass; } }
+
+        public BuffWatchPlugin()
+        {
+            Enabled = true;
+            warnings = new List<string>();
+            warningsChecks = new Dictionary<HeroClass, Action>();
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            WarningFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, true, false, false);
+            WarningFont.HeavyShadow = true;
+            WarningFont.SetShadowBrush(244, 0, 0, 0, true);
+
+            warningsChecks.Add(HeroClass.Barbarian, Barbarian);
+            warningsChecks.Add(HeroClass.Crusader, Crusader);
+            warningsChecks.Add(HeroClass.DemonHunter, DemonHunter);
+            warningsChecks.Add(HeroClass.Monk, Monk);
+            warningsChecks.Add(HeroClass.WitchDoctor, WitchDoctor);
+            warningsChecks.Add(HeroClass.Wizard, Wizard);
+        }
+
+        public override void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return;
+            if (Hud.Game.Me.IsDead) return;
+            //if (Hud.InTown) return;
+            if (currentHeroClass == HeroClass.None) return;
+            if (!warningsChecks.ContainsKey(currentHeroClass)) return;
+
+            warnings.Clear();
+            warningsChecks[currentHeroClass].Invoke();
+
+            /*
+            ItemLocation[] ItemsLocations = new ItemLocation[]
+            {
+                ItemLocation.Head,
+                ItemLocation.Torso,
+                ItemLocation.RightHand,
+                ItemLocation.LeftHand,
+                ItemLocation.Hands,
+                ItemLocation.Waist,
+                ItemLocation.Feet,
+                ItemLocation.Shoulders,
+                ItemLocation.Legs,
+                ItemLocation.Bracers,
+                ItemLocation.LeftRing,
+                ItemLocation.RightRing,
+                ItemLocation.Neck,
+            };
+            foreach (var item in Hud.Collections.GetItems().Where(i => ItemsLocations.Contains(i.Location)).First().SnoItemInfo.GroupCodes)//.Where(i => i.SnoItemInfo.))
+            {
+                //warnings.Add(string.Format("{0} {1} {2}", item.Location, item.SnoItemInfo, item.SnoItemInfo.GroupCodes.Length));
+                warnings.Add(item);
+            }/**/
+            /*
+            foreach (var skill in Hud.Collections.Me.SkillSlots)
+            {
+                warnings.Add(string.Format("{0} {1} {2} {3}", skill.SnoPower.Sno, skill.SnoPower.Name, skill.Rune, skill.RuneName));
+            }/**/
+            /*
+            foreach (var actor in Hud.Collections.GetActors().Where(a => a.SummonerAcdDynamicId == Hud.Collections.Me.SummonerId))
+            {
+                warnings.Add(string.Format("{0} {1}", actor.SnoActor.Sno, actor.SnoActor.Name));
+            }/**/
+
+            var x = Hud.Window.Size.Width * 0.5f;
+            var y = Hud.Window.Size.Height * 0.3f;
+            foreach (var warning in warnings)
+            {
+                var layout = WarningFont.GetTextLayout(warning);
+
+                WarningFont.DrawText(layout, x - layout.Metrics.Width/2, y);
+
+                y += layout.Metrics.Height * 1.2f;
+            }
+        }
+
+        private uint[] ancientsIds = new uint[] {90443, 90535, 90536};
+        private void Barbarian()
+        {
+            if (HasSkillUsable(375483))
+            {
+                AddMissingWarning("War Cry");
+            }
+            if (HasSkillUsable(79076))
+            {
+                AddMissingWarning("Battle Rage");
+            }
+            if (HasSkillUsable(79528))
+            {
+                AddMissingWarning("Ignore Pain");
+            }
+            // only when wearing IK 4pc
+            if (HasSkill(80049) && HasBuff(318760) && !HasPets(ancientsIds))
+            {
+                AddMissingWarning("Call of Ancients");
+            }
+        }
+
+        private void Crusader()
+        {
+            // Only when wearing akkhan 6pc
+            if (HasSkill(269032) && HasBuff(359585))
+            {
+                AddMissingWarning("Akarat's Champion");
+            }
+        }
+
+        private void DemonHunter()
+        {
+        }
+
+        private void Monk()
+        {
+            if (HasSkillUsable(96090))
+            {
+                AddMissingWarning("Sweeping Wind");
+            }
+
+            if (HasBuff(246562, 1))
+            {
+                warnings.Add("Flying Dragon");
+            }
+        }
+
+        private uint[] gargantuansIds = new uint[] { 432690, 432691, 432692, 432693, 432694, 122305, 179776, 171491, 179778, 171501, 171502, 179780, 179779, 179772 };
+        private uint[] zombiesDogsIds = new uint[] { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 };
+        private void WitchDoctor()
+        {
+            if (HasSkill(30624) && !HasPets(gargantuansIds))
+            {
+                AddMissingWarning("Gargantuans");
+            }
+            if (HasSkill(102573) && !HasPets(zombiesDogsIds))
+            {
+                AddMissingWarning("Zombie Dogs");
+            }
+        }
+
+        private void Wizard()
+        {
+            if (HasSkillUsable(86991) && !HasBuff(74499) && !HasBuff(73223))
+            {
+                AddMissingWarning("Energy Armor");
+            }
+            if (HasSkillUsable(74499) && !HasBuff(86991) && !HasBuff(73223))
+            {
+                AddMissingWarning("Storm Armor");
+            }
+            if (HasSkillUsable(73223) && !HasBuff(74499) && !HasBuff(86991))
+            {
+                AddMissingWarning("Ice Armor");
+            }
+
+            if (HasSkillUsable(76108))
+            {
+                AddMissingWarning("Magic Weapon");
+            }
+            if (HasSkillUsable(99120))
+            {
+                AddMissingWarning("Familiar");
+            }
+        }
+
+        private void AddMissingWarning(string message)
+        {
+            warnings.Add(string.Format("!! Missing {0} !!", message));
+        }
+
+        private bool HasSkill(uint id, bool checkCooldown = true)
+        {
+            return Hud.Game.Me.Powers.SkillSlots.Any(s => s.SnoPower.Sno == id && (!s.IsOnCooldown || !checkCooldown));
+        }
+
+        private bool HasSkillUsable(uint id, bool checkCooldown = true)
+        {
+            return HasSkill(id, checkCooldown) && !HasBuff(id);
+        }
+
+        private bool HasPets(uint[] ids)
+        {
+            return Hud.Game.Actors.Any(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId && ids.Contains(a.SnoActor.Sno));
+        }
+
+        private bool HasBuff(uint id, int? icon = null)
+        {
+            if (icon.HasValue)
+                return Hud.Game.Me.Powers.BuffIsActive(id, icon.Value);
+
+            return Hud.Game.Me.Powers.BuffIsActive(id);
+        }
+    }
+}
