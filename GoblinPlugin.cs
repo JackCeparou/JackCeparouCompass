@@ -1,0 +1,440 @@
+﻿// don't know the original source of this cs version => no credits sorry
+// refactored to a more sane naming convention
+// converted from hardcoded names to i18n
+// based on snos values found in StormReaver v6 xml Theme
+// added some missing snos
+namespace Turbo.Plugins.JackCeparouCompass
+{
+    using System.Linq;
+    using Turbo.Plugins.Default;
+
+    public class GoblinPlugin : BasePlugin
+    {
+        public WorldDecoratorCollection MalevolentTormentorDecorators { get; set; }
+        public WorldDecoratorCollection BloodThiefDecorators { get; set; }
+        public WorldDecoratorCollection OdiousCollectorDecorators { get; set; }
+        public WorldDecoratorCollection GemHoarderDecorators { get; set; }
+        public WorldDecoratorCollection GelatinousDecorators { get; set; }
+        public WorldDecoratorCollection GildedBaronDecorators { get; set; }
+        public WorldDecoratorCollection InsufferableMiscreantDecorators { get; set; }
+        public WorldDecoratorCollection TreasureGoblinDecorators { get; set; }
+        public WorldDecoratorCollection RainbowGoblinDecorators { get; set; }
+        public WorldDecoratorCollection MenageristGoblinDecorators { get; set; }
+        public WorldDecoratorCollection TreasureFiendGoblinDecorators { get; set; }
+
+        public WorldDecoratorCollection PortalDecorator { get; set; }
+
+        public GoblinPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            TreasureFiendGoblinDecorators = new WorldDecoratorCollection(
+                    new GroundCircleDecorator(Hud)
+                    {
+                        Brush = Hud.Render.CreateBrush(180, 255, 163, 15, -2),
+                        Radius = 1.5f,
+                    },
+                    new GroundLabelDecorator(Hud)
+                    {
+                        BackgroundBrush = Hud.Render.CreateBrush(180, 255, 163, 15, 0),
+                        BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                    },
+                    new MapShapeDecorator(Hud)
+                    {
+                        ShapePainter = new CircleShapePainter(Hud),
+                        Brush = Hud.Render.CreateBrush(180, 255, 198, 107, 3),
+                        ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                        Radius = 8f,
+                    },
+                    new MapShapeDecorator(Hud)
+                    {
+                        ShapePainter = new CircleShapePainter(Hud),
+                        Brush = Hud.Render.CreateBrush(180, 255, 163, 15, 3),
+                        ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                        Radius = 4.5f,
+                    }
+                    );
+
+            MenageristGoblinDecorators = new WorldDecoratorCollection(
+                  new GroundCircleDecorator(Hud)
+                  {
+                      Brush = Hud.Render.CreateBrush(180, 255, 255, 0, -2),
+                      Radius = 1.5f,
+                  },
+                  new GroundLabelDecorator(Hud)
+                  {
+                      BackgroundBrush = Hud.Render.CreateBrush(180, 255, 255, 0, 0),
+                      BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                      TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                  },
+                  new MapShapeDecorator(Hud)
+                  {
+                      ShapePainter = new CircleShapePainter(Hud),
+                      Brush = Hud.Render.CreateBrush(180, 150, 150, 225, 3),
+                      ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                      Radius = 8f,
+                  },
+                  new MapShapeDecorator(Hud)
+                  {
+                      ShapePainter = new CircleShapePainter(Hud),
+                      Brush = Hud.Render.CreateBrush(180, 200, 0, 0, 3),
+                      ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                      Radius = 4.5f,
+                  }
+                  );
+
+            RainbowGoblinDecorators = new WorldDecoratorCollection(
+                   new GroundCircleDecorator(Hud)
+                   {
+                       Brush = Hud.Render.CreateBrush(180, 255, 255, 0, -2),
+                       Radius = 1.5f,
+                   },
+                   new GroundLabelDecorator(Hud)
+                   {
+                       BackgroundBrush = Hud.Render.CreateBrush(180, 255, 255, 0, 0),
+                       BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                       TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                   },
+                   new MapShapeDecorator(Hud)
+                   {
+                       ShapePainter = new CircleShapePainter(Hud),
+                       Brush = Hud.Render.CreateBrush(180, 150, 150, 225, 3),
+                       ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                       Radius = 8f,
+                   },
+                   new MapShapeDecorator(Hud)
+                   {
+                       ShapePainter = new CircleShapePainter(Hud),
+                       Brush = Hud.Render.CreateBrush(180, 200, 0, 0, 3),
+                       ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                       Radius = 4.5f,
+                   }
+                   );
+
+            TreasureGoblinDecorators = new WorldDecoratorCollection(
+                   new GroundCircleDecorator(Hud)
+                   {
+                       Brush = Hud.Render.CreateBrush(200, 150, 150, 150, -2),
+                       Radius = 1.5f,
+                   },
+                   new GroundLabelDecorator(Hud)
+                   {
+                       BackgroundBrush = Hud.Render.CreateBrush(200, 150, 150, 150, 0),
+                       BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                       TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                   },
+                   new MapShapeDecorator(Hud)
+                   {
+                       ShapePainter = new CircleShapePainter(Hud),
+                       Brush = Hud.Render.CreateBrush(180, 210, 180, 140, 3),
+                       ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                       Radius = 8f,
+                   },
+                   new MapShapeDecorator(Hud)
+                   {
+                       ShapePainter = new CircleShapePainter(Hud),
+                       Brush = Hud.Render.CreateBrush(180, 180, 180, 180, 3),
+                       ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                       Radius = 4.5f,
+                   }
+                   );
+
+            InsufferableMiscreantDecorators = new WorldDecoratorCollection(
+                    new GroundCircleDecorator(Hud)
+                    {
+                        Brush = Hud.Render.CreateBrush(180, 255, 50, 50, -2),
+                        Radius = 1.5f,
+                    },
+                    new GroundLabelDecorator(Hud)
+                    {
+                        BackgroundBrush = Hud.Render.CreateBrush(180, 255, 50, 50, 0),
+                        BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 255, 255, true, false, false)
+                    },
+                    new MapShapeDecorator(Hud)
+                    {
+                        ShapePainter = new CircleShapePainter(Hud),
+                        Brush = Hud.Render.CreateBrush(180, 255, 255, 255, 3),
+                        ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                        Radius = 8f,
+                    },
+                    new MapShapeDecorator(Hud)
+                    {
+                        ShapePainter = new CircleShapePainter(Hud),
+                        Brush = Hud.Render.CreateBrush(180, 255, 0, 0, 3),
+                        ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                        Radius = 4.5f,
+                    }
+                    );
+
+            GildedBaronDecorators = new WorldDecoratorCollection(
+                  new GroundCircleDecorator(Hud)
+                  {
+                      Brush = Hud.Render.CreateBrush(180, 255, 240, 0, -2),
+                      Radius = 1.5f,
+                  },
+                  new GroundLabelDecorator(Hud)
+                  {
+                      BackgroundBrush = Hud.Render.CreateBrush(180, 255, 240, 0, 0),
+                      BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                      TextFont = Hud.Render.CreateFont("tahoma", 7, 220, 0, 0, 0, true, false, false)
+                  },
+                  new MapShapeDecorator(Hud)
+                  {
+                      ShapePainter = new CircleShapePainter(Hud),
+                      Brush = Hud.Render.CreateBrush(200, 255, 255, 0, 3),
+                      ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                      Radius = 8f,
+                  },
+                  new MapShapeDecorator(Hud)
+                  {
+                      ShapePainter = new CircleShapePainter(Hud),
+                      Brush = Hud.Render.CreateBrush(200, 255, 255, 0, 3),
+                      ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                      Radius = 4.5f,
+                  }
+                  );
+
+            GelatinousDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 0, 0, 255, -2),
+                    Radius = 1.5f,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(180, 0, 0, 255, 0),
+                    BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 255, 255, true, false, false)
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 255, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8f,
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(180, 50, 50, 200, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 4.5f,
+                }
+                );
+
+            GemHoarderDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 255, -2),
+                    Radius = 1.5f,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(180, 255, 255, 255, 0),
+                    BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(220, 255, 255, 255, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8f,
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(100, 220, 220, 220, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 4.5f,
+                }
+                );
+
+            OdiousCollectorDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 0, 255, 0, -2),
+                    Radius = 1.5f,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(180, 0, 255, 0, 0),
+                    BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(255, 255, 255, 255, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8f,
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(255, 0, 255, 0, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 4.5f,
+                }
+                );
+
+            MalevolentTormentorDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 0, -2),
+                    Radius = 1.5f,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(180, 255, 255, 0, 0),
+                    BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 0, 0, true, false, false)
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 112, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8f,
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 0, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 4.5f,
+                }
+                );
+
+            BloodThiefDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 155, 0, 255, -2),
+                    Radius = 1.5f,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(180, 155, 0, 255, 0),
+                    BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 255, 255, true, false, false)
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(180, 255, 87, 87, 3),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8f,
+                },
+                 new MapShapeDecorator(Hud)
+                 {
+                     ShapePainter = new CircleShapePainter(Hud),
+                     Brush = Hud.Render.CreateBrush(180, 255, 0, 0, 3),
+                     ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                     Radius = 4.5f,
+                 }
+                );
+
+            PortalDecorator = new WorldDecoratorCollection(
+                new MapShapeDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 255, 255, 255, 0),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 8.0f,
+                    ShapePainter = new CircleShapePainter(Hud),
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(180, 120, 0, 0, 0),
+                    ShadowBrush = Hud.Render.CreateBrush(96, 0, 0, 0, 1),
+                    Radius = 2.5f,
+                    ShapePainter = new CircleShapePainter(Hud),
+                }
+                );
+        }
+
+        public override void Customize()
+        {
+            Hud.TogglePlugin<Default.GoblinPlugin>(false);
+        }
+
+        public override void PaintWorld(WorldLayer layer)
+        {
+            var portals = Hud.Game.Actors.Where(x => x.SnoActor.Sno == 410460);
+            foreach (var actor in portals)
+            {
+                PortalDecorator.Paint(layer, actor, actor.FloorCoordinate, null);
+            }
+
+            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin);
+
+            foreach (var goblin in goblins)
+            {
+                var name = goblin.SnoMonster.NameLocalized;
+                switch (goblin.SnoActor.Sno)
+                {
+                    // Malevolent Tormentor | treasureGoblin_H 413289 //
+                    case 413289:
+                        MalevolentTormentorDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Blood Thief | treasureGoblin_F 408989 //
+                    case 408989:
+                        BloodThiefDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Odious Collector | treasureGoblin_B 5985 //
+                    case 5985:
+                        OdiousCollectorDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Gem Hoarder | treasureGoblin_C 5987 //
+                    case 5987:
+                        GemHoarderDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Gelatinous Sire | treasuregoblin_d_splitter 408354 //
+                    // Gelatinous Spawn | treasuregoblin_d_splitter_02 410572 //
+                    // Gelatinous Spawn | treasuregoblin_d_splitter_03 410574 //
+                    case 408354:
+                    case 410572:
+                    case 410574:
+                        GelatinousDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Gilded Baron | treasuregoblin_j 429161 //
+                    case 429161:
+                        GildedBaronDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Insufferable Miscreant| treasuregoblin_e 408655 //
+                    case 408655:
+                        InsufferableMiscreantDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Menagerist Goblin | treasureGoblin_K 450993 //
+                    case 450993:
+                        MenageristGoblinDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Treasure Goblin | TreasureGoblin_A 5984 //
+                    case 5984:
+                        TreasureGoblinDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Rainbow Goblin | treasureGoblin_tentacle_A 405186 //
+                    case 405186:
+                        RainbowGoblinDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Treasure Fiend | p1_treasureGobin_A_Unique_GreedMinion 380657 //
+                    case 380657:
+                        TreasureFiendGoblinDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                    // Snitchley | treasuregoblin_c_unique_devilshand 343046 //
+                    // Reprehensible Fiend | treasuregoblin_g 391593 //
+                    // The Chiseler | treasuregoblin_i 428663 //
+                    default:
+                        TreasureGoblinDecorators.Paint(layer, goblin, goblin.FloorCoordinate, name);
+                        break;
+                }
+            }
+        }
+    }
+}
