@@ -5,6 +5,7 @@
 // added some missing snos
 namespace Turbo.Plugins.JackCeparouCompass
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
 
@@ -437,6 +438,21 @@ namespace Turbo.Plugins.JackCeparouCompass
                         break;
                 }
             }
+        }
+
+        public IEnumerable<WorldDecoratorCollection> AllGoblinDecorators()
+        {
+            yield return MalevolentTormentorDecorators;
+            yield return BloodThiefDecorators;
+            yield return OdiousCollectorDecorators;
+            yield return GemHoarderDecorators;
+            yield return GelatinousDecorators;
+            yield return GildedBaronDecorators;
+            yield return InsufferableMiscreantDecorators;
+            yield return TreasureGoblinDecorators;
+            yield return RainbowGoblinDecorators;
+            yield return MenageristGoblinDecorators;
+            yield return TreasureFiendGoblinDecorators;
         }
     }
 }
