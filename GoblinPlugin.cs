@@ -372,7 +372,7 @@ namespace Turbo.Plugins.JackCeparouCompass
                 PortalDecorator.Paint(layer, actor, actor.FloorCoordinate, null);
             }
 
-            // TODO : check if menagerist is returned withMonsterPriority.goblin
+            // TODO : check if menagerist is returned with MonsterPriority.goblin
             // Menagerist Goblin | treasureGoblin_K 450993 //
             var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin || x.SnoMonster.Sno == 450993);
 
