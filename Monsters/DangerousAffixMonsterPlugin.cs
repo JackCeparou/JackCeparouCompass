@@ -74,7 +74,7 @@
 
                 if (dangerousAffixes.Count == 0) continue;
 
-                dangerousAffixes = dangerousAffixes.OrderByDescending(a => a.Priority).ToList();
+                dangerousAffixes.Sort((a, b) => -a.Priority.CompareTo(b.Priority));
 
                 switch (monster.Rarity)
                 {
@@ -105,8 +105,12 @@
             }
         }
 
-        public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, string affixName, int priority = 0, IBrush backgroundBrush = null, IBrush foregroundBrush = null, IShapePainter shapePainter = null,
-            bool ping = true, IRadiusTransformator radiusTransformator = null, IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false)
+        // TODO : refactor these monstruous signatures.. ><
+        public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, string affixName, int priority = 0,
+            IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
+            float eliteBgRadius = 8, float eliteFgRadius = 4, float minionBgRadius = 6, float minionFgRadius = 2,
+            IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
+            IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
             AffixNameFunc affixNameFunc;
             if (affixName == null)
@@ -114,31 +118,47 @@
             else
                 affixNameFunc = (a) => affixName;
 
-            return DefineDangerousAffix(affix, affixNameFunc, priority, backgroundBrush, foregroundBrush, shapePainter, ping, radiusTransformator, eliteFont, minionFont, showMinionDecorators, showMinionAffixesNames);
+            return DefineDangerousAffix(affix, affixNameFunc, priority,
+                eliteFont, minionFont, showMinionDecorators, showMinionAffixesNames,
+                eliteBgRadius, eliteFgRadius, minionBgRadius, minionFgRadius,
+                bgBrush, bgShapePainter, bgPing, bgRadiusTransformator,
+                fgBrush, fgShapePainter, fgPing, fgRadiusTransformator);
         }
 
-        public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, AffixNameFunc affixNameFunc, int priority = 0, IBrush backgroundBrush = null, IBrush foregroundBrush = null, IShapePainter shapePainter = null,
-            bool ping = true, IRadiusTransformator radiusTransformator = null, IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false)
+        public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, AffixNameFunc affixNameFunc, int priority = 0,
+            IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
+            float eliteBgRadius = 8, float eliteFgRadius = 4, float minionBgRadius = 6, float minionFgRadius = 2,
+            IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
+            IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
-            backgroundBrush = backgroundBrush ?? DefaultBackgroundBrush;
-            foregroundBrush = foregroundBrush ?? DefaultForegroundBrush;
-            shapePainter = shapePainter ?? DefaultMapShapePainter;
+            bgBrush = bgBrush ?? DefaultBackgroundBrush;
+            fgBrush = fgBrush ?? DefaultForegroundBrush;
+            bgShapePainter = bgShapePainter ?? DefaultMapShapePainter;
+            fgShapePainter = fgShapePainter ?? DefaultMapShapePainter;
             eliteFont = eliteFont ?? DefaultEliteAffixesFont;
             minionFont = minionFont ?? DefaultMinionAffixesFont;
-            if (ping)
-                radiusTransformator = radiusTransformator ?? DefaultRadiusTransformator;
+
+            if (bgPing)
+                bgRadiusTransformator = bgRadiusTransformator ?? DefaultRadiusTransformator;
             else
-                radiusTransformator = null;
+                bgRadiusTransformator = null;
+
+            if (fgPing)
+                fgRadiusTransformator = fgRadiusTransformator ?? DefaultRadiusTransformator;
+            else
+                fgRadiusTransformator = null;
 
             var affixDef = new DangerousAffixMonsterDefinition(affix)
             {
-                EliteDecorators = CreateDecorators(8, 4, backgroundBrush, foregroundBrush, shapePainter, radiusTransformator),
-                MinionDecorators = CreateDecorators(6, 2, backgroundBrush, foregroundBrush, shapePainter, radiusTransformator),
+                EliteDecorators = CreateDecorators(eliteBgRadius, eliteFgRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
+                MinionDecorators = CreateDecorators(minionBgRadius, minionFgRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
                 EliteLabelFont = eliteFont,
                 MinionLabelFont = minionFont,
                 ShowMinionDecorators = showMinionDecorators,
                 ShowMinionAffixesNames = showMinionAffixesNames,
-                AffixNameFunc = affixNameFunc
+                AffixNameFunc = affixNameFunc,
+                Priority = priority,
+
             };
 
             affixDef.MinionDecorators.ToggleDecorators<MapShapeDecorator>(showMinionDecorators);
@@ -183,22 +203,23 @@
             });
         }
 
-        private WorldDecoratorCollection CreateDecorators(float bgRadius, float fgRadius, IBrush bgBrush, IBrush fgBrush, IShapePainter painter, IRadiusTransformator radiusTransformator)
+        private WorldDecoratorCollection CreateDecorators(float bgRadius, float fgRadius, IBrush bgBrush, IBrush fgBrush,
+            IShapePainter bgShapePainter, IShapePainter fgShapePainter, IRadiusTransformator bgRadiusTransformator, IRadiusTransformator fgRadiusTransformator)
         {
             return new WorldDecoratorCollection(
                 new MapShapeDecorator(Hud)
                 {
                     Brush = bgBrush,
                     Radius = bgRadius,
-                    ShapePainter = painter,
-                    RadiusTransformator = radiusTransformator,
+                    ShapePainter = bgShapePainter,
+                    RadiusTransformator = bgRadiusTransformator,
                 },
                 new MapShapeDecorator(Hud)
                 {
                     Brush = fgBrush,
                     Radius = fgRadius,
-                    ShapePainter = painter,
-                    RadiusTransformator = radiusTransformator,
+                    ShapePainter = fgShapePainter,
+                    RadiusTransformator = fgRadiusTransformator,
                 }
             );
         }
