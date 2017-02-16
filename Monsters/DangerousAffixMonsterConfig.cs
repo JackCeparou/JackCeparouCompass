@@ -29,6 +29,7 @@
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 // A complete example for Juggernaut overriding all defaults
+                // You don't need to redefine everything, it's just for the sake of the example ;p
                 plugin.DefineDangerousAffix(MonsterAffix.Juggernaut,
                     (a) => a.NameLocalized.Substring(0, 3), // or a string like "Jug"
                     priority: 420, // higher first
@@ -37,15 +38,15 @@
                     bgShapePainter: new CircleShapePainter(Hud), // default new CircleShapePainter(Hud)
                     bgPing: true, // default false
                     bgRadiusTransformator: new StandardPingRadiusTransformator(Hud, 500), // default
-                    eliteBgRadius: 8, // default 8
-                    minionBgRadius: 6, // default 6
+                    bgEliteRadius: 8, // default 8
+                    bgMinionRadius: 6, // default 6
                     // decorator foreground
                     fgBrush: Hud.Render.CreateBrush(255, 255, 0, 0, 1), // default
                     fgShapePainter: new RotatingTriangleShapePainter(Hud), // default new CircleShapePainter(Hud)
                     fgPing: true, // default false
                     fgRadiusTransformator: new StandardPingRadiusTransformator(Hud, 500), // default
-                    eliteFgRadius: 6, // default 6
-                    minionFgRadius: 2, // default 2
+                    fgEliteRadius: 6, // default 6
+                    fgMinionRadius: 2, // default 2
                     // labels fonts
                     eliteFont: Hud.Render.CreateFont("tahoma", 10f, 200, 255, 0, 0, false, false, 128, 0, 0, 0, true),
                     minionFont: Hud.Render.CreateFont("tahoma", 7f, 200, 255, 0, 0, false, false, 128, 0, 0, 0, true),
@@ -55,12 +56,15 @@
                 );
                 plugin.DefineDangerousAffix(MonsterAffix.Illusionist, (a) => a.NameLocalized.Substring(0, 3));
                 plugin.DefineDangerousAffix(MonsterAffix.Reflect, (a) => a.NameLocalized.Substring(0, 1));
-                plugin.DefineDangerousAffix(MonsterAffix.Poison, (a) => a.NameLocalized.Substring(0, 1));
+                plugin.DefineDangerousAffix(MonsterAffix.Poison, (a) => a.NameLocalized.Substring(0, 1),
+                    fgBrush: Hud.Render.CreateBrush(255, 0, 250, 0, 0),
+                    eliteFont: Hud.Render.CreateFont("tahoma", 10f, 200, 0, 250, 0, false, false, 128, 0, 0, 0, true),
+                    minionFont: Hud.Render.CreateFont("tahoma", 7f, 200, 0, 250, 0, false, false, 128, 0, 0, 0, true)
+                );
                 plugin.DefineDangerousAffix(MonsterAffix.Arcane, (a) => a.NameLocalized.Substring(0, 2));
                 plugin.DefineDangerousAffix(MonsterAffix.Shielding, (a) => a.NameLocalized.Substring(0, 4));
-                plugin.DefineDangerousAffix(MonsterAffix.Molten, (a) => a.NameLocalized.Substring(0, 4));
+                //plugin.DefineDangerousAffix(MonsterAffix.Molten, (a) => a.NameLocalized.Substring(0, 4));
                 plugin.DefineDangerousAffix(MonsterAffix.Desecrator, (a) => a.NameLocalized.Substring(0, 3));
-                plugin.DefineDangerousAffix(MonsterAffix.Molten, (a) => a.NameLocalized.Substring(0, 4));
                 plugin.DefineDangerousAffix(MonsterAffix.Wormhole, (a) => a.NameLocalized.Substring(0, 4));
 
                 plugin.DefineDangerousAffix(MonsterAffix.Waller, string.Empty);
@@ -85,15 +89,15 @@
                         bgShapePainter: new CircleShapePainter(Hud), // default new CircleShapePainter(Hud)
                         bgPing: true, // default false
                         bgRadiusTransformator: new StandardPingRadiusTransformator(Hud, 666),
-                        eliteBgRadius: 8, // default 8
-                        minionBgRadius: 6, // default 6
+                        bgEliteRadius: 8, // default 8
+                        bgMinionRadius: 6, // default 6
                         // decorator foreground
                         fgBrush: Hud.Render.CreateBrush(255, 255, 0, 0, 1),
                         fgShapePainter: new RotatingTriangleShapePainter(Hud), // default new CircleShapePainter(Hud)
                         fgPing: false, // default false
                         fgRadiusTransformator: new StandardPingRadiusTransformator(Hud, 666),
-                        eliteFgRadius: 6, // default 6
-                        minionFgRadius: 2, // default 2
+                        fgEliteRadius: 6, // default 6
+                        fgMinionRadius: 2, // default 2
                         // labels fonts
                         eliteFont: Hud.Render.CreateFont("tahoma", 10f, 200, 255, 0, 0, false, false, 128, 0, 0, 0, true),
                         minionFont: Hud.Render.CreateFont("tahoma", 7f, 200, 255, 0, 0, false, false, 128, 0, 0, 0, true),

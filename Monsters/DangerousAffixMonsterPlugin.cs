@@ -108,7 +108,7 @@
         // TODO : refactor these monstruous signatures.. ><
         public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, string affixName, int priority = 0,
             IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
-            float eliteBgRadius = 8, float eliteFgRadius = 4, float minionBgRadius = 6, float minionFgRadius = 2,
+            float bgEliteRadius = 8, float fgEliteRadius = 4, float bgMinionRadius = 6, float fgMinionRadius = 2,
             IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
             IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
@@ -120,14 +120,14 @@
 
             return DefineDangerousAffix(affix, affixNameFunc, priority,
                 eliteFont, minionFont, showMinionDecorators, showMinionAffixesNames,
-                eliteBgRadius, eliteFgRadius, minionBgRadius, minionFgRadius,
+                bgEliteRadius, fgEliteRadius, bgMinionRadius, fgMinionRadius,
                 bgBrush, bgShapePainter, bgPing, bgRadiusTransformator,
                 fgBrush, fgShapePainter, fgPing, fgRadiusTransformator);
         }
 
         public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, AffixNameFunc affixNameFunc, int priority = 0,
             IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
-            float eliteBgRadius = 8, float eliteFgRadius = 4, float minionBgRadius = 6, float minionFgRadius = 2,
+            float bgEliteRadius = 8, float fgEliteRadius = 4, float bgMinionRadius = 6, float fgMinionRadius = 2,
             IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
             IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
@@ -150,8 +150,8 @@
 
             var affixDef = new DangerousAffixMonsterDefinition(affix)
             {
-                EliteDecorators = CreateDecorators(eliteBgRadius, eliteFgRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
-                MinionDecorators = CreateDecorators(minionBgRadius, minionFgRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
+                EliteDecorators = CreateDecorators(bgEliteRadius, fgEliteRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
+                MinionDecorators = CreateDecorators(bgMinionRadius, fgMinionRadius, bgBrush, fgBrush, bgShapePainter, fgShapePainter, bgRadiusTransformator, fgRadiusTransformator),
                 EliteLabelFont = eliteFont,
                 MinionLabelFont = minionFont,
                 ShowMinionDecorators = showMinionDecorators,
