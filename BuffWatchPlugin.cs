@@ -70,14 +70,14 @@ namespace Turbo.Plugins.JackCeparouCompass
                 warnings.Add(item);
             }/**/
             /*
-            foreach (var skill in Hud.Collections.Me.SkillSlots)
+            foreach (var skill in Hud.Game.Me.Powers.SkillSlots)
             {
-                warnings.Add(string.Format("{0} {1} {2} {3}", skill.SnoPower.Sno, skill.SnoPower.Name, skill.Rune, skill.RuneName));
+                warnings.Add(string.Format("{0} {1} {2} {3}", skill.SnoPower.Sno, skill.SnoPower.NameEnglish, skill.Rune, skill.RuneNameEnglish));
             }/**/
             /*
-            foreach (var actor in Hud.Collections.GetActors().Where(a => a.SummonerAcdDynamicId == Hud.Collections.Me.SummonerId))
+            foreach (var actor in Hud.Game.Actors.Where(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId))
             {
-                warnings.Add(string.Format("{0} {1}", actor.SnoActor.Sno, actor.SnoActor.Name));
+                warnings.Add(string.Format("{0} {1}", actor.SnoActor.Sno, actor.SnoActor.NameEnglish));
             }/**/
 
             var x = Hud.Window.Size.Width * 0.5f;
