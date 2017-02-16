@@ -11,10 +11,10 @@ namespace Turbo.Plugins.JackCeparouCompass
         public WorldDecoratorCollection BreakablesDoorsDecorators { get; set; }
         public WorldDecoratorCollection BridgesDecorators { get; set; }
 
-        public bool OutOfTownOnly { get; set; }
-        public bool GroundLabelsOutOfScreenOnly { get; set; }
+        public bool ShowInTown { get; set; }
+        public bool GroundLabelsOnScreen { get; set; }
 
-        private readonly uint[] bridgesIds = new uint[] { 309432, 54850, 404043, 198125 };
+        private readonly HashSet<uint> bridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
         private readonly HashSet<uint> breakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, };// 258064 };
         private readonly HashSet<uint> doorsIdsBlackList = new HashSet<uint>() {
             197939, 169502, 214333, 181195, 190236, // A2 to belial
@@ -47,7 +47,8 @@ namespace Turbo.Plugins.JackCeparouCompass
         public DoorsPlugin()
         {
             Enabled = true;
-            GroundLabelsOutOfScreenOnly = false;
+            ShowInTown = false;
+            GroundLabelsOnScreen = false;
         }
 
         public override void Load(IController hud)
@@ -61,7 +62,7 @@ namespace Turbo.Plugins.JackCeparouCompass
 
         public override void PaintWorld(WorldLayer layer)
         {
-            if (Hud.Game.IsInTown && OutOfTownOnly) return;
+            if (Hud.Game.IsInTown && !ShowInTown) return;
 
             Hud.Game.Actors
                 .Where(a => a.GizmoType == GizmoType.Door || a.GizmoType == GizmoType.BreakableDoor)
@@ -71,7 +72,7 @@ namespace Turbo.Plugins.JackCeparouCompass
                     {
                         PaintActor(layer, door, BreakablesDoorsDecorators);
                     }
-                    else if (door.GizmoType == GizmoType.Door && !door.IsOperated && !door.IsDisabled && !doorsIdsBlackList.Contains(door.SnoActor.Sno))
+                    else if (door.GizmoType == GizmoType.Door && door.DisplayOnOverlay && !doorsIdsBlackList.Contains(door.SnoActor.Sno))
                     {
                         PaintActor(layer, door, bridgesIds.Contains(door.SnoActor.Sno) ? BridgesDecorators : DoorsDecorators);
                         //if (!doorsDebugWhiteList.Contains(door.SnoActor.Sno))
@@ -83,7 +84,7 @@ namespace Turbo.Plugins.JackCeparouCompass
                 });
         }
 
-        private WorldDecoratorCollection CreateDecorators(int r, int g, int b)
+        public WorldDecoratorCollection CreateDecorators(int r, int g, int b)
         {
             return new WorldDecoratorCollection(
                 new GroundLabelDecorator(Hud)
@@ -103,11 +104,11 @@ namespace Turbo.Plugins.JackCeparouCompass
 
         private void PaintActor(WorldLayer layer, IActor actor, WorldDecoratorCollection decorator)
         {
-            if (GroundLabelsOutOfScreenOnly)
+            if (GroundLabelsOnScreen)
                 decorator.ToggleDecorators<GroundLabelDecorator>(!actor.IsOnScreen);
 
             //decorator.Paint(layer, actor, actor.FloorCoordinate, actor.SnoActor.NameEnglish);// "\uD83D\uDEAA");
-            decorator.Paint(layer, actor, actor.FloorCoordinate, "\uD83D\uDEAA");
+            decorator.Paint(layer, actor, actor.FloorCoordinate, "\uD83D\uDEAA"); //🚪
         }
     }
 }
