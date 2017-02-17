@@ -11,7 +11,7 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
 
         public override void Customize()
         {
-            Hud.RunOnPlugin<DoorsPlugin>(plugin => plugin.ShowInTown = true);
+            Hud.RunOnPlugin<JackCeparouCompass.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
             Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
             {
@@ -41,6 +41,8 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
             //        decorator.Brush = Hud.Render.CreateBrush(240, 126, 13, 255, 1);
             //    });
             //});
+
+            Enabled = false;
         }
 
         //public override void PaintWorld(WorldLayer layer)

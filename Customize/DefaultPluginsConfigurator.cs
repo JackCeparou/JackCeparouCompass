@@ -70,6 +70,8 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
             //        d.TextFont = Hud.Render.CreateFont("tahoma", 6f, 255, 255, 255, 0, false, false, 128, 0, 0, 0, true);
             //    });
             //});
+
+            Enabled = false;
         }
 
         //public override void PaintWorld(WorldLayer layer)
