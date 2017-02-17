@@ -3,7 +3,7 @@
 // converted from hardcoded names to i18n
 // based on snos values found in StormReaver v6 xml Theme
 // added some missing snos
-namespace Turbo.Plugins.JackCeparouCompass
+namespace Turbo.Plugins.JackCeparouCompass.Monsters
 {
     using System.Collections.Generic;
     using System.Linq;

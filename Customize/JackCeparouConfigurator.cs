@@ -13,7 +13,7 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
         {
             Hud.RunOnPlugin<DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
-            Hud.RunOnPlugin<JackCeparouCompass.GoblinPlugin>(plugin =>
+            Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
             {
                 var radiusTransformator = new StandardPingRadiusTransformator(Hud, 333);
 
