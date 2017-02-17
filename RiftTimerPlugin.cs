@@ -1,77 +1,94 @@
-﻿using System.Text;
-using SharpDX.DirectWrite;
-
-namespace Turbo.Plugins.JackCeparouCompass
+﻿namespace Turbo.Plugins.JackCeparouCompass
 {
     using System;
-    using System.Linq;
-    using Turbo.Plugins.Default;
     using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using Turbo.Plugins.Default;
 
     public class RiftTimerPlugin : BasePlugin
     {
-        //public TopLabelDecorator InRiftDecorator { get; set; }
-        //public TopLabelDecorator OtherAreaDecorator { get; set; }
+        public IFont ProgressBarTimerFont { get; set; }
+        public IFont ObjectiveProgressFont { get; set; }
 
-        public IFont InRiftFont { get; set; }
-        public IFont OtherAreaFont { get; set; }
+        public string ObjectiveProgressSymbol { get; set; }
+        public string GuardianAliveSymbol { get; set; }
+        public string GuardianDeadSymbol { get; set; }
 
-        public string OtherAreaPrefix { get; set; }
-        public string MinutesSecondsFormat { get; set; }
         public string SecondsFormat { get; set; }
-        public string RiftPercentFormat { get; set; }
+        public string MinutesSecondsFormat { get; set; }
+        public string ProgressPercentFormat { get; set; }
         public string ClosingSecondsFormat { get; set; }
 
         public bool ShowClosingTimer { get; set; }
 
-        private IQuest riftQuest { get { return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 337492); } }
-        private IWatch pauseTimer;
+        public bool IsGamePaused
+        {
+            //// TODO : turn this into a 'IsGamePaused' helper property
+            //// TODO : check if pause is still not working when in Achievements tab
+            //var uiMenu = Hud.Render.GetUiElement("Root.NormalLayer.gamemenu_dialog.gamemenu_bkgrnd");
+            //var uiAchievements = Hud.Render.GetUiElement("Root.NormalLayer.BattleNetAchievements_main.LayoutRoot.OverlayContainer");ontainer");
+            get
+            {
+                if (Hud.Game.NumberOfPlayersInGame > 1) return false;
+                if (Hud.Render.GetUiElement("Root.NormalLayer.gamemenu_dialog.gamemenu_bkgrnd").Visible) return true;
+                if (Hud.Render.GetUiElement("Root.NormalLayer.BattleNetAchievements_main.LayoutRoot.OverlayContainer").Visible) return true;
+
+                return false;
+            }
+        }
+
+        public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
+        public bool IsGuardianDead { get { return riftQuest.QuestStepId == 10 || riftQuest.QuestStepId == 34; } }
+        public bool IsNephalemRift { get { return riftQuest.QuestStepId > 0 && riftQuest.QuestStepId <= 10; } }
+        public bool IsGreaterRift { get { return riftQuest.QuestStepId > 10 && riftQuest.QuestStepId <= 46; } }
+
         private const uint riftClosingMilliseconds = 30000;
+
+        private IQuest riftQuest { get { return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 337492); } }
+        //private IQuest greaterRiftQuest { get { return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 382695); } }
+
+        private IUiElement uiRiftProgressBar { get { return Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar"); } }
+        //private IUiElement uiGreaterRiftProgressBar { get { return Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.greater_rift_container.rift_progress_bar"); } }
+
+        private IWatch riftTimer;
+        private IWatch guardianTimer;
+        //private IWatch pauseTimer;
+        //private IWatch guardianPauseTimer;
+
+        private readonly StringBuilder textBuilder;
 
         public RiftTimerPlugin()
         {
             Enabled = true;
+
+            textBuilder = new StringBuilder();
         }
 
         public override void Load(IController hud)
         {
             base.Load(hud);
 
-            OtherAreaPrefix = "\u2694 "; //⚔
-            //MinutesSecondsFormat = "{0:%m}m {0:%s}s";
+            ObjectiveProgressSymbol = "\u2694"; //⚔
+            GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
+            GuardianDeadSymbol = "\uD83D\uDC80"; //💀
+
             MinutesSecondsFormat = "{0:%m}:{0:ss}";
-            //SecondsFormat = "{0:%s}s";
             SecondsFormat = "{0:%s}";
 
-            RiftPercentFormat = " ({0:#}%)";
-            ClosingSecondsFormat = " ({0:%s})";
+            ProgressPercentFormat = "({0:F1}%)";
+            ClosingSecondsFormat = "({0:%s})";
 
-            pauseTimer = Hud.CreateWatch();
+            ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false);
+            ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
 
-            InRiftFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false);
-            InRiftFont.SetShadowBrush(222, 0, 0, 0, true);
+            ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
+            ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
 
-            OtherAreaFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, true, false, false);
-            OtherAreaFont.SetShadowBrush(222, 0, 0, 0, true);
-
-            /*
-            InRiftDecorator = new TopLabelDecorator(hud)
-            {
-                BackgroundBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
-                BorderBrush = Hud.Render.CreateBrush(200, 255, 255, 255, 2),
-                TextFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false),
-                TextFunc = GetText,
-            };
-            InRiftDecorator.TextFont.SetShadowBrush(222, 0, 0, 0, true);
-
-            OtherAreaDecorator = new TopLabelDecorator(hud)
-            {
-                BackgroundBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
-                BorderBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 2),
-                TextFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, true, false, false),
-                TextFunc = GetText,
-            };
-            OtherAreaDecorator.TextFont.SetShadowBrush(222, 0, 0, 0, true);/**/
+            //pauseTimer = Hud.CreateWatch();
+            riftTimer = Hud.CreateWatch();
+            guardianTimer = Hud.CreateWatch();
+            //guardianPauseTimer = Hud.CreateWatch();
         }
 
         public override void PaintTopInGame(ClipState clipState)
@@ -80,100 +97,201 @@ namespace Turbo.Plugins.JackCeparouCompass
             if (Hud.Inventory.InventoryMainUiElement.Visible) return;
             if (riftQuest == null) return;
             if (riftQuest.State == QuestState.none) return;
-            if (riftQuest.QuestStepId > 10) return;
-            if (Hud.Game.SpecialArea == SpecialArea.GreaterRift) return;
+            //if (riftQuest.QuestStepId > 10) return;
+            //if (Hud.Game.SpecialArea == SpecialArea.GreaterRift) return;
 
-            var uiRect = Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar");
-            if (uiRect == null)
-                return; //useless ??
+            //var uiRiftProgressBar = Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar");
+            //if (uiRiftProgressBar == null)
+            //    return; //useless ??
 
-            var layout = OtherAreaFont.GetTextLayout(GetText());
-
-            if (uiRect.Visible)
+            /*
+            try
             {
-                var x = uiRect.Rectangle.Left - layout.Metrics.Width/2 + uiRect.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
-                InRiftFont.DrawText(layout, x, uiRect.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
+                //Simon.Says.Debug(string.Join(", ", new object[]
+                //{
+                //    riftQuest.State,
+                //    Hud.Game.SpecialArea,
+                //    riftQuest.QuestStepId//,
+                //    //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.Id.ToString() + " " + s.SplashEnglish))
+                //    //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.Id))
+                //}));
+                //Simon.Says.Debug(string.Join(",", new object[]
+                //{
+                //    greaterRiftQuest,
+                //    //greaterRiftQuest.State,
+                //    //greaterRiftQuest.QuestStepId,
+                //    //Hud.Game.SpecialArea,
+                //    //string.Join(",", greaterRiftQuest.SnoQuest.Steps.Select(s => s.Id.ToString() + " " + s.SplashEnglish))
+                //}));
+            }
+            catch (Exception ex)
+            {
+                Simon.Says.Error(ex.Message);
+            }/**/
+
+            if (uiRiftProgressBar.Visible && IsNephalemRift)
+            {
+                var layout = ProgressBarTimerFont.GetTextLayout(GetText(true));
+                var x = uiRiftProgressBar.Rectangle.Left - layout.Metrics.Width / 2 + uiRiftProgressBar.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
+
+                ProgressBarTimerFont.DrawText(layout, x, uiRiftProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
             }
             else
             {
-                var uiMapRect = Hud.Render.MinimapUiElement;
-                var x = uiMapRect.Rectangle.Right - layout.Metrics.Width - Hud.Window.Size.Height*0.033f;
-                var y = uiMapRect.Rectangle.Bottom + Hud.Window.Size.Height * 0.0033f;
+                var layout = ObjectiveProgressFont.GetTextLayout(GetText(false));
+                var x = Hud.Render.MinimapUiElement.Rectangle.Right - layout.Metrics.Width - Hud.Window.Size.Height * 0.033f;
+                var y = Hud.Render.MinimapUiElement.Rectangle.Bottom + Hud.Window.Size.Height * 0.0033f;
 
-                OtherAreaFont.DrawText(layout, x, y);
+                ObjectiveProgressFont.DrawText(layout, x, y);
             }
-
         }
 
         public override void AfterCollect()
         {
             if (!Hud.Game.IsInGame) return;
-            // game cannot be paused in multiplayer games
-            if (Hud.Game.NumberOfPlayersInGame > 1) return;
+            //// game cannot be paused in multiplayer games
+            //if (Hud.Game.NumberOfPlayersInGame > 1) return;
 
+            // reset states if needed
             if (riftQuest == null || (riftQuest != null && riftQuest.State == QuestState.none))
             {
-                if (pauseTimer.ElapsedMilliseconds > 0)
+                if (riftTimer.IsRunning || riftTimer.ElapsedMilliseconds > 0)
                 {
-                    pauseTimer.Stop(); //probably useless if it's a stopwatch
-                    pauseTimer.Reset();
+                    riftTimer.Reset();
                 }
+                if (guardianTimer.IsRunning || guardianTimer.ElapsedMilliseconds > 0)
+                {
+                    guardianTimer.Reset();
+                }
+                //if (pauseTimer.IsRunning || pauseTimer.ElapsedMilliseconds > 0)
+                //{
+                //    pauseTimer.Reset();
+                //}
+                //if (guardianPauseTimer.IsRunning || guardianPauseTimer.ElapsedMilliseconds > 0)
+                //{
+                //    guardianPauseTimer.Reset();
+                //}
+
+                return;
             }
 
-            // TODO : turn this into a 'IsGamePaused' helper property
-            // TODO : check if pause is still not working when in Achievements tab
-            var uiMenu = Hud.Render.GetUiElement("Root.NormalLayer.gamemenu_dialog.gamemenu_bkgrnd");
-            var uiAchievements = Hud.Render.GetUiElement("Root.NormalLayer.BattleNetAchievements_main.LayoutRoot.OverlayContainer");
+            // handle guardian
+            if (IsGuardianAlive)
+            {
+                if (!guardianTimer.IsRunning)
+                    guardianTimer.Restart();
+            }
+            else if (IsGuardianDead && guardianTimer.IsRunning)
+            {
+                guardianTimer.Stop();
+            }
 
-            if (uiMenu.Visible || uiAchievements.Visible)
+            // handle game pause
+            if (IsGamePaused)
             {
-                if (!pauseTimer.IsRunning)
-                    pauseTimer.Start();
+                //if (!pauseTimer.IsRunning)
+                //    pauseTimer.Start();
+
+                //if (!guardianPauseTimer.IsRunning && IsGuardianAlive)
+                //    guardianPauseTimer.Start();
+
+                //return;
+                if (riftTimer.IsRunning)
+                    riftTimer.Stop();
+
+                if (guardianTimer.IsRunning)
+                    guardianTimer.Stop();
+
+                return;
             }
-            else if (pauseTimer.IsRunning)
+            if (!riftTimer.IsRunning && !IsGuardianDead)
+                riftTimer.Start();
+
+            if (!guardianTimer.IsRunning && IsGuardianAlive)
+                guardianTimer.Start();
+            //if (pauseTimer.IsRunning)
+            //{
+            //    pauseTimer.Stop();
+            //}
+            //if (guardianPauseTimer.IsRunning)
+            //{
+            //    guardianPauseTimer.Stop();
+            //}
+            if (IsGreaterRift && IsGuardianDead && riftTimer.IsRunning)
             {
-                pauseTimer.Stop();
+                riftTimer.Stop();
             }
-            //Simon.Says.Debug(pauseTimer.ElapsedMilliseconds.ToString());
+            if (IsNephalemRift && riftQuest.State == QuestState.completed && riftTimer.IsRunning)
+            {
+                riftTimer.Stop();
+            }
+
+            //Simon.Says.Debug("{0} {1}", riftTimer.ElapsedMilliseconds, riftQuest.StartedOn.ElapsedMilliseconds);
         }
 
-        private string GetText()
+        private string GetText(bool onlyTimer)
         {
-            var timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
-            var format = (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat;
+            textBuilder.Clear();
 
-            if (Hud.Game.SpecialArea != SpecialArea.Rift)
+            if (!onlyTimer && !string.IsNullOrWhiteSpace(ObjectiveProgressSymbol))
             {
-                if (!string.IsNullOrWhiteSpace(OtherAreaPrefix))
-                    format = OtherAreaPrefix + format;
+                textBuilder.Append(ObjectiveProgressSymbol);
+                textBuilder.Append(" ");
+            }
 
-                if (Hud.Game.RiftPercentage < 100 && Hud.Game.RiftPercentage >= 1)
+            //var timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
+            var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
+            textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
+
+            if (onlyTimer)
+                return textBuilder.ToString();
+
+            if (Hud.Game.RiftPercentage < 100)// && Hud.Game.RiftPercentage >= 0.1)
+            {
+                if (IsNephalemRift && Hud.Game.RiftPercentage > 0.1)
                 {
-                    format += string.Format(CultureInfo.InvariantCulture, RiftPercentFormat, Hud.Game.RiftPercentage);
-                }
-                else if (riftQuest.QuestStep != null)
-                {
-                    switch (riftQuest.QuestStep.Id)
-                    {
-                        case 10:
-                            //format += " (Complete)";
-                            //format += " \u2620"; //☠
-                            format += " \uD83D\uDC80"; //💀
-                            break;
-                        case 3:
-                            //format += " (Guardian)";
-                            format += " \uD83D\uDC7F"; //👿
-                            break;
-                    }
+                    textBuilder.Append(" ");
+                    textBuilder.AppendFormat(CultureInfo.InvariantCulture, ProgressPercentFormat, Hud.Game.RiftPercentage);
                 }
             }
+            else if (IsGuardianAlive || IsGuardianDead || !guardianTimer.IsRunning)
+            {
+                textBuilder.Append(" ");
+                textBuilder.Append(IsGuardianAlive ? GuardianAliveSymbol : GuardianDeadSymbol);
+
+                //var guardianTimeSpan = TimeSpan.FromMilliseconds(guardianTimer.ElapsedMilliseconds - guardianPauseTimer.ElapsedMilliseconds);
+                var guardianTimeSpan = TimeSpan.FromMilliseconds(guardianTimer.ElapsedMilliseconds);
+                textBuilder.Append(" ");
+                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (guardianTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, guardianTimeSpan);
+            }
+
+            //if (Hud.Game.SpecialArea != SpecialArea.Rift)
+            //{
+            //    if (Hud.Game.RiftPercentage < 100 && Hud.Game.RiftPercentage >= 0.1)
+            //    {
+            //        textBuilder.AppendFormat(CultureInfo.InvariantCulture, ProgressPercentFormat, Hud.Game.RiftPercentage);
+            //    }
+            //    else if (riftQuest.QuestStep != null)
+            //    {
+            //        switch (riftQuest.QuestStep.Id)
+            //        {
+            //            case 10:
+            //                textBuilder.Append(GuardianDeadSymbol);
+            //                break;
+            //            case 3:
+            //                textBuilder.Append(GuardianAliveSymbol);
+            //                break;
+            //        }
+            //    }
+            //}
 
             if (ShowClosingTimer && riftQuest.State == QuestState.completed)
             {
-                format += string.Format(ClosingSecondsFormat, TimeSpan.FromMilliseconds(riftClosingMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds));
+                textBuilder.Append(" ");
+                textBuilder.AppendFormat(ClosingSecondsFormat, TimeSpan.FromMilliseconds(riftClosingMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds));
             }
 
-            return string.Format(format, timeSpan);
+            return textBuilder.ToString();
         }
     }
 }

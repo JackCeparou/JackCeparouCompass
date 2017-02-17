@@ -23,11 +23,6 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                 //plugin.LooksGoodDisplayEnabled = true;
             });
 
-            Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
-            {
-                plugin.LabelList.WidthFunc = () => Hud.Window.Size.Height * 0.0630f;
-            });
-
             Hud.RunOnPlugin<FeetBuffListPlugin>(plugin =>
             {
                 plugin.BuffPainter.ShowTimeLeftNumbers = true;
@@ -39,13 +34,17 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
 
             Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
             {
-                var index = 9; //0..9
+                plugin.LabelList.WidthFunc = () => Hud.Window.Size.Height * 0.0630f;
 
+                plugin.LabelList.LabelDecorators[9].TextFunc = () => Hud.Game.Me.Stats.PickupRange.ToString("#");
+                plugin.LabelList.LabelDecorators[9].HintFunc = () => "pickup radius";
+
+                /*var index = 9; //0..9
                 if (index < plugin.LabelList.LabelDecorators.Count && index >= 0)
                 {
                     plugin.LabelList.LabelDecorators[index].TextFunc = () => Hud.Game.Me.Stats.PickupRange.ToString("#");
                     plugin.LabelList.LabelDecorators[index].HintFunc = () => "pickup radius";
-                }
+                }/**/
             });
 
             Hud.RunOnPlugin<GlobePlugin>(plugin =>
