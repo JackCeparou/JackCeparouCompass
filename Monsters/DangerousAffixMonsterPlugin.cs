@@ -41,6 +41,11 @@
         public IFont DefaultEliteAffixesFont { get; set; }
         public IFont DefaultMinionAffixesFont { get; set; }
 
+        private const float _bgEliteRadius = 8;
+        private const float _fgEliteRadius = 4;
+        private const float _bgMinionRadius = 6;
+        private const float _fgMinionRadius = 2;
+
         public DangerousAffixMonsterPlugin()
         {
             Enabled = true;
@@ -69,8 +74,13 @@
             foreach (var monster in monsters)
             {
                 var dangerousAffixes = monster.AffixSnoList
-                    .Where(a => Affixes.ContainsKey(a.Affix))
-                    .Select(a => Affixes[a.Affix]).ToList();
+                    .Join(Affixes,
+                        snoAffix => snoAffix.Affix,
+                        dangerous => dangerous.Key,
+                        (snoAffix, dangerous) => dangerous.Value)
+                    .ToList();
+                    //.Where(a => Affixes.ContainsKey(a.Affix))
+                    //.Select(a => Affixes[a.Affix]).ToList();
 
                 if (dangerousAffixes.Count == 0) continue;
 
@@ -108,7 +118,7 @@
         // TODO : refactor these monstruous signatures.. ><
         public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, string affixName, int priority = 0,
             IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
-            float bgEliteRadius = 8, float fgEliteRadius = 4, float bgMinionRadius = 6, float fgMinionRadius = 2,
+            float bgEliteRadius = _bgEliteRadius, float fgEliteRadius = _fgEliteRadius, float bgMinionRadius = _bgMinionRadius, float fgMinionRadius = _fgMinionRadius,
             IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
             IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
@@ -127,7 +137,7 @@
 
         public DangerousAffixMonsterDefinition DefineDangerousAffix(MonsterAffix affix, AffixNameFunc affixNameFunc, int priority = 0,
             IFont eliteFont = null, IFont minionFont = null, bool showMinionDecorators = false, bool showMinionAffixesNames = false,
-            float bgEliteRadius = 8, float fgEliteRadius = 4, float bgMinionRadius = 6, float fgMinionRadius = 2,
+            float bgEliteRadius = _bgEliteRadius, float fgEliteRadius = _fgEliteRadius, float bgMinionRadius = _bgMinionRadius, float fgMinionRadius = _fgMinionRadius,
             IBrush bgBrush = null, IShapePainter bgShapePainter = null, bool bgPing = false, IRadiusTransformator bgRadiusTransformator = null,
             IBrush fgBrush = null, IShapePainter fgShapePainter = null, bool fgPing = false, IRadiusTransformator fgRadiusTransformator = null)
         {
@@ -168,6 +178,27 @@
             return affixDef;
         }
 
+        private WorldDecoratorCollection CreateDecorators(float bgRadius, float fgRadius, IBrush bgBrush, IBrush fgBrush,
+            IShapePainter bgShapePainter, IShapePainter fgShapePainter, IRadiusTransformator bgRadiusTransformator, IRadiusTransformator fgRadiusTransformator)
+        {
+            return new WorldDecoratorCollection(
+                new MapShapeDecorator(Hud)
+                {
+                    Brush = bgBrush,
+                    Radius = bgRadius,
+                    ShapePainter = bgShapePainter,
+                    RadiusTransformator = bgRadiusTransformator,
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    Brush = fgBrush,
+                    Radius = fgRadius,
+                    ShapePainter = fgShapePainter,
+                    RadiusTransformator = fgRadiusTransformator,
+                }
+            );
+        }
+
         public void DrawAffixName(IMonster monster, DangerousAffixMonsterDefinition affix)
         {
             var font = monster.Rarity == ActorRarity.RareMinion ? affix.MinionLabelFont : affix.EliteLabelFont;
@@ -201,27 +232,6 @@
                 font.DrawText(layout, mapX + offsetX, mapY);
                 offsetX += layout.Metrics.Width + spacerLayout.Metrics.Width;
             });
-        }
-
-        private WorldDecoratorCollection CreateDecorators(float bgRadius, float fgRadius, IBrush bgBrush, IBrush fgBrush,
-            IShapePainter bgShapePainter, IShapePainter fgShapePainter, IRadiusTransformator bgRadiusTransformator, IRadiusTransformator fgRadiusTransformator)
-        {
-            return new WorldDecoratorCollection(
-                new MapShapeDecorator(Hud)
-                {
-                    Brush = bgBrush,
-                    Radius = bgRadius,
-                    ShapePainter = bgShapePainter,
-                    RadiusTransformator = bgRadiusTransformator,
-                },
-                new MapShapeDecorator(Hud)
-                {
-                    Brush = fgBrush,
-                    Radius = fgRadius,
-                    ShapePainter = fgShapePainter,
-                    RadiusTransformator = fgRadiusTransformator,
-                }
-            );
         }
 
         private static string GetCombinedLabelsText(IMonster monster, IEnumerable<DangerousAffixMonsterDefinition> affixes)
