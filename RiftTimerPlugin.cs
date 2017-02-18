@@ -22,39 +22,45 @@
 
         public bool ShowClosingTimer { get; set; }
 
-        public bool IsGamePaused
+        public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
+        public bool IsGuardianDead
         {
-            //// TODO : turn this into a 'IsGamePaused' helper property
-            //// TODO : check if pause is still not working when in Achievements tab
-            //var uiMenu = Hud.Render.GetUiElement("Root.NormalLayer.gamemenu_dialog.gamemenu_bkgrnd");
-            //var uiAchievements = Hud.Render.GetUiElement("Root.NormalLayer.BattleNetAchievements_main.LayoutRoot.OverlayContainer");ontainer");
             get
             {
-                if (Hud.Game.NumberOfPlayersInGame > 1) return false;
-                if (Hud.Render.GetUiElement("Root.NormalLayer.gamemenu_dialog.gamemenu_bkgrnd").Visible) return true;
-                if (Hud.Render.GetUiElement("Root.NormalLayer.BattleNetAchievements_main.LayoutRoot.OverlayContainer").Visible) return true;
+                if (Hud.Game.Monsters.Any(m => m.Rarity == ActorRarity.Boss && !m.IsAlive))
+                    return true;
 
-                return false;
+                return riftQuest.QuestStepId == 5 || riftQuest.QuestStepId == 10 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46;
             }
         }
 
-        public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
-        public bool IsGuardianDead { get { return riftQuest.QuestStepId == 10 || riftQuest.QuestStepId == 34; } }
-        public bool IsNephalemRift { get { return riftQuest.QuestStepId > 0 && riftQuest.QuestStepId <= 10; } }
-        public bool IsGreaterRift { get { return riftQuest.QuestStepId > 10 && riftQuest.QuestStepId <= 46; } }
+        public bool IsNephalemRift { get { return riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10; } }
+        public bool IsGreaterRift { get { return riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46; } }
 
         private const uint riftClosingMilliseconds = 30000;
+        private SpecialArea? currentRun;
+        //private TimeSpan greaterRiftMaxDuration = new TimeSpan(0, 15, 0);
 
-        private IQuest riftQuest { get { return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 337492); } }
-        //private IQuest greaterRiftQuest { get { return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 382695); } }
+        private IQuest riftQuest {
+            get
+            {
+                return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 337492) ?? // rift
+                       Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 382695);   // gr
+            }
+        }
 
-        private IUiElement uiRiftProgressBar { get { return Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar"); } }
-        //private IUiElement uiGreaterRiftProgressBar { get { return Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.greater_rift_container.rift_progress_bar"); } }
+        private IUiElement uiProgressBar {
+            get
+            {
+                return Hud.Render.GetUiElement(IsNephalemRift
+                    ? "Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar" // rift
+                    : "Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.greater_rift_container.rift_progress_bar"); // gr
+            }
+        }
 
         private IWatch riftTimer;
         private IWatch guardianTimer;
-        //private IWatch pauseTimer;
-        //private IWatch guardianPauseTimer;
+        private IWatch pauseTimer;
 
         private readonly StringBuilder textBuilder;
 
@@ -85,10 +91,9 @@
             ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
             ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
 
-            //pauseTimer = Hud.CreateWatch();
+            pauseTimer = Hud.CreateWatch();
             riftTimer = Hud.CreateWatch();
             guardianTimer = Hud.CreateWatch();
-            //guardianPauseTimer = Hud.CreateWatch();
         }
 
         public override void PaintTopInGame(ClipState clipState)
@@ -97,44 +102,18 @@
             if (Hud.Inventory.InventoryMainUiElement.Visible) return;
             if (riftQuest == null) return;
             if (riftQuest.State == QuestState.none) return;
-            //if (riftQuest.QuestStepId > 10) return;
-            //if (Hud.Game.SpecialArea == SpecialArea.GreaterRift) return;
-
-            //var uiRiftProgressBar = Hud.Render.GetUiElement("Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar");
-            //if (uiRiftProgressBar == null)
-            //    return; //useless ??
-
-            /*
-            try
+            if (currentRun == null)
             {
-                //Simon.Says.Debug(string.Join(", ", new object[]
-                //{
-                //    riftQuest.State,
-                //    Hud.Game.SpecialArea,
-                //    riftQuest.QuestStepId//,
-                //    //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.Id.ToString() + " " + s.SplashEnglish))
-                //    //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.Id))
-                //}));
-                //Simon.Says.Debug(string.Join(",", new object[]
-                //{
-                //    greaterRiftQuest,
-                //    //greaterRiftQuest.State,
-                //    //greaterRiftQuest.QuestStepId,
-                //    //Hud.Game.SpecialArea,
-                //    //string.Join(",", greaterRiftQuest.SnoQuest.Steps.Select(s => s.Id.ToString() + " " + s.SplashEnglish))
-                //}));
+                currentRun = IsNephalemRift ? SpecialArea.Rift : SpecialArea.GreaterRift;
             }
-            catch (Exception ex)
-            {
-                Simon.Says.Error(ex.Message);
-            }/**/
 
-            if (uiRiftProgressBar.Visible && IsNephalemRift)
+
+            if (IsNephalemRift && uiProgressBar.Visible)
             {
                 var layout = ProgressBarTimerFont.GetTextLayout(GetText(true));
-                var x = uiRiftProgressBar.Rectangle.Left - layout.Metrics.Width / 2 + uiRiftProgressBar.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
+                var x = uiProgressBar.Rectangle.Left - layout.Metrics.Width / 2 + uiProgressBar.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
 
-                ProgressBarTimerFont.DrawText(layout, x, uiRiftProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
+                ProgressBarTimerFont.DrawText(layout, x, uiProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
             }
             else
             {
@@ -148,10 +127,6 @@
 
         public override void AfterCollect()
         {
-            if (!Hud.Game.IsInGame) return;
-            //// game cannot be paused in multiplayer games
-            //if (Hud.Game.NumberOfPlayersInGame > 1) return;
-
             // reset states if needed
             if (riftQuest == null || (riftQuest != null && riftQuest.State == QuestState.none))
             {
@@ -163,39 +138,33 @@
                 {
                     guardianTimer.Reset();
                 }
-                //if (pauseTimer.IsRunning || pauseTimer.ElapsedMilliseconds > 0)
-                //{
-                //    pauseTimer.Reset();
-                //}
-                //if (guardianPauseTimer.IsRunning || guardianPauseTimer.ElapsedMilliseconds > 0)
-                //{
-                //    guardianPauseTimer.Reset();
-                //}
+                if (pauseTimer.IsRunning || pauseTimer.ElapsedMilliseconds > 0)
+                {
+                    pauseTimer.Reset();
+                }
+
+                currentRun = null;
 
                 return;
             }
 
-            // handle guardian
+            // guardian
             if (IsGuardianAlive)
             {
                 if (!guardianTimer.IsRunning)
-                    guardianTimer.Restart();
+                    guardianTimer.Start();
             }
             else if (IsGuardianDead && guardianTimer.IsRunning)
             {
                 guardianTimer.Stop();
             }
 
-            // handle game pause
-            if (IsGamePaused)
+            // game pause
+            if (Hud.Game.IsPaused || (IsGreaterRift && Hud.Game.NumberOfPlayersInGame == 1 && Hud.Game.IsLoading))
             {
-                //if (!pauseTimer.IsRunning)
-                //    pauseTimer.Start();
+                if (!pauseTimer.IsRunning)
+                    pauseTimer.Start();
 
-                //if (!guardianPauseTimer.IsRunning && IsGuardianAlive)
-                //    guardianPauseTimer.Start();
-
-                //return;
                 if (riftTimer.IsRunning)
                     riftTimer.Stop();
 
@@ -204,27 +173,22 @@
 
                 return;
             }
+
+            // (re)start/stop timers if needed
             if (!riftTimer.IsRunning && !IsGuardianDead)
                 riftTimer.Start();
 
             if (!guardianTimer.IsRunning && IsGuardianAlive)
                 guardianTimer.Start();
-            //if (pauseTimer.IsRunning)
-            //{
-            //    pauseTimer.Stop();
-            //}
-            //if (guardianPauseTimer.IsRunning)
-            //{
-            //    guardianPauseTimer.Stop();
-            //}
+
+            if (pauseTimer.IsRunning)
+                pauseTimer.Stop();
+
             if (IsGreaterRift && IsGuardianDead && riftTimer.IsRunning)
-            {
                 riftTimer.Stop();
-            }
+
             if (IsNephalemRift && riftQuest.State == QuestState.completed && riftTimer.IsRunning)
-            {
                 riftTimer.Stop();
-            }
 
             //Simon.Says.Debug("{0} {1}", riftTimer.ElapsedMilliseconds, riftQuest.StartedOn.ElapsedMilliseconds);
         }
@@ -239,16 +203,30 @@
                 textBuilder.Append(" ");
             }
 
-            //var timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
-            var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
-            textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
+            if (currentRun == SpecialArea.GreaterRift)
+            {
+                var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
+                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
+                //Simon.Says.Debug("GR {0} {1}", riftQuest.QuestStepId, timeSpan, TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds));
+                // 3:07.385 3:05.783 => 1602
+                // 3:18.054 3:16.750 => 1304
+                // 3:01.388 3:00.466 => 922
+                // 2:52.126 2:51.016 => 1110
+                //
+            }
+            else
+            {
+                var _timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
+                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (_timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, _timeSpan);
+                //Simon.Says.Debug("NR {0} {1}", riftQuest.QuestStepId, _timeSpan);
+            }
 
             if (onlyTimer)
                 return textBuilder.ToString();
 
             if (Hud.Game.RiftPercentage < 100)// && Hud.Game.RiftPercentage >= 0.1)
             {
-                if (IsNephalemRift && Hud.Game.RiftPercentage > 0.1)
+                if ((IsNephalemRift || !uiProgressBar.Visible ) && Hud.Game.RiftPercentage > 0.1)
                 {
                     textBuilder.Append(" ");
                     textBuilder.AppendFormat(CultureInfo.InvariantCulture, ProgressPercentFormat, Hud.Game.RiftPercentage);
@@ -265,27 +243,7 @@
                 textBuilder.AppendFormat(CultureInfo.InvariantCulture, (guardianTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, guardianTimeSpan);
             }
 
-            //if (Hud.Game.SpecialArea != SpecialArea.Rift)
-            //{
-            //    if (Hud.Game.RiftPercentage < 100 && Hud.Game.RiftPercentage >= 0.1)
-            //    {
-            //        textBuilder.AppendFormat(CultureInfo.InvariantCulture, ProgressPercentFormat, Hud.Game.RiftPercentage);
-            //    }
-            //    else if (riftQuest.QuestStep != null)
-            //    {
-            //        switch (riftQuest.QuestStep.Id)
-            //        {
-            //            case 10:
-            //                textBuilder.Append(GuardianDeadSymbol);
-            //                break;
-            //            case 3:
-            //                textBuilder.Append(GuardianAliveSymbol);
-            //                break;
-            //        }
-            //    }
-            //}
-
-            if (ShowClosingTimer && riftQuest.State == QuestState.completed)
+            if (ShowClosingTimer && !IsGreaterRift && riftQuest.State == QuestState.completed)
             {
                 textBuilder.Append(" ");
                 textBuilder.AppendFormat(ClosingSecondsFormat, TimeSpan.FromMilliseconds(riftClosingMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds));
