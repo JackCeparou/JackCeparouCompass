@@ -32,6 +32,51 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                         decorator.RadiusTransformator = radiusTransformator;
                     });
                 });
+                /*
+                plugin.MalevolentTormentorDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
+                });
+                plugin.BloodThiefDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 155, 0, 255, true, false, true)
+                });
+                plugin.OdiousCollectorDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 0, 255, 0, true, false, true)
+                });
+                plugin.GemHoarderDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 255, true, false, true)
+                });
+                plugin.GelatinousDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 0, 0, 255, true, false, true)
+                });
+                plugin.GildedBaronDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 240, 0, true, false, true)
+                });
+                plugin.InsufferableMiscreantDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 50, 50, true, false, true)
+                });
+                plugin.TreasureGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 200, 150, 150, 150, true, false, true)
+                });
+                plugin.RainbowGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
+                });
+                plugin.MenageristGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
+                });
+                plugin.TreasureFiendGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 163, 15, true, false, true)
+                });/**/
             });
 
             //Hud.RunOnPlugin<JackCeparouCompass.DoorsPlugin>(plugin =>
