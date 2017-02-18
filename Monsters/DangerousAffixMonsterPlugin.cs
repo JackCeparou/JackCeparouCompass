@@ -79,8 +79,6 @@
                         dangerous => dangerous.Key,
                         (snoAffix, dangerous) => dangerous.Value)
                     .ToList();
-                    //.Where(a => Affixes.ContainsKey(a.Affix))
-                    //.Select(a => Affixes[a.Affix]).ToList();
 
                 if (dangerousAffixes.Count == 0) continue;
 
@@ -94,7 +92,7 @@
 
                         if (dangerousAffixes.Count == 1)
                             DrawAffixName(monster, dangerousAffixes.First());
-                        else if (dangerousAffixes.Any())
+                        else if (dangerousAffixes.Count > 1)
                             DrawAffixNames(monster, dangerousAffixes, GetCombinedLabelsText(monster, dangerousAffixes));
                         break;
 
@@ -108,8 +106,8 @@
 
                         if (dangerousAffixes.Count == 1)
                             DrawAffixName(monster, dangerousAffixes.First());
-                        else if (dangerousAffixes.Any())
-                            DrawAffixNames(monster, dangerousAffixes.Where(a => a.ShowMinionAffixesNames).ToList(), GetCombinedLabelsText(monster, dangerousAffixes));
+                        else if (dangerousAffixes.Count > 1)
+                            DrawAffixNames(monster, dangerousAffixes, GetCombinedLabelsText(monster, dangerousAffixes));
                         break;
                 }
             }
@@ -217,76 +215,29 @@
             if (first == null) return;
 
             var firstFont = (monster.Rarity == ActorRarity.RareMinion ? first.MinionLabelFont : first.EliteLabelFont);
-            var firstLayout = firstFont.GetTextLayout(combinedNames);
+            var combinedLayout = firstFont.GetTextLayout(combinedNames);
             var spacerLayout = firstFont.GetTextLayout(":");
-            var offsetX = -firstLayout.Metrics.Width / 2;
+            var offsetX = -combinedLayout.Metrics.Width / 2;
 
-            affixes.ForEach(a =>
+            foreach (var affix in affixes)
             {
-                var font = monster.Rarity == ActorRarity.RareMinion ? a.MinionLabelFont : a.EliteLabelFont;
-                var text = a.AffixName ?? (a.AffixName = a.AffixNameFunc.Invoke(monster.AffixSnoList.First(snoa => snoa.Affix == a.Affix)));
+                var font = monster.Rarity == ActorRarity.RareMinion ? affix.MinionLabelFont : affix.EliteLabelFont;
+                var text = affix.AffixName ?? (affix.AffixName = affix.AffixNameFunc.Invoke(monster.AffixSnoList.First(snoa => snoa.Affix == affix.Affix)));
+
+                if (string.IsNullOrWhiteSpace(text)) continue;
+
                 var layout = font.GetTextLayout(text);
                 float mapX, mapY;
                 Hud.Render.GetMinimapCoordinates(monster.FloorCoordinate.X, monster.FloorCoordinate.Y, out mapX, out mapY);
 
                 font.DrawText(layout, mapX + offsetX, mapY);
                 offsetX += layout.Metrics.Width + spacerLayout.Metrics.Width;
-            });
+            }
         }
 
         private static string GetCombinedLabelsText(IMonster monster, IEnumerable<DangerousAffixMonsterDefinition> affixes)
         {
-            return string.Join(":",
-                affixes.Select(
-                    a =>
-                        a.AffixName ??
-                        (a.AffixName = a.AffixNameFunc.Invoke(monster.AffixSnoList.First(snoa => snoa.Affix == a.Affix)))));
+            return string.Join(":", affixes.Select(a => a.AffixName ?? (a.AffixName = a.AffixNameFunc.Invoke(monster.AffixSnoList.First(snoa => snoa.Affix == a.Affix)))));
         }
     }
 }
-
-/*
-private IEnumerable<string> GetAffixesNames(IEnumerable<ISnoMonsterAffix> affixes, bool minion)
-{
-    foreach (var affix in affixes)
-    {
-        if (minion)
-        {
-            if (!ShowMinionAffixesNames.ContainsKey(affix.Affix)) continue;
-            if (!ShowMinionAffixesNames[affix.Affix]) continue;
-        }
-
-        if (!DangerousEliteDecorators.ContainsKey(affix.Affix)) continue;
-        if (!DangerousAffixNames.ContainsKey(affix.Affix)) continue;
-        if (DangerousAffixNames[affix.Affix] == null) continue;
-
-        var text = DangerousAffixNames[affix.Affix].Invoke(affix);
-        if (string.IsNullOrWhiteSpace(text)) continue;
-
-        yield return text;
-    }
-}
-
-private IEnumerable<TextLayout> GetAffixesLayouts(IEnumerable<ISnoMonsterAffix> affixes, bool minion)
-{
-    foreach (var affix in affixes)
-    {
-        if (minion)
-        {
-            if (!ShowMinionAffixesNames.ContainsKey(affix.Affix)) continue;
-            if (!ShowMinionAffixesNames[affix.Affix]) continue;
-            if (!DangerousMinionLabelFonts.ContainsKey(affix.Affix)) continue;
-        }
-
-        if (!DangerousEliteDecorators.ContainsKey(affix.Affix)) continue;
-        if (!DangerousAffixNames.ContainsKey(affix.Affix)) continue;
-        if (DangerousAffixNames[affix.Affix] == null) continue;
-        if (!DangerousEliteLabelFonts.ContainsKey(affix.Affix)) continue;
-
-        var text = DangerousAffixNames[affix.Affix].Invoke(affix);
-        if (string.IsNullOrWhiteSpace(text)) continue;
-
-        yield return (minion ? DangerousMinionLabelFonts : DangerousEliteLabelFonts)[affix.Affix].GetTextLayout(text);
-    }
-}
-/**/
