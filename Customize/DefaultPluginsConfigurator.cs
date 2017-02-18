@@ -56,6 +56,25 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                 });
             });
 
+            Hud.RunOnPlugin<PlayerSkillPlugin>(plugin =>
+            {
+                plugin.SentryDecorator.Decorators.Add(new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(178, 240, 148, 32, 2),
+                    Radius = 16,
+                });
+
+                //plugin.SentryDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
+
+                plugin.SentryWithCustomEngineeringDecorator.Decorators.Add(new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(178, 240, 148, 32, 2),
+                    Radius = 16,
+                });
+
+                //plugin.SentryWithCustomEngineeringDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
+            });
+
             //Hud.RunOnPlugin<OtherPlayersPlugin>(plugin =>
             //{
             //    plugin.DecoratorByClass[HeroClass.Barbarian].GetDecorators<MapLabelDecorator>().ForEach(d =>
