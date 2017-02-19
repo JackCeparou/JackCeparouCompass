@@ -1,4 +1,4 @@
-﻿namespace Turbo.Plugins.JackCeparouCompass
+﻿namespace Turbo.Plugins.Jack
 {
     using System;
     using System.Globalization;

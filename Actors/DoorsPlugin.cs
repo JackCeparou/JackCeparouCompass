@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Turbo.Plugins.Default;
 
-namespace Turbo.Plugins.JackCeparouCompass.Actors
+namespace Turbo.Plugins.Jack.Actors
 {
     public class DoorsPlugin : BasePlugin, IInGameWorldPainter
     {

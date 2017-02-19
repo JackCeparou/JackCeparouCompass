@@ -1,4 +1,4 @@
-namespace Turbo.Plugins.JackCeparouCompass.Customize
+namespace Turbo.Plugins.Jack.Customize
 {
     using Turbo.Plugins.Default;
 

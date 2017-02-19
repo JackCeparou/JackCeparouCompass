@@ -1,7 +1,7 @@
 using Turbo.Plugins.Default;
-using Turbo.Plugins.JackCeparouCompass.Decorators;
+using Turbo.Plugins.Jack.Decorators;
 
-namespace Turbo.Plugins.JackCeparouCompass
+namespace Turbo.Plugins.Jack
 {
     public class MouseLocatorPlugin : BasePlugin, IInGameTopPainter
     {

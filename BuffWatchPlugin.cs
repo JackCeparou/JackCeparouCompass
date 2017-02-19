@@ -1,5 +1,5 @@
 // based on the original work of LegendOfBerrett v6 xml
-namespace Turbo.Plugins.JackCeparouCompass
+namespace Turbo.Plugins.Jack
 {
     using System;
     using System.Collections.Generic;

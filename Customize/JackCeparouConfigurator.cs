@@ -1,5 +1,6 @@
-namespace Turbo.Plugins.JackCeparouCompass.Customize
+namespace Turbo.Plugins.Jack.Customize
 {
+    using Turbo.Plugins.Jack.Actors;
     using Turbo.Plugins.Default;
 
     public class JackCeparouConfigurator : BasePlugin, ICustomizer
@@ -11,7 +12,7 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
 
         public void Customize()
         {
-            Hud.RunOnPlugin<JackCeparouCompass.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
+            Hud.RunOnPlugin<DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
             /*
             Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
@@ -98,5 +99,4 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
         //    });
         //}
     }
-
 }

@@ -1,4 +1,4 @@
-﻿namespace Turbo.Plugins.JackCeparouCompass.Monsters
+﻿namespace Turbo.Plugins.Jack.Monsters
 {
     using System;
     using Turbo.Plugins.Default;

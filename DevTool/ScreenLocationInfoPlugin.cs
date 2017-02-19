@@ -3,7 +3,7 @@ using System.Linq;
 using SharpDX.DirectInput;
 using Turbo.Plugins.Default;
 
-namespace Turbo.Plugins.JackCeparouCompass.DevTool
+namespace Turbo.Plugins.Jack.DevTool
 {
     public class ScreenLocationInfoPlugin : BasePlugin, IInGameTopPainter, IKeyEventHandler
     {
