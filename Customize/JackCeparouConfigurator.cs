@@ -2,17 +2,18 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
 {
     using Turbo.Plugins.Default;
 
-    public class JackCeparouConfigurator : BasePlugin
+    public class JackCeparouConfigurator : BasePlugin, ICustomizer
     {
         public JackCeparouConfigurator()
         {
             Enabled = true;
         }
 
-        public override void Customize()
+        public void Customize()
         {
             Hud.RunOnPlugin<JackCeparouCompass.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
+            /*
             Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
             {
                 var radiusTransformator = new StandardPingRadiusTransformator(Hud, 333);
@@ -32,7 +33,6 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                         decorator.RadiusTransformator = radiusTransformator;
                     });
                 });
-                /*
                 plugin.MalevolentTormentorDecorators.Decorators.Add(new MapLabelDecorator(Hud)
                 {
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
@@ -76,8 +76,8 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                 plugin.TreasureFiendGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
                 {
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 163, 15, true, false, true)
-                });/**/
-            });
+                });
+            });/**/
 
             //Hud.RunOnPlugin<JackCeparouCompass.DoorsPlugin>(plugin =>
             //{

@@ -5,7 +5,7 @@ using Turbo.Plugins.Default;
 
 namespace Turbo.Plugins.JackCeparouCompass.Actors
 {
-    public class DoorsPlugin : BasePlugin
+    public class DoorsPlugin : BasePlugin, IInGameWorldPainter
     {
         public WorldDecoratorCollection DoorsDecorators { get; set; }
         public WorldDecoratorCollection BreakablesDoorsDecorators { get; set; }
@@ -60,7 +60,7 @@ namespace Turbo.Plugins.JackCeparouCompass.Actors
             BridgesDecorators = CreateDecorators(0, 195, 255);
         }
 
-        public override void PaintWorld(WorldLayer layer)
+        public void PaintWorld(WorldLayer layer)
         {
             if (Hud.Game.IsInTown && !ShowInTown) return;
 

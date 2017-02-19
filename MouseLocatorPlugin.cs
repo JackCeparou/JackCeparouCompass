@@ -3,7 +3,7 @@ using Turbo.Plugins.JackCeparouCompass.Decorators;
 
 namespace Turbo.Plugins.JackCeparouCompass
 {
-    public class MouseLocatorPlugin : BasePlugin
+    public class MouseLocatorPlugin : BasePlugin, IInGameTopPainter
     {
         public TopCircleDecorator MouseDecorator { get; set; }
 
@@ -24,7 +24,7 @@ namespace Turbo.Plugins.JackCeparouCompass
             };
         }
 
-        public override void PaintTopInGame(ClipState clipState)
+        public void PaintTopInGame(ClipState clipState)
         {
             if (Hud.Render.UiHidden) return;
             //if (Hud.InTown) return;

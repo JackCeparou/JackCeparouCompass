@@ -6,7 +6,7 @@ namespace Turbo.Plugins.JackCeparouCompass
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class BuffWatchPlugin : BasePlugin
+    public class BuffWatchPlugin : BasePlugin, IInGameTopPainter
     {
         public IFont WarningFont { get; set; }
         private List<string> warnings;
@@ -36,7 +36,7 @@ namespace Turbo.Plugins.JackCeparouCompass
             warningsChecks.Add(HeroClass.Wizard, Wizard);
         }
 
-        public override void PaintTopInGame(ClipState clipState)
+        public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.BeforeClip) return;
             if (Hud.Game.Me.IsDead) return;

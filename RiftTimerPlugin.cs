@@ -6,7 +6,7 @@
     using System.Text;
     using Turbo.Plugins.Default;
 
-    public class RiftTimerPlugin : BasePlugin
+    public class RiftTimerPlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler
     {
         public IFont ProgressBarTimerFont { get; set; }
         public IFont ObjectiveProgressFont { get; set; }
@@ -96,7 +96,7 @@
             guardianTimer = Hud.CreateWatch();
         }
 
-        public override void PaintTopInGame(ClipState clipState)
+        public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
             if (Hud.Inventory.InventoryMainUiElement.Visible) return;
@@ -125,7 +125,7 @@
             }
         }
 
-        public override void AfterCollect()
+        public void AfterCollect()
         {
             // reset states if needed
             if (riftQuest == null || (riftQuest != null && riftQuest.State == QuestState.none))

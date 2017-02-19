@@ -9,7 +9,7 @@ namespace Turbo.Plugins.JackCeparouCompass.Monsters
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class GoblinPlugin : BasePlugin
+    public class GoblinPlugin : BasePlugin, ICustomizer, IInGameWorldPainter
     {
         public WorldDecoratorCollection MalevolentTormentorDecorators { get; set; }
         public WorldDecoratorCollection BloodThiefDecorators { get; set; }
@@ -360,12 +360,12 @@ namespace Turbo.Plugins.JackCeparouCompass.Monsters
                 );
         }
 
-        public override void Customize()
+        public void Customize()
         {
             Hud.TogglePlugin<Default.GoblinPlugin>(false);
         }
 
-        public override void PaintWorld(WorldLayer layer)
+        public void PaintWorld(WorldLayer layer)
         {
             var portals = Hud.Game.Actors.Where(x => x.SnoActor.Sno == 410460);
             foreach (var actor in portals)

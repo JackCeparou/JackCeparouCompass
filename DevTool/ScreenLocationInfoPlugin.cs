@@ -5,7 +5,7 @@ using Turbo.Plugins.Default;
 
 namespace Turbo.Plugins.JackCeparouCompass.DevTool
 {
-    public class ScreenLocationInfoPlugin : BasePlugin, IKeyEventHandler
+    public class ScreenLocationInfoPlugin : BasePlugin, IInGameTopPainter, IKeyEventHandler
     {
         public IBrush BackgroundBrush { get; set; }
         public IFont TextFont { get; set; }
@@ -32,7 +32,7 @@ namespace Turbo.Plugins.JackCeparouCompass.DevTool
             ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, Key.V, false, false, false);
         }
 
-        public override void PaintTopInGame(ClipState clipState)
+        public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
             if (!Visible) return;

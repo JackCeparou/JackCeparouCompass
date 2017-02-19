@@ -2,14 +2,14 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
 {
     using Turbo.Plugins.Default;
 
-    public class DefaultPluginsConfigurator : BasePlugin
+    public class DefaultPluginsConfigurator : BasePlugin, ICustomizer
     {
         public DefaultPluginsConfigurator()
         {
             Enabled = true;
         }
 
-        public override void Customize()
+        public void Customize()
         {
             // I'M BRAVE ENOUGH
             Hud.TogglePlugin<MonsterPackPlugin>(true);
@@ -23,14 +23,14 @@ namespace Turbo.Plugins.JackCeparouCompass.Customize
                 //plugin.LooksGoodDisplayEnabled = true;
             });
 
-            Hud.RunOnPlugin<FeetBuffListPlugin>(plugin =>
-            {
-                plugin.BuffPainter.ShowTimeLeftNumbers = true;
-                plugin.BuffPainter.Opacity = 0.85f;
+            //Hud.RunOnPlugin<FeetBuffListPlugin>(plugin =>
+            //{
+            //    plugin.BuffPainter.ShowTimeLeftNumbers = true;
+            //    plugin.BuffPainter.Opacity = 0.85f;
 
-                // Iron Skin
-                plugin.RuleCalculator.Rules.Add(new BuffRule(291804) { IconIndex = null, MinimumIconCount = 1, ShowTimeLeft = true, IconSizeMultiplier = 1.0f, });
-            });
+            //    // Iron Skin
+            //    plugin.RuleCalculator.Rules.Add(new BuffRule(291804) { IconIndex = null, MinimumIconCount = 1, ShowTimeLeft = true, IconSizeMultiplier = 1.0f, });
+            //});
 
             Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
             {

@@ -3,14 +3,14 @@
     using System;
     using Turbo.Plugins.Default;
 
-    public class DangerousAffixMonsterConfig : BasePlugin
+    public class DangerousAffixMonsterConfig : BasePlugin, ICustomizer
     {
         public DangerousAffixMonsterConfig()
         {
             Enabled = true;
         }
 
-        public override void Customize()
+        public void Customize()
         {
             //Debug(); return;
             Hud.RunOnPlugin<DangerousAffixMonsterPlugin>(plugin =>

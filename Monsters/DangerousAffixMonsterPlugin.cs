@@ -30,7 +30,7 @@
         }
     }
 
-    public class DangerousAffixMonsterPlugin : BasePlugin
+    public class DangerousAffixMonsterPlugin : BasePlugin, IInGameWorldPainter
     {
         public Dictionary<MonsterAffix, DangerousAffixMonsterDefinition> Affixes { get; set; }
 
@@ -68,7 +68,7 @@
             //foreach (MonsterAffix affix in Enum.GetValues(typeof(MonsterAffix))) { DefineDangerousAffix(affix, (a) => a.NameLocalized.Substring(0, 2)); }
         }
 
-        public override void PaintWorld(WorldLayer layer)
+        public void PaintWorld(WorldLayer layer)
         {
             var monsters = Hud.Game.AliveMonsters.Where(m => m.Rarity == ActorRarity.Champion || m.Rarity == ActorRarity.Rare || m.Rarity == ActorRarity.RareMinion);
             foreach (var monster in monsters)
