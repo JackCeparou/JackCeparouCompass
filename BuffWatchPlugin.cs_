@@ -181,7 +181,7 @@ namespace Turbo.Plugins.Jack
 
         private void AddMissingWarning(string message)
         {
-            warnings.Add(string.Format("!! Missing {0} !!", message));
+            warnings.Add(string.Format("!! {0} !!", message));
         }
 
         private bool HasSkill(uint id, bool checkCooldown = true)

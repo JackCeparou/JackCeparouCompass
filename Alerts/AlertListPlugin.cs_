@@ -1,0 +1,48 @@
+﻿namespace Turbo.Plugins.Jack.Alerts
+{
+    using System.Collections.Generic;
+    using Turbo.Plugins.Default;
+
+    public class AlertPlugin : BasePlugin, IInGameTopPainter
+    {
+        public AlertList AlertList { get; set; }
+
+        public AlertPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            AlertList = new AlertList(Hud)
+            {
+                TextAlign = HorizontalAlign.Center,
+            };
+
+            // ===========
+            // WitchDoctor
+            // ===========
+            // gargantuans
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
+            {
+                NameId = 30624,
+                EquippedSkills = new uint[] { 30624 },
+                InvocationActorSnoIds = new HashSet<uint>() { 432690, 432691, 432692, 432693, 432694, 122305, 179776, 171491, 179778, 171501, 171502, 179780, 179779, 179772 }
+            });
+            // zombie dogs
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
+            {
+                NameId = 102573,
+                EquippedSkills = new uint[] { 102573 },
+                InvocationActorSnoIds = new HashSet<uint>() { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 }
+            });
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            AlertList.Paint();
+        }
+    }
+}
