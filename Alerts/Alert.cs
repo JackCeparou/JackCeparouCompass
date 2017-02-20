@@ -1,10 +1,10 @@
-﻿namespace Turbo.Plugins.Jack.Alerts
+﻿using System;
+
+namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Globalization;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Extensions;
-
-    public delegate string StringSnoGeneratorFunc(uint snoId);
 
     /// <summary>
     /// Helper class to display visual alerts
@@ -16,7 +16,7 @@
         // state
         public bool Enabled { get; set; }
 
-        public bool Visible { get { return Rule.VisibleCondition.Invoke(Hud); } }
+        public bool Visible { get { return Rule!= null && Rule.VisibleCondition != null && Rule.VisibleCondition.Invoke(Hud); } }
 
         // conditions
         public AlertRule Rule { get; set; }
@@ -31,7 +31,7 @@
         public string MessageFormat { get; set; }
 
         public uint TextSnoId { get; set; }
-        public StringSnoGeneratorFunc AlertTextFunc { get; set; }
+        public Func<uint, string> AlertTextFunc { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Alert" /> class.

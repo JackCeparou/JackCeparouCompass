@@ -1,0 +1,81 @@
+﻿// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// *.txt files are not loaded automatically by TurboHUD
+// you have to change this file's extension to .cs to enable it
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+namespace Turbo.Plugins.Jack.Alerts
+{
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Models;
+
+    public class AlertListDebugPlugin : BasePlugin, ICustomizer
+    {
+        private Random rng;
+
+        public AlertListDebugPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            rng = new Random(Hud.Game.CurrentGameTick);
+        }
+
+        public void Customize()
+        {
+            Hud.RunOnPlugin<PlayerTopAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Clear();
+                CreateAlerts(plugin.AlertList.Alerts, 10, "PlayerTopAlertListPlugin", true);
+            });
+            Hud.RunOnPlugin<PlayerBottomAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Clear();
+                CreateAlerts(plugin.AlertList.Alerts, 10, "PlayerBottomAlertListPlugin", true);
+            });
+            Hud.RunOnPlugin<PlayerLeftAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Clear();
+                CreateAlerts(plugin.AlertList.Alerts, 10, "PlayerLeftAlertListPlugin", true);
+            });
+            Hud.RunOnPlugin<PlayerRightAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Clear();
+                CreateAlerts(plugin.AlertList.Alerts, 10, "PlayerRightAlertListPlugin", true);
+            });
+            Hud.RunOnPlugin<MinimapLeftAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Clear();
+                CreateAlerts(plugin.AlertList.Alerts, 10, "MinimapLeftAlertListPlugin", false);
+            });
+        }
+
+        public void CreateAlerts(IList<Alert> list, int count, string text, bool _bg = false)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var bg = _bg && (rng.Next(255) > 128);
+                list.Add(new Alert(Hud, HeroClass.None, text + " " + i)
+                {
+                    MessageFormat = "{0}",
+                    Rule =
+                    {
+                        CustomCondition = (hud => true),
+                    },
+                    Label =
+                    {
+                        TextFont = Hud.Render.CreateFont("tahoma", 9, 255, rng.Next(255), rng.Next(255), rng.Next(255), false, false, 242, 0, 0, 0, true),
+                        BackgroundBrush = bg ?Hud.Render.CreateBrush(100, rng.Next(255), rng.Next(255), rng.Next(255), 0) : null,
+                        BorderBrush = bg ? Hud.Render.CreateBrush(178, rng.Next(255), rng.Next(255), rng.Next(255), 1) : null
+                    },
+                });
+            }
+        }
+    }
+}

@@ -19,9 +19,10 @@
             AlertList = new AlertList(Hud)
             {
                 TextAlign = HorizontalAlign.Center,
-                RatioTop = 0.5f,
-                RatioWidth = 0.1f,
-                RatioLeft = 0.25f - 0.1f / 2,
+                RatioY = 0.5f,
+                RatioWidth = 0.2f,
+                RatioX = 0.35f,
+                VerticalCenter = true,
             };
         }
 

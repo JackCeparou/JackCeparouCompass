@@ -21,15 +21,16 @@ namespace Turbo.Plugins.Jack.Alerts
             Hud.RunOnPlugin<PlayerBottomAlertListPlugin>(plugin =>
             {
                 var list = plugin.AlertList;
-                list.RatioTop = 0.6f;
-                list.RatioWidth = 0.06f;
-                list.RatioLeft = 0.5f - list.RatioWidth / 2;
+                list.Up = false; // up or down
+                list.RatioY = 0.6f;
+                list.RatioWidth = 0.2f; // based on screen height to preserve proportions
+                list.RatioX = 0.5f; // center horizontally
 
                 // Flying Dragon
                 list.Alerts.Add(new Alert(Hud, HeroClass.Monk)
                 {
-                    NameSnoId = 246562,
-                    MessageFormat = "\u2694 {0} \u2694",
+                    TextSnoId = 3968109489,
+                    MessageFormat = "\u2694 {0} \u2694",//⚔
                     Rule =
                     {
                         ActiveBuffs = new [] { new SnoPowerId(246562, 1) },
@@ -44,8 +45,8 @@ namespace Turbo.Plugins.Jack.Alerts
                 // Ignore Pain
                 list.Alerts.Add(new Alert(Hud, HeroClass.None)
                 {
-                    NameSnoId = 79528,
-                    MessageFormat = "{0}",
+                    TextSnoId = 79528,
+                    MessageFormat = "\uD83D\uDEE1 {0} \uD83D\uDEE1",//🛡
                     Rule =
                     {
                         AllActiveBuffs = false,
@@ -61,9 +62,9 @@ namespace Turbo.Plugins.Jack.Alerts
                 // Oculus
                 list.Alerts.Add(new Alert(Hud, HeroClass.None)
                 {
-                    //NameFunc = (id) => "Oculus",
-                    NameSnoId = 3563390301,
-                    MessageFormat = "{0}",
+                    //AlertTextFunc = (id) => "Oculus",
+                    TextSnoId = 3563390301,
+                    MessageFormat = "\u2694 {0} \u2694",//⚔
                     Rule =
                     {
                         ActiveBuffs = new [] { new SnoPowerId(402461, 2) },
@@ -78,8 +79,8 @@ namespace Turbo.Plugins.Jack.Alerts
                 // Inner Sanctuary
                 list.Alerts.Add(new Alert(Hud, HeroClass.None)
                 {
-                    NameSnoId = 317076,
-                    MessageFormat = "{0}",
+                    TextSnoId = 317076,
+                    MessageFormat = "\uD83D\uDEE1 {0} \uD83D\uDEE1",//🛡
                     Rule =
                     {
                         ActiveBuffs = new [] { new SnoPowerId(317076, 1) },

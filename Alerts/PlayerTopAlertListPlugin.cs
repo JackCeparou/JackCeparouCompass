@@ -1,9 +1,8 @@
-﻿using Turbo.Plugins.Jack.Models;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Models;
 
     public class PlayerTopAlertListPlugin : BasePlugin, IInGameTopPainter, IInGameWorldPainter
     {
@@ -30,6 +29,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Barbarian)
             {
                 TextSnoId = 375483,
+                MessageFormat = "\u26A0 {0} \u26A0",//⚠
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(375483) },
@@ -40,6 +40,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Barbarian)
             {
                 TextSnoId = 79076,
+                MessageFormat = "\u26A0 {0} \u26A0",//⚠
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(79076) },
@@ -50,6 +51,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Barbarian)
             {
                 TextSnoId = 79528,
+                MessageFormat = "\u26A0 {0} \u26A0",//⚠
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(79528) },
@@ -60,6 +62,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Barbarian)
             {
                 TextSnoId = 80049,
+                MessageFormat = "\u26A0 {0} \u26A0",//⚠
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(80049) },
@@ -75,6 +78,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Crusader)
             {
                 TextSnoId = 269032,
+                MessageFormat = "\uD83D\uDCAA {0} \uD83D\uDCAA",//💪
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(269032) },
@@ -93,17 +97,22 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Monk)
             {
                 TextSnoId = 3968109489,
-                MessageFormat = "\u2694 {0} \u2694",
+                MessageFormat = "\u2694 {0} \u2694",//⚔
                 Rule =
                 {
                     ActiveBuffs = new [] { new SnoPowerId(246562, 1)},
                 },
+                Label =
+                {
+                    TextFont = Hud.Render.CreateFont("tahoma", 14, 255, 30, 244, 30, false, false, 242, 0, 0, 0, true),
+                }
             });
             // Sweeping Wind : Drained
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Monk)
             {
                 //AlertTextFunc = (id) => "STACKS!",
                 TextSnoId = 96090,
+                MessageFormat = "!! {0} !!",
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(96090) },
@@ -122,6 +131,7 @@ namespace Turbo.Plugins.Jack.Alerts
             {
                 //AlertTextFunc = (id) => "STACKS!",
                 TextSnoId = 96090,
+                MessageFormat = "!! {0} !!",
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(96090) },
@@ -148,6 +158,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
             {
                 TextSnoId = 30624,
+                MessageFormat = "\uD83D\uDEB6 {0} \uD83D\uDEB6", //🚶
                 Rule =
                 {
                     ShowInTown = true,
@@ -159,6 +170,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
             {
                 TextSnoId = 102573,
+                MessageFormat = "\uD83D\uDC15 {0} \uD83D\uDC15",//🐕
                 Rule =
                 {
                     ShowInTown = true,
@@ -174,6 +186,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Wizard)
             {
                 TextSnoId = 86991,
+                MessageFormat = "\u269B {0} \u269B",//⚛
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(86991) },
@@ -184,6 +197,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Wizard)
             {
                 TextSnoId = 74499,
+                MessageFormat = "\u269B {0} \u269B",//⚛
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(74499) },
@@ -194,6 +208,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Wizard)
             {
                 TextSnoId = 73223,
+                MessageFormat = "\u269B {0} \u269B",//⚛
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(73223) },
@@ -204,6 +219,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Wizard)
             {
                 TextSnoId = 76108,
+                MessageFormat = "\uD83D\uDDE1 {0} \uD83D\uDDE1",//🗡
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(76108) },
@@ -214,6 +230,7 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Wizard)
             {
                 TextSnoId = 99120,
+                MessageFormat = "!! {0} !!",
                 Rule =
                 {
                     EquippedSkills = new [] { new SnoPowerId(99120) },

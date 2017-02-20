@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
 
-    public class PlayerRightAlertListPlugin : BasePlugin, IInGameTopPainter, IInGameWorldPainter
+    public class MinimapLeftAlertListPlugin : BasePlugin, IInGameTopPainter, IInGameWorldPainter
     {
         public AlertList AlertList { get; set; }
 
-        public PlayerRightAlertListPlugin()
+        public MinimapLeftAlertListPlugin()
         {
             Enabled = true;
         }
@@ -18,12 +18,17 @@
 
             AlertList = new AlertList(Hud)
             {
-                TextAlign = HorizontalAlign.Center,
+                TextAlign = HorizontalAlign.Right,
                 Up = false,
-                RatioY = 0.5f,
+                RatioY = 0.05f,
                 RatioWidth = 0.2f,
-                RatioX = 0.65f,
-                VerticalCenter = true,
+                RatioX = 0.81f,
+                VerticalCenter = false,
+                RightFunc = (controller) =>
+                {
+                    var uiMinimapElement = controller.Render.MinimapUiElement;
+                    return uiMinimapElement.Rectangle.Left - controller.Window.Size.Height*0.01f;
+                }
             };
     }
 

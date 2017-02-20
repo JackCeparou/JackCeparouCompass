@@ -20,7 +20,7 @@
             {
                 TextAlign = HorizontalAlign.Center,
                 Up = false,
-                RatioTop = 0.65f,
+                RatioY = 0.62f,
             };
         }
 

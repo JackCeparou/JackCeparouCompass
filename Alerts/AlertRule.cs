@@ -1,11 +1,10 @@
-﻿using Turbo.Plugins.Jack.Models;
+﻿using System;
+using Turbo.Plugins.Jack.Models;
 
 namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    public delegate bool BooleanConditionFunc(IController hud);
 
     public class AlertRule
     {
@@ -20,9 +19,8 @@ namespace Turbo.Plugins.Jack.Alerts
         public bool AllActiveBuffs { get; set; }
         public bool AllInactiveBuffs { get; set; }
 
-        public BooleanConditionFunc VisibleCondition { get; set; }
-
-        public BooleanConditionFunc CustomCondition { get; set; }
+        public Func<IController, bool> VisibleCondition { get; set; }
+        public Func<IController, bool> CustomCondition { get; set; }
         public SnoPowerId[] EquippedSkills { get; set; }
         public SnoPowerId[] MissingSkills { get; set; }
         public SnoPowerId[] ActiveBuffs { get; set; }
