@@ -9,12 +9,12 @@
 
     public delegate string StringGeneratorFunc(IController hud);
 
-    public class BuffId
+    public class PowerSnoId
     {
         public uint Sno { get; set; }
         public int? Icon { get; set; }
 
-        public BuffId(uint sno, int? icon = null)
+        public PowerSnoId(uint sno, int? icon = null)
         {
             Sno = sno;
             Icon = icon;
@@ -34,13 +34,13 @@
         public bool ShowInTown { get; set; }
         public BooleanConditionFunc CustomCondition { get; set; }
         public bool CheckSkillCooldowns { get; set; }
-        public uint[] EquippedSkills { get; set; }
+        public PowerSnoId[] EquippedSkills { get; set; }
         public uint[] EquippedPassives { get; set; }
-        public uint[] MissingSkills { get; set; }
+        public PowerSnoId[] MissingSkills { get; set; }
         public uint[] MissingPassives { get; set; }
-        public BuffId[] ActiveBuffs { get; set; }
+        public PowerSnoId[] ActiveBuffs { get; set; }
         public bool AllActiveBuffs { get; set; }
-        public BuffId[] InactiveBuffs { get; set; }
+        public PowerSnoId[] InactiveBuffs { get; set; }
         public bool AllInactiveBuffs { get; set; }
         public HashSet<uint> ActorSnoIds { get; set; }
         public HashSet<uint> InvocationActorSnoIds { get; set; }
@@ -140,10 +140,10 @@
             var powers = player.Powers;
 
             if (EquippedSkills != null)
-                visible = EquippedSkills.All(skill => powers.UsedSkills.Any(playerSkill => playerSkill.SnoPower.Sno == skill && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)));
+                visible = EquippedSkills.All(skill => powers.UsedSkills.Any(playerSkill => playerSkill.SnoPower.Sno == skill.Sno && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)));
 
             if (visible && MissingSkills != null)
-                visible = MissingSkills.Any(skill => powers.UsedSkills.All(playerSkill => playerSkill.SnoPower.Sno != skill));
+                visible = MissingSkills.Any(skill => powers.UsedSkills.All(playerSkill => playerSkill.SnoPower.Sno != skill.Sno));
 
             if (visible && EquippedPassives != null)
                 visible = EquippedPassives.All(passive => powers.UsedPassives.Any(playerPassive => playerPassive.Sno == passive));

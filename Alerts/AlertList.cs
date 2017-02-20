@@ -4,7 +4,7 @@
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class AlertList
+    public class AlertList : List<Alert>
     {
         public IController Hud { get; private set; }
 
@@ -45,7 +45,7 @@
             var y = Hud.Window.Size.Height * RatioTop;
             var x = Hud.Window.Size.Width * RatioLeft;
             var w = Hud.Window.Size.Width * RatioWidth;
-            var s = Hud.Window.Size.Height*RatioSpace;
+            var s = Hud.Window.Size.Height * RatioSpace;
 
             var alerts = Alerts.Where(a => a.Visible);
             foreach (var alert in alerts)
