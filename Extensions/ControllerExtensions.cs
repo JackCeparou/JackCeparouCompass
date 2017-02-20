@@ -46,7 +46,7 @@ namespace Turbo.Plugins.Jack.Extensions
                 return Hud.Game.Me.CubeSnoItem3.NameLocalized;
             }
 
-            return "....";//string.Empty;
+            return snoId.ToString();
         }
     }
 }
