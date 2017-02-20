@@ -1,5 +1,5 @@
 // based on the original work of LegendOfBerrett v6 xml
-namespace Turbo.Plugins.Jack
+namespace Turbo.Plugins.Jack.Labs
 {
     using System;
     using System.Collections.Generic;

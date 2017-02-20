@@ -1,0 +1,53 @@
+﻿namespace Turbo.Plugins.Jack.Labs
+{
+    using SharpDX.Direct2D1;
+    using System.Linq;
+    using Turbo.Plugins.Default;
+
+    public class CrusaderConsecrationBedOfNails : BasePlugin, IInGameWorldPainter
+    {
+        public WorldDecoratorCollection ConsecrationDecorators { get; set; }
+
+        public CrusaderConsecrationBedOfNails()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            ConsecrationDecorators = new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(178, 250, 250, 250, 3, DashStyle.DashDotDot),
+                    Radius = 20,
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 10,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(40, 250, 250, 250, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(178, 250, 250, 250, 0),
+                    Radius = 30,
+                    CountDownFrom = 10,
+                }
+            );
+        }
+
+        public void PaintWorld(WorldLayer layer)
+        {
+            if (Hud.Game.Me.HeroClassDefinition.HeroClass != HeroClass.Crusader) return;
+            if (!Hud.Game.Me.Powers.UsedSkills.Any(s => s.SnoPower.Sno == 273941 && s.Rune == 1)) return;
+
+            var consecrations = Hud.Game.Actors.Where(a => a.SnoActor.Sno == 351139 && a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId);
+            foreach (var actor in consecrations)
+            {
+                ConsecrationDecorators.Paint(layer, actor, actor.FloorCoordinate, null);
+            }
+        }
+    }
+}

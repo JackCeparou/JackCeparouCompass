@@ -1,11 +1,17 @@
-﻿namespace Turbo.Plugins.Jack.Alerts
+﻿// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// *.txt files are not loaded automatically by TurboHUD
+// you have to change this file's extension to .cs to enable it
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Models;
 
-    public class AlertPlugin : BasePlugin, ICustomizer
+    public class AlertListSampleCustomizationPlugin : BasePlugin, ICustomizer
     {
-        public AlertPlugin()
+        public AlertListSampleCustomizationPlugin()
         {
             Enabled = true;
         }
@@ -24,7 +30,10 @@
                 {
                     NameSnoId = 246562,
                     MessageFormat = "\u2694 {0} \u2694",
-                    ActiveBuffs = new PowerSnoId[] { new PowerSnoId(246562, 1) },
+                    Rule =
+                    {
+                        ActiveBuffs = new [] { new SnoPowerId(246562, 1) },
+                    },
                     Label =
                     {
                         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
@@ -37,8 +46,11 @@
                 {
                     NameSnoId = 79528,
                     MessageFormat = "{0}",
-                    AllActiveBuffs = false,
-                    ActiveBuffs = new PowerSnoId[] { new PowerSnoId(79528, 0), new PowerSnoId(79528, 1), },
+                    Rule =
+                    {
+                        AllActiveBuffs = false,
+                        ActiveBuffs = new [] { new SnoPowerId(79528, 0), new SnoPowerId(79528, 1), },
+                    },
                     Label =
                     {
                         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
@@ -49,10 +61,13 @@
                 // Oculus
                 list.Alerts.Add(new Alert(Hud, HeroClass.None)
                 {
-                    //.NameFunc = (controller) => "Oculus",
+                    //NameFunc = (id) => "Oculus",
                     NameSnoId = 3563390301,
                     MessageFormat = "{0}",
-                    ActiveBuffs = new PowerSnoId[] { new PowerSnoId(402461, 2) },
+                    Rule =
+                    {
+                        ActiveBuffs = new [] { new SnoPowerId(402461, 2) },
+                    },
                     Label =
                     {
                         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
@@ -65,7 +80,10 @@
                 {
                     NameSnoId = 317076,
                     MessageFormat = "{0}",
-                    ActiveBuffs = new PowerSnoId[] { new PowerSnoId(317076, 1) },
+                    Rule =
+                    {
+                        ActiveBuffs = new [] { new SnoPowerId(317076, 1) },
+                    },
                     Label =
                     {
                         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
