@@ -1,11 +1,12 @@
 ﻿using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
 using SharpDX.DirectInput;
 using Turbo.Plugins.Default;
 
 namespace Turbo.Plugins.Jack.DevTool
 {
-    public class ScreenLocationInfoPlugin : BasePlugin, IInGameTopPainter, IKeyEventHandler
+    public class ScreenLocationInfoPlugin : BasePlugin, IInGameTopPainter//, IKeyEventHandler
     {
         public IBrush BackgroundBrush { get; set; }
         public IFont TextFont { get; set; }
@@ -13,8 +14,8 @@ namespace Turbo.Plugins.Jack.DevTool
         public int Offset { get; set; }
         public int Padding { get; set; }
 
-        public IKeyEvent ToggleKeyEvent { get; set; }
-        public bool Visible { get; set; }
+        //public IKeyEvent ToggleKeyEvent { get; set; }
+        //public bool Visible { get; set; }
 
         public ScreenLocationInfoPlugin()
         {
@@ -29,13 +30,14 @@ namespace Turbo.Plugins.Jack.DevTool
             Offset = 20;
             Padding = 5;
 
-            ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, Key.V, false, false, false);
+            //ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, Key.V, false, false, false);
         }
 
         public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
-            if (!Visible) return;
+            //if (!Visible) return;
+            if (!Hud.Input.IsKeyDown(Keys.V)) return;
 
             var s = Hud.Window.Size;
 
@@ -56,12 +58,12 @@ namespace Turbo.Plugins.Jack.DevTool
             TextFont.DrawText(layout, offsetX, offsetY);
         }
 
-        public void OnKeyEvent(IKeyEvent keyEvent)
-        {
-            if (keyEvent.IsPressed && ToggleKeyEvent.Matches(keyEvent))
-            {
-                Visible = !Visible;
-            }
-        }
+        //public void OnKeyEvent(IKeyEvent keyEvent)
+        //{
+        //    if (keyEvent.IsPressed && ToggleKeyEvent.Matches(keyEvent))
+        //    {
+        //        Visible = !Visible;
+        //    }
+        //}
     }
 }
