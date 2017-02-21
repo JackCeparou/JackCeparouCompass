@@ -31,7 +31,7 @@ namespace Turbo.Plugins.Jack.Alerts
             var moltenIds = new HashSet<uint>() {4803, 4804, 224225, 247987};
             AlertList.Alerts.Add(new Alert(Hud)
             {
-                MessageFormat = "\uD83D\uDCA3 \uD83D\uDCA3 \uD83D\uDCA3",//💣
+                MessageFormat = "\uD83D\uDCA3 \uD83D\uDCA5 \uD83D\uDCA3",//💣 💥 💣
                 Rule =
                 {
                     ActorSnoIds = moltenIds,
@@ -39,6 +39,10 @@ namespace Turbo.Plugins.Jack.Alerts
                     {
                         return Hud.Game.Actors.Any(a => moltenIds.Contains(a.SnoActor.Sno) && Hud.Game.Me.FloorCoordinate.XYDistanceTo(a.FloorCoordinate) <= 13);
                     },
+                },
+                Label =
+                {
+                    TextFont = Hud.Render.CreateFont("tahoma", 18, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true),
                 }
             });
             // Oculus
