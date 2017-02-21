@@ -82,7 +82,7 @@ namespace Turbo.Plugins.Jack.Alerts
             }
 
             if (visible && ActorSnoIds != null)
-                visible = !Hud.Game.Actors.Any(a => ActorSnoIds.Contains(a.SnoActor.Sno));
+                visible = Hud.Game.Actors.Any(a => ActorSnoIds.Contains(a.SnoActor.Sno));
 
             if (visible && InvocationActorSnoIds != null)
                 visible = !Hud.Game.Actors.Any(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId && InvocationActorSnoIds.Contains(a.SnoActor.Sno));
