@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
+    using System;
     using System.Globalization;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Extensions;

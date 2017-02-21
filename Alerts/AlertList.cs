@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;

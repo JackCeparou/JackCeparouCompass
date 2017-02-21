@@ -1,4 +1,6 @@
-﻿namespace Turbo.Plugins.Jack.Alerts
+﻿using System.Linq;
+
+namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
@@ -21,6 +23,39 @@
             {
                 TextAlign = HorizontalAlign.Center,
             };
+
+            // ===
+            // ALL
+            // ===
+            // Molten explosions
+            var moltenIds = new HashSet<uint>() {4803, 4804, 224225, 247987};
+            AlertList.Alerts.Add(new Alert(Hud)
+            {
+                MessageFormat = "\uD83D\uDCA3 \uD83D\uDCA3 \uD83D\uDCA3",//💣
+                Rule =
+                {
+                    ActorSnoIds = moltenIds,
+                    CustomCondition = (controller) =>
+                    {
+                        return Hud.Game.Actors.Any(a => moltenIds.Contains(a.SnoActor.Sno) && Hud.Game.Me.FloorCoordinate.XYDistanceTo(a.FloorCoordinate) <= 13);
+                    },
+                }
+            });
+            // Oculus
+            AlertList.Alerts.Add(new Alert(Hud)
+            {
+                //AlertTextFunc = (id) => "Oculus",
+                TextSnoId = 3563390301,
+                MessageFormat = "\u2694 {0} \u2694",//⚔
+                Rule =
+                {
+                    ActiveBuffs = new [] { new SnoPowerId(402461, 2) },
+                },
+                Label =
+                {
+                    TextFont = Hud.Render.CreateFont("tahoma", 14, 255, 30, 244, 30, false, false, 242, 0, 0, 0, true),
+                }
+            });
 
             // =========
             // Barbarian
