@@ -35,7 +35,7 @@ namespace Turbo.Plugins.Jack.Alerts
             Hud = hud;
             HeroClass = heroClass;
 
-            ShowInTown = true;
+            ShowInTown = false;
             AllActiveBuffs = true;
             AllInactiveBuffs = true;
             AllEquippedSkills = true;
