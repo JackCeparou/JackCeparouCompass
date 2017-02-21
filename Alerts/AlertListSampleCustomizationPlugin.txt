@@ -26,19 +26,36 @@ namespace Turbo.Plugins.Jack.Alerts
                 list.RatioWidth = 0.2f; // based on screen height to preserve proportions
                 list.RatioX = 0.5f; // center horizontally
 
-                // Flying Dragon
-                list.Alerts.Add(new Alert(Hud, HeroClass.Monk)
+                // // Flying Dragon
+                // list.Alerts.Add(new Alert(Hud, HeroClass.Monk)
+                // {
+                //     TextSnoId = 3968109489,
+                //     MessageFormat = "\u2694 {0} \u2694",//⚔
+                //     Rule =
+                //     {
+                //         ActiveBuffs = new [] { new SnoPowerId(246562, 1) },
+                //     },
+                //     Label =
+                //     {
+                //         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
+                //         BackgroundBrush = Hud.Render.CreateBrush(100, 50, 200, 255, 0),
+                //         BorderBrush = Hud.Render.CreateBrush(178, 0, 0, 0, 1)
+                //     },
+                // });
+                // Oculus
+                list.Alerts.Add(new Alert(Hud, HeroClass.None)
                 {
-                    TextSnoId = 3968109489,
+                    //AlertTextFunc = (id) => "Oculus",
+                    TextSnoId = 3563390301,
                     MessageFormat = "\u2694 {0} \u2694",//⚔
                     Rule =
                     {
-                        ActiveBuffs = new [] { new SnoPowerId(246562, 1) },
+                        ActiveBuffs = new [] { new SnoPowerId(402461, 2) },
                     },
                     Label =
                     {
                         TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
-                        BackgroundBrush = Hud.Render.CreateBrush(100, 50, 200, 255, 0),
+                        BackgroundBrush = Hud.Render.CreateBrush(100, 255, 255, 50, 0),
                         BorderBrush = Hud.Render.CreateBrush(178, 0, 0, 0, 1)
                     },
                 });
@@ -58,23 +75,6 @@ namespace Turbo.Plugins.Jack.Alerts
                         BackgroundBrush = Hud.Render.CreateBrush(100, 100, 225, 100, 0),
                         BorderBrush = Hud.Render.CreateBrush(178, 0, 0, 0, 1),
                     }
-                });
-                // Oculus
-                list.Alerts.Add(new Alert(Hud, HeroClass.None)
-                {
-                    //AlertTextFunc = (id) => "Oculus",
-                    TextSnoId = 3563390301,
-                    MessageFormat = "\u2694 {0} \u2694",//⚔
-                    Rule =
-                    {
-                        ActiveBuffs = new [] { new SnoPowerId(402461, 2) },
-                    },
-                    Label =
-                    {
-                        TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 244, 244, 244, false, false, 242, 0, 0, 0, true),
-                        BackgroundBrush = Hud.Render.CreateBrush(100, 255, 255, 50, 0),
-                        BorderBrush = Hud.Render.CreateBrush(178, 0, 0, 0, 1)
-                    },
                 });
                 // Inner Sanctuary
                 list.Alerts.Add(new Alert(Hud, HeroClass.None)
