@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.Labs
+{
+    public class TestingListVersusHashSetPerformancePlugin : BasePlugin, IInGameTopPainter
+    {
+        private IWatch watch;
+
+        private Random rng;
+        private int index;
+        private List<int> dataSetSizes;
+        private Dictionary<int, List<uint>> lists;
+        private Dictionary<int, HashSet<uint>> hashSets;
+
+        public TestingListVersusHashSetPerformancePlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+            watch = Hud.CreateWatch();
+            rng = new Random(Hud.Game.CurrentGameTick);
+
+            index = -1;
+
+            // generate testing datasets
+            dataSetSizes = new List<int>() { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 };
+            lists = new Dictionary<int, List<uint>>(dataSetSizes.Count);
+            hashSets = new Dictionary<int, HashSet<uint>>(dataSetSizes.Count);
+            foreach (var size in dataSetSizes)
+            {
+                lists[size] = new List<uint>();
+                for (var i = 0; i < size; i++)
+                {
+                    lists[size].Add((uint)rng.Next());
+                }
+                hashSets[size] = new HashSet<uint>(lists[size]);
+            }
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return; // only call once per frame
+            var loopCount = 10000;
+
+            // run one size loop per frame
+            index = (index + 1) % dataSetSizes.Count;
+            var size = dataSetSizes[index];
+
+            var timeToFilterActorsByList = TimeToFilterActorsByList(size, loopCount);
+            var timeToFilterActorsByHashSet = TimeToFilterActorsByHashSet(size, loopCount);
+
+            Hud.Debug(string.Format(CultureInfo.InvariantCulture, "Length: {0,5}({1}) Delta: {2,4}ms List: {3,4}ms HashSet: {4,4}ms", size, loopCount, timeToFilterActorsByList - timeToFilterActorsByHashSet,timeToFilterActorsByList, timeToFilterActorsByHashSet));
+        }
+
+        private long TimeToFilterActorsByHashSet(int size, int count)
+        {
+            var dataSet = hashSets[size];
+            watch.Restart();
+            for (var i = 0; i < count; i++)
+            {
+                foreach (var actor in Hud.Game.Actors.Where(a => dataSet.Contains(a.SnoActor.Sno)))
+                {
+                    var sno = actor.SnoActor.Sno; //dumb assignation to do something...
+                }
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
+        private long TimeToFilterActorsByList(int size, int count)
+        {
+            var dataSet = lists[size];
+            watch.Restart();
+            for (var i = 0; i < count; i++)
+            {
+                foreach (var actor in Hud.Game.Actors.Where(a => dataSet.Contains(a.SnoActor.Sno)))
+                {
+                    var sno = actor.SnoActor.Sno; //dumb assignation to do something...
+                }
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+    }
+}

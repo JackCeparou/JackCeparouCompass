@@ -1,0 +1,122 @@
+﻿using System.Linq;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.Labs
+{
+    public class TestingGetSkillsPerformancePlugin : BasePlugin, IInGameTopPainter
+    {
+        private IWatch watch;
+
+        private readonly uint snoPowerId;
+
+		private IPlayerSkill _backedSkill;
+        private IPlayerSkill backedSkill { get { return _backedSkill ?? (_backedSkill = Hud.Game.Me.Powers.UsedSkills.FirstOrDefault(s => s.SnoPower.Sno == snoPowerId)); } }
+
+        private IPlayerSkill firstOrDefaultSkill { get { return Hud.Game.Me.Powers.UsedSkills.FirstOrDefault(s => s.SnoPower.Sno == snoPowerId); } }
+
+        private ISnoPower cachedSnoPower;
+        private IPlayerSkill getUsedSkill
+        {
+            get
+            {
+                if (cachedSnoPower != null)
+                    return Hud.Game.Me.Powers.GetUsedSkill(cachedSnoPower);
+
+                var skill = Hud.Game.Me.Powers.UsedSkills.FirstOrDefault(s => s.SnoPower.Sno == snoPowerId);
+                if (skill != null)
+                    cachedSnoPower = skill.SnoPower;
+
+                return Hud.Game.Me.Powers.GetUsedSkill(cachedSnoPower);
+            }
+        }
+
+        public TestingGetSkillsPerformancePlugin()
+        {
+            Enabled = true;
+
+            snoPowerId = 30624; // gargantuans
+            snoPowerId = 291804; // iron skin
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            watch = Hud.CreateWatch();
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return; // only call once per frame
+
+            var callCount = 100000;
+
+            var backedCalls = BackedCalls(callCount);
+            var firstOrDefaultCalls = FirstOrDefaultCalls(callCount);
+            var firstOrDefaultCachedCalls = FirstOrDefaultCachedCalls(callCount);
+            var getUsedSkillCalls = GetUsedSkillCalls(callCount);
+            var getUsedSkillCachedCalls = GetUsedSkillCachedCalls(callCount);
+
+            Hud.Debug(string.Format("{0} | {1} | {2} | {3} | {4} | {5}", callCount, backedCalls, firstOrDefaultCalls, firstOrDefaultCachedCalls, getUsedSkillCalls, getUsedSkillCachedCalls));
+        }
+
+
+        private long BackedCalls(int callCount)
+        {
+            watch.Restart();
+            for (var i = 0; i < callCount; i++)
+            {
+                var skill = backedSkill;
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
+        private long FirstOrDefaultCalls(int callCount)
+        {
+            watch.Restart();
+            for (var i = 0; i < callCount; i++)
+            {
+                var skill = firstOrDefaultSkill;
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
+        private long FirstOrDefaultCachedCalls(int callCount)
+        {
+            watch.Restart();
+            var localCache = firstOrDefaultSkill;
+            for (var i = 0; i < callCount; i++)
+            {
+                var skill = localCache;
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
+        private long GetUsedSkillCalls(int callCount)
+        {
+            watch.Restart();
+            // remove snoPower cache to test worst case
+            cachedSnoPower = null;
+            for (var i = 0; i < callCount; i++)
+            {
+                var skill = getUsedSkill;
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
+        private long GetUsedSkillCachedCalls(int callCount)
+        {
+            watch.Restart();
+            for (var i = 0; i < callCount; i++)
+            {
+                var skill = getUsedSkill;
+            }
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+    }
+}
