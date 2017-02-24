@@ -1,4 +1,6 @@
-﻿namespace Turbo.Plugins.Jack
+﻿using System.Windows.Forms;
+
+namespace Turbo.Plugins.Jack
 {
     using System;
     using System.Globalization;
@@ -37,6 +39,19 @@
         public bool IsNephalemRift { get { return riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10; } }
         public bool IsGreaterRift { get { return riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46; } }
 
+        //private IUiElement uiGuildMain { get { return Hud.Render.GetUiElement("Root.NormalLayer.Guild_main.LayoutRoot.OverlayContainer"); } }
+        //private IUiElement uiGuildFind { get { return Hud.Render.GetUiElement("Root.NormalLayer.GuildFinder_main.LayoutRoot.OverlayContainer"); } }
+        //private IUiElement uiGroupList { get { return Hud.Render.GetUiElement("Root.NormalLayer.GroupList_main.LayoutRoot.OverlayContainer.GroupsListContent"); } }
+        private bool show {
+            get
+            {
+                if (riftQuest == null) return false;
+                if (riftQuest.State == QuestState.none) return false;
+                if (Hud.Inventory.InventoryMainUiElement.Visible) return false;
+
+                return true;
+            }
+        }
         private const uint riftClosingMilliseconds = 30000;
         private SpecialArea? currentRun;
         //private TimeSpan greaterRiftMaxDuration = new TimeSpan(0, 15, 0);
@@ -98,10 +113,8 @@
 
         public void PaintTopInGame(ClipState clipState)
         {
-            if (clipState != ClipState.AfterClip) return;
-            if (Hud.Inventory.InventoryMainUiElement.Visible) return;
-            if (riftQuest == null) return;
-            if (riftQuest.State == QuestState.none) return;
+            if (clipState != ClipState.BeforeClip) return;
+            if (!show) return;
             if (currentRun == null)
             {
                 currentRun = IsNephalemRift ? SpecialArea.Rift : SpecialArea.GreaterRift;
