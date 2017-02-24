@@ -1,8 +1,7 @@
-﻿using System.Linq;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Models;
 
@@ -28,7 +27,7 @@ namespace Turbo.Plugins.Jack.Alerts
             // ALL
             // ===
             // Molten explosions
-            var moltenIds = new HashSet<uint>() {4803, 4804, 224225, 247987};
+            var moltenIds = new HashSet<uint>() { 4803, 4804, 224225, 247987 };
             AlertList.Alerts.Add(new Alert(Hud)
             {
                 MessageFormat = "\uD83D\uDCA3 \uD83D\uDCA5 \uD83D\uDCA3",//💣 💥 💣
@@ -165,6 +164,7 @@ namespace Turbo.Plugins.Jack.Alerts
                     }
                 ),
             });
+
             // Sweeping Wind : Recharge
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Monk)
             {
