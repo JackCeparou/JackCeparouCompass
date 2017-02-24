@@ -108,10 +108,10 @@ namespace Turbo.Plugins.Jack.Customize
                         decorator.RadiusTransformator = radiusTransformator;
                     });
                 });
-            });
+            //});
 
-            Hud.RunOnPlugin<GoblinPlugin>(plugin =>
-            {
+            //Hud.RunOnPlugin<GoblinPlugin>(plugin =>
+            //{
                 plugin.MalevolentTormentorDecorator.Decorators.Add(new MapLabelDecorator(Hud)
                 {
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
