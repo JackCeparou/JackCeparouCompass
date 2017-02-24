@@ -7,7 +7,13 @@ namespace Turbo.Plugins.Jack.Extensions
 {
     public static class ControllerExtensions
     {
+        [Obsolete("Use GuessLocalizedName instead.")]
         public static string GetLocalizedName(this IController Hud, uint snoId)
+        {
+            return Hud.GuessLocalizedName(snoId);
+        }
+
+        public static string GuessLocalizedName(this IController Hud, uint snoId)
         {
             var skill = Hud.Game.Me.Powers.UsedSkills.FirstOrDefault(s => s.SnoPower.Sno == snoId);
             if (skill != null && skill.SnoPower != null)
