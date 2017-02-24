@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace Turbo.Plugins.Jack
+﻿namespace Turbo.Plugins.Jack
 {
     using System;
     using System.Globalization;
@@ -25,6 +23,7 @@ namespace Turbo.Plugins.Jack
         public bool ShowClosingTimer { get; set; }
 
         public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
+
         public bool IsGuardianDead
         {
             get
@@ -39,10 +38,8 @@ namespace Turbo.Plugins.Jack
         public bool IsNephalemRift { get { return riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10; } }
         public bool IsGreaterRift { get { return riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46; } }
 
-        //private IUiElement uiGuildMain { get { return Hud.Render.GetUiElement("Root.NormalLayer.Guild_main.LayoutRoot.OverlayContainer"); } }
-        //private IUiElement uiGuildFind { get { return Hud.Render.GetUiElement("Root.NormalLayer.GuildFinder_main.LayoutRoot.OverlayContainer"); } }
-        //private IUiElement uiGroupList { get { return Hud.Render.GetUiElement("Root.NormalLayer.GroupList_main.LayoutRoot.OverlayContainer.GroupsListContent"); } }
-        private bool show {
+        private bool show
+        {
             get
             {
                 if (riftQuest == null) return false;
@@ -52,11 +49,12 @@ namespace Turbo.Plugins.Jack
                 return true;
             }
         }
+
         private const uint riftClosingMilliseconds = 30000;
         private SpecialArea? currentRun;
-        //private TimeSpan greaterRiftMaxDuration = new TimeSpan(0, 15, 0);
 
-        private IQuest riftQuest {
+        private IQuest riftQuest
+        {
             get
             {
                 return Hud.Game.Quests.FirstOrDefault(q => q.SnoQuest.Sno == 337492) ?? // rift
@@ -64,7 +62,8 @@ namespace Turbo.Plugins.Jack
             }
         }
 
-        private IUiElement uiProgressBar {
+        private IUiElement uiProgressBar
+        {
             get
             {
                 return Hud.Render.GetUiElement(IsNephalemRift
@@ -119,7 +118,6 @@ namespace Turbo.Plugins.Jack
             {
                 currentRun = IsNephalemRift ? SpecialArea.Rift : SpecialArea.GreaterRift;
             }
-
 
             if (IsNephalemRift && uiProgressBar.Visible)
             {
@@ -202,8 +200,6 @@ namespace Turbo.Plugins.Jack
 
             if (IsNephalemRift && riftQuest.State == QuestState.completed && riftTimer.IsRunning)
                 riftTimer.Stop();
-
-            //Simon.Says.Debug("{0} {1}", riftTimer.ElapsedMilliseconds, riftQuest.StartedOn.ElapsedMilliseconds);
         }
 
         private string GetText(bool onlyTimer)
@@ -220,26 +216,19 @@ namespace Turbo.Plugins.Jack
             {
                 var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
                 textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
-                //Simon.Says.Debug("GR {0} {1}", riftQuest.QuestStepId, timeSpan, TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds));
-                // 3:07.385 3:05.783 => 1602
-                // 3:18.054 3:16.750 => 1304
-                // 3:01.388 3:00.466 => 922
-                // 2:52.126 2:51.016 => 1110
-                //
             }
             else
             {
                 var _timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
                 textBuilder.AppendFormat(CultureInfo.InvariantCulture, (_timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, _timeSpan);
-                //Simon.Says.Debug("NR {0} {1}", riftQuest.QuestStepId, _timeSpan);
             }
 
             if (onlyTimer)
                 return textBuilder.ToString();
 
-            if (Hud.Game.RiftPercentage < 100)// && Hud.Game.RiftPercentage >= 0.1)
+            if (Hud.Game.RiftPercentage < 100)
             {
-                if ((IsNephalemRift || !uiProgressBar.Visible ) && Hud.Game.RiftPercentage > 0.1)
+                if ((IsNephalemRift || !uiProgressBar.Visible) && Hud.Game.RiftPercentage > 0.1)
                 {
                     textBuilder.Append(" ");
                     textBuilder.AppendFormat(CultureInfo.InvariantCulture, ProgressPercentFormat, Hud.Game.RiftPercentage);
@@ -250,7 +239,6 @@ namespace Turbo.Plugins.Jack
                 textBuilder.Append(" ");
                 textBuilder.Append(IsGuardianAlive ? GuardianAliveSymbol : GuardianDeadSymbol);
 
-                //var guardianTimeSpan = TimeSpan.FromMilliseconds(guardianTimer.ElapsedMilliseconds - guardianPauseTimer.ElapsedMilliseconds);
                 var guardianTimeSpan = TimeSpan.FromMilliseconds(guardianTimer.ElapsedMilliseconds);
                 textBuilder.Append(" ");
                 textBuilder.AppendFormat(CultureInfo.InvariantCulture, (guardianTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, guardianTimeSpan);
@@ -289,3 +277,10 @@ catch (Exception ex)
 {
     Simon.Says.Error(ex.Message);
 }/**/
+
+//Simon.Says.Debug("GR {0} {1}", riftQuest.QuestStepId, timeSpan, TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds));
+// 3:07.385 3:05.783 => 1602
+// 3:18.054 3:16.750 => 1304
+// 3:01.388 3:00.466 => 922
+// 2:52.126 2:51.016 => 1110
+//
