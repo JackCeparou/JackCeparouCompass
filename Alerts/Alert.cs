@@ -32,7 +32,7 @@
         public uint TextSnoId { get; set; }
         public Func<uint, string> AlertTextFunc { get; set; }
 
-        private static IFont defaultFont;
+        //private static IFont defaultFont;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Alert" /> class.
@@ -42,8 +42,8 @@
         /// <param name="text">The text.</param>
         public Alert(IController hud, HeroClass heroClass = HeroClass.None, string text = null)
         {
-            if (defaultFont == null)
-                defaultFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true);
+            //if (defaultFont == null)
+            //    defaultFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true);
 
             Hud = hud;
             Enabled = true;
@@ -57,7 +57,7 @@
             Rule = new AlertRule(hud, heroClass);
             Label = new TopLabelDecorator(Hud)
             {
-                TextFont = defaultFont,
+                TextFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true),
                 TextFunc = () => string.Format(CultureInfo.InvariantCulture, MessageFormat, AlertTextFunc.Invoke(TextSnoId)),
             };
         }

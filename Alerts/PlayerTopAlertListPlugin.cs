@@ -1,4 +1,6 @@
-﻿namespace Turbo.Plugins.Jack.Alerts
+﻿using Turbo.Plugins.Jack.Extensions;
+
+namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -37,6 +39,29 @@
                     CustomCondition = (controller) =>
                     {
                         return Hud.Game.Actors.Any(a => moltenIds.Contains(a.SnoActor.Sno) && Hud.Game.Me.FloorCoordinate.XYDistanceTo(a.FloorCoordinate) <= 13);
+                    },
+                },
+                Label =
+                {
+                    TextFont = Hud.Render.CreateFont("tahoma", 18, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true),
+                }
+            });
+            // Grotesque explosions
+            var grotesqueIds = new HashSet<uint>() { 3847, 218307, 218308, 365450, 3848, 218405, 3849, 113994, 3850, 195639, 365465, 191592 };
+            AlertList.Alerts.Add(new Alert(Hud)
+            {
+                MessageFormat = "\uD83D\uDCA5 {0} \uD83D\uDCA5",//💥
+                AlertTextFunc = (id) =>
+                {
+                    var sno = Hud.Game.Monsters.FirstOrDefault(m => grotesqueIds.Contains(m.SnoMonster.Sno));
+                    return sno == null ? "Grotesque" : sno.SnoMonster.NameLocalized;
+                },
+                Rule =
+                {
+                    ActorSnoIds = grotesqueIds,
+                    CustomCondition = (controller) =>
+                    {
+                        return Hud.Game.Monsters.Any(a => grotesqueIds.Contains(a.SnoActor.Sno) && !a.IsAlive && Hud.Game.Me.FloorCoordinate.XYDistanceTo(a.FloorCoordinate) <= 20);
                     },
                 },
                 Label =
