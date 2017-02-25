@@ -1,6 +1,7 @@
 ﻿namespace Turbo.Plugins.Jack.Alerts
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Extensions;
@@ -15,7 +16,9 @@
         // state
         public bool Enabled { get; set; }
 
-        public bool Visible { get { return Rule!= null && Rule.VisibleCondition != null && Rule.VisibleCondition.Invoke(Hud); } }
+        public bool MultiLine { get; set; }
+
+        public bool Visible { get { return Rule != null && Rule.VisibleCondition != null && Rule.VisibleCondition.Invoke(Hud); } }
 
         // conditions
         public AlertRule Rule { get; set; }
@@ -30,9 +33,9 @@
         public string MessageFormat { get; set; }
 
         public uint TextSnoId { get; set; }
+        public string AlertText { get; set; }
         public Func<uint, string> AlertTextFunc { get; set; }
-
-        //private static IFont defaultFont;
+        public Func<IEnumerable<string>> LinesFunc { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Alert" /> class.
@@ -42,13 +45,11 @@
         /// <param name="text">The text.</param>
         public Alert(IController hud, HeroClass heroClass = HeroClass.None, string text = null)
         {
-            //if (defaultFont == null)
-            //    defaultFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true);
-
             Hud = hud;
             Enabled = true;
             MessageFormat = "{0}";
 
+            AlertText = text;
             if (text == null)
                 AlertTextFunc = (id) => Hud.GuessLocalizedName(id);
             else
@@ -58,7 +59,7 @@
             Label = new TopLabelDecorator(Hud)
             {
                 TextFont = Hud.Render.CreateFont("tahoma", 11, 255, 244, 30, 30, false, false, 242, 0, 0, 0, true),
-                TextFunc = () => string.Format(CultureInfo.InvariantCulture, MessageFormat, AlertTextFunc.Invoke(TextSnoId)),
+                TextFunc = () => string.Format(CultureInfo.InvariantCulture, MessageFormat, AlertText ?? AlertTextFunc.Invoke(TextSnoId)),
             };
         }
     }

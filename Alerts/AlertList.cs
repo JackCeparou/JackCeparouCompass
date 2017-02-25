@@ -65,6 +65,11 @@
             var s = Hud.Window.Size.Height * RatioSpacerY;
             var p = Hud.Window.Size.Height * RatioPaddingY;
 
+            if (RightFunc != null)
+            {
+                x = RightFunc.Invoke(Hud);
+            }
+
             switch (TextAlign)
             {
                 case HorizontalAlign.Center:
@@ -72,11 +77,6 @@
                     break;
 
                 case HorizontalAlign.Right:
-                    if (RightFunc != null)
-                    {
-                        x = RightFunc.Invoke(Hud);
-                    }
-
                     x -= w;
                     break;
             }
@@ -94,9 +94,22 @@
                 var alertLayout = alert.Label.TextFont.GetTextLayout(":");
                 var h = alertLayout.Metrics.Height;
 
-                alert.Label.Paint(x, y - p, w, h + p * 2, TextAlign);
-                h = h + s + p*2;
-                y += Up ? -h : h;
+                if (alert.MultiLine && alert.LinesFunc != null)
+                {
+                    foreach (var line in alert.LinesFunc.Invoke())
+                    {
+                        alert.AlertText = line;
+                        alert.Label.Paint(x, y - p, w, h + p * 2, TextAlign);
+                        y += Up ? -h : h; y += Up ? -h : h;
+                    }
+                    //h = h + s + p * 2;
+                }
+                else
+                {
+                    alert.Label.Paint(x, y - p, w, h + p * 2, TextAlign);
+                    h = h + s + p * 2;
+                    y += Up ? -h : h;
+                }
             }
         }
     }
