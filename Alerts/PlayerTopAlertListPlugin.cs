@@ -51,15 +51,16 @@ namespace Turbo.Plugins.Jack.Alerts
             AlertList.Alerts.Add(new Alert(Hud)
             {
                 MessageFormat = "\uD83D\uDCA5 {0} \uD83D\uDCA5",//💥
+                //AlertTextFunc = (id) => "Grotesque",
                 AlertTextFunc = (id) =>
                 {
-                    var sno = Hud.Game.Monsters.FirstOrDefault(m => grotesqueIds.Contains(m.SnoMonster.Sno));
-                    return sno == null ? "Grotesque" : sno.SnoMonster.NameLocalized;
+                    var sno = Hud.Game.Monsters.FirstOrDefault(m => grotesqueIds.Contains(m.SnoActor.Sno));
+                    return sno != null && sno.SnoActor != null ? sno.SnoActor.NameLocalized : "Grotesque";
                 },
                 Rule =
                 {
                     ActorSnoIds = grotesqueIds,
-                    CustomCondition = (controller) =>
+                    VisibleCondition = (controller) =>
                     {
                         return Hud.Game.Monsters.Any(a => grotesqueIds.Contains(a.SnoActor.Sno) && !a.IsAlive && Hud.Game.Me.FloorCoordinate.XYDistanceTo(a.FloorCoordinate) <= 20);
                     },
