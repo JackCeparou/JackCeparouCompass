@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Turbo.Plugins.Jack.Alerts;
+using Turbo.Plugins.Jack.Labs;
 
 namespace Turbo.Plugins.Jack.Customize
 {
@@ -41,6 +42,23 @@ namespace Turbo.Plugins.Jack.Customize
                         VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && itemsIds.Contains(item.SnoItem.Sno)),
                     }
                 });
+
+                //plugin.AlertList.Alerts.Add(new Alert(Hud)
+                //{
+                //    MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",//??
+                //    AlertTextFunc = (id) => "4df6sd54f5s46df65s45f46sd",
+                //    Rule =
+                //    {
+                //        ShowInTown = true,
+                //        VisibleCondition = (controller) => MyPowers.Crusader.IronSkin != null && MyPowers.Crusader.IronSkin.BuffIsActive,
+                //    }
+                //});
+            });
+
+            Hud.RunOnPlugin<Turbo.Plugins.Jack.RiftTimerPlugin>(plugin =>
+            {
+                plugin.ShowGreaterRiftTimer = false;
+                plugin.SecondsFormat = plugin.MinutesSecondsFormat;
             });
 
             Hud.RunOnPlugin<MinimapLeftAlertListPlugin>(plugin =>
