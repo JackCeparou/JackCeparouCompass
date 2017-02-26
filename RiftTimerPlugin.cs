@@ -25,6 +25,7 @@
         public bool ShowClosingTimer { get; set; }
 
         public int CompletionDisplayLimit { get; set; }
+        public Func<string> RiftCompletionTitleFunc { get; set; }
         public TopLabelWithTitleDecorator CompletionLabelDecorator { get; set; }
 
         public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
@@ -86,16 +87,18 @@
         public RiftTimerPlugin()
         {
             Enabled = true;
-            ShowClosingTimer = false;
-            ShowGreaterRiftTimer = true;
-            ShowGreaterRiftCompletedTimer = true;
+
             textBuilder = new StringBuilder();
-            CompletionDisplayLimit = 90;
         }
 
         public override void Load(IController hud)
         {
             base.Load(hud);
+
+            ShowClosingTimer = false;
+            ShowGreaterRiftTimer = true;
+            ShowGreaterRiftCompletedTimer = true;
+            CompletionDisplayLimit = 90;
 
             ObjectiveProgressSymbol = "\u2694"; //⚔
             GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
@@ -113,6 +116,7 @@
             ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
             ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
 
+            RiftCompletionTitleFunc = () => riftQuest.QuestStep.SplashLocalized.Trim();
             CompletionLabelDecorator = new TopLabelWithTitleDecorator(Hud)
             {
                 BorderBrush = Hud.Render.CreateBrush(255, 180, 147, 109, -1),
@@ -143,7 +147,7 @@
             if (Hud.Game.RiftPercentage >= CompletionDisplayLimit && Hud.Game.RiftPercentage < 100)
             {
                 var text = Hud.Game.RiftPercentage.ToString("F1", CultureInfo.InvariantCulture) + "%";
-                var title = riftQuest.QuestStep.SplashLocalized.Trim();
+                var title = RiftCompletionTitleFunc.Invoke();
                 var layout = CompletionLabelDecorator.TextFont.GetTextLayout(title);
                 var w = layout.Metrics.Width * 0.8f;
                 var h = Hud.Window.Size.Height * 0.04f;
