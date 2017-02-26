@@ -20,6 +20,7 @@
         public string ProgressPercentFormat { get; set; }
         public string ClosingSecondsFormat { get; set; }
 
+        public bool ShowGreaterRiftTimer { get; set; }
         public bool ShowClosingTimer { get; set; }
 
         public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
@@ -81,7 +82,8 @@
         public RiftTimerPlugin()
         {
             Enabled = true;
-
+            ShowClosingTimer = false;
+            ShowGreaterRiftTimer = true;
             textBuilder = new StringBuilder();
         }
 
@@ -214,8 +216,11 @@
 
             if (currentRun == SpecialArea.GreaterRift)
             {
-                var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
-                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
+                if (ShowGreaterRiftTimer)
+                {
+                    var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
+                    textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
+                }
             }
             else
             {
