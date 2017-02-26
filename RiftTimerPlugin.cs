@@ -21,6 +21,7 @@
         public string ClosingSecondsFormat { get; set; }
 
         public bool ShowGreaterRiftTimer { get; set; }
+        public bool ShowGreaterRiftCompletedTimer { get; set; }
         public bool ShowClosingTimer { get; set; }
 
         public int CompletionDisplayLimit { get; set; }
@@ -87,6 +88,7 @@
             Enabled = true;
             ShowClosingTimer = false;
             ShowGreaterRiftTimer = true;
+            ShowGreaterRiftCompletedTimer = true;
             textBuilder = new StringBuilder();
             CompletionDisplayLimit = 90;
         }
@@ -237,13 +239,21 @@
 
             if (!onlyTimer && !string.IsNullOrWhiteSpace(ObjectiveProgressSymbol))
             {
-                textBuilder.Append(ObjectiveProgressSymbol);
-                textBuilder.Append(" ");
+                if (currentRun == SpecialArea.Rift)
+                {
+                    textBuilder.Append(ObjectiveProgressSymbol);
+                    textBuilder.Append(" ");
+                }
+                else if (currentRun == SpecialArea.GreaterRift && Hud.Game.RiftPercentage > 0.1 && (ShowGreaterRiftTimer || !uiProgressBar.Visible || (ShowGreaterRiftCompletedTimer && IsGuardianDead)))
+                {
+                    textBuilder.Append(ObjectiveProgressSymbol);
+                    textBuilder.Append(" ");
+                }
             }
 
             if (currentRun == SpecialArea.GreaterRift)
             {
-                if (ShowGreaterRiftTimer)
+                if (ShowGreaterRiftTimer || Hud.Game.RiftPercentage >= 100)
                 {
                     var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
                     textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
