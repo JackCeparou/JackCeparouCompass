@@ -35,7 +35,7 @@
         public Dictionary<MonsterAffix, DangerousAffixMonsterDefinition> Affixes { get; set; }
 
         public IShapePainter DefaultMapShapePainter { get; set; }
-        public StandardPingRadiusTransformator DefaultRadiusTransformator { get; set; }
+        public IRadiusTransformator DefaultRadiusTransformator { get; set; }
         public IBrush DefaultBackgroundBrush { get; set; }
         public IBrush DefaultForegroundBrush { get; set; }
         public IFont DefaultEliteAffixesFont { get; set; }
