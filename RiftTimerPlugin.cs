@@ -20,6 +20,7 @@
         public string ProgressPercentFormat { get; set; }
         public string ClosingSecondsFormat { get; set; }
 
+        public bool GreaterRiftCountdown { get; set; }
         public bool ShowGreaterRiftTimer { get; set; }
         public bool ShowGreaterRiftCompletedTimer { get; set; }
         public bool ShowClosingTimer { get; set; }
@@ -82,6 +83,8 @@
         private IWatch guardianTimer;
         private IWatch pauseTimer;
 
+        private const long greaterRiftMaxTime = 15*60*1000;
+
         private readonly StringBuilder textBuilder;
 
         public RiftTimerPlugin()
@@ -96,6 +99,7 @@
             base.Load(hud);
 
             ShowClosingTimer = false;
+            GreaterRiftCountdown = false;
             ShowGreaterRiftTimer = true;
             ShowGreaterRiftCompletedTimer = true;
             CompletionDisplayLimit = 90;
@@ -248,7 +252,7 @@
                     textBuilder.Append(ObjectiveProgressSymbol);
                     textBuilder.Append(" ");
                 }
-                else if (currentRun == SpecialArea.GreaterRift && Hud.Game.RiftPercentage > 0.1 && (ShowGreaterRiftTimer || !uiProgressBar.Visible || (ShowGreaterRiftCompletedTimer && IsGuardianDead)))
+                else if (currentRun == SpecialArea.GreaterRift && (ShowGreaterRiftTimer || !uiProgressBar.Visible || (ShowGreaterRiftCompletedTimer && IsGuardianDead)))
                 {
                     textBuilder.Append(ObjectiveProgressSymbol);
                     textBuilder.Append(" ");
@@ -257,16 +261,18 @@
 
             if (currentRun == SpecialArea.GreaterRift)
             {
-                if (ShowGreaterRiftTimer || Hud.Game.RiftPercentage >= 100)
+                if (ShowGreaterRiftTimer || !uiProgressBar.Visible || (ShowGreaterRiftCompletedTimer && IsGuardianDead))
                 {
-                    var timeSpan = TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
+                    var timeSpan = GreaterRiftCountdown && !IsGuardianDead
+                        ? TimeSpan.FromMilliseconds(greaterRiftMaxTime - riftTimer.ElapsedMilliseconds)
+                        : TimeSpan.FromMilliseconds(riftTimer.ElapsedMilliseconds);
                     textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
                 }
             }
             else
             {
-                var _timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
-                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (_timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, _timeSpan);
+                var timeSpan = TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds - pauseTimer.ElapsedMilliseconds);
+                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (timeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, timeSpan);
             }
 
             if (onlyTimer)
