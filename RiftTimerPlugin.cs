@@ -29,7 +29,7 @@
         public Func<string> RiftCompletionTitleFunc { get; set; }
         public TopLabelWithTitleDecorator CompletionLabelDecorator { get; set; }
 
-        public bool IsGuardianAlive { get { return riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16; } }
+        public bool IsGuardianAlive { get { return riftQuest != null && (riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16); } }
 
         public bool IsGuardianDead
         {
@@ -38,12 +38,12 @@
                 if (Hud.Game.Monsters.Any(m => m.Rarity == ActorRarity.Boss && !m.IsAlive))
                     return true;
 
-                return riftQuest.QuestStepId == 5 || riftQuest.QuestStepId == 10 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46;
+                return riftQuest != null && (riftQuest.QuestStepId == 5 || riftQuest.QuestStepId == 10 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46);
             }
         }
 
-        public bool IsNephalemRift { get { return riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10; } }
-        public bool IsGreaterRift { get { return riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46; } }
+        public bool IsNephalemRift { get { return riftQuest != null && (riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10); } }
+        public bool IsGreaterRift { get { return riftQuest != null && (riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46); } }
 
         private bool show
         {
