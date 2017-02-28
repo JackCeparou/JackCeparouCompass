@@ -113,7 +113,7 @@
             ClosingSecondsFormat = "({0:%s})";
 
             ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 210, 150, true, false, 160, 0, 0, 0, true);
-            ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
+            //ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
 
             ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
             ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
