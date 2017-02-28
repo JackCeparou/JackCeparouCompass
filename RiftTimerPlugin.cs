@@ -73,9 +73,7 @@
         {
             get
             {
-                return Hud.Render.GetUiElement(IsNephalemRift
-                    ? "Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.rift_container.rift_progress_bar" // rift
-                    : "Root.NormalLayer.eventtext_bkgrnd.eventtext_region.stackpanel.rift_wrapper.greater_rift_container.rift_progress_bar"); // gr
+                return IsNephalemRift ? Hud.Render.NephalemRiftBarUiElement : Hud.Render.GreaterRiftBarUiElement;
             }
         }
 
@@ -114,7 +112,7 @@
             ProgressPercentFormat = "({0:F1}%)";
             ClosingSecondsFormat = "({0:%s})";
 
-            ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false);
+            ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 210, 150, true, false, 160, 0, 0, 0, true);
             ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
 
             ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
@@ -162,8 +160,10 @@
             {
                 var layout = ProgressBarTimerFont.GetTextLayout(GetText(true));
                 var x = uiProgressBar.Rectangle.Left - layout.Metrics.Width / 2 + uiProgressBar.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
+                var y = uiProgressBar.Rectangle.Bottom + uiProgressBar.Rectangle.Height * 0.1f;
 
-                ProgressBarTimerFont.DrawText(layout, x, uiProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
+                //ProgressBarTimerFont.DrawText(layout, x, uiProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
+                ProgressBarTimerFont.DrawText(layout, x, y);
             }
             else
             {
