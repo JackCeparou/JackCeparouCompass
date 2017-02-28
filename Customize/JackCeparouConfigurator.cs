@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Turbo.Plugins.Jack.Alerts;
-using Turbo.Plugins.Jack.Labs;
-
 namespace Turbo.Plugins.Jack.Customize
 {
-    using Turbo.Plugins.Jack.Actors;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using Turbo.Plugins.Default;
 
     public class JackCeparouConfigurator : BasePlugin, ICustomizer
@@ -19,12 +14,53 @@ namespace Turbo.Plugins.Jack.Customize
 
         public void Customize()
         {
-            Hud.RunOnPlugin<DoorsPlugin>(plugin => plugin.ShowInTown = true);
+            Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
+
+            //Hud.RunOnPlugin<PickupRangePlugin>(plugin =>
+            //{
+            //    plugin.FillBrush = Hud.Render.CreateBrush(3, 255, 255, 255, 0);
+            //    plugin.OutlineBrush = Hud.Render.CreateBrush(12, 0, 0, 0, 3);
+            //});
+
+            /*Hud.RunOnPlugin<Jack.RiftTimerPlugin>(plugin =>
+            {
+                plugin.ShowClosingTimer = false;
+                plugin.ShowGreaterRiftTimer = true;
+                plugin.ShowGreaterRiftCompletedTimer = true;
+                plugin.GreaterRiftCountdown = true;
+
+                plugin.ObjectiveProgressSymbol = "\u2694"; //?
+                plugin.GuardianAliveSymbol = "\uD83D\uDC7F"; //??
+                plugin.GuardianDeadSymbol = "\uD83D\uDC80"; //??
+
+                plugin.MinutesSecondsFormat = "{0:%m}:{0:ss}";
+                plugin.SecondsFormat = "{0:%s}";
+
+                plugin.ProgressPercentFormat = "({0:F1}%)";
+                plugin.ClosingSecondsFormat = "({0:%s})";
+
+                plugin.ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false);
+                plugin.ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
+
+                plugin.ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
+                plugin.ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
+
+                plugin.CompletionDisplayLimit = 90;
+                //plugin.RiftCompletionTitleFunc = () => riftQuest.QuestStep.SplashLocalized.Trim(); //DEFAULT
+                plugin.RiftCompletionTitleFunc = () => "Rift completion";
+                plugin.CompletionLabelDecorator = new TopLabelWithTitleDecorator(Hud)
+                {
+                    BorderBrush = Hud.Render.CreateBrush(255, 180, 147, 109, -1),
+                    BackgroundBrush = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 210, 150, true, false, false),
+                    TitleFont = Hud.Render.CreateFont("tahoma", 6, 255, 180, 147, 109, true, false, false),
+                };
+            });/**/
 
             var itemsIds = new HashSet<uint>() { 1844495708 };
-            Hud.RunOnPlugin<PlayerTopAlertListPlugin>(plugin =>
+            Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             {
-                plugin.AlertList.Alerts.Add(new Alert(Hud)
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",//??
                     AlertTextFunc = (id) =>
@@ -42,37 +78,22 @@ namespace Turbo.Plugins.Jack.Customize
                         VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && itemsIds.Contains(item.SnoItem.Sno)),
                     }
                 });
-
-                //plugin.AlertList.Alerts.Add(new Alert(Hud)
-                //{
-                //    MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",//??
-                //    AlertTextFunc = (id) => "4df6sd54f5s46df65s45f46sd",
-                //    Rule =
-                //    {
-                //        ShowInTown = true,
-                //        VisibleCondition = (controller) => MyPowers.Crusader.IronSkin != null && MyPowers.Crusader.IronSkin.BuffIsActive,
-                //    }
-                //});
             });
 
-            Hud.RunOnPlugin<Turbo.Plugins.Jack.RiftTimerPlugin>(plugin =>
-            {
-                plugin.ShowGreaterRiftTimer = false;
-                plugin.SecondsFormat = plugin.MinutesSecondsFormat;
-            });
-
-            Hud.RunOnPlugin<MinimapLeftAlertListPlugin>(plugin =>
+            Hud.RunOnPlugin<Jack.Alerts.MinimapLeftAlertListPlugin>(plugin =>
             {
                 var ancientRank = -1;
                 plugin.AlertList.VerticalCenter = false;
                 plugin.AlertList.RatioSpacerY = 0;
 
-                plugin.AlertList.Alerts.Add(new Alert(Hud)
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MultiLine = true,
                     LinesFunc = () =>
                     {
-                        return Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank).Select(item => string.Format(CultureInfo.InvariantCulture, "\uD83C\uDF81 {0} \uD83C\uDF81", item.FullNameLocalized));
+                        return Hud.Game.Items
+                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank)
+                                .Select(item => string.Format(CultureInfo.InvariantCulture, "\u2731{1}{0}{1}\u2731", item.SnoItem.NameLocalized, item.AncientRank > 0 ? " \uD83E\uDC1D " : " "));
                     },
                     Label =
                     {
@@ -81,16 +102,18 @@ namespace Turbo.Plugins.Jack.Customize
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
 
-                plugin.AlertList.Alerts.Add(new Alert(Hud)
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MultiLine = true,
                     LinesFunc = () =>
                     {
-                        return Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank).Select(item => string.Format(CultureInfo.InvariantCulture, "\uD83C\uDF81 {0} \uD83C\uDF81", item.FullNameLocalized));
+                        return Hud.Game.Items
+                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank)
+                                .Select(item => string.Format(CultureInfo.InvariantCulture, "\u2605{1}{0}{1}\u2605", item.SnoItem.NameLocalized, item.AncientRank > 0 ? " \uD83E\uDC1D " : " "));
                     },
                     Label =
                     {
@@ -99,12 +122,13 @@ namespace Turbo.Plugins.Jack.Customize
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
             });
 
             #region GoblinPlugin
+
             /*
             Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
             {
@@ -170,25 +194,10 @@ namespace Turbo.Plugins.Jack.Customize
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 163, 15, true, false, true)
                 });
             });/**/
-            #endregion
 
-            //Hud.RunOnPlugin<JackCeparouCompass.DoorsPlugin>(plugin =>
-            //{
-            //    plugin.BridgesDecorators.GetDecorators<MapShapeDecorator>().ForEach(decorator =>
-            //    {
-            //        decorator.Brush = Hud.Render.CreateBrush(240, 126, 13, 255, 1);
-            //    });
-            //});
+            #endregion GoblinPlugin
 
             Enabled = false;
         }
-
-        //public override void PaintWorld(WorldLayer layer)
-        //{
-        //    Hud.RunOnPlugin<OtherPlayersPlugin>(plugin =>
-        //    {
-        //        plugin.DecoratorByClass[Hud.Game.Me.HeroClassDefinition.HeroClass].Paint(layer, Hud.Game.Me, Hud.Game.Me.FloorCoordinate, Hud.Game.Me.BattleTagAbovePortrait);
-        //    });
-        //}
     }
 }
