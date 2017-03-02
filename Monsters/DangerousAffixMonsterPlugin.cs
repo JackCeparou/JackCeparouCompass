@@ -34,6 +34,8 @@
     {
         public Dictionary<MonsterAffix, DangerousAffixMonsterDefinition> Affixes { get; set; }
 
+        public bool ShowIllusionistCloneDecorator { get; set; }
+
         public IShapePainter DefaultMapShapePainter { get; set; }
         public IRadiusTransformator DefaultRadiusTransformator { get; set; }
         public IBrush DefaultBackgroundBrush { get; set; }
@@ -56,6 +58,8 @@
         {
             base.Load(hud);
 
+            ShowIllusionistCloneDecorator = false;
+
             Affixes = new Dictionary<MonsterAffix, DangerousAffixMonsterDefinition>();
 
             DefaultMapShapePainter = new CircleShapePainter(Hud);
@@ -73,6 +77,8 @@
             var monsters = Hud.Game.AliveMonsters.Where(m => m.Rarity == ActorRarity.Champion || m.Rarity == ActorRarity.Rare || m.Rarity == ActorRarity.RareMinion);
             foreach (var monster in monsters)
             {
+                if (!ShowIllusionistCloneDecorator && monster.SummonerAcdDynamicId != 0) continue;
+
                 var dangerousAffixes = monster.AffixSnoList
                     .Join(Affixes,
                         snoAffix => snoAffix.Affix,
