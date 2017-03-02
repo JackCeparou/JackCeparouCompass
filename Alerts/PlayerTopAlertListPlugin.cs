@@ -246,6 +246,19 @@ namespace Turbo.Plugins.Jack.Alerts
                     InvocationActorSnoIds = new HashSet<uint>() { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 }
                 },
             });
+            // Hex
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
+            {
+                TextSnoId = 30631, // HEX
+                MessageFormat = "\u26A0 {0} \u26A0",//⚠
+                Rule =
+                {
+                    EquippedSkills = new [] { new SnoPowerId(30631) }, // HEX
+                    ActiveBuffs = new [] { new SnoPowerId(439308) }, // arachyr set 4 piece
+                    InactiveBuffs = new [] { new SnoPowerId(30631) }, // HEX
+                }
+
+            });
 
             // ======
             // Wizard
