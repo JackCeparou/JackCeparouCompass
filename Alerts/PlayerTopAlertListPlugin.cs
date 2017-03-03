@@ -1,6 +1,4 @@
-﻿using Turbo.Plugins.Jack.Extensions;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -257,7 +255,17 @@ namespace Turbo.Plugins.Jack.Alerts
                     ActiveBuffs = new [] { new SnoPowerId(439308) }, // arachyr set 4 piece
                     InactiveBuffs = new [] { new SnoPowerId(30631) }, // HEX
                 }
-
+            });
+            // SoulHarvest
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.WitchDoctor)
+            {
+                TextSnoId = 67616,
+                MessageFormat = "\u2668 {0} \u2668",//⚠
+                Rule =
+                {
+                    EquippedSkills = new [] { new SnoPowerId(67616) },
+                    InactiveBuffs = new [] { new SnoPowerId(67616) },
+                },
             });
 
             // ======
