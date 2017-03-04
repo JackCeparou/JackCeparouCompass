@@ -16,6 +16,8 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<EliteMonsterAffixPlugin>(false);
             /////////////////////////////////////////////////
 
+            Hud.TogglePlugin<DebugPlugin>(true);
+
             Hud.RunOnPlugin<InventoryAndStashPlugin>(plugin =>
             {
                 plugin.NotGoodDisplayEnabled = true;
