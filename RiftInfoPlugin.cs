@@ -198,6 +198,10 @@
                 {
                     pauseTimer.Reset();
                 }
+                if (deathTimer.IsRunning || deathTimer.ElapsedMilliseconds > 0)
+                {
+                    deathTimer.Reset();
+                }
 
                 currentRun = null;
 
