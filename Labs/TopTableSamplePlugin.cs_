@@ -1,0 +1,114 @@
+﻿namespace Turbo.Plugins.Jack.Labs
+{
+    using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Decorators.TopTables;
+
+    public class TopTableSamplePlugin : BasePlugin, IInGameTopPainter
+    {
+        public TopTable Table { get; set; }
+
+        public TopTableSamplePlugin()
+        {
+            Enabled = true;
+            Order = int.MaxValue;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            Table = new TopTable(Hud)
+            {
+                RatioPositionX = 0.25f,
+                RatioPositionY = 0.3f,
+                HorizontalCenter = true,
+                VerticalCenter = false,
+                PositionFromRight = false,
+                PositionFromBottom = false,
+                ShowHeaderLeft = true,
+                ShowHeaderTop = true,
+                ShowHeaderRight = true,
+                ShowHeaderBottom = true,
+                DefaultCellDecorator = new TopTableCellDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0),
+                    BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                    TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, false, false, true),
+                },
+                DefaultHeaderDecorator = new TopTableCellDecorator(Hud)
+                {
+                    //BackgroundBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
+                    //BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, 1),
+                    TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, false, false, true),
+                }
+            };
+
+            Table.DefineColumns(
+                new TopTableHeader(Hud)
+                {
+                    RatioHeight = 22 / 1080f, // define only once on first column, value on others will be ignored
+                    RatioWidth = 108 / 1080f,
+                    TextFunc = () => "Col 1",
+                },
+                new TopTableHeader(Hud)
+                {
+                    RatioWidth = 0.1f,
+                    TextFunc = () => "Col 2",
+                },
+                new TopTableHeader(Hud)
+                {
+                    RatioWidth = 0.1f,
+                    TextFunc = () => "Col 3",
+                }
+            );
+
+            Table.AddLine(
+                new TopTableHeader(Hud)
+                {
+                    RatioWidth = 108 / 1080f, // define only once on first line, value on other will be ignored
+                    RatioHeight = 22 / 1080f,
+                    TextFunc = () => "Line 1 ",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 1 / Col 1",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 1 / Col 2",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 1 / Col 3",
+                }
+            );
+
+            Table.AddLine(
+                new TopTableHeader(Hud)
+                {
+                    //RatioWidth = 1f, // will be ignored because it's after the first line
+                    RatioHeight = 22 / 1080f,
+                    TextFunc = () => "Line 2",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 2 / Col 1",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 2 / Col 2",
+                },
+                new TopTableCell(Hud)
+                {
+                    TextFunc = () => "Line 2 / Col 3",
+                }
+            );
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return;
+            Table.Paint();
+        }
+    }
+}
