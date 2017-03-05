@@ -226,6 +226,28 @@ namespace Turbo.Plugins.Jack.Customize
             //    });
             //});
 
+            //Hud.RunOnPlugin<GoblinPlugin>(plugin =>
+            //{
+            //    plugin.AllGoblinDecorators().ForEach(decorators =>
+            //    {
+            //        decorators.ToggleDecorators<GroundLabelDecorator>(false);
+            //        decorators.Add(new Jack.Decorators.GroundCustomLabelDecorator(Hud)
+            //        {
+            //            TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 255, 0, true, false, true),
+            //            TextFunc = () => "BLA-BLA",
+            //            OffsetX = -40f,
+            //            OffsetY = 30f,
+            //        });
+            //    });
+            //});
+
+            Hud.RunOnPlugin<HoveredItemInfoPlugin>(plugin =>
+            {
+                StringGeneratorFunc func = () => string.Format("{0}{1}", Hud.Inventory.HoveredItem.AncientRank > 0 ? "\uD83E\uDC1D " : string.Empty, Hud.Inventory.HoveredItem.SnoItem.NameLocalized);
+                plugin.LegendaryNameDecorator.TextFunc = func;
+                plugin.SetNameDecorator.TextFunc = func;
+            });
+
             Hud.RunOnPlugin<GoblinPlugin>(plugin =>
             {
                 var radiusTransformator = new StandardPingRadiusTransformator(Hud, 333);
