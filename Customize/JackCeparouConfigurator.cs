@@ -1,3 +1,6 @@
+using Turbo.Plugins.Jack.Actors;
+using Turbo.Plugins.Jack.Decorators;
+
 namespace Turbo.Plugins.Jack.Customize
 {
     using System.Collections.Generic;
@@ -15,7 +18,26 @@ namespace Turbo.Plugins.Jack.Customize
         public void Customize()
         {
             Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
+            //Hud.RunOnPlugin<GoblinPlugin>(plugin =>
+            //{
+            //    plugin.AllGoblinDecorators().ForEach(decorators =>
+            //    {
+            //        decorators.ToggleDecorators<MapLabelDecorator>(false);
+            //        decorators.Add(new Jack.Decorators.MapCustomLabelDecorator(Hud)
+            //        {
+            //            LabelFont = Hud.Render.CreateFont("tahoma", 6f, 192, 255, 255, 55, false, false, 128, 0, 0, 0, true),
+            //            TextFunc = () => "Custom Text",
+            //        });
 
+            //        //decorators.GetDecorators<MapShapeDecorator>().ForEach(d => d.RadiusTransformator = new StandardPingRadiusTransformator(Hud, 333));
+            //        //decorators.GetDecorators<GroundCircleDecorator>().ForEach(d => d.RadiusTransformator = new StandardPingRadiusTransformator(Hud, 666));
+            //    });
+            //});
+            //Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => {
+            //    plugin.DoorsDecorators.ToggleDecorators<GroundLabelDecorator>(false);
+            //    plugin.BreakablesDoorsDecorators.ToggleDecorators<GroundLabelDecorator>(false);
+            //    plugin.BridgesDecorators.ToggleDecorators<GroundLabelDecorator>(false);
+            //});
             //Hud.RunOnPlugin<PickupRangePlugin>(plugin =>
             //{
             //    plugin.FillBrush = Hud.Render.CreateBrush(3, 255, 255, 255, 0);

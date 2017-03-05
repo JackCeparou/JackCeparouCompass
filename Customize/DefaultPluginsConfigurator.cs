@@ -17,22 +17,157 @@ namespace Turbo.Plugins.Jack.Customize
             /////////////////////////////////////////////////
 
             Hud.TogglePlugin<DebugPlugin>(true);
+            // disable some default plugins
+            Hud.TogglePlugin<MultiplayerExperienceRangePlugin>(false);
+            Hud.TogglePlugin<PortraitBottomStatsPlugin>(false);
+            Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
 
+            //Hud.RunOnPlugin<BountyTablePlugin>(plugin =>
+            //{
+            //    plugin.ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, Key.F8, false, false, false);
+            //});
+
+            ///////////////////
+            // PICKUP RADIUS //
+            ///////////////////
+            Hud.RunOnPlugin<PickupRangePlugin>(plugin =>
+            {
+                plugin.FillBrush = Hud.Render.CreateBrush(12, 255, 255, 255, 0);
+                plugin.OutlineBrush = Hud.Render.CreateBrush(30, 0, 0, 0, 3);
+            });
+
+            ///////////////
+            // SKILL BAR //
+            ///////////////
+            // disable dps on skill bar
+            Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin =>
+            {
+                plugin.SkillPainter.EnableSkillDpsBar = false;
+            });
+
+            ///////////////////////
+            // STASH & INVENTORY //
+            ///////////////////////
             Hud.RunOnPlugin<InventoryAndStashPlugin>(plugin =>
             {
+                // enable sell darkening
+                //inventoryAndStashPlugin.SellEnabled = true;
+
+                // shh, go away blinking cube!
+                plugin.CanCubedEnabled = false;
+
+                // ancient rank font
+                plugin.AncientRankFont = Hud.Render.CreateFont("arial", 8, 224, 255, 64, 64, true, false, false);
+                plugin.AncientRankFont.SetShadowBrush(224, 0, 0, 0, true);
+
+                plugin.SocketedLegendaryGemRankFont = Hud.Render.CreateFont("arial", 7, 255, 240, 240, 64, true, false, false);
+                plugin.SocketedLegendaryGemRankFont.SetShadowBrush(128, 0, 0, 0, true);
+
+                // change darken brush to a lighter one
+                //inventoryAndStashPlugin.DarkenBrush = Hud.Render.CreateBrush(120, 38, 38, 38, 0);
+
                 plugin.NotGoodDisplayEnabled = true;
                 plugin.DefinitelyBadDisplayEnabled = true;
                 //plugin.LooksGoodDisplayEnabled = true;
             });
 
-            //Hud.RunOnPlugin<FeetBuffListPlugin>(plugin =>
-            //{
-            //    plugin.BuffPainter.ShowTimeLeftNumbers = true;
-            //    plugin.BuffPainter.Opacity = 0.85f;
+            ///////////
+            // ITEMS //
+            ///////////
+            Hud.RunOnPlugin<ItemsPlugin>(plugin =>
+            {
+                //itemsPlugin.NormalKeepDecorator.Enabled = true;
+                //itemsPlugin.MagicKeepDecorator.Enabled = true;
+                //itemsPlugin.RareKeepDecorator.Enabled = true;
+                plugin.DeathsBreathDecorator.Add(new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(192, 102, 202, 177, -2),
+                    Radius = 1.25f,
+                });
+            });
 
-            //    // Iron Skin
-            //    plugin.RuleCalculator.Rules.Add(new BuffRule(291804) { IconIndex = null, MinimumIconCount = 1, ShowTimeLeft = true, IconSizeMultiplier = 1.0f, });
-            //});
+            ////////////////////////
+            // EXPLOSIVE MONSTERS //
+            ////////////////////////
+            //var explosiveMonsterPlugin = Hud.GetPlugin<ExplosiveMonsterPlugin>();
+            //if (explosiveMonsterPlugin != null)
+            //{
+            //    explosiveMonsterPlugin.InRiftDecorator.Add(new GroundTimerDecorator(Hud)
+            //    {
+            //        CountDownFrom = 3,
+            //        BackgroundBrushEmpty = Hud.Render.CreateBrush(64, 0, 0, 0, 0),
+            //        BackgroundBrushFill = Hud.Render.CreateBrush(160, 255, 255, 255, 0),
+            //        Radius = 20
+            //    });
+            //}
+
+            /////////////
+            // BANNERS //
+            /////////////
+            //var bannerPlugin = Hud.GetPlugin<BannerPingPlugin>();
+            //if (bannerPlugin != null)
+            //{
+            //    bannerPlugin.InRiftDecorator.Add(new GroundCircleDecorator(Hud)
+            //    {
+            //        Brush = Hud.Render.CreateBrush(178, 0, 255, 0, 3),
+            //        Radius = 8,
+            //        RadiusTransformator = new StandardPingRadiusTransformator(Hud, 250),
+            //    });
+            //    bannerPlugin.InRiftDecorator.Add(new MapShapeDecorator(Hud)
+            //    {
+            //        Brush = Hud.Render.CreateBrush(178, 0, 255, 0, 3),
+            //        ShapePainter = new CircleShapePainter(Hud),
+            //        Radius = 8,
+            //        RadiusTransformator = new StandardPingRadiusTransformator(Hud, 250),
+            //    });
+            //}
+
+            /////////////
+            // SHRINES //
+            /////////////
+            Hud.RunOnPlugin<ShrinePlugin>(plugin =>
+            {
+                plugin.AllShrineDecorator.Add(new MapLabelDecorator(Hud)
+                {
+                    LabelFont = Hud.Render.CreateFont("tahoma", 6f, 192, 255, 255, 55, false, false, 128, 0, 0, 0, true),
+                    RadiusOffset = 5.0f,
+                });
+            });
+
+            ////////////////////
+            // OTHERS PLAYERS //
+            ////////////////////
+            /*
+            Hud.RunOnPlugin<OtherPlayersPlugin>(plugin =>
+            {
+                plugin.DecoratorByClass.ForEach(wd =>
+                {
+                    wd.Value.GetDecorators<GroundLabelDecorator>().ForEach(d => d.Enabled = false);
+                });
+
+                plugin.NameOffsetZ = 0;
+
+                plugin.DecoratorByClass[HeroClass.Crusader].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(200, 250, 10, 10, 5),
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Radius = 2f,
+                });
+                plugin.DecoratorByClass[HeroClass.Crusader].Decorators.Add(new GroundCircleDecorator(Hud)
+                {
+                    Brush = Hud.Render.CreateBrush(200, 250, 10, 10, 5),
+                    Radius = 4f
+                });
+            });/**/
+
+            Hud.RunOnPlugin<PlayerBottomBuffListPlugin>(plugin =>
+            {
+                plugin.BuffPainter.ShowTimeLeftNumbers = true;
+                plugin.BuffPainter.Opacity = 0.85f;
+
+                // Iron Skin
+                plugin.RuleCalculator.Rules.Add(new BuffRule(291804) { IconIndex = null, MinimumIconCount = 1, ShowTimeLeft = true, IconSizeMultiplier = 1.0f, });
+            });
 
             Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
             {
@@ -110,10 +245,7 @@ namespace Turbo.Plugins.Jack.Customize
                         decorator.RadiusTransformator = radiusTransformator;
                     });
                 });
-            //});
 
-            //Hud.RunOnPlugin<GoblinPlugin>(plugin =>
-            //{
                 plugin.MalevolentTormentorDecorator.Decorators.Add(new MapLabelDecorator(Hud)
                 {
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
@@ -158,7 +290,7 @@ namespace Turbo.Plugins.Jack.Customize
                 {
                     LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 163, 15, true, false, true)
                 });
-            });
+            });/**/
 
             Enabled = false;
         }
