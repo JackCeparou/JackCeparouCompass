@@ -6,7 +6,7 @@
     using System.Text;
     using Turbo.Plugins.Default;
 
-    public class RiftTimerPlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler, ICustomizer
+    public class RiftInfoPlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler, ICustomizer
     {
         public IFont ProgressBarTimerFont { get; set; }
         public IFont ObjectiveProgressFont { get; set; }
@@ -14,6 +14,7 @@
         public string ObjectiveProgressSymbol { get; set; }
         public string GuardianAliveSymbol { get; set; }
         public string GuardianDeadSymbol { get; set; }
+        public string DeathTimerSymbol { get; set; }
 
         public string SecondsFormat { get; set; }
         public string MinutesSecondsFormat { get; set; }
@@ -23,6 +24,7 @@
         public bool GreaterRiftCountdown { get; set; }
         public bool ShowGreaterRiftTimer { get; set; }
         public bool ShowGreaterRiftCompletedTimer { get; set; }
+        public bool ShowDeathTimer { get; set; }
         public bool ShowClosingTimer { get; set; }
 
         public int CompletionDisplayLimit { get; set; }
@@ -80,12 +82,13 @@
         private IWatch riftTimer;
         private IWatch guardianTimer;
         private IWatch pauseTimer;
+        private IWatch deathTimer;
 
         private const long greaterRiftMaxTime = 15*60*1000;
 
         private readonly StringBuilder textBuilder;
 
-        public RiftTimerPlugin()
+        public RiftInfoPlugin()
         {
             Enabled = true;
 
@@ -97,6 +100,7 @@
             base.Load(hud);
 
             ShowClosingTimer = false;
+            ShowDeathTimer = true;
             GreaterRiftCountdown = false;
             ShowGreaterRiftTimer = true;
             ShowGreaterRiftCompletedTimer = true;
@@ -105,6 +109,7 @@
             ObjectiveProgressSymbol = "\u2694"; //⚔
             GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
             GuardianDeadSymbol = "\uD83D\uDC80"; //💀
+            DeathTimerSymbol = "\u271E";//✞
 
             MinutesSecondsFormat = "{0:%m}:{0:ss}";
             SecondsFormat = "{0:%s}";
@@ -130,6 +135,7 @@
             pauseTimer = Hud.CreateWatch();
             riftTimer = Hud.CreateWatch();
             guardianTimer = Hud.CreateWatch();
+            deathTimer = Hud.CreateWatch();
         }
 
         public void Customize()
@@ -209,6 +215,12 @@
                 guardianTimer.Stop();
             }
 
+            // death timer
+            if (Hud.Game.Me.IsDead && !deathTimer.IsRunning)
+            {
+                deathTimer.Start();
+            }
+
             // game pause
             if (Hud.Game.IsPaused || (IsGreaterRift && Hud.Game.NumberOfPlayersInGame == 1 && Hud.Game.IsLoading))
             {
@@ -220,6 +232,9 @@
 
                 if (guardianTimer.IsRunning)
                     guardianTimer.Stop();
+
+                if (deathTimer.IsRunning)
+                    deathTimer.Stop();
 
                 return;
             }
@@ -233,6 +248,9 @@
 
             if (pauseTimer.IsRunning)
                 pauseTimer.Stop();
+
+            if (!Hud.Game.Me.IsDead && deathTimer.IsRunning)
+                deathTimer.Stop();
 
             if (IsGreaterRift && IsGuardianDead && riftTimer.IsRunning)
                 riftTimer.Stop();
@@ -294,6 +312,15 @@
                 var guardianTimeSpan = TimeSpan.FromMilliseconds(guardianTimer.ElapsedMilliseconds);
                 textBuilder.Append(" ");
                 textBuilder.AppendFormat(CultureInfo.InvariantCulture, (guardianTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, guardianTimeSpan);
+            }
+
+            if (ShowDeathTimer && deathTimer.ElapsedMilliseconds > 0)
+            {
+                var deathTimeSpan = TimeSpan.FromMilliseconds(deathTimer.ElapsedMilliseconds);
+                textBuilder.Append(" ");
+                textBuilder.Append(DeathTimerSymbol);
+                textBuilder.Append(" ");
+                textBuilder.AppendFormat(CultureInfo.InvariantCulture, (deathTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, deathTimeSpan);
             }
 
             if (ShowClosingTimer && !IsGreaterRift && riftQuest.State == QuestState.completed)

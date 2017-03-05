@@ -44,7 +44,7 @@ namespace Turbo.Plugins.Jack.Customize
             //    plugin.OutlineBrush = Hud.Render.CreateBrush(12, 0, 0, 0, 3);
             //});
 
-            /*Hud.RunOnPlugin<Jack.RiftTimerPlugin>(plugin =>
+            Hud.RunOnPlugin<Jack.RiftInfoPlugin>(plugin =>
             {
                 plugin.ShowClosingTimer = false;
                 plugin.ShowGreaterRiftTimer = true;
@@ -54,6 +54,7 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.ObjectiveProgressSymbol = "\u2694"; //?
                 plugin.GuardianAliveSymbol = "\uD83D\uDC7F"; //??
                 plugin.GuardianDeadSymbol = "\uD83D\uDC80"; //??
+                plugin.DeathTimerSymbol = "\uD83D\uDD47";//??
 
                 plugin.MinutesSecondsFormat = "{0:%m}:{0:ss}";
                 plugin.SecondsFormat = "{0:%s}";
@@ -77,7 +78,7 @@ namespace Turbo.Plugins.Jack.Customize
                     TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 210, 150, true, false, false),
                     TitleFont = Hud.Render.CreateFont("tahoma", 6, 255, 180, 147, 109, true, false, false),
                 };
-            });/**/
+            });
 
             var itemsIds = new HashSet<uint>() { 1844495708 };
             Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
@@ -148,76 +149,6 @@ namespace Turbo.Plugins.Jack.Customize
                     }
                 });
             });
-
-            #region GoblinPlugin
-
-            /*
-            Hud.RunOnPlugin<JackCeparouCompass.Monsters.GoblinPlugin>(plugin =>
-            {
-                var radiusTransformator = new StandardPingRadiusTransformator(Hud, 333);
-
-                plugin.AllGoblinDecorators().ForEach(goblin =>
-                {
-                    goblin.GetDecorators<MapShapeDecorator>().ForEach(decorator =>
-                    {
-                        var painter = decorator.ShapePainter as CircleShapePainter;
-                        if (painter != null)
-                        {
-                            decorator.RadiusTransformator = radiusTransformator;
-                        }
-                    });
-                    goblin.GetDecorators<GroundCircleDecorator>().ForEach(decorator =>
-                    {
-                        decorator.RadiusTransformator = radiusTransformator;
-                    });
-                });
-                plugin.MalevolentTormentorDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
-                });
-                plugin.BloodThiefDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 155, 0, 255, true, false, true)
-                });
-                plugin.OdiousCollectorDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 0, 255, 0, true, false, true)
-                });
-                plugin.GemHoarderDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 255, true, false, true)
-                });
-                plugin.GelatinousDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 0, 0, 255, true, false, true)
-                });
-                plugin.GildedBaronDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 240, 0, true, false, true)
-                });
-                plugin.InsufferableMiscreantDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 50, 50, true, false, true)
-                });
-                plugin.TreasureGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 200, 150, 150, 150, true, false, true)
-                });
-                plugin.RainbowGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
-                });
-                plugin.MenageristGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 0, true, false, true)
-                });
-                plugin.TreasureFiendGoblinDecorators.Decorators.Add(new MapLabelDecorator(Hud)
-                {
-                    LabelFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 163, 15, true, false, true)
-                });
-            });/**/
-
-            #endregion GoblinPlugin
 
             Enabled = false;
         }
