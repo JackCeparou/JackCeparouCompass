@@ -1,0 +1,42 @@
+namespace Turbo.Plugins.Jack.DevTool.Logger
+{
+    using System;
+    using Turbo.Plugins.Default;
+
+    public class LogUsage : BasePlugin, IInGameTopPainter
+    {
+        private Random rng;
+
+        public LogUsage()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+            //initialize Random Number Generator
+            rng = new Random(Hud.Game.CurrentGameTick);
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return;
+
+            try
+            {
+                var val = rng.Next(42);
+                //simulate a plugin failure
+                if (val % 2 == 0)
+                {
+                    //throw new Exception(string.Format("val {0} was odd !", val));
+                    var dumb = 42 / (val % 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+        }
+    }
+}
