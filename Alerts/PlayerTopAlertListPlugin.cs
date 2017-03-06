@@ -56,7 +56,7 @@
                 AlertTextFunc = (id) =>
                 {
                     var sno = Hud.Game.Monsters.FirstOrDefault(m => explosiveMonsterIds.Contains(m.SnoActor.Sno));
-                    return sno != null && sno.SnoActor != null ? sno.SnoActor.NameLocalized : "\uD83D\uDCA3";//💣
+                    return sno != null && sno.SnoActor != null ? sno.SnoActor.NameLocalized : "\uD83D\uDCA3"; //💣
                 },
                 Rule =
                 {
