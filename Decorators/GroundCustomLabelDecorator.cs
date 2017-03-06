@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Turbo.Plugins.Default;
+
 // this is an adaptation by Jack of a default hud helper, all credits to KillerJohn
 namespace Turbo.Plugins.Jack.Decorators
 {
-
     // this is not a plugin, just a helper class to display labels on the ground
-    public class GroundCustomLabelDecorator: IWorldDecorator
+    public class GroundCustomLabelDecorator : IWorldDecorator
     {
         public StringGeneratorFunc TextFunc { get; set; }
 
@@ -18,10 +18,12 @@ namespace Turbo.Plugins.Jack.Decorators
 
         // Option #1: Use brushes for background and border
         public IBrush BackgroundBrush { get; set; }
+
         public IBrush BorderBrush { get; set; }
 
         // Option #2: Use textures for background
         public ITexture BackgroundTexture1 { get; set; }
+
         public ITexture BackgroundTexture2 { get; set; }
         public float BackgroundTextureOpacity1 { get; set; }
         public float BackgroundTextureOpacity2 { get; set; }
@@ -79,7 +81,5 @@ namespace Turbo.Plugins.Jack.Decorators
             yield return BorderBrush;
             yield return TextFont;
         }
-
     }
-
 }

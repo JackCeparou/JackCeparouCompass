@@ -2,11 +2,9 @@
 
 namespace Turbo.Plugins.Jack.Decorators
 {
-
     // this is not a plugin, just a helper class to display a circle on the ground
     public class TopCircleDecorator
     {
-
         public bool Enabled { get; set; }
         public WorldLayer Layer { get; private set; }
         public IController Hud { get; private set; }
@@ -45,7 +43,5 @@ namespace Turbo.Plugins.Jack.Decorators
 
             Brush.DrawEllipse(x, y, radius, radius, -1);
         }
-
     }
-
 }

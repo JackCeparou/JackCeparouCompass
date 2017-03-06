@@ -18,7 +18,13 @@
 
         public bool MultiLine { get; set; }
 
-        public bool Visible { get { return Rule != null && Rule.VisibleCondition != null && Rule.VisibleCondition.Invoke(Hud); } }
+        public bool Visible
+        {
+            get
+            {
+                return Rule != null && Rule.VisibleCondition != null && Rule.VisibleCondition.Invoke(Hud);
+            }
+        }
 
         // conditions
         public AlertRule Rule { get; set; }

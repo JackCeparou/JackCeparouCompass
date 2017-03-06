@@ -87,7 +87,7 @@
                 Up = false;
                 var heigth = alerts.Select(a => a.Label.TextFont.GetTextLayout(":").Metrics.Height + s + p * 2).Sum() - s - p * 2;
                 //y += Up ? heigth / 2 : -heigth / 2;
-                y -= heigth/2;
+                y -= heigth / 2;
             }
             foreach (var alert in alerts)
             {
@@ -100,7 +100,7 @@
                     {
                         alert.AlertText = line;
                         alert.Label.Paint(x, y - p, w, h + p * 2, TextAlign);
-                        y += Up ? -h : h; y += Up ? -h : h;
+                        y += Up ? -h : h;
                     }
                     //h = h + s + p * 2;
                 }

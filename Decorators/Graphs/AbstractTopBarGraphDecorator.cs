@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SharpDX;
+using SharpDX.Direct2D1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpDX;
-using SharpDX.Direct2D1;
 
 namespace Turbo.Plugins.Jack.Decorators.Graphs
 {
@@ -11,6 +11,7 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
         bool Enabled { get; set; }
 
         void AddData();
+
         void Paint();
     }
 
@@ -30,26 +31,22 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
         private List<T> data;
 
         private ushort maxEntries;
+
         public ushort MaxEntries
         {
             get { return maxEntries; }
-            set
-            {
-                maxEntries = value;
-            }
+            set { maxEntries = value; }
         }
 
         public float X { get; set; }
         public float Y { get; set; }
 
         public float Height { get; set; }
+
         public ushort Width
         {
             get { return maxEntries; }
-            set
-            {
-                maxEntries = value;
-            }
+            set { maxEntries = value; }
         }
 
         protected AbstractTopBarGraphDecorator(IController hud)
@@ -93,7 +90,6 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
             if (BarBrush == null) return;
             if (data.Count == 0) return;
 
-            /**/
             using (var pg = Hud.Render.CreateGeometry())
             {
                 using (var gs = pg.Open())
@@ -109,7 +105,7 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
 
                     for (var xx = 0; xx < data.Count; xx++)
                     {
-                        var yy = Height*GetHeight(data[xx], max);
+                        var yy = Height * GetHeight(data[xx], max);
 
                         if (yy < 0)
                         {
@@ -127,10 +123,11 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
                     gs.Close();
                 }
                 BarBrush.DrawGeometry(pg);
-            } /**/
+            }
         }
 
         protected abstract float GetHeight(T entry, T max);
+
         protected abstract bool Equals(T lastEntry, T entry);
     }
 }

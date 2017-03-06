@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
-using SharpDX.DirectInput;
 using Turbo.Plugins.Default;
 
 namespace Turbo.Plugins.Jack.DevTool
@@ -13,9 +11,6 @@ namespace Turbo.Plugins.Jack.DevTool
 
         public int Offset { get; set; }
         public int Padding { get; set; }
-
-        //public IKeyEvent ToggleKeyEvent { get; set; }
-        //public bool Visible { get; set; }
 
         public ScreenLocationInfoPlugin()
         {
@@ -29,14 +24,11 @@ namespace Turbo.Plugins.Jack.DevTool
             BackgroundBrush = Hud.Render.CreateBrush(178, 0, 0, 0, 0);
             Offset = 20;
             Padding = 5;
-
-            //ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, Key.V, false, false, false);
         }
 
         public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
-            //if (!Visible) return;
             if (!Hud.Input.IsKeyDown(Keys.V)) return;
 
             var s = Hud.Window.Size;
@@ -51,8 +43,8 @@ namespace Turbo.Plugins.Jack.DevTool
             var h = layout.Metrics.Height;
             var w = layout.Metrics.Width;
 
-            var offsetX = Hud.Window.CursorX + (int)(s.Width / 2 > Hud.Window.CursorX ? Offset : -w -Offset);
-            var offsetY = Hud.Window.CursorY + (int)(s.Height / 2 > Hud.Window.CursorY ? Offset : -h -Offset);
+            var offsetX = Hud.Window.CursorX + (int)(s.Width / 2 > Hud.Window.CursorX ? Offset : - w - Offset);
+            var offsetY = Hud.Window.CursorY + (int)(s.Height / 2 > Hud.Window.CursorY ? Offset : - h - Offset);
 
             BackgroundBrush.DrawRectangle(offsetX - Padding, offsetY - Padding, w + Padding * 2, h + Padding * 2);
             TextFont.DrawText(layout, offsetX, offsetY);

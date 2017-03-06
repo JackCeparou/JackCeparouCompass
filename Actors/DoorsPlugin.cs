@@ -15,7 +15,7 @@ namespace Turbo.Plugins.Jack.Actors
         public bool GroundLabelsOnScreen { get; set; }
 
         private readonly HashSet<uint> bridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
-        private readonly HashSet<uint> breakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, };// 258064 };
+        private readonly HashSet<uint> breakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, }; // 258064 };
         private readonly HashSet<uint> doorsIdsBlackList = new HashSet<uint>() {
             197939, 169502, 214333, 181195, 190236, // A2 to belial
             167185, // A2 Alcarnus

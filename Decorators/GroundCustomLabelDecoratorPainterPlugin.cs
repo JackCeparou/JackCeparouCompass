@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Turbo.Plugins.Default;
+
 // this is an adaptation by Jack of a default hud plugin, all credits to KillerJohn
 namespace Turbo.Plugins.Jack.Decorators
 {
-
     // - all GroundLabelDecorators are registering here instead of painting themselves
     // - at PaintWorldFinished step this plugin will collect, and group all GroundLabelDecorators, and adjust them
     // - after adjustment, all GroundLabelDecorators are painted at the same time
     public class GroundCustomLabelDecoratorPainterPlugin : BasePlugin, IInGameWorldPainter
     {
-
         public float Padding { get; set; }
         public float ScreenBorderPadding { get; set; }
 
@@ -131,7 +130,5 @@ namespace Turbo.Plugins.Jack.Decorators
             public IWorldCoordinate Coord { get; set; }
             public string Text { get; set; }
         }
-
     }
-
 }

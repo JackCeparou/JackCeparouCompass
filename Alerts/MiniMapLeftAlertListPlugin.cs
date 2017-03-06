@@ -1,6 +1,5 @@
 ﻿namespace Turbo.Plugins.Jack.Alerts
 {
-    using System.Collections.Generic;
     using Turbo.Plugins.Default;
 
     public class MinimapLeftAlertListPlugin : BasePlugin, IInGameTopPainter, IInGameWorldPainter
@@ -27,10 +26,10 @@
                 RightFunc = (controller) =>
                 {
                     var uiMinimapElement = controller.Render.MinimapUiElement;
-                    return uiMinimapElement.Rectangle.Left - controller.Window.Size.Height*0.01f;
+                    return uiMinimapElement.Rectangle.Left - controller.Window.Size.Height * 0.01f;
                 }
             };
-    }
+        }
 
         public void PaintWorld(WorldLayer layer)
         {

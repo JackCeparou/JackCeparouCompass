@@ -12,7 +12,7 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
         {
             if (max == 0) return 0;
 
-            return entry/max;
+            return entry / max;
         }
 
         protected override bool Equals(float lastEntry, float entry)
