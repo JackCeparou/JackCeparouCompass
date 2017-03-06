@@ -4,8 +4,6 @@ namespace Turbo.Plugins.Jack
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Windows.Forms;
-    using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.DevTool.Logger;
 
     public static class Log
@@ -97,6 +95,4 @@ namespace Turbo.Plugins.Jack
             Error(string.Format(CultureInfo.InvariantCulture, message, param));
         }
     }
-
-
 }
