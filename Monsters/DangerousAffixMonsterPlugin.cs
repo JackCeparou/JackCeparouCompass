@@ -1,34 +1,10 @@
 ﻿namespace Turbo.Plugins.Jack.Monsters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
 
     public delegate string AffixNameFunc(ISnoMonsterAffix affix);
-
-    public class DangerousAffixMonsterDefinition
-    {
-        public MonsterAffix Affix { get; private set; }
-        public int Priority { get; set; }
-
-        public string AffixName { get; set; }
-        public AffixNameFunc AffixNameFunc { get; set; }
-
-        public WorldDecoratorCollection EliteDecorators { get; set; }
-        public IFont EliteLabelFont { get; set; }
-
-        public WorldDecoratorCollection MinionDecorators { get; set; }
-        public IFont MinionLabelFont { get; set; }
-        public bool ShowMinionDecorators { get; set; }
-        public bool ShowMinionAffixesNames { get; set; }
-
-        public DangerousAffixMonsterDefinition(MonsterAffix affix)
-        {
-            Affix = affix;
-            AffixNameFunc = (a) => string.Empty;
-        }
-    }
 
     public class DangerousAffixMonsterPlugin : BasePlugin, IInGameWorldPainter
     {
@@ -69,7 +45,7 @@
             DefaultEliteAffixesFont = Hud.Render.CreateFont("tahoma", 10f, 200, 255, 255, 0, false, false, 128, 0, 0, 0, true);
             DefaultMinionAffixesFont = Hud.Render.CreateFont("tahoma", 7f, 200, 255, 255, 0, false, false, 128, 0, 0, 0, true);
 
-            //foreach (MonsterAffix affix in Enum.GetValues(typeof(MonsterAffix))) { DefineDangerousAffix(affix, (a) => a.NameLocalized.Substring(0, 2)); }
+            ////foreach (MonsterAffix affix in Enum.GetValues(typeof(MonsterAffix))) { DefineDangerousAffix(affix, (a) => a.NameLocalized.Substring(0, 2)); }
         }
 
         public void PaintWorld(WorldLayer layer)
@@ -172,7 +148,6 @@
                 ShowMinionAffixesNames = showMinionAffixesNames,
                 AffixNameFunc = affixNameFunc,
                 Priority = priority,
-
             };
 
             affixDef.MinionDecorators.ToggleDecorators<MapShapeDecorator>(showMinionDecorators);
@@ -220,7 +195,7 @@
             var first = affixes.FirstOrDefault();
             if (first == null) return;
 
-            var firstFont = (monster.Rarity == ActorRarity.RareMinion ? first.MinionLabelFont : first.EliteLabelFont);
+            var firstFont = monster.Rarity == ActorRarity.RareMinion ? first.MinionLabelFont : first.EliteLabelFont;
             var combinedLayout = firstFont.GetTextLayout(combinedNames);
             var spacerLayout = firstFont.GetTextLayout(":");
             var offsetX = -combinedLayout.Metrics.Width / 2;

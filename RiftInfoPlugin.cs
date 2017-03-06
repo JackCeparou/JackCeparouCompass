@@ -31,7 +31,13 @@
         public Func<string> RiftCompletionTitleFunc { get; set; }
         public TopLabelWithTitleDecorator CompletionLabelDecorator { get; set; }
 
-        public bool IsGuardianAlive { get { return riftQuest != null && (riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16); } }
+        public bool IsGuardianAlive
+        {
+            get
+            {
+                return riftQuest != null && (riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 16);
+            }
+        }
 
         public bool IsGuardianDead
         {
@@ -44,8 +50,23 @@
             }
         }
 
-        public bool IsNephalemRift { get { return riftQuest != null && (riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10); } }
-        public bool IsGreaterRift { get { return riftQuest != null && (riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 || riftQuest.QuestStepId == 46); } }
+        public bool IsNephalemRift
+        {
+            get
+            {
+                return riftQuest != null && (riftQuest.QuestStepId == 1 || riftQuest.QuestStepId == 3 || riftQuest.QuestStepId == 10);
+            }
+        }
+
+        public bool IsGreaterRift
+        {
+            get
+            {
+                return riftQuest != null &&
+                       (riftQuest.QuestStepId == 13 || riftQuest.QuestStepId == 16 || riftQuest.QuestStepId == 34 ||
+                        riftQuest.QuestStepId == 46);
+            }
+        }
 
         private bool show
         {
@@ -84,7 +105,7 @@
         private IWatch pauseTimer;
         private IWatch deathTimer;
 
-        private const long greaterRiftMaxTime = 15*60*1000;
+        private const long greaterRiftMaxTime = 15 * 60 * 1000;
 
         private readonly StringBuilder textBuilder;
 
@@ -109,7 +130,7 @@
             ObjectiveProgressSymbol = "\u2694"; //⚔
             GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
             GuardianDeadSymbol = "\uD83D\uDC80"; //💀
-            DeathTimerSymbol = "\u271E";//✞
+            DeathTimerSymbol = "\u271E"; //✞
 
             MinutesSecondsFormat = "{0:%m}:{0:ss}";
             SecondsFormat = "{0:%s}";
@@ -118,7 +139,6 @@
             ClosingSecondsFormat = "({0:%s})";
 
             ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 255, 255, 210, 150, true, false, 160, 0, 0, 0, true);
-            //ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
 
             ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
             ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
@@ -168,7 +188,6 @@
                 var x = uiProgressBar.Rectangle.Left - layout.Metrics.Width / 2 + uiProgressBar.Rectangle.Width * (float)Hud.Game.RiftPercentage / 100.0f;
                 var y = uiProgressBar.Rectangle.Bottom + uiProgressBar.Rectangle.Height * 0.1f;
 
-                //ProgressBarTimerFont.DrawText(layout, x, uiProgressBar.Rectangle.Bottom + Hud.Window.Size.Height * 0.015f);
                 ProgressBarTimerFont.DrawText(layout, x, y);
             }
             else
@@ -337,33 +356,3 @@
         }
     }
 }
-
-/*
-try
-{
-    Simon.Says.Debug(string.Join(",", new object[]
-    {
-        //riftQuest.Counter,
-        riftQuest.State,
-        //riftQuest.Progress,
-        //riftQuest.StartedOn.ElapsedMilliseconds,
-        //riftQuest.CompletedOn.ElapsedMilliseconds,
-        //riftQuest.SnoQuest.Steps.Count(),
-        //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.SplashEnglish)),
-        Hud.Game.SpecialArea,
-        //string.Join(",", riftQuest.SnoQuest.Steps.Take(7).Select(s => s.SplashEnglish)),
-        //string.Join(",", riftQuest.SnoQuest.Steps.Take(7).Select(s => s.Id))
-        //string.Join(",", riftQuest.SnoQuest.Steps.Select(s => s.SplashEnglish))
-    }));
-}
-catch (Exception ex)
-{
-    Simon.Says.Error(ex.Message);
-}/**/
-
-//Simon.Says.Debug("GR {0} {1}", riftQuest.QuestStepId, timeSpan, TimeSpan.FromMilliseconds(riftQuest.StartedOn.ElapsedMilliseconds));
-// 3:07.385 3:05.783 => 1602
-// 3:18.054 3:16.750 => 1304
-// 3:01.388 3:00.466 => 922
-// 2:52.126 2:51.016 => 1110
-//

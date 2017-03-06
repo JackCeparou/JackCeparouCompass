@@ -23,7 +23,7 @@ namespace Turbo.Plugins.Jack.Decorators.Graphs
         public IBrush BarBrush { get; set; }
         public IBrush BackgroundBrush { get; set; }
 
-        public Func<T> GetData;
+        public Func<T> GetData { get; set; }
 
         public T ForcedMax { get; set; }
 
