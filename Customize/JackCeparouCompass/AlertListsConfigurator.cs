@@ -1,85 +1,13 @@
-using Turbo.Plugins.Jack.Actors;
-using Turbo.Plugins.Jack.Decorators;
-
-namespace Turbo.Plugins.Jack.Customize
+﻿namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
 {
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using Turbo.Plugins.Default;
 
-    public class JackCeparouConfigurator : BasePlugin, ICustomizer
+    public class AlertListsConfigurator : IConfigurator
     {
-        public JackCeparouConfigurator()
+        public void Configure(IController Hud)
         {
-            Enabled = true;
-        }
-
-        public void Customize()
-        {
-            Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
-            //Hud.RunOnPlugin<GoblinPlugin>(plugin =>
-            //{
-            //    plugin.AllGoblinDecorators().ForEach(decorators =>
-            //    {
-            //        decorators.ToggleDecorators<MapLabelDecorator>(false);
-            //        decorators.Add(new Jack.Decorators.MapCustomLabelDecorator(Hud)
-            //        {
-            //            LabelFont = Hud.Render.CreateFont("tahoma", 6f, 192, 255, 255, 55, false, false, 128, 0, 0, 0, true),
-            //            TextFunc = () => "Custom Text",
-            //        });
-
-            //        //decorators.GetDecorators<MapShapeDecorator>().ForEach(d => d.RadiusTransformator = new StandardPingRadiusTransformator(Hud, 333));
-            //        //decorators.GetDecorators<GroundCircleDecorator>().ForEach(d => d.RadiusTransformator = new StandardPingRadiusTransformator(Hud, 666));
-            //    });
-            //});
-            //Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => {
-            //    plugin.DoorsDecorators.ToggleDecorators<GroundLabelDecorator>(false);
-            //    plugin.BreakablesDoorsDecorators.ToggleDecorators<GroundLabelDecorator>(false);
-            //    plugin.BridgesDecorators.ToggleDecorators<GroundLabelDecorator>(false);
-            //});
-            //Hud.RunOnPlugin<PickupRangePlugin>(plugin =>
-            //{
-            //    plugin.FillBrush = Hud.Render.CreateBrush(3, 255, 255, 255, 0);
-            //    plugin.OutlineBrush = Hud.Render.CreateBrush(12, 0, 0, 0, 3);
-            //});
-
-            Hud.RunOnPlugin<Jack.RiftInfoPlugin>(plugin =>
-            {
-                plugin.ShowClosingTimer = false;
-                plugin.ShowGreaterRiftTimer = true;
-                plugin.ShowGreaterRiftCompletedTimer = true;
-                plugin.GreaterRiftCountdown = true;
-
-                plugin.ObjectiveProgressSymbol = "\u2694"; //?
-                plugin.GuardianAliveSymbol = "\uD83D\uDC7F"; //??
-                plugin.GuardianDeadSymbol = "\uD83D\uDC80"; //??
-                plugin.DeathTimerSymbol = "\uD83D\uDD47";//??
-
-                plugin.MinutesSecondsFormat = "{0:%m}:{0:ss}";
-                plugin.SecondsFormat = "{0:%s}";
-
-                plugin.ProgressPercentFormat = "({0:F1}%)";
-                plugin.ClosingSecondsFormat = "({0:%s})";
-
-                plugin.ProgressBarTimerFont = Hud.Render.CreateFont("tahoma", 7, 224, 255, 210, 150, true, false, false);
-                plugin.ProgressBarTimerFont.SetShadowBrush(222, 0, 0, 0, true);
-
-                plugin.ObjectiveProgressFont = Hud.Render.CreateFont("tahoma", 8, 224, 240, 240, 240, false, false, false);
-                plugin.ObjectiveProgressFont.SetShadowBrush(222, 0, 0, 0, true);
-
-                plugin.CompletionDisplayLimit = 90;
-                //plugin.RiftCompletionTitleFunc = () => riftQuest.QuestStep.SplashLocalized.Trim(); //DEFAULT
-                plugin.RiftCompletionTitleFunc = () => "Rift completion";
-                plugin.CompletionLabelDecorator = new TopLabelWithTitleDecorator(Hud)
-                {
-                    BorderBrush = Hud.Render.CreateBrush(255, 180, 147, 109, -1),
-                    BackgroundBrush = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
-                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 210, 150, true, false, false),
-                    TitleFont = Hud.Render.CreateFont("tahoma", 6, 255, 180, 147, 109, true, false, false),
-                };
-            });
-
             var itemsIds = new HashSet<uint>() { 1844495708 };
             Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             {
@@ -149,8 +77,10 @@ namespace Turbo.Plugins.Jack.Customize
                     }
                 });
             });
+        }
 
-            Enabled = false;
+        public void Dispose()
+        {
         }
     }
 }
