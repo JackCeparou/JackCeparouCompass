@@ -27,9 +27,9 @@
             });
             Hud.RunOnPlugin<HoveredItemInfoPlugin>(plugin =>
             {
-                //StringGeneratorFunc func = () => string.Format("{0}{1}", Hud.Inventory.HoveredItem.AncientRank > 0 ? "\uD83E\uDC1D " : string.Empty, Hud.Inventory.HoveredItem.SnoItem.NameLocalized);
-                //plugin.LegendaryNameDecorator.TextFunc = func;
-                //plugin.SetNameDecorator.TextFunc = func;
+                StringGeneratorFunc func = () => string.Format("{0}{1}", Hud.Inventory.HoveredItem.AncientRank > 0 ? "\uD83E\uDC1D " : string.Empty, Hud.Inventory.HoveredItem.SnoItem.NameLocalized);
+                plugin.LegendaryNameDecorator.TextFunc = func;
+                plugin.SetNameDecorator.TextFunc = func;
             });
 
             ///////////////////
@@ -60,7 +60,7 @@
                 plugin.SocketedLegendaryGemRankFont.SetShadowBrush(128, 0, 0, 0, true);
 
                 // change darken brush to a lighter one
-                //inventoryAndStashPlugin.DarkenBrush = Hud.Render.CreateBrush(120, 38, 38, 38, 0);
+                ////inventoryAndStashPlugin.DarkenBrush = Hud.Render.CreateBrush(120, 38, 38, 38, 0);
 
                 plugin.NotGoodDisplayEnabled = true;
                 plugin.DefinitelyBadDisplayEnabled = true;

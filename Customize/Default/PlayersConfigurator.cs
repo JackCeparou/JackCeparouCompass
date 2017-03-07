@@ -22,7 +22,7 @@
                     Radius = 16,
                 });
 
-                //plugin.SentryDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
+                ////plugin.SentryDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
 
                 plugin.SentryWithCustomEngineeringDecorator.Decorators.Add(new GroundCircleDecorator(Hud)
                 {
@@ -30,7 +30,7 @@
                     Radius = 16,
                 });
 
-                //plugin.SentryWithCustomEngineeringDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
+                ////plugin.SentryWithCustomEngineeringDecorator.GetDecorators<MapShapeDecorator>().ForEach(d => d.ShapePainter = new CircleShapePainter(Hud));
             });
 
             /////////////
