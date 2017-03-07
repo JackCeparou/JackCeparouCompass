@@ -121,7 +121,7 @@
             base.Load(hud);
 
             ShowClosingTimer = false;
-            ShowDeathTimer = true;
+            ShowDeathTimer = false;
             GreaterRiftCountdown = false;
             ShowGreaterRiftTimer = true;
             ShowGreaterRiftCompletedTimer = true;
