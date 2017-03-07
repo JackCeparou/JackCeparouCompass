@@ -48,49 +48,80 @@ namespace Turbo.Plugins.Jack.Alerts
             if (HeroClass != HeroClass.None && Hud.Game.Me.HeroClassDefinition.HeroClass != HeroClass) return false;
             if (controller.Game.IsInTown && !ShowInTown) return false;
             //return true;
-            var visible = true;
             var player = controller.Game.Me;
             var powers = player.Powers;
 
-            if (EquippedSkills != null)
+            if (!TestEquippedSkills(powers)) return false;
+            if (!TestMissingSkills(powers)) return false;
+            if (!TestEquippedPassives(powers)) return false;
+            if (!TestMissingPassives(powers)) return false;
+            if (!TestActiveBuffs(powers)) return false;
+            if (!TestInactiveBuffs(powers)) return false;
+            if (!TestActors()) return false;
+            if (!TestInvocations()) return false;
+
+            return CustomCondition == null || CustomCondition.Invoke(Hud);
+        }
+
+        private bool TestActiveBuffs(IPlayerPowerInfo powers)
+        {
+            if (ActiveBuffs != null)
             {
-                visible = AllEquippedSkills
-                    ? EquippedSkills.All(skill => powers.UsedSkills.Any(playerSkill => (skill.Icon.HasValue ? playerSkill.SnoPower.Sno == skill.Sno && playerSkill.Rune == skill.Icon.Value : playerSkill.SnoPower.Sno == skill.Sno) && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)))
-                    : EquippedSkills.Any(skill => powers.UsedSkills.Any(playerSkill => (skill.Icon.HasValue ? playerSkill.SnoPower.Sno == skill.Sno && playerSkill.Rune == skill.Icon.Value : playerSkill.SnoPower.Sno == skill.Sno) && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)));
-            }
-
-            if (visible && MissingSkills != null)
-                visible = MissingSkills.Any(skill => powers.UsedSkills.All(playerSkill => playerSkill.SnoPower.Sno != skill.Sno));
-
-            if (visible && EquippedPassives != null)
-                visible = EquippedPassives.All(passive => powers.UsedPassives.Any(playerPassive => playerPassive.Sno == passive));
-
-            if (visible && MissingPassives != null)
-                visible = MissingPassives.Any(passive => powers.UsedPassives.All(playerPassive => playerPassive.Sno != passive));
-
-            if (visible && ActiveBuffs != null)
-            {
-                visible = AllActiveBuffs
+                return AllActiveBuffs
                     ? ActiveBuffs.All(buff => buff.Icon.HasValue ? powers.BuffIsActive(buff.Sno, buff.Icon.Value) : powers.BuffIsActive(buff.Sno))
                     : ActiveBuffs.Any(buff => buff.Icon.HasValue ? powers.BuffIsActive(buff.Sno, buff.Icon.Value) : powers.BuffIsActive(buff.Sno));
             }
-            if (visible && InactiveBuffs != null)
+            return true;
+        }
+
+        private bool TestActors()
+        {
+            return ActorSnoIds == null || Hud.Game.Actors.Any(a => ActorSnoIds.Contains(a.SnoActor.Sno));
+        }
+
+        private bool TestEquippedPassives(IPlayerPowerInfo powers)
+        {
+            return EquippedPassives == null || EquippedPassives.All(passive => powers.UsedPassives.Any(playerPassive => playerPassive.Sno == passive));
+        }
+
+        private bool TestEquippedSkills(IPlayerPowerInfo powers)
+        {
+            if (EquippedSkills != null)
             {
-                visible = AllInactiveBuffs
+                return AllEquippedSkills
+                    ? EquippedSkills.All(skill => powers.UsedSkills.Any(playerSkill => (skill.Icon.HasValue ? playerSkill.SnoPower.Sno == skill.Sno && playerSkill.Rune == skill.Icon.Value : playerSkill.SnoPower.Sno == skill.Sno) && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)))
+                    : EquippedSkills.Any(skill => powers.UsedSkills.Any(playerSkill => (skill.Icon.HasValue ? playerSkill.SnoPower.Sno == skill.Sno && playerSkill.Rune == skill.Icon.Value : playerSkill.SnoPower.Sno == skill.Sno) && (!playerSkill.IsOnCooldown || !CheckSkillCooldowns)));
+            }
+            return true;
+        }
+
+        private bool TestInactiveBuffs(IPlayerPowerInfo powers)
+        {
+            if (InactiveBuffs != null)
+            {
+                return AllInactiveBuffs
                     ? InactiveBuffs.All(buff => buff.Icon.HasValue ? !powers.BuffIsActive(buff.Sno, buff.Icon.Value) : !powers.BuffIsActive(buff.Sno))
                     : InactiveBuffs.Any(buff => buff.Icon.HasValue ? !powers.BuffIsActive(buff.Sno, buff.Icon.Value) : !powers.BuffIsActive(buff.Sno));
             }
+            return true;
+        }
 
-            if (visible && ActorSnoIds != null)
-                visible = Hud.Game.Actors.Any(a => ActorSnoIds.Contains(a.SnoActor.Sno));
+        private bool TestInvocations()
+        {
+            if (InvocationActorSnoIds != null)
+                return !Hud.Game.Actors.Any(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId && InvocationActorSnoIds.Contains(a.SnoActor.Sno));
 
-            if (visible && InvocationActorSnoIds != null)
-                visible = !Hud.Game.Actors.Any(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId && InvocationActorSnoIds.Contains(a.SnoActor.Sno));
+            return true;
+        }
 
-            if (visible && CustomCondition != null)
-                visible = CustomCondition.Invoke(Hud);
+        private bool TestMissingPassives(IPlayerPowerInfo powers)
+        {
+            return MissingPassives == null || MissingPassives.Any(passive => powers.UsedPassives.All(playerPassive => playerPassive.Sno != passive));
+        }
 
-            return visible;
+        private bool TestMissingSkills(IPlayerPowerInfo powers)
+        {
+            return MissingSkills == null || MissingSkills.Any(skill => powers.UsedSkills.All(playerSkill => playerSkill.SnoPower.Sno != skill.Sno));
         }
     }
 }
