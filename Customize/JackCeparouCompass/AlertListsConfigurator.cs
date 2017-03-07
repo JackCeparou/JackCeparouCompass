@@ -13,9 +13,9 @@
 
         public override void Configure()
         {
-            var itemsIds = new HashSet<uint>() { 1844495708 };
             Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             {
+                var itemsIds = new HashSet<uint>() { 1844495708 };
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",
