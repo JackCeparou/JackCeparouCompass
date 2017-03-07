@@ -14,7 +14,6 @@
         public string ObjectiveProgressSymbol { get; set; }
         public string GuardianAliveSymbol { get; set; }
         public string GuardianDeadSymbol { get; set; }
-        public string DeathTimerSymbol { get; set; }
 
         public string SecondsFormat { get; set; }
         public string MinutesSecondsFormat { get; set; }
@@ -24,7 +23,6 @@
         public bool GreaterRiftCountdown { get; set; }
         public bool ShowGreaterRiftTimer { get; set; }
         public bool ShowGreaterRiftCompletedTimer { get; set; }
-        public bool ShowDeathTimer { get; set; }
         public bool ShowClosingTimer { get; set; }
 
         public int CompletionDisplayLimit { get; set; }
@@ -103,7 +101,6 @@
         private IWatch riftTimer;
         private IWatch guardianTimer;
         private IWatch pauseTimer;
-        private IWatch deathTimer;
 
         private const long greaterRiftMaxTime = 15 * 60 * 1000;
 
@@ -121,7 +118,6 @@
             base.Load(hud);
 
             ShowClosingTimer = false;
-            ShowDeathTimer = false;
             GreaterRiftCountdown = false;
             ShowGreaterRiftTimer = true;
             ShowGreaterRiftCompletedTimer = true;
@@ -130,7 +126,6 @@
             ObjectiveProgressSymbol = "\u2694"; //⚔
             GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
             GuardianDeadSymbol = "\uD83D\uDC80"; //💀
-            DeathTimerSymbol = "\u271E"; //✞
 
             MinutesSecondsFormat = "{0:%m}:{0:ss}";
             SecondsFormat = "{0:%s}";
@@ -155,7 +150,6 @@
             pauseTimer = Hud.CreateWatch();
             riftTimer = Hud.CreateWatch();
             guardianTimer = Hud.CreateWatch();
-            deathTimer = Hud.CreateWatch();
         }
 
         public void Customize()
@@ -206,8 +200,6 @@
 
             GuardianTimers();
 
-            DeathTimers();
-
             if (GamePauseTimers()) return;
 
             RestartStopTimers();
@@ -224,9 +216,6 @@
 
             if (pauseTimer.IsRunning)
                 pauseTimer.Stop();
-
-            if (!Hud.Game.Me.IsDead && deathTimer.IsRunning)
-                deathTimer.Stop();
 
             if (IsGreaterRift && IsGuardianDead && riftTimer.IsRunning)
                 riftTimer.Stop();
@@ -249,21 +238,9 @@
                 if (guardianTimer.IsRunning)
                     guardianTimer.Stop();
 
-                if (deathTimer.IsRunning)
-                    deathTimer.Stop();
-
                 return true;
             }
             return false;
-        }
-
-        private void DeathTimers()
-        {
-            // death timer
-            if (Hud.Game.Me.IsDead && !deathTimer.IsRunning)
-            {
-                deathTimer.Start();
-            }
         }
 
         private void GuardianTimers()
@@ -297,10 +274,6 @@
                 {
                     pauseTimer.Reset();
                 }
-                if (deathTimer.IsRunning || deathTimer.ElapsedMilliseconds > 0)
-                {
-                    deathTimer.Reset();
-                }
 
                 currentRun = null;
 
@@ -320,8 +293,6 @@
 
             SetProgessText();
 
-            SetDeathTimerText();
-
             SetClosingTimerText();
 
             return textBuilder.ToString();
@@ -333,17 +304,6 @@
 
             textBuilder.Append(" ");
             textBuilder.AppendFormat(ClosingSecondsFormat, TimeSpan.FromMilliseconds(riftClosingMilliseconds - riftQuest.CompletedOn.ElapsedMilliseconds));
-        }
-
-        private void SetDeathTimerText()
-        {
-            if (!ShowDeathTimer || deathTimer.ElapsedMilliseconds <= 0) return;
-
-            var deathTimeSpan = TimeSpan.FromMilliseconds(deathTimer.ElapsedMilliseconds);
-            textBuilder.Append(" ");
-            textBuilder.Append(DeathTimerSymbol);
-            textBuilder.Append(" ");
-            textBuilder.AppendFormat(CultureInfo.InvariantCulture, (deathTimeSpan.Minutes < 1) ? SecondsFormat : MinutesSecondsFormat, deathTimeSpan);
         }
 
         private void SetProgessText()
