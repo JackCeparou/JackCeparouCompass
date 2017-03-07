@@ -1,10 +1,15 @@
 ﻿namespace Turbo.Plugins.Jack.Customize.Default
 {
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class PlayersConfigurator : IConfigurator
+    public class PlayersConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public PlayersConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             ////////////////////
             // PLAYERS SKILLS //
@@ -87,10 +92,6 @@
                     Radius = 4f
                 });
             });/**/
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

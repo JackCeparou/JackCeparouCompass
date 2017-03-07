@@ -19,34 +19,34 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
             Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin => plugin.SkillPainter.EnableSkillDpsBar = false);
 
-            using (var configurator = new ItemsAndInventoryConfigurator())
+            using (var itemsAndInventoryConfigurator = new ItemsAndInventoryConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                itemsAndInventoryConfigurator.Configure();
             }
 
-            using (var configurator = new MonstersConfigurator())
+            using (var monstersConfigurator = new MonstersConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                monstersConfigurator.Configure();
             }
 
-            using (var configurator = new ActorsConfigurator())
+            using (var actorsConfigurator = new ActorsConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                actorsConfigurator.Configure();
             }
 
-            using (var configurator = new PlayersConfigurator())
+            using (var playersConfigurator = new PlayersConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                playersConfigurator.Configure();
             }
 
-            using (var configurator = new BuffListsConfigurator())
+            using (var buffListsConfigurator = new BuffListsConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                buffListsConfigurator.Configure();
             }
 
-            using (var configurator = new LabelListsConfigurator())
+            using (var labelListsConfigurator = new LabelListsConfigurator(Hud))
             {
-                configurator.Configure(Hud);
+                labelListsConfigurator.Configure();
             }
 
             Enabled = false;

@@ -1,10 +1,15 @@
 ﻿namespace Turbo.Plugins.Jack.Customize.Default
 {
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class MonstersConfigurator : IConfigurator
+    public class MonstersConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public MonstersConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             // I'M BRAVE ENOUGH
             Hud.TogglePlugin<MonsterPackPlugin>(true);
@@ -93,10 +98,6 @@
             //        Radius = 20
             //    });
             //}
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

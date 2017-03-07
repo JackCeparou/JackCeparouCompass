@@ -1,10 +1,15 @@
 ﻿namespace Turbo.Plugins.Jack.Customize.Default
 {
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class ActorsConfigurator : IConfigurator
+    public class ActorsConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public ActorsConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             ////////////
             // GLOBES //
@@ -29,10 +34,6 @@
                     RadiusOffset = 5.0f,
                 });
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

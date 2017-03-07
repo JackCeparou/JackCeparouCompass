@@ -1,10 +1,15 @@
 ﻿namespace Turbo.Plugins.Jack.Customize.Default
 {
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class LabelListsConfigurator : IConfigurator
+    public class LabelListsConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public LabelListsConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
             {
@@ -20,10 +25,6 @@
                     plugin.LabelList.LabelDecorators[index].HintFunc = () => "pickup radius";
                 }/**/
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

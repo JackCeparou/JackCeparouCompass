@@ -3,20 +3,25 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class AlertListsConfigurator : IConfigurator
+    public class AlertListsConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public AlertListsConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             var itemsIds = new HashSet<uint>() { 1844495708 };
             Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
-                    MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",//??
+                    MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",
                     AlertTextFunc = (id) =>
                     {
-                        var items = Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && itemsIds.Contains(item.SnoItem.Sno));
+                        var items = Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.Unidentified && itemsIds.Contains(item.SnoItem.Sno));
 
                         if (items.Count() > 1)
                             return string.Join(", ", items.GroupBy(k => k.FullNameLocalized).Select(item => string.Format(CultureInfo.InvariantCulture, "{0} {1}", item.Count(), item.Key)));
@@ -26,7 +31,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && itemsIds.Contains(item.SnoItem.Sno)),
+                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && itemsIds.Contains(item.SnoItem.Sno)),
                     }
                 });
             });
@@ -43,7 +48,7 @@
                     LinesFunc = () =>
                     {
                         return Hud.Game.Items
-                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank)
+                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank)
                                 .Select(item => string.Format(CultureInfo.InvariantCulture, "\u2731{1}{0}{1}\u2731", item.SnoItem.NameLocalized, item.AncientRank > 0 ? " \uD83E\uDC1D " : " "));
                     },
                     Label =
@@ -53,7 +58,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
 
@@ -63,7 +68,7 @@
                     LinesFunc = () =>
                     {
                         return Hud.Game.Items
-                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank)
+                                .Where(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank)
                                 .Select(item => string.Format(CultureInfo.InvariantCulture, "\u2605{1}{0}{1}\u2605", item.SnoItem.NameLocalized, item.AncientRank > 0 ? " \uD83E\uDC1D " : " "));
                     },
                     Label =
@@ -73,14 +78,10 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified/**/ && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

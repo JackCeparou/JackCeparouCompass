@@ -1,10 +1,15 @@
 ﻿namespace Turbo.Plugins.Jack.Customize.Default
 {
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
-    public class ItemsAndInventoryConfigurator : IConfigurator
+    public class ItemsAndInventoryConfigurator : AbstractBaseConfigurator
     {
-        public void Configure(IController Hud)
+        public ItemsAndInventoryConfigurator(IController hud) : base(hud)
+        {
+        }
+
+        public override void Configure()
         {
             ///////////
             // ITEMS //
@@ -61,10 +66,6 @@
                 plugin.DefinitelyBadDisplayEnabled = true;
                 //plugin.LooksGoodDisplayEnabled = true;
             });
-        }
-
-        public void Dispose()
-        {
         }
     }
 }
