@@ -333,7 +333,7 @@
                 MessageFormat = "\u2668 {0} \u2668", //⚠
                 Rule =
                 {
-                    EquippedSkills = new[] { new SnoPowerId(134872), },
+                    //EquippedSkills = new[] { new SnoPowerId(134872), },
                     ActiveBuffs = new[] { new SnoPowerId(134872, 2), },
                     InactiveBuffs = new[] { new SnoPowerId(135663), }
                 },
