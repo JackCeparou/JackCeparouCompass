@@ -150,6 +150,20 @@
                     ActiveBuffs = new[] { new SnoPowerId(359585) }, // Only when wearing akkhan 6pc
                 },
             });
+            // Only when wearing seeker of the light 4pc
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.Crusader)
+            {
+                TextSnoId = 239137, // Falling Sword
+                MessageFormat = "\u26A0 {0} \u26A0", //⚠
+                Rule =
+                {
+                    ShowInTown = true,
+                    CheckSkillCooldowns = false,
+                    EquippedSkills = new[] { new SnoPowerId(239137) }, // Falling Sword
+                    ActiveBuffs = new[] { new SnoPowerId(436426) }, // Only when wearing seeker of the light 4pc
+                    InactiveBuffs = new[] { new SnoPowerId(239137) }, // Falling Sword
+                },
+            });
 
             // ===========
             // DemonHunter
