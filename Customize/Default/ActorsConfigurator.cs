@@ -5,12 +5,10 @@
 
     public class ActorsConfigurator : AbstractBaseConfigurator
     {
-        public ActorsConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             ////////////
             // GLOBES //
             ////////////

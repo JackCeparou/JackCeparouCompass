@@ -5,12 +5,10 @@
 
     public class PlayersConfigurator : AbstractBaseConfigurator
     {
-        public PlayersConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             ////////////////////
             // PLAYERS SKILLS //
             ////////////////////

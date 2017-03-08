@@ -5,12 +5,10 @@
 
     public class ItemsAndInventoryConfigurator : AbstractBaseConfigurator
     {
-        public ItemsAndInventoryConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             ///////////
             // ITEMS //
             ///////////

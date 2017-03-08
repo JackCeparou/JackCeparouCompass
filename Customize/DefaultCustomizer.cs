@@ -19,34 +19,34 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
             Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin => plugin.SkillPainter.EnableSkillDpsBar = false);
 
-            using (var itemsAndInventoryConfigurator = new ItemsAndInventoryConfigurator(Hud))
+            using (var itemsAndInventoryConfigurator = new ItemsAndInventoryConfigurator())
             {
-                itemsAndInventoryConfigurator.Configure();
+                itemsAndInventoryConfigurator.Configure(Hud);
             }
 
-            using (var monstersConfigurator = new MonstersConfigurator(Hud))
+            using (var monstersConfigurator = new MonstersConfigurator())
             {
-                monstersConfigurator.Configure();
+                monstersConfigurator.Configure(Hud);
             }
 
-            using (var actorsConfigurator = new ActorsConfigurator(Hud))
+            using (var actorsConfigurator = new ActorsConfigurator())
             {
-                actorsConfigurator.Configure();
+                actorsConfigurator.Configure(Hud);
             }
 
-            using (var playersConfigurator = new PlayersConfigurator(Hud))
+            using (var playersConfigurator = new PlayersConfigurator())
             {
-                playersConfigurator.Configure();
+                playersConfigurator.Configure(Hud);
             }
 
-            using (var buffListsConfigurator = new BuffListsConfigurator(Hud))
+            using (var buffListsConfigurator = new BuffListsConfigurator())
             {
-                buffListsConfigurator.Configure();
+                buffListsConfigurator.Configure(Hud);
             }
 
-            using (var labelListsConfigurator = new LabelListsConfigurator(Hud))
+            using (var labelListsConfigurator = new LabelListsConfigurator())
             {
-                labelListsConfigurator.Configure();
+                labelListsConfigurator.Configure(Hud);
             }
 
             Enabled = false;

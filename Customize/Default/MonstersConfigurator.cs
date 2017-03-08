@@ -5,12 +5,10 @@
 
     public class MonstersConfigurator : AbstractBaseConfigurator
     {
-        public MonstersConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             // I'M BRAVE ENOUGH
             Hud.TogglePlugin<MonsterPackPlugin>(true);
             Hud.TogglePlugin<EliteMonsterAffixPlugin>(false);

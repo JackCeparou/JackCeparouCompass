@@ -5,12 +5,10 @@
 
     public class BuffListsConfigurator : AbstractBaseConfigurator
     {
-        public BuffListsConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             Hud.RunOnPlugin<PlayerBottomBuffListPlugin>(plugin =>
             {
                 plugin.BuffPainter.ShowTimeLeftNumbers = true;

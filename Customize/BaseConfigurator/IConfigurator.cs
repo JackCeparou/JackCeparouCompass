@@ -7,8 +7,6 @@ namespace Turbo.Plugins.Jack.Customize.BaseConfigurator
 {
     public interface IConfigurator : IDisposable
     {
-        IController Hud { get; set; }
-
-        void Configure();
+        void Configure(IController hud);
     }
 }

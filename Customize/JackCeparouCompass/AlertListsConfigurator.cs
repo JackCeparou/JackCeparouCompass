@@ -3,16 +3,17 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Windows.Forms;
+
     using Turbo.Plugins.Jack.Customize.BaseConfigurator;
 
     public class AlertListsConfigurator : AbstractBaseConfigurator
     {
-        public AlertListsConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
+            // Ramalandi
             Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             {
                 var itemsIds = new HashSet<uint>() { 1844495708 };
@@ -36,12 +37,14 @@
                 });
             });
 
+            // Loot list near Minimap
             Hud.RunOnPlugin<Jack.Alerts.MinimapLeftAlertListPlugin>(plugin =>
             {
                 var ancientRank = -1;
                 plugin.AlertList.VerticalCenter = false;
                 plugin.AlertList.RatioSpacerY = 0;
 
+                // Set
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MultiLine = true,
@@ -62,6 +65,7 @@
                     }
                 });
 
+                // Legendary
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MultiLine = true,
@@ -82,6 +86,68 @@
                     }
                 });
             });
+            /*
+            Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Up = false;
+                plugin.AlertList.RatioX = 0.2f;
+                plugin.AlertList.RatioY = 0.1f;
+                plugin.AlertList.VerticalCenter = false;
+                plugin.AlertList.RatioSpacerY = 0;
+
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    MultiLine = true,
+                    LinesFunc = () =>
+                    {
+                        return
+                            Hud.Game.Me.Powers.AllBuffs
+                                .Where(buff => buff != null && buff.SnoPower != null && !string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
+                                .OrderBy(buff => buff.SnoPower.Sno)
+                                .Select(buff => string.Join(
+                                    " | ",
+                                    buff.SnoPower.NameEnglish,
+                                    buff.SnoPower.Sno.ToString(),
+                                    buff.SnoPower.Code,
+                                    buff.Active));
+                    },
+                    Label =
+                    {
+                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
+                    },
+                    Rule =
+                    {
+                        ShowInTown = true,
+                        VisibleCondition = (controller) => controller.Game.IsInTown,
+                    }
+                });
+
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    MultiLine = true,
+                    LinesFunc = () =>
+                    {
+                        return
+                            Hud.Game.Me.Powers.AllBuffs
+                                .Where(buff => buff != null && buff.SnoPower != null && string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
+                                .OrderBy(buff => buff.SnoPower.Sno)
+                                .Select(buff => string.Join(
+                                    " | ",
+                                    buff.SnoPower.Sno.ToString(),
+                                    buff.SnoPower.Code,
+                                    buff.Active));
+                    },
+                    Label =
+                    {
+                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
+                    },
+                    Rule =
+                    {
+                        ShowInTown = true,
+                        VisibleCondition = (controller) => controller.Game.IsInTown,
+                    }
+                });
+            });/*end*/
         }
     }
 }

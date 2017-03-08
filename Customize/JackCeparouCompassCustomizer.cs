@@ -14,9 +14,11 @@ namespace Turbo.Plugins.Jack.Customize
         {
             Hud.RunOnPlugin<Jack.Actors.DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
-            using (var alertListsConfigurator = new AlertListsConfigurator(Hud))
+            //var alertListsConfigurator = new AlertListsConfigurator(Hud);
+            //alertListsConfigurator.Configure();
+            using (var alertListsConfigurator = new AlertListsConfigurator())
             {
-                alertListsConfigurator.Configure();
+                alertListsConfigurator.Configure(Hud);
             }
 
             Enabled = false;

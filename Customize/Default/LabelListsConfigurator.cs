@@ -5,18 +5,16 @@
 
     public class LabelListsConfigurator : AbstractBaseConfigurator
     {
-        public LabelListsConfigurator(IController hud) : base(hud)
+        public override void Configure(IController hud)
         {
-        }
+            var Hud = hud;
 
-        public override void Configure()
-        {
             Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
             {
-                //plugin.LabelList.WidthFunc = () => Hud.Window.Size.Height * 0.0630f;
+                plugin.LabelList.WidthFunc = () => Hud.Window.Size.Height * 0.0630f;
 
-                //plugin.LabelList.LabelDecorators[9].TextFunc = () => Hud.Game.Me.Stats.PickupRange.ToString("#");
-                //plugin.LabelList.LabelDecorators[9].HintFunc = () => "pickup radius";
+                plugin.LabelList.LabelDecorators[9].TextFunc = () => Hud.Game.Me.Stats.PickupRange.ToString("#");
+                plugin.LabelList.LabelDecorators[9].HintFunc = () => "pickup radius";
 
                 /*var index = 9; //0..9
                 if (index < plugin.LabelList.LabelDecorators.Count && index >= 0)

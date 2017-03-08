@@ -7,18 +7,10 @@ namespace Turbo.Plugins.Jack.Customize.BaseConfigurator
 {
     public abstract class AbstractBaseConfigurator : IConfigurator
     {
-        public IController Hud { get; set; }
-
-        protected AbstractBaseConfigurator(IController hud)
-        {
-            Hud = hud;
-        }
-
-        public abstract void Configure();
+        public abstract void Configure(IController hud);
 
         public void Dispose()
         {
-            Hud = null;
         }
     }
 }
