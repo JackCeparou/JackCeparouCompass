@@ -1,10 +1,9 @@
-﻿using System;
-using Turbo.Plugins.Jack.Models;
-
-namespace Turbo.Plugins.Jack.Alerts
+﻿namespace Turbo.Plugins.Jack.Alerts
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Turbo.Plugins.Jack.Models;
 
     public class AlertRule
     {
@@ -13,6 +12,9 @@ namespace Turbo.Plugins.Jack.Alerts
         public HeroClass HeroClass { get; set; }
 
         public bool ShowInTown { get; set; }
+        public bool ShowOutOfTown { get; set; }
+        public bool ShowInCombat { get; set; }
+        public bool ShowOutOfCombat { get; set; }
         public bool CheckSkillCooldowns { get; set; }
 
         public bool AllEquippedSkills { get; set; }
@@ -21,6 +23,7 @@ namespace Turbo.Plugins.Jack.Alerts
 
         public Func<IController, bool> VisibleCondition { get; set; }
         public Func<IController, bool> CustomCondition { get; set; }
+        public Func<IPlayer> PlayerFunc { get; set; }
         public SnoPowerId[] EquippedSkills { get; set; }
         public SnoPowerId[] MissingSkills { get; set; }
         public SnoPowerId[] ActiveBuffs { get; set; }
@@ -36,19 +39,27 @@ namespace Turbo.Plugins.Jack.Alerts
             HeroClass = heroClass;
 
             ShowInTown = false;
+            ShowOutOfTown = true;
+            ShowInCombat = true;
+            ShowOutOfCombat = true;
             AllActiveBuffs = true;
             AllInactiveBuffs = true;
             AllEquippedSkills = true;
             CheckSkillCooldowns = true;
             VisibleCondition = IsVisible;
+
+            PlayerFunc = () => Hud.Game.Me;
         }
 
         public bool IsVisible(IController controller)
         {
             if (HeroClass != HeroClass.None && Hud.Game.Me.HeroClassDefinition.HeroClass != HeroClass) return false;
             if (controller.Game.IsInTown && !ShowInTown) return false;
+            if (!controller.Game.IsInTown && !ShowOutOfTown) return false;
+            if (controller.Game.Me.InCombat && !ShowInCombat) return false;
+            if (!controller.Game.Me.InCombat && !ShowOutOfCombat) return false;
             //return true;
-            var player = controller.Game.Me;
+            var player = PlayerFunc.Invoke();
             var powers = player.Powers;
 
             if (!TestEquippedSkills(powers)) return false;

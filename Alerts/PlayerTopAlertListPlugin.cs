@@ -157,7 +157,7 @@
                 MessageFormat = "\u26A0 {0} \u26A0", //⚠
                 Rule =
                 {
-                    ShowInTown = true,
+                    ShowOutOfCombat = false,
                     CheckSkillCooldowns = false,
                     EquippedSkills = new[] { new SnoPowerId(239137) }, // Falling Sword
                     ActiveBuffs = new[] { new SnoPowerId(436426) }, // Only when wearing seeker of the light 4pc
@@ -277,6 +277,7 @@
                 MessageFormat = "\u2668 {0} \u2668", //⚠
                 Rule =
                 {
+                    ShowOutOfCombat = false,
                     EquippedSkills = new[] { new SnoPowerId(67616) },
                     InactiveBuffs = new[] { new SnoPowerId(67616) },
                 },
