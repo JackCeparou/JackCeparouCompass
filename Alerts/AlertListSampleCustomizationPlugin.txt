@@ -163,6 +163,48 @@ namespace Turbo.Plugins.Jack.Alerts
                     }
                 });
             });
+
+            // Ancient Parthan Defenders
+            Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    AlertTextFunc = (id) =>
+                    {
+                        var count = Hud.Game.AliveMonsters.Count(m => (m.Stunned || m.Frozen) && m.NormalizedXyDistanceToMe <= 25);
+                        var percent = 9;
+
+                        if (Hud.Game.Me.CubeSnoItem2.LegendaryPower.Sno == Hud.Sno.SnoPowers.AncientParthanDefenders.Sno)
+                        {
+                            percent = 12;
+                        }
+
+                        return string.Format("{0} * {1}% = {2}%", count, percent, count * percent);
+                    },
+                    Label =
+                    {
+                        TextFont = Hud.Render.CreateFont("tahoma", 11, 255, 30, 244, 30, false, false, 242, 0, 0, 0, true),
+                    },
+                    Rule =
+                    {
+                        ShowOutOfCombat = false,
+                        ActiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.AncientParthanDefenders.Sno), },
+                        CustomCondition = (player) => Hud.Game.AliveMonsters.Count(m => (m.Stunned || m.Frozen) && m.NormalizedXyDistanceToMe <= 25) > 0,
+                    }
+                });
+
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    TextSnoId = 962282719,
+                    MessageFormat = "\u26A0 {0} \u26A0", //⚠
+                    Rule =
+                    {
+                        ShowOutOfCombat = false,
+                        ActiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.AncientParthanDefenders.Sno), },
+                        CustomCondition = (player) => Hud.Game.AliveMonsters.Count(m => (m.Stunned || m.Frozen) && m.NormalizedXyDistanceToMe <= 25) == 0,
+                    }
+                });
+            });
         }
     }
 }

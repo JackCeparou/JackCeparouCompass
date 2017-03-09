@@ -3,9 +3,10 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Windows.Forms;
 
+    using Turbo.Plugins.Jack.Alerts;
     using Turbo.Plugins.Jack.Customize.BaseConfigurator;
+    using Turbo.Plugins.Jack.Models;
 
     public class AlertListsConfigurator : AbstractBaseConfigurator
     {
@@ -86,7 +87,8 @@
                     }
                 });
             });
-            /**/
+
+            /* show all buffs
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
