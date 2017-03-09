@@ -32,7 +32,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && itemsIds.Contains(item.SnoItem.Sno)),
+                        VisibleCondition = (player) => Hud.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && itemsIds.Contains(item.SnoItem.Sno)),
                     }
                 });
             });
@@ -61,7 +61,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (player) => Hud.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno != uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
 
@@ -82,11 +82,11 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
+                        VisibleCondition = (player) => Hud.Game.Items.Any(item => item.Location == ItemLocation.Floor && item.Unidentified && item.SetSno == uint.MaxValue && item.AncientRank > ancientRank),
                     }
                 });
             });
-            /*
+            /**/
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
@@ -118,7 +118,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.IsInTown,
+                        VisibleCondition = (player) => Hud.Game.IsInTown,
                     }
                 });
 
@@ -144,7 +144,7 @@
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (controller) => controller.Game.IsInTown,
+                        VisibleCondition = (player) => Hud.Game.IsInTown,
                     }
                 });
             });/*end*/

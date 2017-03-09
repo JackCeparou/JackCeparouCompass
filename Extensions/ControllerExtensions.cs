@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Turbo.Plugins.Jack.Extensions
+﻿namespace Turbo.Plugins.Jack.Extensions
 {
+    using System;
+    using System.Linq;
+
     public static class ControllerExtensions
     {
         [Obsolete("Use GuessLocalizedName instead.")]
@@ -15,6 +13,12 @@ namespace Turbo.Plugins.Jack.Extensions
 
         public static string GuessLocalizedName(this IController Hud, uint snoId)
         {
+            var power = Hud.Sno.GetSnoPower(snoId);
+            if (power != null)
+            {
+                return power.NameLocalized;
+            }
+            /*TODO: check if powers localized names are working as intended
             var skill = Hud.Game.Me.Powers.UsedSkills.FirstOrDefault(s => s.SnoPower.Sno == snoId);
             if (skill != null && skill.SnoPower != null)
             {
@@ -32,6 +36,7 @@ namespace Turbo.Plugins.Jack.Extensions
             {
                 return buff.SnoPower.NameLocalized;
             }
+            /*end of todo*/
 
             var item = Hud.Inventory.GetSnoItem(snoId);
             if (item != null)

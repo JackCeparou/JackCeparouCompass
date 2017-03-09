@@ -21,9 +21,8 @@
         public bool AllActiveBuffs { get; set; }
         public bool AllInactiveBuffs { get; set; }
 
-        public Func<IController, bool> VisibleCondition { get; set; }
-        public Func<IController, bool> CustomCondition { get; set; }
-        public Func<IPlayer> PlayerFunc { get; set; }
+        public Func<IPlayer, bool> VisibleCondition { get; set; }
+        public Func<IPlayer, bool> CustomCondition { get; set; }
         public SnoPowerId[] EquippedSkills { get; set; }
         public SnoPowerId[] MissingSkills { get; set; }
         public SnoPowerId[] ActiveBuffs { get; set; }
@@ -47,19 +46,12 @@
             AllEquippedSkills = true;
             CheckSkillCooldowns = true;
             VisibleCondition = IsVisible;
-
-            PlayerFunc = () => Hud.Game.Me;
         }
 
-        public bool IsVisible(IController controller)
+        public bool IsVisible(IPlayer player)
         {
-            if (HeroClass != HeroClass.None && Hud.Game.Me.HeroClassDefinition.HeroClass != HeroClass) return false;
-            if (controller.Game.IsInTown && !ShowInTown) return false;
-            if (!controller.Game.IsInTown && !ShowOutOfTown) return false;
-            if (controller.Game.Me.InCombat && !ShowInCombat) return false;
-            if (!controller.Game.Me.InCombat && !ShowOutOfCombat) return false;
-            //return true;
-            var player = PlayerFunc.Invoke();
+            if (!TestPlayerCondition(player)) return false;
+
             var powers = player.Powers;
 
             if (!TestEquippedSkills(powers)) return false;
@@ -68,10 +60,20 @@
             if (!TestMissingPassives(powers)) return false;
             if (!TestActiveBuffs(powers)) return false;
             if (!TestInactiveBuffs(powers)) return false;
+
             if (!TestActors()) return false;
             if (!TestInvocations()) return false;
 
-            return CustomCondition == null || CustomCondition.Invoke(Hud);
+            return CustomCondition == null || CustomCondition.Invoke(player);
+        }
+
+        private bool TestPlayerCondition(IPlayer player)
+        {
+            if (HeroClass != HeroClass.None && player.HeroClassDefinition.HeroClass != HeroClass) return false;
+            if (Hud.Game.IsInTown && !ShowInTown) return false;
+            if (!Hud.Game.IsInTown && !ShowOutOfTown) return false;
+            if (player.InCombat && !ShowInCombat) return false;
+            return player.InCombat || ShowOutOfCombat;
         }
 
         private bool TestActiveBuffs(IPlayerPowerInfo powers)
