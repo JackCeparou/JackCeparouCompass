@@ -97,7 +97,7 @@ namespace Turbo.Plugins.Jack.Monsters
                     Radius = 20,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 2, DashStyle.Dash)
                 });
-            SnoMapping.Add(93837, rgDangerousSkillDecorator);
+            //SnoMapping.Add(93837, rgDangerousSkillDecorator);
             SnoMapping.Add(368453, rgDangerousSkillDecorator);
             SnoMapping.Add(374732, rgDangerousSkillDecorator);
             SnoMapping.Add(3026, rgDangerousSkillDecorator);
