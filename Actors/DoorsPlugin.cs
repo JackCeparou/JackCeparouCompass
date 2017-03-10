@@ -23,7 +23,7 @@
             198977, 52685, // A3 rakkis crossing
             112316, // A3 stonefort
             210433, // A3 battlefields
-            356879,
+            356879, 182636,
         };
 
         //170245
@@ -77,7 +77,7 @@
                     else if (door.GizmoType == GizmoType.Door && door.DisplayOnOverlay && !doorsIdsBlackList.Contains(door.SnoActor.Sno))
                     {
                         PaintActor(layer, door, bridgesIds.Contains(door.SnoActor.Sno) ? BridgesDecorators : DoorsDecorators);
-                        //if (!doorsDebugWhiteList.Contains(door.SnoActor.Sno)) Log.Debug(string.Format("DOOR?? {0} {1} {2} {3} {4} {5} {6}", door.SnoActor.Sno, door.SnoActor.NameLocalized, door.IsOperated, door.IsClickable, door.IsDisabled, door.SnoActor.Kind, door.SnoActor.Code));/**/
+                        if (!doorsDebugWhiteList.Contains(door.SnoActor.Sno)) Log.Debug(string.Format("DOOR?? {0} {1} {2} {3} {4} {5} {6}", door.SnoActor.Sno, door.SnoActor.NameLocalized, door.IsOperated, door.IsClickable, door.IsDisabled, door.SnoActor.Kind, door.SnoActor.Code));/**/
                     }
 
                     //if (!doorsDebugWhiteList.Contains(door.SnoActor.Sno)) Log.Debug(string.Format("DOOR?? {0} {1} {2} {3} {4} {5} {6}", door.SnoActor.Sno, door.SnoActor.NameLocalized, door.IsOperated, door.IsClickable, door.IsDisabled, door.SnoActor.Kind, door.SnoActor.Code));/**/
