@@ -28,6 +28,22 @@ namespace Turbo.Plugins.Jack.Alerts
                 list.RatioWidth = 0.2f; // based on screen height to preserve proportions
                 list.RatioX = 0.5f; // center horizontally
 
+				//// Vengeance
+				//Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
+				//{
+				//    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud, HeroClass.DemonHunter)
+				//    {
+				//        TextSnoId = Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno,
+				//        MessageFormat = "\u26A0 {0} \u26A0", //⚠
+				//        Rule =
+				//        {
+				//            CheckSkillCooldowns = true,
+				//            EquippedSkills = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
+				//            InactiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
+				//        },
+				//    });
+				//});
+
                 // // Flying Dragon
                 // list.Alerts.Add(new Alert(Hud, HeroClass.Monk)
                 // {

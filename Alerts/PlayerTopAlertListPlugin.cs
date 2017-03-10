@@ -172,6 +172,18 @@
             // ===========
             // DemonHunter
             // ===========
+            // Vengeance
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.DemonHunter)
+            {
+                TextSnoId = powers.DemonHunter_Vengeance.Sno,
+                MessageFormat = "\u26A0 {0} \u26A0", //⚠
+                Rule =
+                {
+                    CheckSkillCooldowns = true,
+                    EquippedSkills = new[] { new SnoPowerId(powers.DemonHunter_Vengeance.Sno) },
+                    InactiveBuffs = new[] { new SnoPowerId(powers.DemonHunter_Vengeance.Sno) },
+                },
+            });
 
             // ====
             // Monk
