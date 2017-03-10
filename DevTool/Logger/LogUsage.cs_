@@ -35,7 +35,7 @@ namespace Turbo.Plugins.Jack.DevTool.Logger
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                Jack.Says.Error(ex.Message);
             }
         }
     }

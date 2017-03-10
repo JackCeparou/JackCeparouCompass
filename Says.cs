@@ -6,12 +6,12 @@ namespace Turbo.Plugins.Jack
     using System.Linq;
     using Turbo.Plugins.Jack.DevTool.Logger;
 
-    public static class Log
+    public static class Says
     {
         public static ushort MaxMessages { get; set; }
         public static List<LogMessage> Messages { get; private set; }
 
-        static Log()
+        static Says()
         {
             MaxMessages = 45;
             Messages = new List<LogMessage>(MaxMessages);
