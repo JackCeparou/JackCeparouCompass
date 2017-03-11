@@ -38,6 +38,15 @@ namespace Turbo.Plugins.Jack.Extensions
         public static ISnoPower Monk_MantraOfEvasion_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375050); }
         public static ISnoPower Monk_MantraOfHealing_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(373154); }
         public static ISnoPower Monk_MantraOfRetribution_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375083); }
+        public static ISnoPower Crusader_LawsOfHope_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323370); }
+        public static ISnoPower Crusader_LawsOfHope_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342299); }
+        public static ISnoPower Crusader_LawsOfHope2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342279); }
+        public static ISnoPower Crusader_LawsOfJustice_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323386); }
+        public static ISnoPower Crusader_LawsOfJustice_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342286); }
+        public static ISnoPower Crusader_LawsOfJustice2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342280); }
+        public static ISnoPower Crusader_LawsOfValor_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323387); }
+        public static ISnoPower Crusader_LawsOfValor_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342284); }
+        public static ISnoPower Crusader_LawsOfValor2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342281); }
         // end missing
 
         // set bonus
