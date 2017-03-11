@@ -1,0 +1,58 @@
+﻿namespace Turbo.Plugins.Jack.Extensions
+{
+    using System.Collections.Generic;
+
+    public static class SnoPowerSourceExtensions
+    {
+        public static HashSet<uint> GemPowerIds = new HashSet<uint>() {
+            383014,
+            451157,
+            403456,
+            403457,
+            428348,
+            428349,
+            403470,
+            403784,
+            428352,
+            428353,
+            403466,
+            403472,
+            428029,
+            428030,
+            403459,
+            403461,
+            403556,
+            403464,
+            403524,
+            428354,
+            428356,
+            403465,
+            403624,
+            403463,
+            403620,
+            428031,
+            428032,
+            403467,
+            403687,
+            428350,
+            428351,
+            403462,
+            403600,
+            454736,
+            454737,
+            403469,
+            403473,
+            403471,
+            403785,
+            403460,
+            403560,
+            403468,
+            403727,
+        };
+
+        public static bool IsGemPower(this ISnoPower power)
+        {
+            return GemPowerIds.Contains(power.Sno);
+        }
+    }
+}
