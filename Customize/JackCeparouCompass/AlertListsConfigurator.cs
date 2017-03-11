@@ -3,10 +3,8 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-
-    using Turbo.Plugins.Jack.Alerts;
     using Turbo.Plugins.Jack.Customize.BaseConfigurator;
-    using Turbo.Plugins.Jack.Models;
+    using Turbo.Plugins.Jack.Extensions;
 
     public class AlertListsConfigurator : AbstractBaseConfigurator
     {
@@ -37,6 +35,32 @@
                     }
                 });
             });
+
+            //Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
+            //{
+            //    plugin.AlertList.VerticalCenter = false;
+            //    plugin.AlertList.RatioSpacerY = 0;
+
+            //    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+            //    {
+            //        MultiLine = true,
+            //        LinesFunc = () =>
+            //        {
+            //            var gems = Hud.Game.Me.Powers.UsedLegendaryPowers.EquippedLegendaryGemsBuffs();
+
+            //            return gems.Where(x => x.Active).Select(buff => string.Format(CultureInfo.InvariantCulture, "{0} : {1}", buff.SnoPower.Sno, buff.SnoPower.Code));
+            //        },
+            //        Label =
+            //        {
+            //            TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
+            //        },
+            //        Rule =
+            //        {
+            //            ShowInTown = true,
+            //        }
+            //    });
+            //});
+
 
             // Loot list near Minimap
             Hud.RunOnPlugin<Jack.Alerts.MinimapLeftAlertListPlugin>(plugin =>
@@ -88,7 +112,7 @@
                 });
             });
 
-            /* show all buffs
+            /* show all buffs*/
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
