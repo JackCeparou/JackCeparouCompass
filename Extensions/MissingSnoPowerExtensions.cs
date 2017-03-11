@@ -240,104 +240,104 @@ namespace Turbo.Plugins.Jack.Extensions
         public static ISnoPower SageJourney2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(359560); }
 
         // Barbarian
-        public static ISnoPower BulKathos(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(434377); }
-        public static ISnoPower ImmortalKingCall2(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(318760); }
-        public static ISnoPower ImmortalKingCall4(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(429851); }
-        public static ISnoPower ImmortalKingCall6(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(430684); }
-        public static ISnoPower MightOfTheEarth2(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(318762); }
-        public static ISnoPower MightOfTheEarth4(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(318418); }
-        public static ISnoPower MightOfTheEarth6(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(444521); }
-        public static ISnoPower TheLegacyOfRaekor2(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(429665); }
-        public static ISnoPower TheLegacyOfRaekor4(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(359563); }
-        public static ISnoPower TheLegacyOfRaekor6(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(429673); }
-        public static ISnoPower WrathOfTheWastes2(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(423206); }
-        public static ISnoPower WrathOfTheWastes4(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(423205); }
-        public static ISnoPower WrathOfTheWastes6(this IBarbarianPowerInfo powerList) { return Hud.Sno.GetSnoPower(423226); }
+        public static IBuff Barbarian_BulKathos(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(434377); }
+        public static IBuff Barbarian_ImmortalKingCall2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318760); }
+        public static IBuff Barbarian_ImmortalKingCall4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429851); }
+        public static IBuff Barbarian_ImmortalKingCall6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430684); }
+        public static IBuff Barbarian_MightOfTheEarth2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318762); }
+        public static IBuff Barbarian_MightOfTheEarth4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318418); }
+        public static IBuff Barbarian_MightOfTheEarth6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(444521); }
+        public static IBuff Barbarian_TheLegacyOfRaekor2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429665); }
+        public static IBuff Barbarian_TheLegacyOfRaekor4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359563); }
+        public static IBuff Barbarian_TheLegacyOfRaekor6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429673); }
+        public static IBuff Barbarian_WrathOfTheWastes2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423206); }
+        public static IBuff Barbarian_WrathOfTheWastes4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423205); }
+        public static IBuff Barbarian_WrathOfTheWastes6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423226); }
         // end Barbarian
 
         // Crusader
-        public static ISnoPower NorvaldFervorPrimary(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(447291); }
-        public static ISnoPower NorvaldFervorSecondary(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(447290); }
-        public static ISnoPower ArmorOfAkkhan2(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(359584); }
-        public static ISnoPower ArmorOfAkkhan4(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(359585); }
-        public static ISnoPower ArmorOfAkkhan6(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(445942); }
-        public static ISnoPower RolandLegacy2(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(430676); }
-        public static ISnoPower RolandLegacy4(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(430675); }
-        public static ISnoPower RolandLegacy6(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(409428); }
-        public static ISnoPower SeekerOfTheLight2(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(436428); }
-        public static ISnoPower SeekerOfTheLight4(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(436426); }
-        public static ISnoPower SeekerOfTheLight6(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(436427); }
-        public static ISnoPower ThornsOfTheInvoker2(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(445829); }
-        public static ISnoPower ThornsOfTheInvoker4(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(445639); }
-        public static ISnoPower ThornsOfTheInvoker6(this ICrusaderPowerInfo powerList) { return Hud.Sno.GetSnoPower(446511); }
+        public static IBuff Crusader_NorvaldFervorPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(447291); }
+        public static IBuff Crusader_NorvaldFervorSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(447290); }
+        public static IBuff Crusader_ArmorOfAkkhan2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359584); }
+        public static IBuff Crusader_ArmorOfAkkhan4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359585); }
+        public static IBuff Crusader_ArmorOfAkkhan6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445942); }
+        public static IBuff Crusader_RolandLegacy2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430676); }
+        public static IBuff Crusader_RolandLegacy4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430675); }
+        public static IBuff Crusader_RolandLegacy6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(409428); }
+        public static IBuff Crusader_SeekerOfTheLight2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(436428); }
+        public static IBuff Crusader_SeekerOfTheLight4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(436426); }
+        public static IBuff Crusader_SeekerOfTheLight6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(436427); }
+        public static IBuff Crusader_ThornsOfTheInvoker2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445829); }
+        public static IBuff Crusader_ThornsOfTheInvoker4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445639); }
+        public static IBuff Crusader_ThornsOfTheInvoker6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(446511); }
         // end Crusader
 
         // DemonHunter
-        public static ISnoPower DanettaHatredPrimary(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(318380); }
-        public static ISnoPower DanettaHatredSecondary(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(447905); }
-        public static ISnoPower EmbodimentOfTheMarauder2(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(359561); }
-        public static ISnoPower EmbodimentOfTheMarauder4(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(359562); }
-        public static ISnoPower EmbodimentOfTheMarauder6(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(318832); }
-        public static ISnoPower NatalyaVengeance2(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(402449); }
-        public static ISnoPower NatalyaVengeance4(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(429885); }
-        public static ISnoPower NatalyaVengeance6(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(434964); }
-        public static ISnoPower TheShadowMantle2(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(318386); }
-        public static ISnoPower TheShadowMantle4(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(318876); }
-        public static ISnoPower TheShadowMantle6(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(444522); }
-        public static ISnoPower UnhallowedEssence2(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(423230); }
-        public static ISnoPower UnhallowedEssence4(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(423244); }
-        public static ISnoPower UnhallowedEssence6(this IDemonHunterPowerInfo powerList) { return Hud.Sno.GetSnoPower(423228); }
+        public static IBuff DemonHunter_DanettaHatredPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318380); }
+        public static IBuff DemonHunter_DanettaHatredSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(447905); }
+        public static IBuff DemonHunter_EmbodimentOfTheMarauder2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359561); }
+        public static IBuff DemonHunter_EmbodimentOfTheMarauder4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359562); }
+        public static IBuff DemonHunter_EmbodimentOfTheMarauder6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318832); }
+        public static IBuff DemonHunter_NatalyaVengeance2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(402449); }
+        public static IBuff DemonHunter_NatalyaVengeance4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429885); }
+        public static IBuff DemonHunter_NatalyaVengeance6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(434964); }
+        public static IBuff DemonHunter_TheShadowMantle2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318386); }
+        public static IBuff DemonHunter_TheShadowMantle4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318876); }
+        public static IBuff DemonHunter_TheShadowMantle6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(444522); }
+        public static IBuff DemonHunter_UnhallowedEssence2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423230); }
+        public static IBuff DemonHunter_UnhallowedEssence4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423244); }
+        public static IBuff DemonHunter_UnhallowedEssence6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423228); }
         // end DemonHunter
 
         // Monk
-        public static ISnoPower ShenlongPrimary(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(440568); }
-        public static ISnoPower ShenlongSecondary(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(440569); }
-        public static ISnoPower InnaMantra2(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(430685); }
-        public static ISnoPower InnaMantra4(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(318435); }
-        public static ISnoPower InnaMantra6(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(449252); }
-        public static ISnoPower RaimentOfThousandStorms2(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(427799); }
-        public static ISnoPower RaimentOfThousandStorms4(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(427798); }
-        public static ISnoPower RaimentOfThousandStorms6(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(430228); }
-        public static ISnoPower MonkeyKingGarb2(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(446762); }
-        public static ISnoPower MonkeyKingGarb4(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(446761); }
-        public static ISnoPower MonkeyKingGarb6(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(446562); }
-        public static ISnoPower UlianaStratagem2(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(439311); }
-        public static ISnoPower UlianaStratagem4(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(439310); }
-        public static ISnoPower UlianaStratagem6(this IMonkPowerInfo powerList) { return Hud.Sno.GetSnoPower(439312); }
+        public static IBuff Monk_ShenlongPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(440568); }
+        public static IBuff Monk_ShenlongSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(440569); }
+        public static IBuff Monk_InnaMantra2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430685); }
+        public static IBuff Monk_InnaMantra4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318435); }
+        public static IBuff Monk_InnaMantra6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(449252); }
+        public static IBuff Monk_RaimentOfThousandStorms2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(427799); }
+        public static IBuff Monk_RaimentOfThousandStorms4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(427798); }
+        public static IBuff Monk_RaimentOfThousandStorms6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430228); }
+        public static IBuff Monk_MonkeyKingGarb2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(446762); }
+        public static IBuff Monk_MonkeyKingGarb4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(446761); }
+        public static IBuff Monk_MonkeyKingGarb6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(446562); }
+        public static IBuff Monk_UlianaStratagem2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439311); }
+        public static IBuff Monk_UlianaStratagem4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439310); }
+        public static IBuff Monk_UlianaStratagem6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439312); }
         // end Monk
 
         // WitchDoctor
-        public static ISnoPower ManajumaWayPrimary(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(360491); }
-        public static ISnoPower ManajumaWaySecondary(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(440744); }
-        public static ISnoPower HellToothHarness2(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(439309); }
-        public static ISnoPower HellToothHarness4(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(437710); }
-        public static ISnoPower HellToothHarness6(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(437711); }
-        public static ISnoPower SpiritOfArachyr2(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(439303); }
-        public static ISnoPower SpiritOfArachyr4(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(439308); }
-        public static ISnoPower SpiritOfArachyr6(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(439309); }
-        public static ISnoPower RaimentOfTheJadeHarvester2(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(434967); }
-        public static ISnoPower RaimentOfTheJadeHarvester4(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(434969); }
-        public static ISnoPower RaimentOfTheJadeHarvester6(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(359573); }
-        public static ISnoPower ZunimassaHaunt2(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(318778); }
-        public static ISnoPower ZunimassaHaunt4(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(430680); }
-        public static ISnoPower ZunimassaHaunt6(this IWitchDoctorPowerInfo powerList) { return Hud.Sno.GetSnoPower(429857); }
+        public static IBuff WitchDoctor_ManajumaWayPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(360491); }
+        public static IBuff WitchDoctor_ManajumaWaySecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(440744); }
+        public static IBuff WitchDoctor_HellToothHarness2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439309); }
+        public static IBuff WitchDoctor_HellToothHarness4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(437710); }
+        public static IBuff WitchDoctor_HellToothHarness6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(437711); }
+        public static IBuff WitchDoctor_SpiritOfArachyr2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439303); }
+        public static IBuff WitchDoctor_SpiritOfArachyr4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439308); }
+        public static IBuff WitchDoctor_SpiritOfArachyr6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439309); }
+        public static IBuff WitchDoctor_RaimentOfTheJadeHarvester2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(434967); }
+        public static IBuff WitchDoctor_RaimentOfTheJadeHarvester4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(434969); }
+        public static IBuff WitchDoctor_RaimentOfTheJadeHarvester6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359573); }
+        public static IBuff WitchDoctor_ZunimassaHaunt2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318778); }
+        public static IBuff WitchDoctor_ZunimassaHaunt4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430680); }
+        public static IBuff WitchDoctor_ZunimassaHaunt6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429857); }
         // end WitchDoctor
 
         // Wizard
-        public static ISnoPower ChantodoPrimary(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(437844); }
-        public static ISnoPower ChantodoSecondary(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(440235); }
-        public static ISnoPower VyrAmazingArcana2(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(359574); }
-        public static ISnoPower VyrAmazingArcana4(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(437840); }
-        public static ISnoPower VyrAmazingArcana6(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(437843); }
-        public static ISnoPower TalRashaElements2(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(359555); }
-        public static ISnoPower TalRashaElements4(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(430672); }
-        public static ISnoPower TalRashaElements6(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(429855); }
-        public static ISnoPower FirebirdFinery2(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(359580); }
-        public static ISnoPower FirebirdFinery4(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(359581); }
-        public static ISnoPower FirebirdFinery6(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(445814); }
-        public static ISnoPower DelsereMagnumOpus2(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(423237); }
-        public static ISnoPower DelsereMagnumOpus4(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(450294); }
-        public static ISnoPower DelsereMagnumOpus6(this IWizardPowerInfo powerList) { return Hud.Sno.GetSnoPower(423234); }
+        public static IBuff Wizard_ChantodoPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(437844); }
+        public static IBuff Wizard_ChantodoSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(440235); }
+        public static IBuff Wizard_VyrAmazingArcana2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359574); }
+        public static IBuff Wizard_VyrAmazingArcana4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(437840); }
+        public static IBuff Wizard_VyrAmazingArcana6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(437843); }
+        public static IBuff Wizard_TalRashaElements2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359555); }
+        public static IBuff Wizard_TalRashaElements4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430672); }
+        public static IBuff Wizard_TalRashaElements6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429855); }
+        public static IBuff Wizard_FirebirdFinery2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359580); }
+        public static IBuff Wizard_FirebirdFinery4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359581); }
+        public static IBuff Wizard_FirebirdFinery6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445814); }
+        public static IBuff Wizard_DelsereMagnumOpus2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423237); }
+        public static IBuff Wizard_DelsereMagnumOpus4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(450294); }
+        public static IBuff Wizard_DelsereMagnumOpus6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423234); }
         // end Wizard
 
         // end set bonus
