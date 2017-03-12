@@ -36,6 +36,25 @@
                 });
             });
 
+
+            //Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
+            //{
+            //    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+            //    {
+            //        //TextSnoId = Hud.Sno.SnoPowers.LegacyOfNightmares2().Sno,
+            //        MessageFormat = "{0} !",
+            //        AlertTextFunc = (id) =>
+            //        {
+            //            return Hud.GuessLocalizedName(3758303663);
+            //        },
+            //        Rule =
+            //        {
+            //            ShowInTown = true,
+            //            VisibleCondition = (player) => player.Powers.LegacyOfNightmares2() != null,
+            //        }
+            //    });
+            //});
+
             //Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             //{
             //    plugin.AlertList.VerticalCenter = false;
@@ -112,7 +131,7 @@
                 });
             });
 
-            /* show all buffs*/
+            /* show all buffs *
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
