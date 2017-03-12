@@ -24,6 +24,67 @@ namespace Turbo.Plugins.Jack.Extensions
         // end naming
 
         // missing
+        public static ISnoPower Barbarian_Avalanche_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(353458); }
+        public static ISnoPower Crusader_LawsOfHope_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323370); }
+        public static ISnoPower Crusader_LawsOfHope_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342299); }
+        public static ISnoPower Crusader_LawsOfHope2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342279); }
+        public static ISnoPower Crusader_LawsOfJustice_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323386); }
+        public static ISnoPower Crusader_LawsOfJustice_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342286); }
+        public static ISnoPower Crusader_LawsOfJustice2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342280); }
+        public static ISnoPower Crusader_LawsOfValor_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323387); }
+        public static ISnoPower Crusader_LawsOfValor_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342284); }
+        public static ISnoPower Crusader_LawsOfValor2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342281); }
+        public static ISnoPower DemonHunter_Companion_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(365312); }
+        public static ISnoPower DemonHunter_Preparation_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(324845); }
+        public static ISnoPower Enchantress_Charm(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(102057); }
+        public static ISnoPower Enchantress_Cripple(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(84469); }
+        public static ISnoPower Enchantress_Disorient(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(101990); }
+        public static ISnoPower Enchantress_FocusedMind(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(101425); }
+        public static ISnoPower Enchantress_ForcefulPush(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(101969); }
+        public static ISnoPower Enchantress_ForcefulPush2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(345292); }
+        public static ISnoPower Enchantress_MassCharm(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(201524); }
+        public static ISnoPower Enchantress_MassCharm2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(344565); }
+        public static ISnoPower Enchantress_Melee_Instant(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(230238); }
+        public static ISnoPower Enchantress_MissileWard(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(257687); }
+        public static ISnoPower Enchantress_PoweredArmor(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(101461); }
+        public static ISnoPower Enchantress_RunAway(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(186200); }
+        public static ISnoPower Enchantress_ScorchedEarth(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(220872); }
+        public static ISnoPower Enchantress_ScorchedEarth2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(345394); }
+        public static ISnoPower Monk_MantraOfConviction_v2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375088); }
+        public static ISnoPower Monk_MantraOfConviction_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375089); }
+        public static ISnoPower Monk_MantraOfEvasion_v2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375049); }
+        public static ISnoPower Monk_MantraOfEvasion_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375050); }
+        public static ISnoPower Monk_MantraOfHealing_v2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(373143); }
+        public static ISnoPower Monk_MantraOfHealing_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(373154); }
+        public static ISnoPower Monk_MantraOfRetribution_v2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375082); }
+        public static ISnoPower Monk_MantraOfRetribution_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375083); }
+        public static ISnoPower Monk_MysticAlly_v2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(362102); }
+        public static ISnoPower Monk_MysticAlly_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(362118); }
+        public static ISnoPower Scoundrel_Anatomy(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30454); }
+        public static ISnoPower Scoundrel_Bandage(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30455); }
+        public static ISnoPower Scoundrel_CripplingShot(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(95675); }
+        public static ISnoPower Scoundrel_DirtyFighting(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(97436); }
+        public static ISnoPower Scoundrel_Hysteria(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(200169); }
+        public static ISnoPower Scoundrel_Multishot(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(365395); }
+        public static ISnoPower Scoundrel_Multishot_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(366585); }
+        public static ISnoPower Scoundrel_PoisonArrow(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30460); }
+        public static ISnoPower Scoundrel_PowerShot(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(95690); }
+        public static ISnoPower Scoundrel_Ranged_Projectile(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(99902); }
+        public static ISnoPower Scoundrel_RunAway(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(99904); }
+        public static ISnoPower Scoundrel_Vanish(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30464); }
+        public static ISnoPower Templar_Guardian(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30359); }
+        public static ISnoPower Templar_Heal(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(344096); }
+        public static ISnoPower Templar_Heal_110(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(257640); }
+        public static ISnoPower Templar_Inspire(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30356); }
+        public static ISnoPower Templar_Intervene(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(93938); }
+        public static ISnoPower Templar_Intervene_Proc(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(94008); }
+        public static ISnoPower Templar_Intimidate(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(93901); }
+        public static ISnoPower Templar_Loyalty(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30357); }
+        public static ISnoPower Templar_Melee_Instant(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(230239); }
+        public static ISnoPower Templar_Onslaught(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(93888); }
+        public static ISnoPower Templar_Onslaught2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(344099); }
+        public static ISnoPower Templar_ShieldCharge(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(30360); }
+        public static ISnoPower Templar_ShieldCharge2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(344098); }
         public static ISnoPower Wizard_Archon_ArcaneBlast_Cold(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392883); }
         public static ISnoPower Wizard_Archon_ArcaneBlast_Fire(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392884); }
         public static ISnoPower Wizard_Archon_ArcaneBlast_Lightning(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392885); }
@@ -34,19 +95,6 @@ namespace Turbo.Plugins.Jack.Extensions
         public static ISnoPower Wizard_Archon_DisintegrationWave_Cold(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392889); }
         public static ISnoPower Wizard_Archon_DisintegrationWave_Fire(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392890); }
         public static ISnoPower Wizard_Archon_DisintegrationWave_Lightning(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(392891); }
-        public static ISnoPower Monk_MantraOfConviction_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375089); }
-        public static ISnoPower Monk_MantraOfEvasion_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375050); }
-        public static ISnoPower Monk_MantraOfHealing_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(373154); }
-        public static ISnoPower Monk_MantraOfRetribution_v2_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(375083); }
-        public static ISnoPower Crusader_LawsOfHope_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323370); }
-        public static ISnoPower Crusader_LawsOfHope_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342299); }
-        public static ISnoPower Crusader_LawsOfHope2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342279); }
-        public static ISnoPower Crusader_LawsOfJustice_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323386); }
-        public static ISnoPower Crusader_LawsOfJustice_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342286); }
-        public static ISnoPower Crusader_LawsOfJustice2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342280); }
-        public static ISnoPower Crusader_LawsOfValor_Passive(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(323387); }
-        public static ISnoPower Crusader_LawsOfValor_Passive2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342284); }
-        public static ISnoPower Crusader_LawsOfValor2(this ISnoPowerList powerList) { return Hud.Sno.GetSnoPower(342281); }
         // end missing
 
         // set bonus
@@ -253,6 +301,7 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Barbarian_WrathOfTheWastes2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423206); }
         public static IBuff Barbarian_WrathOfTheWastes4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423205); }
         public static IBuff Barbarian_WrathOfTheWastes6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423226); }
+        public static IBuff Barbarian_Avalanche_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(353458); }
         // end Barbarian
 
         // Crusader
@@ -270,6 +319,15 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Crusader_ThornsOfTheInvoker2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445829); }
         public static IBuff Crusader_ThornsOfTheInvoker4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445639); }
         public static IBuff Crusader_ThornsOfTheInvoker6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(446511); }
+        public static IBuff Crusader_LawsOfHope_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(323370); }
+        public static IBuff Crusader_LawsOfHope_Passive2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342299); }
+        public static IBuff Crusader_LawsOfHope2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342279); }
+        public static IBuff Crusader_LawsOfJustice_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(323386); }
+        public static IBuff Crusader_LawsOfJustice_Passive2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342286); }
+        public static IBuff Crusader_LawsOfJustice2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342280); }
+        public static IBuff Crusader_LawsOfValor_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(323387); }
+        public static IBuff Crusader_LawsOfValor_Passive2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342284); }
+        public static IBuff Crusader_LawsOfValor2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342281); }
         // end Crusader
 
         // DemonHunter
@@ -287,6 +345,8 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff DemonHunter_UnhallowedEssence2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423230); }
         public static IBuff DemonHunter_UnhallowedEssence4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423244); }
         public static IBuff DemonHunter_UnhallowedEssence6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423228); }
+        public static IBuff DemonHunter_Companion_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(365312); }
+        public static IBuff DemonHunter_Preparation_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(324845); }
         // end DemonHunter
 
         // Monk
@@ -304,6 +364,16 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Monk_UlianaStratagem2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439311); }
         public static IBuff Monk_UlianaStratagem4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439310); }
         public static IBuff Monk_UlianaStratagem6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(439312); }
+        public static IBuff Monk_MantraOfConviction_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375088); }
+        public static IBuff Monk_MantraOfConviction_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375089); }
+        public static IBuff Monk_MantraOfEvasion_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375049); }
+        public static IBuff Monk_MantraOfEvasion_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375050); }
+        public static IBuff Monk_MantraOfHealing_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(373143); }
+        public static IBuff Monk_MantraOfHealing_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(373154); }
+        public static IBuff Monk_MantraOfRetribution_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375082); }
+        public static IBuff Monk_MantraOfRetribution_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375083); }
+        public static IBuff Monk_MysticAlly_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(362102); }
+        public static IBuff Monk_MysticAlly_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(362118); }
         // end Monk
 
         // WitchDoctor
@@ -338,6 +408,16 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Wizard_DelsereMagnumOpus2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423237); }
         public static IBuff Wizard_DelsereMagnumOpus4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(450294); }
         public static IBuff Wizard_DelsereMagnumOpus6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423234); }
+        public static IBuff Wizard_Archon_ArcaneBlast_Cold(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392883); }
+        public static IBuff Wizard_Archon_ArcaneBlast_Fire(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392884); }
+        public static IBuff Wizard_Archon_ArcaneBlast_Lightning(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392885); }
+        public static IBuff Wizard_Archon_ArcaneStrike_Cold(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392886); }
+        public static IBuff Wizard_Archon_ArcaneStrike_Fire(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392887); }
+        public static IBuff Wizard_Archon_ArcaneStrike_Lightning(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392888); }
+        public static IBuff Wizard_Archon_Cancel(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(166616); }
+        public static IBuff Wizard_Archon_DisintegrationWave_Cold(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392889); }
+        public static IBuff Wizard_Archon_DisintegrationWave_Fire(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392890); }
+        public static IBuff Wizard_Archon_DisintegrationWave_Lightning(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392891); }
         // end Wizard
 
         // None
