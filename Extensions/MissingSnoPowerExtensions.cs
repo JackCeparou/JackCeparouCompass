@@ -340,6 +340,18 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Wizard_DelsereMagnumOpus6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423234); }
         // end Wizard
 
+        // None
+        public static IBuff AshearaVestments4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359558); }
+        public static IBuff BastionsOfWillPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359583); }
+        public static IBuff BastionsOfWillSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(434980); }
+        public static IBuff BlackthorneBattlegear4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359556); }
+        public static IBuff EndlessWalkPrimary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(447541); }
+        public static IBuff EndlessWalkSecondary(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(447553); }
+        public static IBuff IstvanPairedBlades2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359582); }
+        public static IBuff LegacyOfNightmares2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445798); }
+        public static IBuff SageJourney2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359560); }
+        // end None
+
         // end set bonus
     }
 
