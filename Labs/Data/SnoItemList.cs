@@ -5,7 +5,7 @@
 // </auto-generated>
 //-----------------------------------------------------------------------------------------------
 
-namespace Turbo.Plugins.Jack.Labs
+namespace Turbo.Plugins.Jack.Labs.Data
 {
     using System.Collections.Generic;
 

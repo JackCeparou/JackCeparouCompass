@@ -1,4 +1,4 @@
-﻿namespace Turbo.Plugins.Jack.Labs
+﻿namespace Turbo.Plugins.Jack.Labs.Data
 {
     using SharpDX;
     using System;
@@ -52,6 +52,8 @@
             allPlayerPowers = Hud.Sno.SnoPowers.AllPlayerPowers().ToList();
 
             itemList.Populate();
+
+            Hud.Debug("Date		Status	Sno	Code	NormalTextureId	Icons		ItemsSnos	ItemsCodes");
         }
 
         public void AfterCollect()
@@ -84,48 +86,6 @@
             {
                 Says.Error(ex.Message);
             }
-
-            #region 456
-
-            /*
-            uint sno = 0;
-            string data = "BuffData:\n";
-            foreach (var s in Hud.Game.Me.Powers.AllBuffs)
-            {
-                if (s.SnoPower.Sno == sno || s.SnoPower.Code.Contains("SetItemBonusBuff"))
-                {
-                    data += s.SnoPower.Sno.ToString() + "\t";
-                    data += "[" + string.Join(",", s.IconCounts) + "]" + "\t";
-                    data += s.Active.ToString() + "\t";
-                    data += s.SnoPower.NameEnglish + " : ";
-                    data += s.SnoPower.Code + " : ";
-                    data += s.SnoPower.DescriptionEnglish + "\n";
-                }
-            }
-            data += "\nSNOData:\n";
-            ISnoPower skill = Hud.Sno.GetSnoPower(sno);
-            data += skill.Sno.ToString() + "\t";
-            data += skill.NormalIconTextureId + "\t";
-            int i = 0;
-            float x = Hud.Window.Size.Width / 2;
-            float y = Hud.Window.Size.Height / 2 + Hud.Window.Size.Height * 0.1f;
-            data += "[";
-            DrawTexture(skill.NormalIconTextureId, new RectangleF(x - 55, y, 50, 50));
-            foreach (SnoPowerIcon si in skill.Icons)
-            {
-                if (si.Exists)
-                {
-                    data += "(" + (i++) + ":" + si.TextureId.ToString() + "),";
-                    if (si.TextureId > 0)
-                        DrawTexture(si.TextureId, new RectangleF(x, y, 50, 50));
-                    x += 55;
-                }
-            }
-            data += "]";
-            PlayerDecorator.Paint(Hud.Game.Me, Hud.Game.Me.FloorCoordinate, data);
-            /*4546*/
-
-            #endregion 456
         }
 
         private void Step(IReadOnlyList<ISnoPower> powers, out bool flag)
@@ -179,8 +139,8 @@
 
         private IEnumerable<ISnoItem> GetItems(ISnoPower power)
         {
-            var item = itemList.Items.FirstOrDefault(x => x.LegendaryPower != null && x.LegendaryPower.Sno == power.Sno);
-            if (item == null)
+            var item = itemList.Items.Where(x => x.LegendaryPower != null && x.LegendaryPower.Sno == power.Sno);
+            if (!item.Any())
             {
                 if (power.Code.ToLower().Contains("unique_gem_"))
                 {
@@ -318,7 +278,10 @@
             }
             else
             {
-                yield return item;
+                foreach (var _item in item)
+                {
+                    yield return _item;
+                }
             }
         }
 
