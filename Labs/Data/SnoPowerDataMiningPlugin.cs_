@@ -53,7 +53,7 @@
 
             itemList.Populate();
 
-            Hud.Debug("Date		Status	Sno	Code	NormalTextureId	Icons		ItemsSnos	ItemsCodes");
+            //Hud.Debug("Date		Status	Sno	Code	NormalTextureId	Icons		ItemsSnos	ItemsCodes");
         }
 
         public void AfterCollect()
@@ -127,7 +127,7 @@
 
                 index++;
             }
-            if (index >= powers.Count - 1)
+            if (index >= powers.Count)
             {
                 index = 0;
                 flag = true;
@@ -149,131 +149,135 @@
                 }
                 else
                 {
-                    switch (power.Sno)
-                    {
-                        //P2_ItemPassive_Unique_Ring_051 // bul kathos
-                        case 434377:
-                            yield return Hud.Inventory.GetSnoItem(1663326820);
-                            yield return Hud.Inventory.GetSnoItem(1664512741);
-                            break;
-                        //ItemPassive_Unique_Ring_578_x1 // Immortal King's
-                        case 318760:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Immortal King's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_580_x1 // earth
-                        //ItemPassive_Unique_Ring_529_x1
-                        case 318762:
-                        case 318418:
-                            yield return Hud.Inventory.GetSnoItem(2059579422);
-                            yield return Hud.Inventory.GetSnoItem(2302982356);
-                            yield return Hud.Inventory.GetSnoItem(827195572);
-                            yield return Hud.Inventory.GetSnoItem(2314385524);
-                            yield return Hud.Inventory.GetSnoItem(260113317);
-                            yield return Hud.Inventory.GetSnoItem(3494391925);
-                            break;
-                        //ItemPassive_Unique_Ring_718_x1
-                        case 359563:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Raekor's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_736_x1
-                        //ItemPassive_Unique_Ring_737_x1
-                        case 359584:
-                        case 359585:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("of Akkhan")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_518_x1
-                        case 318380:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Danetta's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_716_x1
-                        //ItemPassive_Unique_Ring_717_x1
-                        //ItemPassive_Unique_Ring_650_x1
-                        case 359561:
-                        case 359562:
-                        case 318832:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Marauder's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_913_x1
-                        case 402449:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Natalya's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_680_x1
-                        case 318876:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("The Shadow's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Mojo_010_x1
-                        //ItemPassive_Unique_Mojo_010_x1_tooltipDummy_1
-                        case 360491:
-                        case 440744:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Manajuma")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //P2_ItemPassive_Unique_Ring_055
-                        //ItemPassive_Unique_Ring_726_x1
-                        case 434967:
-                        case 359573:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Jade Harvester's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_596_x1
-                        case 318778:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Zunimassa's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_727_x1
-                        case 359574:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Vyr's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_710_x1
-                        case 359555:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Tal Rasha's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_713_x1
-                        case 359558:
-                            foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Asheara's")))
-                            {
-                                yield return _item;
-                            }
-                            break;
-                        //ItemPassive_Unique_Ring_711_x1
-                        case 359556:
-                            yield return Hud.Inventory.GetSnoItem(1528526556);
+switch (power.Sno)
+                {
+                    //P2_ItemPassive_Unique_Ring_051 // bul kathos
+                    case 434377:
+                        yield return Hud.Inventory.GetSnoItem(1663326820);
+                        yield return Hud.Inventory.GetSnoItem(1664512741);
+                        break;
+                    //ItemPassive_Unique_Ring_578_x1 // Immortal King's
+                    case 318760:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Immortal King's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_580_x1 // earth
+                    //ItemPassive_Unique_Ring_529_x1
+                    case 318762:
+                    case 318418:
+                        yield return Hud.Inventory.GetSnoItem(2059579422);
+                        yield return Hud.Inventory.GetSnoItem(2302982356);
+                        yield return Hud.Inventory.GetSnoItem(827195572);
+                        yield return Hud.Inventory.GetSnoItem(2314385524);
+                        yield return Hud.Inventory.GetSnoItem(260113317);
+                        yield return Hud.Inventory.GetSnoItem(3494391925);
+                        break;
+                    //ItemPassive_Unique_Ring_718_x1
+                    case 359563:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Raekor's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_736_x1
+                    //ItemPassive_Unique_Ring_737_x1
+                    case 359584:
+                    case 359585:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("of Akkhan")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_518_x1
+                    case 318380:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Danetta's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_716_x1
+                    //ItemPassive_Unique_Ring_717_x1
+                    //ItemPassive_Unique_Ring_650_x1
+                    case 359561:
+                    case 359562:
+                    case 318832:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Marauder's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_913_x1
+                    case 402449:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Natalya's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_680_x1
+                    case 318876:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("The Shadow's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Mojo_010_x1
+                    //ItemPassive_Unique_Mojo_010_x1_tooltipDummy_1
+                    case 360491:
+                    case 440744:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Manajuma")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //P2_ItemPassive_Unique_Ring_055
+                    //ItemPassive_Unique_Ring_726_x1
+                    case 434967:
+                    case 359573:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Jade Harvester's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_596_x1
+                    case 318778:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Zunimassa's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_727_x1
+                    case 359574:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Vyr's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_710_x1
+                    case 359555:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Tal Rasha's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_713_x1
+                    case 359558:
+                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Asheara's")))
+                        {
+                            yield return _item;
+                        }
+                        break;
+                    //ItemPassive_Unique_Ring_711_x1
+                    case 359556:
+                        yield return Hud.Inventory.GetSnoItem(1528526556);
 
-                            break;
-                    }
+                        break;
+
+                    default:
+
+                        break;
+                }
                 }
             }
             else
