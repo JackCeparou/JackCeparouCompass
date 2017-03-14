@@ -1,0 +1,105 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using SharpDX.Direct2D1;
+using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.DevTool.Logger;
+
+namespace Turbo.Plugins.Jack.Labs.Texture
+{
+    public class TextureGeneratorPlugin : BasePlugin, IInGameTopPainter, ICustomizer, IAfterCollectHandler
+    {
+        private int index;
+        private List<uint> textureList;
+
+        private IBrush blackBrush;
+        private IBrush backgroundBrush;
+
+        private static WebClient client;
+        private bool drawn;
+        private ITexture texture;
+        private uint id;
+
+        public TextureGeneratorPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            textureList = new TextureList().TextureIds;
+            blackBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0);
+            backgroundBrush = Hud.Render.CreateBrush(255, 255, 53, 197, 0);
+
+            client = new WebClient();
+            client.DownloadStringCompleted += Client_DownloadStringCompleted;
+        }
+
+        public void AfterCollect()
+        {
+            if (!drawn) return;
+            if (client.IsBusy) return;
+            if (id == 0) return;
+            if (texture == null) return;
+
+            var result = client.DownloadString(new Uri(string.Format("http://localhost:3420/{0}.png/{1}/{2}", id, texture.Width, texture.Height)));
+
+            if (result == "ok")
+            {
+                drawn = false;
+                index++;
+            }
+        }
+
+        private void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            Says.Debug("End..");
+            index++;
+        }
+
+        public void Customize()
+        {
+            Hud.RunOnPlugin<LogToScreenPlugin>(plugin => plugin.XFunc = () => Hud.Window.Size.Width * 0.7f);
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+            if (!Hud.Game.Me.IsInTown) return;
+            if (index == -1) return;
+
+            if (index >= textureList.Count)
+            {
+                Says.Info("Finished !!");
+                index = -1;
+                return;
+            }
+
+            try
+            {
+                id = textureList[index];
+                texture = Hud.Texture.GetTexture(id);
+                if (texture == null)
+                {
+                    Says.Error("No texture here !! " + id);
+                }
+                else
+                {
+                    blackBrush.DrawRectangle(0, 0, Hud.Window.Size.Width / 2f, Hud.Window.Size.Height);
+                    backgroundBrush.DrawRectangle(0, 0, texture.Width, texture.Height);
+                    texture.Draw(0, 0, texture.Width, texture.Height);
+                    //Says.Debug(id, texture.Width, texture.Height);
+                    //Hud.Debug(id + "\t" + texture.Width + "\t" + texture.Height);
+
+                    drawn = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Says.Error(ex.Message);
+            }
+        }
+    }
+}
