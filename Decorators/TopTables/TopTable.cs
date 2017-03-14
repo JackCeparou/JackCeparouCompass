@@ -99,16 +99,28 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             if (ShowHeaderTop)
                 y += Columns.First().Height + SpacingAdjustmentInPixels;
 
+            //var _yCell = y;
+            //foreach (var line in Lines)
+            //{
+            //    var _x = x;
+            //    foreach (var cell in line.Cells)
+            //    {
+            //        cell.Paint(_x, _yCell);
+            //        _x += cell.Width + SpacingAdjustmentInPixels;
+            //    }
+            //    _yCell += line.Height + SpacingAdjustmentInPixels;
+            //}
+
             var _yCell = y;
-            foreach (var line in Lines)
+            for (var l = 0; l < Lines.Count; l++)
             {
                 var _x = x;
-                foreach (var cell in line.Cells)
+                foreach (var t in Columns)
                 {
-                    cell.Paint(_x, _yCell);
-                    _x += cell.Width + SpacingAdjustmentInPixels;
+                    t.Cells[l].Paint(_x, _yCell);
+                    _x += t.Cells[l].Width + SpacingAdjustmentInPixels;
                 }
-                _yCell += line.Height + SpacingAdjustmentInPixels;
+                _yCell += Lines[l].Height + SpacingAdjustmentInPixels;
             }
 
             if (ShowHeaderRight)
