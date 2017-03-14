@@ -117,6 +117,8 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
                 var _x = x;
                 foreach (var t in Columns)
                 {
+                    if (l >= t.Cells.Count) continue;
+
                     t.Cells[l].Paint(_x, _yCell);
                     _x += t.Cells[l].Width + SpacingAdjustmentInPixels;
                 }
