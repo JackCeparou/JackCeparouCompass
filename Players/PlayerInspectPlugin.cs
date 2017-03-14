@@ -38,7 +38,7 @@ namespace Turbo.Plugins.Jack.Players
             //var texture = Hud.Texture.GetTexture("p2_Mojo_norm_unique_02"); // henri
             //for (var i = 0; i < 10000; i++)
             //{
-            //    var texture = Hud.Texture.GetTexture(index++);
+            //    var texture = Hud.Texture.GetTexture(++index);
             //    if (texture == null) continue;
 
             //    _texture = texture;
