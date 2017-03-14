@@ -302,6 +302,22 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Barbarian_WrathOfTheWastes4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423205); }
         public static IBuff Barbarian_WrathOfTheWastes6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423226); }
         public static IBuff Barbarian_Avalanche_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(353458); }
+        public static IEnumerable<IBuff> AllBarbarianSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.Barbarian_BulKathos();
+            yield return playerPowers.Barbarian_ImmortalKingCall2();
+            yield return playerPowers.Barbarian_ImmortalKingCall4();
+            yield return playerPowers.Barbarian_ImmortalKingCall6();
+            yield return playerPowers.Barbarian_MightOfTheEarth2();
+            yield return playerPowers.Barbarian_MightOfTheEarth4();
+            yield return playerPowers.Barbarian_MightOfTheEarth6();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor2();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor4();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor6();
+            yield return playerPowers.Barbarian_WrathOfTheWastes2();
+            yield return playerPowers.Barbarian_WrathOfTheWastes4();
+            yield return playerPowers.Barbarian_WrathOfTheWastes6();
+        }
         // end Barbarian
 
         // Crusader
@@ -328,6 +344,23 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Crusader_LawsOfValor_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(323387); }
         public static IBuff Crusader_LawsOfValor_Passive2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342284); }
         public static IBuff Crusader_LawsOfValor2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(342281); }
+        public static IEnumerable<IBuff> AllCrusaderSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.Crusader_NorvaldFervorPrimary();
+            yield return playerPowers.Crusader_NorvaldFervorSecondary();
+            yield return playerPowers.Crusader_ArmorOfAkkhan2();
+            yield return playerPowers.Crusader_ArmorOfAkkhan4();
+            yield return playerPowers.Crusader_ArmorOfAkkhan6();
+            yield return playerPowers.Crusader_RolandLegacy2();
+            yield return playerPowers.Crusader_RolandLegacy4();
+            yield return playerPowers.Crusader_RolandLegacy6();
+            yield return playerPowers.Crusader_SeekerOfTheLight2();
+            yield return playerPowers.Crusader_SeekerOfTheLight4();
+            yield return playerPowers.Crusader_SeekerOfTheLight6();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker2();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker4();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker6();
+        }
         // end Crusader
 
         // DemonHunter
@@ -347,6 +380,23 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff DemonHunter_UnhallowedEssence6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(423228); }
         public static IBuff DemonHunter_Companion_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(365312); }
         public static IBuff DemonHunter_Preparation_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(324845); }
+        public static IEnumerable<IBuff> AllDemonHunterSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.DemonHunter_DanettaHatredPrimary();
+            yield return playerPowers.DemonHunter_DanettaHatredSecondary();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder2();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder4();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder6();
+            yield return playerPowers.DemonHunter_NatalyaVengeance2();
+            yield return playerPowers.DemonHunter_NatalyaVengeance4();
+            yield return playerPowers.DemonHunter_NatalyaVengeance6();
+            yield return playerPowers.DemonHunter_TheShadowMantle2();
+            yield return playerPowers.DemonHunter_TheShadowMantle4();
+            yield return playerPowers.DemonHunter_TheShadowMantle6();
+            yield return playerPowers.DemonHunter_UnhallowedEssence2();
+            yield return playerPowers.DemonHunter_UnhallowedEssence4();
+            yield return playerPowers.DemonHunter_UnhallowedEssence6();
+        }
         // end DemonHunter
 
         // Monk
@@ -374,6 +424,23 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Monk_MantraOfRetribution_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(375083); }
         public static IBuff Monk_MysticAlly_v2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(362102); }
         public static IBuff Monk_MysticAlly_v2_Passive(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(362118); }
+        public static IEnumerable<IBuff> AllMonkSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.Monk_ShenlongPrimary();
+            yield return playerPowers.Monk_ShenlongSecondary();
+            yield return playerPowers.Monk_InnaMantra2();
+            yield return playerPowers.Monk_InnaMantra4();
+            yield return playerPowers.Monk_InnaMantra6();
+            yield return playerPowers.Monk_RaimentOfThousandStorms2();
+            yield return playerPowers.Monk_RaimentOfThousandStorms4();
+            yield return playerPowers.Monk_RaimentOfThousandStorms6();
+            yield return playerPowers.Monk_MonkeyKingGarb2();
+            yield return playerPowers.Monk_MonkeyKingGarb4();
+            yield return playerPowers.Monk_MonkeyKingGarb6();
+            yield return playerPowers.Monk_UlianaStratagem2();
+            yield return playerPowers.Monk_UlianaStratagem4();
+            yield return playerPowers.Monk_UlianaStratagem6();
+        }
         // end Monk
 
         // WitchDoctor
@@ -391,6 +458,23 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff WitchDoctor_ZunimassaHaunt2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(318778); }
         public static IBuff WitchDoctor_ZunimassaHaunt4(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(430680); }
         public static IBuff WitchDoctor_ZunimassaHaunt6(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(429857); }
+        public static IEnumerable<IBuff> AllWitchDoctorSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.WitchDoctor_ManajumaWayPrimary();
+            yield return playerPowers.WitchDoctor_ManajumaWaySecondary();
+            yield return playerPowers.WitchDoctor_HellToothHarness2();
+            yield return playerPowers.WitchDoctor_HellToothHarness4();
+            yield return playerPowers.WitchDoctor_HellToothHarness6();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr2();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr4();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr6();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester2();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester4();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester6();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt2();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt4();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt6();
+        }
         // end WitchDoctor
 
         // Wizard
@@ -418,6 +502,23 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff Wizard_Archon_DisintegrationWave_Cold(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392889); }
         public static IBuff Wizard_Archon_DisintegrationWave_Fire(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392890); }
         public static IBuff Wizard_Archon_DisintegrationWave_Lightning(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(392891); }
+        public static IEnumerable<IBuff> AllWizardSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.Wizard_ChantodoPrimary();
+            yield return playerPowers.Wizard_ChantodoSecondary();
+            yield return playerPowers.Wizard_VyrAmazingArcana2();
+            yield return playerPowers.Wizard_VyrAmazingArcana4();
+            yield return playerPowers.Wizard_VyrAmazingArcana6();
+            yield return playerPowers.Wizard_TalRashaElements2();
+            yield return playerPowers.Wizard_TalRashaElements4();
+            yield return playerPowers.Wizard_TalRashaElements6();
+            yield return playerPowers.Wizard_FirebirdFinery2();
+            yield return playerPowers.Wizard_FirebirdFinery4();
+            yield return playerPowers.Wizard_FirebirdFinery6();
+            yield return playerPowers.Wizard_DelsereMagnumOpus2();
+            yield return playerPowers.Wizard_DelsereMagnumOpus4();
+            yield return playerPowers.Wizard_DelsereMagnumOpus6();
+        }
         // end Wizard
 
         // None
@@ -430,7 +531,114 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IBuff IstvanPairedBlades2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359582); }
         public static IBuff LegacyOfNightmares2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(445798); }
         public static IBuff SageJourney2(this IPlayerPowerInfo playerPowers) { return playerPowers.GetBuff(359560); }
+        public static IEnumerable<IBuff> AllNoneSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.AshearaVestments4();
+            yield return playerPowers.BastionsOfWillPrimary();
+            yield return playerPowers.BastionsOfWillSecondary();
+            yield return playerPowers.BlackthorneBattlegear4();
+            yield return playerPowers.EndlessWalkPrimary();
+            yield return playerPowers.EndlessWalkSecondary();
+            yield return playerPowers.IstvanPairedBlades2();
+            yield return playerPowers.LegacyOfNightmares2();
+            yield return playerPowers.SageJourney2();
+        }
         // end None
+        public static IEnumerable<IBuff> AllSetBonusBuffs(this IPlayerPowerInfo playerPowers)
+        {
+            yield return playerPowers.Barbarian_BulKathos();
+            yield return playerPowers.Barbarian_ImmortalKingCall2();
+            yield return playerPowers.Barbarian_ImmortalKingCall4();
+            yield return playerPowers.Barbarian_ImmortalKingCall6();
+            yield return playerPowers.Barbarian_MightOfTheEarth2();
+            yield return playerPowers.Barbarian_MightOfTheEarth4();
+            yield return playerPowers.Barbarian_MightOfTheEarth6();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor2();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor4();
+            yield return playerPowers.Barbarian_TheLegacyOfRaekor6();
+            yield return playerPowers.Barbarian_WrathOfTheWastes2();
+            yield return playerPowers.Barbarian_WrathOfTheWastes4();
+            yield return playerPowers.Barbarian_WrathOfTheWastes6();
+            yield return playerPowers.Crusader_NorvaldFervorPrimary();
+            yield return playerPowers.Crusader_NorvaldFervorSecondary();
+            yield return playerPowers.Crusader_ArmorOfAkkhan2();
+            yield return playerPowers.Crusader_ArmorOfAkkhan4();
+            yield return playerPowers.Crusader_ArmorOfAkkhan6();
+            yield return playerPowers.Crusader_RolandLegacy2();
+            yield return playerPowers.Crusader_RolandLegacy4();
+            yield return playerPowers.Crusader_RolandLegacy6();
+            yield return playerPowers.Crusader_SeekerOfTheLight2();
+            yield return playerPowers.Crusader_SeekerOfTheLight4();
+            yield return playerPowers.Crusader_SeekerOfTheLight6();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker2();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker4();
+            yield return playerPowers.Crusader_ThornsOfTheInvoker6();
+            yield return playerPowers.DemonHunter_DanettaHatredPrimary();
+            yield return playerPowers.DemonHunter_DanettaHatredSecondary();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder2();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder4();
+            yield return playerPowers.DemonHunter_EmbodimentOfTheMarauder6();
+            yield return playerPowers.DemonHunter_NatalyaVengeance2();
+            yield return playerPowers.DemonHunter_NatalyaVengeance4();
+            yield return playerPowers.DemonHunter_NatalyaVengeance6();
+            yield return playerPowers.DemonHunter_TheShadowMantle2();
+            yield return playerPowers.DemonHunter_TheShadowMantle4();
+            yield return playerPowers.DemonHunter_TheShadowMantle6();
+            yield return playerPowers.DemonHunter_UnhallowedEssence2();
+            yield return playerPowers.DemonHunter_UnhallowedEssence4();
+            yield return playerPowers.DemonHunter_UnhallowedEssence6();
+            yield return playerPowers.Monk_ShenlongPrimary();
+            yield return playerPowers.Monk_ShenlongSecondary();
+            yield return playerPowers.Monk_InnaMantra2();
+            yield return playerPowers.Monk_InnaMantra4();
+            yield return playerPowers.Monk_InnaMantra6();
+            yield return playerPowers.Monk_RaimentOfThousandStorms2();
+            yield return playerPowers.Monk_RaimentOfThousandStorms4();
+            yield return playerPowers.Monk_RaimentOfThousandStorms6();
+            yield return playerPowers.Monk_MonkeyKingGarb2();
+            yield return playerPowers.Monk_MonkeyKingGarb4();
+            yield return playerPowers.Monk_MonkeyKingGarb6();
+            yield return playerPowers.Monk_UlianaStratagem2();
+            yield return playerPowers.Monk_UlianaStratagem4();
+            yield return playerPowers.Monk_UlianaStratagem6();
+            yield return playerPowers.WitchDoctor_ManajumaWayPrimary();
+            yield return playerPowers.WitchDoctor_ManajumaWaySecondary();
+            yield return playerPowers.WitchDoctor_HellToothHarness2();
+            yield return playerPowers.WitchDoctor_HellToothHarness4();
+            yield return playerPowers.WitchDoctor_HellToothHarness6();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr2();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr4();
+            yield return playerPowers.WitchDoctor_SpiritOfArachyr6();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester2();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester4();
+            yield return playerPowers.WitchDoctor_RaimentOfTheJadeHarvester6();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt2();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt4();
+            yield return playerPowers.WitchDoctor_ZunimassaHaunt6();
+            yield return playerPowers.Wizard_ChantodoPrimary();
+            yield return playerPowers.Wizard_ChantodoSecondary();
+            yield return playerPowers.Wizard_VyrAmazingArcana2();
+            yield return playerPowers.Wizard_VyrAmazingArcana4();
+            yield return playerPowers.Wizard_VyrAmazingArcana6();
+            yield return playerPowers.Wizard_TalRashaElements2();
+            yield return playerPowers.Wizard_TalRashaElements4();
+            yield return playerPowers.Wizard_TalRashaElements6();
+            yield return playerPowers.Wizard_FirebirdFinery2();
+            yield return playerPowers.Wizard_FirebirdFinery4();
+            yield return playerPowers.Wizard_FirebirdFinery6();
+            yield return playerPowers.Wizard_DelsereMagnumOpus2();
+            yield return playerPowers.Wizard_DelsereMagnumOpus4();
+            yield return playerPowers.Wizard_DelsereMagnumOpus6();
+            yield return playerPowers.AshearaVestments4();
+            yield return playerPowers.BastionsOfWillPrimary();
+            yield return playerPowers.BastionsOfWillSecondary();
+            yield return playerPowers.BlackthorneBattlegear4();
+            yield return playerPowers.EndlessWalkPrimary();
+            yield return playerPowers.EndlessWalkSecondary();
+            yield return playerPowers.IstvanPairedBlades2();
+            yield return playerPowers.LegacyOfNightmares2();
+            yield return playerPowers.SageJourney2();
+        }
 
         // end set bonus
     }
