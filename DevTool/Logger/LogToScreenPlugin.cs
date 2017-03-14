@@ -1,5 +1,6 @@
 ﻿namespace Turbo.Plugins.Jack.DevTool.Logger
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
@@ -9,6 +10,9 @@
     {
         public TopLabelDecorator MessageFrame { get; set; }
         public Dictionary<LogLevel, IFont> Fonts { get; set; }
+
+        public Func<float> XFunc { get; set; }
+        public Func<float> YFunc { get; set; }
 
         public LogToScreenPlugin()
         {
@@ -32,6 +36,9 @@
             Fonts.Add(LogLevel.All, Hud.Render.CreateFont(fontFamily, 7, 224, 240, 240, 240, true, false, false));
             Fonts.Add(LogLevel.Info, Hud.Render.CreateFont(fontFamily, 7, 224, 64, 240, 64, true, false, false));
             Fonts.Add(LogLevel.Debug, Hud.Render.CreateFont(fontFamily, 7, 224, 240, 240, 64, true, false, false));
+
+            XFunc = () => Hud.Window.Size.Width * 0.2f;
+            YFunc = () => Hud.Window.Size.Height * 0.1042f;
         }
 
         public void PaintTopInGame(ClipState clipState)
@@ -71,8 +78,8 @@
             if (Says.Messages.Count == 0) return;
 
             var screenSize = Hud.Window.Size;
-            var x = screenSize.Width * 0.0f;
-            var y = screenSize.Height * 0.1042f;
+            var x = XFunc();
+            var y = YFunc();
 
             var estimatedWidth = Says.Messages.Max(m => m.Message.Length) * 8f; // TODO : fix for long exceptions
             var estimatedHeight = (Says.Messages.Count + 1) * 14f + 20 + 2;
