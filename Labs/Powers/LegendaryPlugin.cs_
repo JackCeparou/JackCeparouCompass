@@ -1,0 +1,32 @@
+﻿using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.Extensions;
+
+namespace Turbo.Plugins.Jack.Labs.Powers
+{
+    public class LegendaryPlugin : BasePlugin, IInGameTopPainter
+    {
+        private PowerPainter painter;
+
+        public LegendaryPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            painter = new PowerPainter(Hud);
+            painter.SizeMultiplier = 0.36f;
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+            var powers = Hud.Sno.SnoPowers.LegendaryItemsPowers();
+
+            painter.Paint(powers, 0, 0);
+        }
+    }
+}

@@ -1,0 +1,43 @@
+﻿using System;
+using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.Extensions;
+
+namespace Turbo.Plugins.Jack.Labs.Powers
+{
+    public class PlayerPowerPlugin : BasePlugin, IInGameTopPainter
+    {
+        private PowerPainter painter;
+
+        public PlayerPowerPlugin()
+        {
+            Enabled = true;
+			Order = int.MaxValue;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            painter = new PowerPainter(Hud);
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+            var powers = Hud.Sno.SnoPowers.AllSetBonusPowers();
+            //var powers = Hud.Sno.SnoPowers.AllPlayerPowers();
+            //var powers = Hud.Sno.SnoPowers.BarbarianPowers();
+            //var powers = Hud.Sno.SnoPowers.CrusaderPowers();
+            //var powers = Hud.Sno.SnoPowers.DemonHunterPowers();
+            //var powers = Hud.Sno.SnoPowers.MonkPowers();
+            //var powers = Hud.Sno.SnoPowers.WitchDoctorPowers();
+            //var powers = Hud.Sno.SnoPowers.WizardPowers();
+
+            painter.SizeMultiplier = 0.65f;
+            painter.ColumnWidthRatio = 0.3f;
+
+            painter.Paint(powers, 0, 0);
+        }
+    }
+}

@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.Extensions;
+
+namespace Turbo.Plugins.Jack.Labs.Powers
+{
+    public class GemsPlugin : BasePlugin, IInGameTopPainter
+    {
+        private PowerPainter painter;
+
+        public GemsPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            painter = new PowerPainter(Hud);
+            painter.SizeMultiplier = 0.35f;
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+            var powers = Hud.Sno.SnoPowers.LegendaryGemsPowers();
+
+            painter.Paint(powers, 0, 0);
+        }
+    }
+}
