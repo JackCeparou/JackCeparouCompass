@@ -16,11 +16,6 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IController Hud { get; set; }
 
         // naming
-        public static ISnoPower Monk_FistsOfThunder(this ISnoPowerList powerList) { return powerList.Monk_FistsofThunder; }
-        public static ISnoPower Monk_Passive_Determination(this ISnoPowerList powerList) { return powerList.Monk_Passive_Provocation; }
-        public static ISnoPower Monk_Passive_Alacrity(this ISnoPowerList powerList) { return powerList.Monk_Passive_GuidingLight; }
-        public static ISnoPower WitchDoctor_WallOfDeath(this ISnoPowerList powerList) { return powerList.WitchDoctor_WallOfZombies; }
-        public static ISnoPower WitchDoctor_Passive_SwamplandAttunement(this ISnoPowerList powerList) { return powerList.WitchDoctor_Passive_PhysicalAttunement; }
         // end naming
 
         // missing

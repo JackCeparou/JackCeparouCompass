@@ -4,662 +4,323 @@ namespace Turbo.Plugins.Jack.Extensions
 {
     public static class SnoPowerListExtension
     {
-        public static IEnumerable<ISnoPower> AllPlayerPowers(this ISnoPowerList powerList)
-        {
-            foreach (var power in powerList.BarbarianPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.CrusaderPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.DemonHunterPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.MonkPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.WitchDoctorPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.WizardPowers())
-            {
-                yield return power;
-            }
-        }
+        //public static IEnumerable<ISnoPower> AllPlayerPowers(this ISnoPowerList powerList)
+        //{
+        //    foreach (var power in powerList.BarbarianPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //    foreach (var power in powerList.CrusaderPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //    foreach (var power in powerList.DemonHunterPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //    foreach (var power in powerList.MonkPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //    foreach (var power in powerList.WitchDoctorPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //    foreach (var power in powerList.WizardPowers())
+        //    {
+        //        yield return power;
+        //    }
+        //}
 
-        public static IEnumerable<ISnoPower> BarbarianPowers(this ISnoPowerList powerList)
-        {
-            // Barbarian skills
-            yield return powerList.Barbarian_AncientSpear;
-            yield return powerList.Barbarian_Avalanche;
-            yield return powerList.Barbarian_Bash;
-            yield return powerList.Barbarian_BattleRage;
-            yield return powerList.Barbarian_CallOfTheAncients;
-            yield return powerList.Barbarian_Cleave;
-            yield return powerList.Barbarian_Earthquake;
-            yield return powerList.Barbarian_Frenzy;
-            yield return powerList.Barbarian_FuriousCharge;
-            yield return powerList.Barbarian_GroundStomp;
-            yield return powerList.Barbarian_HammerOfTheAncients;
-            yield return powerList.Barbarian_IgnorePain;
-            yield return powerList.Barbarian_Leap;
-            yield return powerList.Barbarian_Overpower;
-            yield return powerList.Barbarian_Rend;
-            yield return powerList.Barbarian_Revenge;
-            yield return powerList.Barbarian_SeismicSlam;
-            yield return powerList.Barbarian_Sprint;
-            yield return powerList.Barbarian_ThreateningShout;
-            yield return powerList.Barbarian_WarCry;
-            yield return powerList.Barbarian_WeaponThrow;
-            yield return powerList.Barbarian_Whirlwind;
-            yield return powerList.Barbarian_WrathOfTheBerserker;
-            yield return powerList.Barbarian_Passive_Animosity; // 205228
-            yield return powerList.Barbarian_Passive_BerserkerRage; // 205187
-            yield return powerList.Barbarian_Passive_Bloodthirst; // 205217
-            yield return powerList.Barbarian_Passive_BoonOfBulKathos; // 204603
-            yield return powerList.Barbarian_Passive_Brawler; // 205133
-            yield return powerList.Barbarian_Passive_EarthenMight; // 361661
-            yield return powerList.Barbarian_Passive_InspiringPresence; // 205546
-            yield return powerList.Barbarian_Passive_Juggernaut; // 205707
-            yield return powerList.Barbarian_Passive_NervesOfSteel; // 217819
-            yield return powerList.Barbarian_Passive_NoEscape; // 204725
-            yield return powerList.Barbarian_Passive_PoundOfFlesh; // 205205
-            yield return powerList.Barbarian_Passive_Rampage; // 296572
-            yield return powerList.Barbarian_Passive_Relentless; // 205398
-            yield return powerList.Barbarian_Passive_Ruthless; // 205175
-            yield return powerList.Barbarian_Passive_Superstition; // 205491
-            yield return powerList.Barbarian_Passive_SwordAndBoard; // 340877
-            yield return powerList.Barbarian_Passive_ToughAsNails; // 205848
-            yield return powerList.Barbarian_Passive_Unforgiving; // 205300
-            yield return powerList.Barbarian_Passive_WeaponsMaster; // 206147
-        }
+        //public static IEnumerable<ISnoPower> BarbarianPowers(this ISnoPowerList powerList)
+        //{
+        //    // Barbarian skills
+        //    yield return powerList.Barbarian_AncientSpear;
+        //    yield return powerList.Barbarian_Avalanche;
+        //    yield return powerList.Barbarian_Bash;
+        //    yield return powerList.Barbarian_BattleRage;
+        //    yield return powerList.Barbarian_CallOfTheAncients;
+        //    yield return powerList.Barbarian_Cleave;
+        //    yield return powerList.Barbarian_Earthquake;
+        //    yield return powerList.Barbarian_Frenzy;
+        //    yield return powerList.Barbarian_FuriousCharge;
+        //    yield return powerList.Barbarian_GroundStomp;
+        //    yield return powerList.Barbarian_HammerOfTheAncients;
+        //    yield return powerList.Barbarian_IgnorePain;
+        //    yield return powerList.Barbarian_Leap;
+        //    yield return powerList.Barbarian_Overpower;
+        //    yield return powerList.Barbarian_Rend;
+        //    yield return powerList.Barbarian_Revenge;
+        //    yield return powerList.Barbarian_SeismicSlam;
+        //    yield return powerList.Barbarian_Sprint;
+        //    yield return powerList.Barbarian_ThreateningShout;
+        //    yield return powerList.Barbarian_WarCry;
+        //    yield return powerList.Barbarian_WeaponThrow;
+        //    yield return powerList.Barbarian_Whirlwind;
+        //    yield return powerList.Barbarian_WrathOfTheBerserker;
+        //    yield return powerList.Barbarian_Passive_Animosity; // 205228
+        //    yield return powerList.Barbarian_Passive_BerserkerRage; // 205187
+        //    yield return powerList.Barbarian_Passive_Bloodthirst; // 205217
+        //    yield return powerList.Barbarian_Passive_BoonOfBulKathos; // 204603
+        //    yield return powerList.Barbarian_Passive_Brawler; // 205133
+        //    yield return powerList.Barbarian_Passive_EarthenMight; // 361661
+        //    yield return powerList.Barbarian_Passive_InspiringPresence; // 205546
+        //    yield return powerList.Barbarian_Passive_Juggernaut; // 205707
+        //    yield return powerList.Barbarian_Passive_NervesOfSteel; // 217819
+        //    yield return powerList.Barbarian_Passive_NoEscape; // 204725
+        //    yield return powerList.Barbarian_Passive_PoundOfFlesh; // 205205
+        //    yield return powerList.Barbarian_Passive_Rampage; // 296572
+        //    yield return powerList.Barbarian_Passive_Relentless; // 205398
+        //    yield return powerList.Barbarian_Passive_Ruthless; // 205175
+        //    yield return powerList.Barbarian_Passive_Superstition; // 205491
+        //    yield return powerList.Barbarian_Passive_SwordAndBoard; // 340877
+        //    yield return powerList.Barbarian_Passive_ToughAsNails; // 205848
+        //    yield return powerList.Barbarian_Passive_Unforgiving; // 205300
+        //    yield return powerList.Barbarian_Passive_WeaponsMaster; // 206147
+        //}
 
-        public static IEnumerable<ISnoPower> CrusaderPowers(this ISnoPowerList powerList)
-        {
-            // Crusader skills
-            yield return powerList.Crusader_AkaratsChampion;
-            yield return powerList.Crusader_BlessedHammer;
-            yield return powerList.Crusader_BlessedShield;
-            yield return powerList.Crusader_Bombardment;
-            yield return powerList.Crusader_Condemn;
-            yield return powerList.Crusader_Consecration;
-            yield return powerList.Crusader_CrushingResolve;
-            yield return powerList.Crusader_FallingSword;
-            yield return powerList.Crusader_FistOfTheHeavens;
-            yield return powerList.Crusader_HeavensFury;
-            yield return powerList.Crusader_IronSkin;
-            yield return powerList.Crusader_Judgment;
-            yield return powerList.Crusader_Justice;
-            yield return powerList.Crusader_LawsOfFate;
-            yield return powerList.Crusader_LawsOfHope;
-            yield return powerList.Crusader_LawsOfJustice;
-            yield return powerList.Crusader_LawsOfValor;
-            yield return powerList.Crusader_Phalanx;
-            yield return powerList.Crusader_Provoke;
-            yield return powerList.Crusader_Punish;
-            yield return powerList.Crusader_ShieldBash;
-            yield return powerList.Crusader_ShieldGlare;
-            yield return powerList.Crusader_Slash;
-            yield return powerList.Crusader_Smite;
-            yield return powerList.Crusader_SteedCharge;
-            yield return powerList.Crusader_SweepAttack;
-            yield return powerList.Crusader_Passive_Blunt; // 348773
-            yield return powerList.Crusader_Passive_DivineFortress; // 356176
-            yield return powerList.Crusader_Passive_Fanaticism; // 357269
-            yield return powerList.Crusader_Passive_Fervor; // 357218
-            yield return powerList.Crusader_Passive_Finery; // 311629
-            yield return powerList.Crusader_Passive_HeavenlyStrength; // 286177
-            yield return powerList.Crusader_Passive_HoldYourGround; // 302500
-            yield return powerList.Crusader_Passive_HolyCause; // 310804
-            yield return powerList.Crusader_Passive_Indestructible; // 309830
-            yield return powerList.Crusader_Passive_Insurmountable; // 310640
-            yield return powerList.Crusader_Passive_IronMaiden; // 310783
-            yield return powerList.Crusader_Passive_LongArmOfTheLaw; // 310678
-            yield return powerList.Crusader_Passive_LordCommander; // 348741
-            yield return powerList.Crusader_Passive_Renewal; // 356173
-            yield return powerList.Crusader_Passive_Righteousness; // 356147
-            yield return powerList.Crusader_Passive_ToweringShield; // 356052
-            yield return powerList.Crusader_Passive_Vigilant; // 310626
-            yield return powerList.Crusader_Passive_Wrathful; // 310775
-        }
+        //public static IEnumerable<ISnoPower> CrusaderPowers(this ISnoPowerList powerList)
+        //{
+        //    // Crusader skills
+        //    yield return powerList.Crusader_AkaratsChampion;
+        //    yield return powerList.Crusader_BlessedHammer;
+        //    yield return powerList.Crusader_BlessedShield;
+        //    yield return powerList.Crusader_Bombardment;
+        //    yield return powerList.Crusader_Condemn;
+        //    yield return powerList.Crusader_Consecration;
+        //    yield return powerList.Crusader_CrushingResolve;
+        //    yield return powerList.Crusader_FallingSword;
+        //    yield return powerList.Crusader_FistOfTheHeavens;
+        //    yield return powerList.Crusader_HeavensFury;
+        //    yield return powerList.Crusader_IronSkin;
+        //    yield return powerList.Crusader_Judgment;
+        //    yield return powerList.Crusader_Justice;
+        //    yield return powerList.Crusader_LawsOfFate;
+        //    yield return powerList.Crusader_LawsOfHope;
+        //    yield return powerList.Crusader_LawsOfJustice;
+        //    yield return powerList.Crusader_LawsOfValor;
+        //    yield return powerList.Crusader_Phalanx;
+        //    yield return powerList.Crusader_Provoke;
+        //    yield return powerList.Crusader_Punish;
+        //    yield return powerList.Crusader_ShieldBash;
+        //    yield return powerList.Crusader_ShieldGlare;
+        //    yield return powerList.Crusader_Slash;
+        //    yield return powerList.Crusader_Smite;
+        //    yield return powerList.Crusader_SteedCharge;
+        //    yield return powerList.Crusader_SweepAttack;
+        //    yield return powerList.Crusader_Passive_Blunt; // 348773
+        //    yield return powerList.Crusader_Passive_DivineFortress; // 356176
+        //    yield return powerList.Crusader_Passive_Fanaticism; // 357269
+        //    yield return powerList.Crusader_Passive_Fervor; // 357218
+        //    yield return powerList.Crusader_Passive_Finery; // 311629
+        //    yield return powerList.Crusader_Passive_HeavenlyStrength; // 286177
+        //    yield return powerList.Crusader_Passive_HoldYourGround; // 302500
+        //    yield return powerList.Crusader_Passive_HolyCause; // 310804
+        //    yield return powerList.Crusader_Passive_Indestructible; // 309830
+        //    yield return powerList.Crusader_Passive_Insurmountable; // 310640
+        //    yield return powerList.Crusader_Passive_IronMaiden; // 310783
+        //    yield return powerList.Crusader_Passive_LongArmOfTheLaw; // 310678
+        //    yield return powerList.Crusader_Passive_LordCommander; // 348741
+        //    yield return powerList.Crusader_Passive_Renewal; // 356173
+        //    yield return powerList.Crusader_Passive_Righteousness; // 356147
+        //    yield return powerList.Crusader_Passive_ToweringShield; // 356052
+        //    yield return powerList.Crusader_Passive_Vigilant; // 310626
+        //    yield return powerList.Crusader_Passive_Wrathful; // 310775
+        //}
 
-        public static IEnumerable<ISnoPower> DemonHunterPowers(this ISnoPowerList powerList)
-        {
-            // Demon Hunter skills
-            yield return powerList.DemonHunter_Bolas;
-            yield return powerList.DemonHunter_Caltrops;
-            yield return powerList.DemonHunter_Chakram;
-            yield return powerList.DemonHunter_ClusterArrow;
-            yield return powerList.DemonHunter_Companion;
-            yield return powerList.DemonHunter_ElementalArrow;
-            yield return powerList.DemonHunter_EntanglingShot;
-            yield return powerList.DemonHunter_EvasiveFire;
-            yield return powerList.DemonHunter_FanOfKnives;
-            yield return powerList.DemonHunter_Grenades;
-            yield return powerList.DemonHunter_HungeringArrow;
-            yield return powerList.DemonHunter_Impale;
-            yield return powerList.DemonHunter_MarkedForDeath;
-            yield return powerList.DemonHunter_Multishot;
-            yield return powerList.DemonHunter_Preparation;
-            yield return powerList.DemonHunter_RainOfVengeance;
-            yield return powerList.DemonHunter_RapidFire;
-            yield return powerList.DemonHunter_Sentry;
-            yield return powerList.DemonHunter_ShadowPower;
-            yield return powerList.DemonHunter_SmokeScreen;
-            yield return powerList.DemonHunter_SpikeTrap;
-            yield return powerList.DemonHunter_Strafe;
-            yield return powerList.DemonHunter_Vault;
-            yield return powerList.DemonHunter_Vengeance;
-            yield return powerList.DemonHunter_Passive_Ambush; // 352920
-            yield return powerList.DemonHunter_Passive_Archery; // 209734
-            yield return powerList.DemonHunter_Passive_Awareness; // 324770
-            yield return powerList.DemonHunter_Passive_Ballistics; // 155723
-            yield return powerList.DemonHunter_Passive_Brooding; // 210801
-            yield return powerList.DemonHunter_Passive_CullTheWeak; // 155721
-            yield return powerList.DemonHunter_Passive_CustomEngineering; // 208610
-            yield return powerList.DemonHunter_Passive_Grenadier; // 208779
-            yield return powerList.DemonHunter_Passive_HotPursuit; // 155725
-            yield return powerList.DemonHunter_Passive_Leech; // 439525
-            yield return powerList.DemonHunter_Passive_NightStalker; // 218350
-            yield return powerList.DemonHunter_Passive_NumbingTraps; // 218398
-            yield return powerList.DemonHunter_Passive_Perfectionist; // 155722
-            yield return powerList.DemonHunter_Passive_Sharpshooter; // 155715
-            yield return powerList.DemonHunter_Passive_SingleOut; // 338859
-            yield return powerList.DemonHunter_Passive_SteadyAim; // 164363
-            yield return powerList.DemonHunter_Passive_TacticalAdvantage; // 218385
-            yield return powerList.DemonHunter_Passive_ThrillOfTheHunt; // 211225
-        }
+        //public static IEnumerable<ISnoPower> DemonHunterPowers(this ISnoPowerList powerList)
+        //{
+        //    // Demon Hunter skills
+        //    yield return powerList.DemonHunter_Bolas;
+        //    yield return powerList.DemonHunter_Caltrops;
+        //    yield return powerList.DemonHunter_Chakram;
+        //    yield return powerList.DemonHunter_ClusterArrow;
+        //    yield return powerList.DemonHunter_Companion;
+        //    yield return powerList.DemonHunter_ElementalArrow;
+        //    yield return powerList.DemonHunter_EntanglingShot;
+        //    yield return powerList.DemonHunter_EvasiveFire;
+        //    yield return powerList.DemonHunter_FanOfKnives;
+        //    yield return powerList.DemonHunter_Grenades;
+        //    yield return powerList.DemonHunter_HungeringArrow;
+        //    yield return powerList.DemonHunter_Impale;
+        //    yield return powerList.DemonHunter_MarkedForDeath;
+        //    yield return powerList.DemonHunter_Multishot;
+        //    yield return powerList.DemonHunter_Preparation;
+        //    yield return powerList.DemonHunter_RainOfVengeance;
+        //    yield return powerList.DemonHunter_RapidFire;
+        //    yield return powerList.DemonHunter_Sentry;
+        //    yield return powerList.DemonHunter_ShadowPower;
+        //    yield return powerList.DemonHunter_SmokeScreen;
+        //    yield return powerList.DemonHunter_SpikeTrap;
+        //    yield return powerList.DemonHunter_Strafe;
+        //    yield return powerList.DemonHunter_Vault;
+        //    yield return powerList.DemonHunter_Vengeance;
+        //    yield return powerList.DemonHunter_Passive_Ambush; // 352920
+        //    yield return powerList.DemonHunter_Passive_Archery; // 209734
+        //    yield return powerList.DemonHunter_Passive_Awareness; // 324770
+        //    yield return powerList.DemonHunter_Passive_Ballistics; // 155723
+        //    yield return powerList.DemonHunter_Passive_Brooding; // 210801
+        //    yield return powerList.DemonHunter_Passive_CullTheWeak; // 155721
+        //    yield return powerList.DemonHunter_Passive_CustomEngineering; // 208610
+        //    yield return powerList.DemonHunter_Passive_Grenadier; // 208779
+        //    yield return powerList.DemonHunter_Passive_HotPursuit; // 155725
+        //    yield return powerList.DemonHunter_Passive_Leech; // 439525
+        //    yield return powerList.DemonHunter_Passive_NightStalker; // 218350
+        //    yield return powerList.DemonHunter_Passive_NumbingTraps; // 218398
+        //    yield return powerList.DemonHunter_Passive_Perfectionist; // 155722
+        //    yield return powerList.DemonHunter_Passive_Sharpshooter; // 155715
+        //    yield return powerList.DemonHunter_Passive_SingleOut; // 338859
+        //    yield return powerList.DemonHunter_Passive_SteadyAim; // 164363
+        //    yield return powerList.DemonHunter_Passive_TacticalAdvantage; // 218385
+        //    yield return powerList.DemonHunter_Passive_ThrillOfTheHunt; // 211225
+        //}
 
-        public static IEnumerable<ISnoPower> MonkPowers(this ISnoPowerList powerList)
-        {
-            // Monk skills
-            yield return powerList.Monk_BlindingFlash;
-            yield return powerList.Monk_BreathOfHeaven;
-            yield return powerList.Monk_CripplingWave;
-            yield return powerList.Monk_CycloneStrike;
-            yield return powerList.Monk_DashingStrike;
-            yield return powerList.Monk_DeadlyReach;
-            yield return powerList.Monk_Epiphany;
-            yield return powerList.Monk_ExplodingPalm;
-            yield return powerList.Monk_FistsofThunder;
-            yield return powerList.Monk_InnerSanctuary;
-            yield return powerList.Monk_LashingTailKick;
-            yield return powerList.Monk_MantraOfConviction;
-            yield return powerList.Monk_MantraOfHealing;
-            yield return powerList.Monk_MantraOfRetribution;
-            yield return powerList.Monk_MantraOfSalvation;
-            yield return powerList.Monk_MysticAlly;
-            yield return powerList.Monk_Serenity;
-            yield return powerList.Monk_SevenSidedStrike;
-            yield return powerList.Monk_SweepingWind;
-            yield return powerList.Monk_TempestRush;
-            yield return powerList.Monk_WaveOfLight;
-            yield return powerList.Monk_WayOfTheHundredFists;
-            yield return powerList.Monk_Passive_BeaconOfYtar; // 209104
-            yield return powerList.Monk_Passive_ChantOfResonance; // 156467
-            yield return powerList.Monk_Passive_CombinationStrike; // 218415
-            yield return powerList.Monk_Passive_ExaltedSoul; // 209027
-            yield return powerList.Monk_Passive_FleetFooted; // 209029
-            yield return powerList.Monk_Passive_GuidingLight; // 156492
-            yield return powerList.Monk_Passive_Harmony; // 404168
-            yield return powerList.Monk_Passive_Momentum; // 341559
-            yield return powerList.Monk_Passive_MythicRhythm; // 315271
-            yield return powerList.Monk_Passive_NearDeathExperience; // 156484
-            yield return powerList.Monk_Passive_Provocation; // 402633
-            yield return powerList.Monk_Passive_RelentlessAssault; // 404245
-            yield return powerList.Monk_Passive_Resolve; // 211581
-            yield return powerList.Monk_Passive_SeizeTheInitiative; // 209628
-            yield return powerList.Monk_Passive_SixthSense; // 209622
-            yield return powerList.Monk_Passive_TheGuardiansPath; // 209812
-            yield return powerList.Monk_Passive_Transcendence; // 209250
-            yield return powerList.Monk_Passive_Unity; // 368899
-        }
+        //public static IEnumerable<ISnoPower> MonkPowers(this ISnoPowerList powerList)
+        //{
+        //    // Monk skills
+        //    yield return powerList.Monk_BlindingFlash;
+        //    yield return powerList.Monk_BreathOfHeaven;
+        //    yield return powerList.Monk_CripplingWave;
+        //    yield return powerList.Monk_CycloneStrike;
+        //    yield return powerList.Monk_DashingStrike;
+        //    yield return powerList.Monk_DeadlyReach;
+        //    yield return powerList.Monk_Epiphany;
+        //    yield return powerList.Monk_ExplodingPalm;
+        //    yield return powerList.Monk_FistsOfThunder;
+        //    yield return powerList.Monk_InnerSanctuary;
+        //    yield return powerList.Monk_LashingTailKick;
+        //    yield return powerList.Monk_MantraOfConviction;
+        //    yield return powerList.Monk_MantraOfHealing;
+        //    yield return powerList.Monk_MantraOfRetribution;
+        //    yield return powerList.Monk_MantraOfSalvation;
+        //    yield return powerList.Monk_MysticAlly;
+        //    yield return powerList.Monk_Serenity;
+        //    yield return powerList.Monk_SevenSidedStrike;
+        //    yield return powerList.Monk_SweepingWind;
+        //    yield return powerList.Monk_TempestRush;
+        //    yield return powerList.Monk_WaveOfLight;
+        //    yield return powerList.Monk_WayOfTheHundredFists;
+        //    yield return powerList.Monk_Passive_BeaconOfYtar; // 209104
+        //    yield return powerList.Monk_Passive_ChantOfResonance; // 156467
+        //    yield return powerList.Monk_Passive_CombinationStrike; // 218415
+        //    yield return powerList.Monk_Passive_ExaltedSoul; // 209027
+        //    yield return powerList.Monk_Passive_FleetFooted; // 209029
+        //    yield return powerList.Monk_Passive_Alacrity; // 156492
+        //    yield return powerList.Monk_Passive_Harmony; // 404168
+        //    yield return powerList.Monk_Passive_Momentum; // 341559
+        //    yield return powerList.Monk_Passive_MythicRhythm; // 315271
+        //    yield return powerList.Monk_Passive_NearDeathExperience; // 156484
+        //    yield return powerList.Monk_Passive_Determination; // 402633
+        //    yield return powerList.Monk_Passive_RelentlessAssault; // 404245
+        //    yield return powerList.Monk_Passive_Resolve; // 211581
+        //    yield return powerList.Monk_Passive_SeizeTheInitiative; // 209628
+        //    yield return powerList.Monk_Passive_SixthSense; // 209622
+        //    yield return powerList.Monk_Passive_TheGuardiansPath; // 209812
+        //    yield return powerList.Monk_Passive_Transcendence; // 209250
+        //    yield return powerList.Monk_Passive_Unity; // 368899
+        //}
 
-        public static IEnumerable<ISnoPower> WitchDoctorPowers(this ISnoPowerList powerList)
-        {
-            // Witch Doctor skills
-            yield return powerList.WitchDoctor_AcidCloud;
-            yield return powerList.WitchDoctor_BigBadVoodoo;
-            yield return powerList.WitchDoctor_CorpseSpider;
-            yield return powerList.WitchDoctor_FetishArmy;
-            yield return powerList.WitchDoctor_Firebats;
-            yield return powerList.WitchDoctor_Firebomb;
-            yield return powerList.WitchDoctor_Gargantuan;
-            yield return powerList.WitchDoctor_GraspOfTheDead;
-            yield return powerList.WitchDoctor_Haunt;
-            yield return powerList.WitchDoctor_Hex;
-            yield return powerList.WitchDoctor_Horrify;
-            yield return powerList.WitchDoctor_LocustSwarm;
-            yield return powerList.WitchDoctor_MassConfusion;
-            yield return powerList.WitchDoctor_Piranhas;
-            yield return powerList.WitchDoctor_PlagueOfToads;
-            yield return powerList.WitchDoctor_PoisonDart;
-            yield return powerList.WitchDoctor_Sacrifice;
-            yield return powerList.WitchDoctor_SoulHarvest;
-            yield return powerList.WitchDoctor_SpiritBarrage;
-            yield return powerList.WitchDoctor_SpiritWalk;
-            yield return powerList.WitchDoctor_SummonZombieDog;
-            yield return powerList.WitchDoctor_WallOfZombies;
-            yield return powerList.WitchDoctor_ZombieCharger;
-            yield return powerList.WitchDoctor_Passive_BadMedicine; // 217826
-            yield return powerList.WitchDoctor_Passive_BloodRitual; // 208568
-            yield return powerList.WitchDoctor_Passive_CircleOfLife; // 208571
-            yield return powerList.WitchDoctor_Passive_ConfidenceRitual; // 442741
-            yield return powerList.WitchDoctor_Passive_CreepingDeath; // 340908
-            yield return powerList.WitchDoctor_Passive_FetishSycophants; // 218588
-            yield return powerList.WitchDoctor_Passive_FierceLoyalty; // 208639
-            yield return powerList.WitchDoctor_Passive_GraveInjustice; // 218191
-            yield return powerList.WitchDoctor_Passive_GruesomeFeast; // 208594
-            yield return powerList.WitchDoctor_Passive_JungleFortitude; // 217968
-            yield return powerList.WitchDoctor_Passive_MidnightFeast; // 340909
-            yield return powerList.WitchDoctor_Passive_PhysicalAttunement; // 340910
-            yield return powerList.WitchDoctor_Passive_PierceTheVeil; // 208628
-            yield return powerList.WitchDoctor_Passive_RushOfEssence; // 208565
-            yield return powerList.WitchDoctor_Passive_SpiritualAttunement; // 208569
-            yield return powerList.WitchDoctor_Passive_SpiritVessel; // 218501
-            yield return powerList.WitchDoctor_Passive_TraitZombieDogSpawner; // 109560
-            yield return powerList.WitchDoctor_Passive_TribalRites; // 208601
-            yield return powerList.WitchDoctor_Passive_VisionQuest; // 209041
-            yield return powerList.WitchDoctor_Passive_ZombieHandler; // 208563
-        }
+        //public static IEnumerable<ISnoPower> WitchDoctorPowers(this ISnoPowerList powerList)
+        //{
+        //    // Witch Doctor skills
+        //    yield return powerList.WitchDoctor_AcidCloud;
+        //    yield return powerList.WitchDoctor_BigBadVoodoo;
+        //    yield return powerList.WitchDoctor_CorpseSpider;
+        //    yield return powerList.WitchDoctor_FetishArmy;
+        //    yield return powerList.WitchDoctor_Firebats;
+        //    yield return powerList.WitchDoctor_Firebomb;
+        //    yield return powerList.WitchDoctor_Gargantuan;
+        //    yield return powerList.WitchDoctor_GraspOfTheDead;
+        //    yield return powerList.WitchDoctor_Haunt;
+        //    yield return powerList.WitchDoctor_Hex;
+        //    yield return powerList.WitchDoctor_Horrify;
+        //    yield return powerList.WitchDoctor_LocustSwarm;
+        //    yield return powerList.WitchDoctor_MassConfusion;
+        //    yield return powerList.WitchDoctor_Piranhas;
+        //    yield return powerList.WitchDoctor_PlagueOfToads;
+        //    yield return powerList.WitchDoctor_PoisonDart;
+        //    yield return powerList.WitchDoctor_Sacrifice;
+        //    yield return powerList.WitchDoctor_SoulHarvest;
+        //    yield return powerList.WitchDoctor_SpiritBarrage;
+        //    yield return powerList.WitchDoctor_SpiritWalk;
+        //    yield return powerList.WitchDoctor_SummonZombieDog;
+        //    yield return powerList.WitchDoctor_WallOfDeath;
+        //    yield return powerList.WitchDoctor_ZombieCharger;
+        //    yield return powerList.WitchDoctor_Passive_BadMedicine; // 217826
+        //    yield return powerList.WitchDoctor_Passive_BloodRitual; // 208568
+        //    yield return powerList.WitchDoctor_Passive_CircleOfLife; // 208571
+        //    yield return powerList.WitchDoctor_Passive_ConfidenceRitual; // 442741
+        //    yield return powerList.WitchDoctor_Passive_CreepingDeath; // 340908
+        //    yield return powerList.WitchDoctor_Passive_FetishSycophants; // 218588
+        //    yield return powerList.WitchDoctor_Passive_FierceLoyalty; // 208639
+        //    yield return powerList.WitchDoctor_Passive_GraveInjustice; // 218191
+        //    yield return powerList.WitchDoctor_Passive_GruesomeFeast; // 208594
+        //    yield return powerList.WitchDoctor_Passive_JungleFortitude; // 217968
+        //    yield return powerList.WitchDoctor_Passive_MidnightFeast; // 340909
+        //    yield return powerList.WitchDoctor_Passive_SwamplandAttunement; // 340910
+        //    yield return powerList.WitchDoctor_Passive_PierceTheVeil; // 208628
+        //    yield return powerList.WitchDoctor_Passive_RushOfEssence; // 208565
+        //    yield return powerList.WitchDoctor_Passive_SpiritualAttunement; // 208569
+        //    yield return powerList.WitchDoctor_Passive_SpiritVessel; // 218501
+        //    yield return powerList.WitchDoctor_Passive_TraitZombieDogSpawner; // 109560
+        //    yield return powerList.WitchDoctor_Passive_TribalRites; // 208601
+        //    yield return powerList.WitchDoctor_Passive_VisionQuest; // 209041
+        //    yield return powerList.WitchDoctor_Passive_ZombieHandler; // 208563
+        //}
 
-        public static IEnumerable<ISnoPower> WizardPowers(this ISnoPowerList powerList)
-        {
-            // Wizard skills
-            yield return powerList.Wizard_ArcaneOrb;
-            yield return powerList.Wizard_ArcaneTorrent;
-            yield return powerList.Wizard_Archon;
-            yield return powerList.Wizard_ArchonArcaneBlast;
-            yield return powerList.Wizard_ArchonArcaneStrike;
-            yield return powerList.Wizard_ArchonDisintegrationWave;
-            yield return powerList.Wizard_ArchonSlowTime;
-            yield return powerList.Wizard_ArchonTeleport;
-            yield return powerList.Wizard_BlackHole;
-            yield return powerList.Wizard_Blizzard;
-            yield return powerList.Wizard_DiamondSkin;
-            yield return powerList.Wizard_Disintegrate;
-            yield return powerList.Wizard_Electrocute;
-            yield return powerList.Wizard_EnergyArmor;
-            yield return powerList.Wizard_EnergyTwister;
-            yield return powerList.Wizard_ExplosiveBlast;
-            yield return powerList.Wizard_Familiar;
-            yield return powerList.Wizard_FrostNova;
-            yield return powerList.Wizard_Hydra;
-            yield return powerList.Wizard_IceArmor;
-            yield return powerList.Wizard_MagicMissile;
-            yield return powerList.Wizard_MagicWeapon;
-            yield return powerList.Wizard_Meteor;
-            yield return powerList.Wizard_MirrorImage;
-            yield return powerList.Wizard_RayOfFrost;
-            yield return powerList.Wizard_ShockPulse;
-            yield return powerList.Wizard_SlowTime;
-            yield return powerList.Wizard_SpectralBlade;
-            yield return powerList.Wizard_StormArmor;
-            yield return powerList.Wizard_Teleport;
-            yield return powerList.Wizard_WaveOfForce;
-            yield return powerList.Wizard_Passive_ArcaneDynamo; // 208823
-            yield return powerList.Wizard_Passive_AstralPresence; // 208472
-            yield return powerList.Wizard_Passive_Audacity; // 341540
-            yield return powerList.Wizard_Passive_Blur; // 208468
-            yield return powerList.Wizard_Passive_ColdBlooded; // 226301
-            yield return powerList.Wizard_Passive_Conflagration; // 218044
-            yield return powerList.Wizard_Passive_Dominance; // 341344
-            yield return powerList.Wizard_Passive_ElementalExposure; // 342326
-            yield return powerList.Wizard_Passive_Evocation; // 208473
-            yield return powerList.Wizard_Passive_GalvanizingWard; // 208541
-            yield return powerList.Wizard_Passive_GlassCannon; // 208471
-            yield return powerList.Wizard_Passive_Illusionist; // 208547
-            yield return powerList.Wizard_Passive_Paralysis; // 226348
-            yield return powerList.Wizard_Passive_PowerHungry; // 208478
-            yield return powerList.Wizard_Passive_Prodigy; // 208493
-            yield return powerList.Wizard_Passive_TemporalFlux; // 208477
-            yield return powerList.Wizard_Passive_UnstableAnomaly; // 208474
-            yield return powerList.Wizard_Passive_UnwaveringWill; // 298038
-        }
-
-        public static IEnumerable<ISnoPower> LegendaryPowers(this ISnoPowerList powerList)
-        {
-            foreach (var power in powerList.LegendaryItemsPowers())
-            {
-                yield return power;
-            }
-            foreach (var power in powerList.LegendaryGemsPowers())
-            {
-                yield return power;
-            }
-        }
-
-        public static IEnumerable<ISnoPower> LegendaryItemsPowers(this ISnoPowerList powerList)
-        {
-            // Legendary items
-            yield return powerList.AetherWalker; // 397788 - ItemPassive_Unique_Ring_759_x1
-            yield return powerList.AhavarionSpearOfLycander; // 318868 - ItemPassive_Unique_Ring_672_x1
-            yield return powerList.AkkhansAddendum; // 445943 - P4_ItemPassive_Unique_Ring_019
-            yield return powerList.AkkhansLeniency; // 446063 - P4_ItemPassive_Unique_Ring_021
-            yield return powerList.AkkhansManacles; // 446008 - P4_ItemPassive_Unique_Ring_020
-            yield return powerList.AncestorsGrace; // 318378 - ItemPassive_Unique_Ring_516_x1
-            yield return powerList.AncientParthanDefenders; // 318770 - ItemPassive_Unique_Ring_588_x1
-            yield return powerList.AnessaziEdge; // 318720 - ItemPassive_Unique_Ring_549_x1
-            yield return powerList.AquilaCuirass; // 449064 - P4_ItemPassive_Unique_Ring_075
-            yield return powerList.ArchmagesVicalyke; // 318777 - ItemPassive_Unique_Ring_595_x1
-            yield return powerList.Arcstone; // 359598 - ItemPassive_Unique_Ring_745_x1
-            yield return powerList.ArmorOfTheKindRegent; // 318892 - ItemPassive_Unique_Ring_696_x1
-            yield return powerList.ArreatsLaw; // 441349 - P3_ItemPassive_Unique_Ring_037
-            yield return powerList.ArthefsSparkOfLife; // 318757 - ItemPassive_Unique_Ring_575_x1
-            yield return powerList.AshnagarrsBloodBracer; // 449043 - P4_ItemPassive_Unique_Ring_070
-            yield return powerList.BakuliJungleWraps; // 451163 - P41_ItemPassive_Unique_Ring_005
-            yield return powerList.Balance; // 449021 - P4_ItemPassive_Unique_Ring_067
-            yield return powerList.BalefulRemnant; // 359545 - ItemPassive_Unique_Ring_704_x1
-            yield return powerList.BandOfHollowWhispers; // 364345 - ItemPassive_Unique_Ring_001_x1
-            yield return powerList.BandOfMight; // 447060 - P4_ItemPassive_Unique_Ring_049
-            yield return powerList.BandOfTheRueChambers; // 318434 - ItemPassive_Unique_Ring_541_x1
-            yield return powerList.BastionsRevered; // 397792 - ItemPassive_Unique_Ring_761_x1
-            yield return powerList.BeckonSail; // 318420 - ItemPassive_Unique_Ring_531_x1
-            yield return powerList.BeltOfTheTrove; // 423235 - P2_ItemPassive_Unique_Ring_011
-            yield return powerList.BeltOfTranscendence; // 430671 - P2_ItemPassive_Unique_Ring_035
-            yield return powerList.BindingOfTheLost; // 440598 - P3_ItemPassive_Unique_Ring_027
-            yield return powerList.BindingsOfTheLesserGods; // 449222 - P4_ItemPassive_Unique_Ring_077
-            yield return powerList.Blackfeather; // 318882 - ItemPassive_Unique_Ring_686_x1
-            yield return powerList.BladeOfProphecy; // 359540 - ItemPassive_Unique_Ring_703_x1
-            yield return powerList.BladeOfTheTribes; // 444969 - P4_ItemPassive_Unique_Ring_004
-            yield return powerList.BladeOfTheWarlord; // 447375 - P4_ItemPassive_Unique_Ring_056
-            yield return powerList.BlessedOfHaull; // 430681 - P2_ItemPassive_Unique_Ring_045
-            yield return powerList.BloodBrother; // 402456 - ItemPassive_Unique_Ring_917_x1
-            yield return powerList.BovineBardiche; // 318382 - ItemPassive_Unique_Ring_520_x1
-            yield return powerList.BracerOfFury; // 446162 - P4_ItemPassive_Unique_Ring_025
-            yield return powerList.BracersOfDestruction; // 441305 - P3_ItemPassive_Unique_Ring_035
-            yield return powerList.BracersOfTheFirstMen; // 441279 - P3_ItemPassive_Unique_Ring_032
-            yield return powerList.BrokenCrown; // 423231 - P2_ItemPassive_Unique_Ring_008
-            yield return powerList.BrokenPromises; // 402462 - ItemPassive_Unique_Ring_923_x1
-            yield return powerList.BulKathossWeddingBand; // 364340 - ItemPassive_Unique_Ring_020_x1
-            yield return powerList.ButchersCarver; // 246118 - ItemPassive_Unique_Axe_2H_001
-            yield return powerList.CamsRebuttal; // 318358 - ItemPassive_Unique_Ring_507_x1
-            yield return powerList.CapeOfTheDarkNight; // 318421 - ItemPassive_Unique_Ring_532_x1
-            yield return powerList.Carnevil; // 318758 - ItemPassive_Unique_Ring_576_x1
-            yield return powerList.CesarsMemento; // 449031 - P4_ItemPassive_Unique_Ring_068
-            yield return powerList.Chaingmail; // 318798 - ItemPassive_Unique_Ring_616_x1
-            yield return powerList.ChainOfShadows; // 445266 - P4_ItemPassive_Unique_Ring_006
-            yield return powerList.ChanonBolter; // 318784 - ItemPassive_Unique_Ring_602_x1
-            yield return powerList.ChilaniksChain; // 318821 - ItemPassive_Unique_Ring_639_x1
-            yield return powerList.Cindercoat; // 318790 - ItemPassive_Unique_Ring_608_x1
-            yield return powerList.CoilsOfTheFirstSpider; // 440790 - P3_ItemPassive_Unique_Ring_029
-            yield return powerList.ConventionOfElements; // 430674 - P2_ItemPassive_Unique_Ring_038
-            yield return powerList.CordOfTheSherma; // 434008 - ItemPassive_Unique_Ring_560_p2
-            yield return powerList.CorruptedAshbringer; // 402455 - ItemPassive_Unique_Ring_916_x1
-            yield return powerList.CountessJuliasCameo; // 318381 - ItemPassive_Unique_Ring_519_x1
-            yield return powerList.CrashingRain; // 359554 - ItemPassive_Unique_Ring_709_x1
-            yield return powerList.CrownOfThePrimus; // 423239 - P2_ItemPassive_Unique_Ring_015
-            yield return powerList.CrystalFist; // 451170 - P41_ItemPassive_Unique_Ring_012
-            yield return powerList.CusterianWristguards; // 359557 - ItemPassive_Unique_Ring_712_x1
-            yield return powerList.Darklight; // 451313 - P42_ItemPassive_Unique_Ring_697_x1
-            yield return powerList.DarkMagesShade; // 318788 - ItemPassive_Unique_Ring_606_x1
-            yield return powerList.DeadlyRebirth; // 318808 - ItemPassive_Unique_Ring_626_x1
-            yield return powerList.DeathseersCowl; // 318857 - ItemPassive_Unique_Ring_662_x1
-            yield return powerList.DeathWatchMantle; // 434005 - ItemPassive_Unique_Shoulder_002_p2
-            yield return powerList.Deathwish; // 449063 - P4_ItemPassive_Unique_Ring_074
-            yield return powerList.DepthDiggers; // 402416 - ItemPassive_Unique_Ring_908_x1
-            yield return powerList.DishonoredLegacy; // 441294 - P3_ItemPassive_Unique_Ring_034
-            yield return powerList.DovuEnergyTrap; // 318867 - ItemPassive_Unique_Ring_671_x1
-            yield return powerList.DrakonsLesson; // 430678 - P2_ItemPassive_Unique_Ring_042
-            yield return powerList.DreadIron; // 430679 - P2_ItemPassive_Unique_Ring_043
-            yield return powerList.ElusiveRing; // 446187 - P4_ItemPassive_Unique_Ring_026
-            yield return powerList.EnchantingFavor; // 318835 - ItemPassive_Unique_Ring_653_x1
-            yield return powerList.EternalUnion; // 402413 - ItemPassive_Unique_Ring_905_x1
-            yield return powerList.Eunjangdo; // 402457 - ItemPassive_Unique_Ring_918_x1
-            yield return powerList.EyeOfPeshkov; // 318431 - ItemPassive_Unique_Ring_538_x1
-            yield return powerList.FaithfulMemory; // 454927 - P43_ItemPassive_Unique_Ring_002
-            yield return powerList.FateOfTheFell; // 359552 - ItemPassive_Unique_Ring_707_x1
-            yield return powerList.FazulasImprobableChain; // 437854 - P3_ItemPassive_Unique_Ring_014
-            yield return powerList.FireWalkers; // 434010 - ItemPassive_Unique_Boots_007_p2
-            yield return powerList.FlailOfTheAscended; // 451164 - P41_ItemPassive_Unique_Ring_006
-            yield return powerList.Fleshrake; // 451168 - P41_ItemPassive_Unique_Ring_010
-            yield return powerList.FlyingDragon; // 246562 - ItemPassive_Unique_CombatStaff_2H_009
-            yield return powerList.FortressBallista; // 447816 - P4_ItemPassive_Unique_Ring_061
-            yield return powerList.FragmentOfDestiny; // 450472 - P4_ItemPassive_Unique_Ring_085
-            yield return powerList.Frostburn; // 451167 - P41_ItemPassive_Unique_Ring_009
-            yield return powerList.Fulminator; // 441681 - ItemPassive_Unique_Ring_612_p3
-            yield return powerList.FuryOfTheAncients; // 441280 - P3_ItemPassive_Unique_Ring_033
-            yield return powerList.GabrielsVambraces; // 436521 - P3_ItemPassive_Unique_Ring_008
-            yield return powerList.Genzaniku; // 364311 - ItemPassive_Unique_Axe_1H_003_x1
-            yield return powerList.GestureOfOrpheus; // 318376 - ItemPassive_Unique_Ring_514_x1
-            yield return powerList.GirdleOfGiants; // 451237 - P42_ItemPassive_Unique_Ring_002
-            yield return powerList.GladiatorGauntlets; // 318799 - ItemPassive_Unique_Ring_617_x1
-            yield return powerList.GoldenFlense; // 359546 - ItemPassive_Unique_Ring_705_x1
-            yield return powerList.Goldwrap; // 318875 - ItemPassive_Unique_Ring_679_x1
-            yield return powerList.GungdoGear; // 423242 - P2_ItemPassive_Unique_Ring_018
-            yield return powerList.GyanaNaKashu; // 318426 - ItemPassive_Unique_Ring_534_x1
-            yield return powerList.GyrfalconsFoote; // 318850 - ItemPassive_Unique_Ring_655_x1
-            yield return powerList.Hack; // 318869 - ItemPassive_Unique_Ring_673_x1
-            yield return powerList.HaloOfArlyse; // 429648 - P2_ItemPassive_Unique_Ring_024
-            yield return powerList.HaloOfKarini; // 451158 - P41_ItemPassive_Unique_Ring_001
-            yield return powerList.HammerJammers; // 446502 - P4_ItemPassive_Unique_Ring_030
-            yield return powerList.HandOfTheProphet; // 318377 - ItemPassive_Unique_Ring_515_x1
-            yield return powerList.HarringtonWaistguard; // 318881 - ItemPassive_Unique_Ring_685_x1
-            yield return powerList.HauntingGirdle; // 434966 - P2_ItemPassive_Unique_Ring_054
-            yield return powerList.HauntOfVaxo; // 318782 - ItemPassive_Unique_Ring_600_x1
-            yield return powerList.HeartOfIron; // 446615 - P4_ItemPassive_Unique_Ring_036
-            yield return powerList.HellcatWaistguard; // 454934 - P43_ItemPassive_Unique_Ring_006
-            yield return powerList.HergbrashsBinding; // 449048 - P4_ItemPassive_Unique_Ring_072
-            yield return powerList.HexingPantsOfMrYan; // 318817 - ItemPassive_Unique_Ring_635_x1
-            yield return powerList.HillenbrandsTrainingSword; // 359604 - ItemPassive_Unique_Ring_748_x1
-            yield return powerList.HomingPads; // 318801 - ItemPassive_Unique_Ring_619_x1
-            yield return powerList.HuntersWrath; // 440743 - P3_ItemPassive_Unique_Ring_028
-            yield return powerList.HwojWrap; // 318800 - ItemPassive_Unique_Ring_618_x1
-            yield return powerList.IncenseTorchOfTheGrandTemple; // 318776 - ItemPassive_Unique_Ring_594_x1
-            yield return powerList.Ingeom; // 402458 - ItemPassive_Unique_Ring_919_x1
-            yield return powerList.InviolableFaith; // 318894 - ItemPassive_Unique_Ring_698_x1
-            yield return powerList.IrontoeMudsputters; // 318877 - ItemPassive_Unique_Ring_681_x1
-            yield return powerList.JacesHammerOfVigilance; // 266766 - X1_Crusader_BlessedHammer
-            yield return powerList.JangsEnvelopment; // 318795 - ItemPassive_Unique_Ring_613_x1
-            yield return powerList.Jawbreaker; // 318432 - ItemPassive_Unique_Ring_539_x1
-            yield return powerList.JeramsBracers; // 441278 - P3_ItemPassive_Unique_Ring_031
-            yield return powerList.JohannasArgument; // 436430 - P3_ItemPassive_Unique_Ring_004
-            yield return powerList.JustiniansMercy; // 318895 - ItemPassive_Unique_Ring_699_x1
-            yield return powerList.KarleisPoint; // 445279 - P4_ItemPassive_Unique_Ring_008
-            yield return powerList.KassarsRetribution; // 359538 - ItemPassive_Unique_Ring_701_x1
-            yield return powerList.KekegisUnbreakableSpirit; // 318751 - ItemPassive_Unique_Ring_569_x1
-            yield return powerList.KhassettsCordOfRighteousness; // 451238 - P42_ItemPassive_Unique_Ring_003
-            yield return powerList.KmarTenclip; // 318423 - ItemPassive_Unique_Ring_533_x1
-            yield return powerList.KredesFlame; // 318865 - ItemPassive_Unique_Ring_669_x1
-            yield return powerList.KrelmsBuffBelt; // 359602 - ItemPassive_Unique_Ring_747_x1
-            yield return powerList.KrelmsBuffBracers; // 359591 - ItemPassive_Unique_Ring_741_x1
-            yield return powerList.Kridershot; // 318379 - ItemPassive_Unique_Ring_517_x1
-            yield return powerList.KyoshirosBlade; // 447368 - P4_ItemPassive_Unique_Ring_054
-            yield return powerList.KyoshirosSoul; // 447130 - P4_ItemPassive_Unique_Ring_050
-            yield return powerList.LakumbasOrnament; // 445692 - P4_ItemPassive_Unique_Ring_011
-            yield return powerList.Lamentation; // 359593 - ItemPassive_Unique_Ring_742_x1
-            yield return powerList.LastBreath; // 447030 - P4_ItemPassive_Unique_Ring_047
-            yield return powerList.LefebvresSoliloquy; // 449236 - P4_ItemPassive_Unique_Ring_078
-            yield return powerList.LeonineBowOfHashir; // 397784 - ItemPassive_Unique_Ring_755_x1
-            yield return powerList.LiannasWings; // 447696 - P4_ItemPassive_Unique_Ring_060
-            yield return powerList.LionsClaw; // 402451 - ItemPassive_Unique_Ring_915_x1
-            yield return powerList.LordGreenstonesFan; // 445274 - P4_ItemPassive_Unique_Ring_007
-            yield return powerList.LutSocks; // 318810 - ItemPassive_Unique_Ring_628_x1
-            yield return powerList.MadawcsSorrow; // 318744 - ItemPassive_Unique_Ring_562_x1
-            yield return powerList.Madstone; // 402540 - p1_ItemPassive_Unique_Ring_941
-            yield return powerList.Magefist; // 451166 - P41_ItemPassive_Unique_Ring_008
-            yield return powerList.MalothsFocus; // 246780 - itemPassive_Unique_Staff_006
-            yield return powerList.ManaldHeal; // 454930 - P43_ItemPassive_Unique_Ring_004
-            yield return powerList.MantleOfChanneling; // 446640 - P4_ItemPassive_Unique_Ring_039
-            yield return powerList.MarasKaleidoscope; // 318719 - ItemPassive_Unique_Ring_548_x1
-            yield return powerList.MaskOfJeram; // 318411 - ItemPassive_Unique_Ring_526_x1
-            yield return powerList.MoonlightWard; // 364343 - itemPassive_Unique_Amulet_003_x1
-            yield return powerList.MordullusPromise; // 447029 - P4_ItemPassive_Unique_Ring_046
-            yield return powerList.NemesisBracers; // 318820 - ItemPassive_Unique_Ring_638_x1
-            yield return powerList.NilfursBoast; // 451186 - P41_ItemPassive_Unique_Ring_021
-            yield return powerList.Oathkeeper; // 447372 - P4_ItemPassive_Unique_Ring_055
-            yield return powerList.OculusRing; // 402461 - ItemPassive_Unique_Ring_922_x1
-            yield return powerList.OdynSon; // 364325 - itemPassive_Unique_Mace_1H_002_x1
-            yield return powerList.OdysseysEnd; // 428220 - P2_ItemPassive_Unique_Ring_023
-            yield return powerList.Omnislash; // 430682 - P2_ItemPassive_Unique_Ring_046
-            yield return powerList.OmrynsChain; // 423229 - P2_ItemPassive_Unique_Ring_006
-            yield return powerList.PintosPride; // 447295 - P4_ItemPassive_Unique_Ring_053
-            yield return powerList.PoxFaulds; // 434009 - itemPassive_Unique_Pants_007_p2
-            yield return powerList.PrideOfCassius; // 318419 - ItemPassive_Unique_Ring_530_x1
-            yield return powerList.PromiseOfGlory; // 318871 - ItemPassive_Unique_Ring_675_x1
-            yield return powerList.PuzzleRing; // 318375 - ItemPassive_Unique_Ring_513_x1
-            yield return powerList.Quetzalcoatl; // 318796 - ItemPassive_Unique_Ring_614_x1
-            yield return powerList.RabidStrike; // 454929 - P43_ItemPassive_Unique_Ring_003
-            yield return powerList.RakoffsGlassOfLife; // 318410 - ItemPassive_Unique_Ring_525_x1
-            yield return powerList.RanslorsFolly; // 423240 - P2_ItemPassive_Unique_Ring_016
-            yield return powerList.RazorStrop; // 318241 - ItemPassive_Unique_Ring_500_x1
-            yield return powerList.RechelsRingOfLarceny; // 318870 - ItemPassive_Unique_Ring_674_x1
-            yield return powerList.RelicOfAkarat; // 318377 - ItemPassive_Unique_Ring_515_x1
-            yield return powerList.Remorseless; // 397802 - ItemPassive_Unique_Ring_762_x1
-            yield return powerList.RhenhoFlayer; // 318812 - ItemPassive_Unique_Ring_630_x1
-            yield return powerList.RibaldEtchings; // 318377 - ItemPassive_Unique_Ring_515_x1
-            yield return powerList.Rimeheart; // 318864 - ItemPassive_Unique_Ring_668_x1
-            yield return powerList.RingOfEmptiness; // 445694 - P4_ItemPassive_Unique_Ring_012
-            yield return powerList.RiveraDancers; // 447043 - P4_ItemPassive_Unique_Ring_048
-            yield return powerList.RogarsHugeStone; // 318861 - ItemPassive_Unique_Ring_665_x1
-            yield return powerList.SacredHarness; // 440434 - P3_ItemPassive_Unique_Ring_023
-            yield return powerList.SacredHarvester; // 410217 - p1_ItemPassive_Unique_Ring_944
-            yield return powerList.SaffronWrap; // 454918 - P43_ItemPassive_Unique_Ring_001
-            yield return powerList.SashOfKnives; // 434038 - ItemPassive_Unique_Ring_753_p2
-            yield return powerList.Scarbringer; // 451240 - P42_ItemPassive_Unique_Ring_005
-            yield return powerList.Scourge; // 364321 - ItemPassive_Unique_Sword_2H_004_x1
-            yield return powerList.Scrimshaw; // 442477 - P3_ItemPassive_Unique_Ring_040
-            yield return powerList.SeborsNightmare; // 434039 - ItemPassive_Unique_Ring_651_p2
-            yield return powerList.SerpentsSparker; // 318371 - ItemPassive_Unique_Ring_510_x1
-            yield return powerList.ShardOfHate; // 359587 - ItemPassive_Unique_Ring_739_x1
-            yield return powerList.ShiMizusHaori; // 318779 - ItemPassive_Unique_Ring_597_x1
-            yield return powerList.SkeletonKey; // 318835 - ItemPassive_Unique_Ring_653_x1
-            yield return powerList.SkularsSalvation; // 444929 - P4_ItemPassive_Unique_Ring_003
-            yield return powerList.SkullGrasp; // 451160 - P41_ItemPassive_Unique_Ring_002
-            yield return powerList.SkullOfResonance; // 318773 - ItemPassive_Unique_Ring_591_x1
-            yield return powerList.SkySplitter; // 433993 - ItemPassive_Unique_Axe_1H_005_p2
-            yield return powerList.Skywarden; // 359550 - ItemPassive_Unique_Ring_706_x1
-            yield return powerList.SlipkasLetterOpener; // 359604 - ItemPassive_Unique_Ring_748_x1
-            yield return powerList.SloraksMadness; // 91549 - Wizard_Disintegrate
-            yield return powerList.SmokingThurible; // 318835 - ItemPassive_Unique_Ring_653_x1
-            yield return powerList.Solanium; // 318873 - ItemPassive_Unique_Ring_677_x1
-            yield return powerList.SpauldersOfZakara; // 318858 - ItemPassive_Unique_Ring_663_x1
-            yield return powerList.SpiritGuards; // 430289 - P2_ItemPassive_Unique_Ring_034
-            yield return powerList.StaffOfChiroptera; // 446734 - P4_ItemPassive_Unique_Ring_042
-            yield return powerList.StalgardsDecimator; // 318412 - ItemPassive_Unique_Ring_527_x1
-            yield return powerList.Standoff; // 446592 - P4_ItemPassive_Unique_Ring_035
-            yield return powerList.StArchewsGage; // 434007 - ItemPassive_Unique_Ring_664_p2
-            yield return powerList.Starfire; // 451242 - P42_ItemPassive_Unique_Ring_007
-            yield return powerList.StarmetalKukri; // 318724 - ItemPassive_Unique_Ring_552_x1
-            yield return powerList.StormCrow; // 364338 - itemPassive_Unique_WizardHat_004_x1
-            yield return powerList.StringOfEars; // 446541 - P4_ItemPassive_Unique_Ring_032
-            yield return powerList.StrongarmBracers; // 318772 - ItemPassive_Unique_Ring_590_x1
-            yield return powerList.SuWongDiviner; // 442478 - P3_ItemPassive_Unique_Ring_041
-            yield return powerList.SwampLandWaders; // 451161 - P41_ItemPassive_Unique_Ring_003
-            yield return powerList.Swiftmount; // 359537 - ItemPassive_Unique_Ring_700_x1
-            yield return powerList.SwordOfIllWill; // 446641 - P4_ItemPassive_Unique_Ring_040
-            yield return powerList.TalismanOfAranoch; // 318715 - ItemPassive_Unique_Ring_544_x1
-            yield return powerList.TaskerandTheo; // 318731 - ItemPassive_Unique_Ring_554_x1
-            yield return powerList.TheBarber; // 454932 - P43_ItemPassive_Unique_Ring_005
-            yield return powerList.TheBurningAxeOfSankis; // 246113 - ItemPassive_Unique_Axe_1H_007
-            yield return powerList.TheButchersSickle; // 248484 - ItemPassive_Unique_Axe_1H_006
-            yield return powerList.TheCloakOfTheGarwulf; // 318300 - ItemPassive_Unique_Ring_501_x1
-            yield return powerList.TheCrudestBoots; // 409811 - p1_ItemPassive_Unique_Ring_943
-            yield return powerList.TheDaggerOfDarts; // 402447 - ItemPassive_Unique_Ring_911_x1
-            yield return powerList.TheDemonsDemise; // 451243 - P42_ItemPassive_Unique_Ring_008
-            yield return powerList.TheEssOfJohan; // 318759 - ItemPassive_Unique_Ring_577_x1
-            yield return powerList.TheFistOfAzTurrasq; // 318433 - ItemPassive_Unique_Ring_540_x1
-            yield return powerList.TheFlowOfEternity; // 451162 - P41_ItemPassive_Unique_Ring_004
-            yield return powerList.TheFurnace; // 318753 - ItemPassive_Unique_Ring_571_x1
-            yield return powerList.TheGavelOfJudgment; // 435040 - P2_ItemPassive_Unique_Ring_059
-            yield return powerList.TheGidbinn; // 364316 - ItemPassive_Unique_CeremonialDagger_002_x1
-            yield return powerList.TheGrandVizier; // 402448 - ItemPassive_Unique_Ring_912_x1
-            yield return powerList.TheGrinReaper; // 251572 - ItemPassive_Unique_VoodooMask_002
-            yield return powerList.TheLawsOfSeph; // 318428 - ItemPassive_Unique_Ring_536_x1
-            yield return powerList.TheMagistrate; // 318786 - ItemPassive_Unique_Ring_604_x1
-            yield return powerList.TheMindsEye; // 318824 - ItemPassive_Unique_Ring_642_x1
-            yield return powerList.TheMortalDrama; // 359553 - ItemPassive_Unique_Ring_708_x1
-            yield return powerList.ThePaddle; // 247777 - ItemPassive_Unique_CombatStaff_2H_007
-            yield return powerList.TheShameOfDelsere; // 445427 - P4_ItemPassive_Unique_Ring_009
-            yield return powerList.TheShortMansFinger; // 430677 - P2_ItemPassive_Unique_Ring_041
-            yield return powerList.TheSmolderingCore; // 318791 - ItemPassive_Unique_Ring_609_x1
-            yield return powerList.TheSpiderQueensGrasp; // 318732 - ItemPassive_Unique_Ring_555_x1
-            yield return powerList.TheStarOfAzkaranth; // 318716 - ItemPassive_Unique_Ring_545_x1
-            yield return powerList.TheSwami; // 440336 - P3_ItemPassive_Unique_Ring_022
-            yield return powerList.TheTallMansFinger; // 318806 - ItemPassive_Unique_Ring_624_x1
-            yield return powerList.TheThreeHundredthSpear; // 446638 - P4_ItemPassive_Unique_Ring_037
-            yield return powerList.TheTormentor; // 247572 - itemPassive_Unique_Staff_007
-            yield return powerList.TheTwistedSword; // 446195 - P4_ItemPassive_Unique_Ring_027
-            yield return powerList.TheUndisputedChampion; // 423233 - P2_ItemPassive_Unique_Ring_009
-            yield return powerList.ThunderfuryBlessedBladeOfTheWindseeker; // 318763 - ItemPassive_Unique_Ring_581_x1
-            yield return powerList.TiklandianVisage; // 318774 - ItemPassive_Unique_Ring_592_x1
-            yield return powerList.TragOulCoils; // 451239 - P42_ItemPassive_Unique_Ring_004
-            yield return powerList.TzoKrinsGaze; // 318811 - ItemPassive_Unique_Ring_629_x1
-            yield return powerList.UnstableScepter; // 445920 - P4_ItemPassive_Unique_Ring_017
-            yield return powerList.VadimsSurge; // 359604 - ItemPassive_Unique_Ring_748_x1
-            yield return powerList.ValtheksRebuke; // 318792 - ItemPassive_Unique_Ring_610_x1
-            yield return powerList.VambracesOfSescheron; // 447839 - P4_ItemPassive_Unique_Ring_062
-            yield return powerList.VelvetCamaral; // 318740 - ItemPassive_Unique_Ring_558_x1
-            yield return powerList.VengefulWind; // 402411 - ItemPassive_Unique_Ring_903_x1
-            yield return powerList.Vigilance; // 367008 - ItemPassive_Unique_Polearm_001_x1
-            yield return powerList.VileWard; // 397783 - ItemPassive_Unique_Ring_754_x1
-            yield return powerList.VisageOfGiyua; // 318385 - ItemPassive_Unique_Ring_523_x1
-            yield return powerList.VisageOfGunes; // 446655 - P4_ItemPassive_Unique_Ring_041
-            yield return powerList.VoosJuicer; // 446969 - P4_ItemPassive_Unique_Ring_045
-            yield return powerList.WandOfWoh; // 318789 - ItemPassive_Unique_Ring_607_x1
-            yield return powerList.WarhelmOfKassar; // 449049 - P4_ItemPassive_Unique_Ring_073
-            yield return powerList.WarstaffOfGeneralQuang; // 318430 - ItemPassive_Unique_Ring_537_x1
-            yield return powerList.WarzechianArmguards; // 318771 - ItemPassive_Unique_Ring_589_x1
-            yield return powerList.Wizardspike; // 364312 - ItemPassive_Unique_Dagger_010_x1
-            yield return powerList.WojahnniAssaulter; // 451165 - P41_ItemPassive_Unique_Ring_007
-            yield return powerList.WrapsOfClarity; // 441517 - P3_ItemPassive_Unique_Ring_038
-            yield return powerList.Wyrdward; // 434036 - ItemPassive_Unique_Ring_670_p2
-            yield return powerList.XephirianAmulet; // 318718 - ItemPassive_Unique_Ring_547_x1
-            yield return powerList.ZoeysSecret; // 446639 - P4_ItemPassive_Unique_Ring_038
-        }
-
-        public static IEnumerable<ISnoPower> LegendaryGemsPowers(this ISnoPowerList powerList)
-        {
-            yield return powerList.BaneOfThePowerfulPrimary; // 383014
-            yield return powerList.BaneOfThePowerfulSecondary; // 451157
-            yield return powerList.BaneOfTheStrickenPrimary; // 428348
-            yield return powerList.BaneOfTheStrickenSecondary; // 428349
-            yield return powerList.BaneOfTheTrappedPrimary; // 403456
-            yield return powerList.BaneOfTheTrappedSecondary; // 403457
-            yield return powerList.BoonOfTheHoarderPrimary; // 403470
-            yield return powerList.BoonOfTheHoarderSecondary; // 403784
-            yield return powerList.BoyarskysChipPrimary; // 428352
-            yield return powerList.BoyarskysChipSecondary; // 428353
-            yield return powerList.EnforcerPrimary; // 403466
-            yield return powerList.EnforcerSecondary; // 403472
-            yield return powerList.EsotericAlterationPrimary; // 428029
-            yield return powerList.EsotericAlterationSecondary; // 428030
-            yield return powerList.GemOfEasePrimary; // 403459
-            yield return powerList.GemOfEaseSecondary; // 428691
-            yield return powerList.GemOfEfficaciousToxinPrimary; // 403461
-            yield return powerList.GemOfEfficaciousToxinSecondary; // 403556
-            yield return powerList.GogokOfSwiftnessPrimary; // 403464
-            yield return powerList.GogokOfSwiftnessSecondary; // 403524
-            yield return powerList.IceblinkPrimary; // 428354
-            yield return powerList.IceblinkSecondary; // 428356
-            yield return powerList.InvigoratingGemstonePrimary; // 403465
-            yield return powerList.InvigoratingGemstoneSecondary; // 403624
-            yield return powerList.MirinaeTeardropOfTheStarweaverPrimary; // 403463
-            yield return powerList.MirinaeTeardropOfTheStarweaverSecondary; // 403620
-            yield return powerList.MoltenWildebeestsGizzardPrimary; // 428031
-            yield return powerList.MoltenWildebeestsGizzardSecondary; // 428032
-            yield return powerList.MoratoriumPrimary; // 403467
-            yield return powerList.MoratoriumSecondary; // 403687
-            yield return powerList.MutilationGuardPrimary; // 428350
-            yield return powerList.MutilationGuardSecondary; // 428351
-            yield return powerList.PainEnhancerPrimary; // 403462
-            yield return powerList.PainEnhancerSecondary; // 403600
-            yield return powerList.RedSoulShardPrimary; // 454736
-            yield return powerList.RedSoulShardSecondary; // 454737
-            yield return powerList.SimplicitysStrengthPrimary; // 403469
-            yield return powerList.SimplicitysStrengthSecondary; // 403473
-            yield return powerList.TaegukPrimary; // 403471
-            yield return powerList.TaegukSecondary; // 403785
-            yield return powerList.WreathOfLightningPrimary; // 403460
-            yield return powerList.WreathOfLightningSecondary; // 403560
-            yield return powerList.ZeisStoneOfVengeancePrimary; // 403468
-            yield return powerList.ZeisStoneOfVengeanceSecondary; // 403727
-        }
+        //public static IEnumerable<ISnoPower> WizardPowers(this ISnoPowerList powerList)
+        //{
+        //    // Wizard skills
+        //    yield return powerList.Wizard_ArcaneOrb;
+        //    yield return powerList.Wizard_ArcaneTorrent;
+        //    yield return powerList.Wizard_Archon;
+        //    yield return powerList.Wizard_ArchonArcaneBlast;
+        //    yield return powerList.Wizard_ArchonArcaneStrike;
+        //    yield return powerList.Wizard_ArchonDisintegrationWave;
+        //    yield return powerList.Wizard_ArchonSlowTime;
+        //    yield return powerList.Wizard_ArchonTeleport;
+        //    yield return powerList.Wizard_BlackHole;
+        //    yield return powerList.Wizard_Blizzard;
+        //    yield return powerList.Wizard_DiamondSkin;
+        //    yield return powerList.Wizard_Disintegrate;
+        //    yield return powerList.Wizard_Electrocute;
+        //    yield return powerList.Wizard_EnergyArmor;
+        //    yield return powerList.Wizard_EnergyTwister;
+        //    yield return powerList.Wizard_ExplosiveBlast;
+        //    yield return powerList.Wizard_Familiar;
+        //    yield return powerList.Wizard_FrostNova;
+        //    yield return powerList.Wizard_Hydra;
+        //    yield return powerList.Wizard_IceArmor;
+        //    yield return powerList.Wizard_MagicMissile;
+        //    yield return powerList.Wizard_MagicWeapon;
+        //    yield return powerList.Wizard_Meteor;
+        //    yield return powerList.Wizard_MirrorImage;
+        //    yield return powerList.Wizard_RayOfFrost;
+        //    yield return powerList.Wizard_ShockPulse;
+        //    yield return powerList.Wizard_SlowTime;
+        //    yield return powerList.Wizard_SpectralBlade;
+        //    yield return powerList.Wizard_StormArmor;
+        //    yield return powerList.Wizard_Teleport;
+        //    yield return powerList.Wizard_WaveOfForce;
+        //    yield return powerList.Wizard_Passive_ArcaneDynamo; // 208823
+        //    yield return powerList.Wizard_Passive_AstralPresence; // 208472
+        //    yield return powerList.Wizard_Passive_Audacity; // 341540
+        //    yield return powerList.Wizard_Passive_Blur; // 208468
+        //    yield return powerList.Wizard_Passive_ColdBlooded; // 226301
+        //    yield return powerList.Wizard_Passive_Conflagration; // 218044
+        //    yield return powerList.Wizard_Passive_Dominance; // 341344
+        //    yield return powerList.Wizard_Passive_ElementalExposure; // 342326
+        //    yield return powerList.Wizard_Passive_Evocation; // 208473
+        //    yield return powerList.Wizard_Passive_GalvanizingWard; // 208541
+        //    yield return powerList.Wizard_Passive_GlassCannon; // 208471
+        //    yield return powerList.Wizard_Passive_Illusionist; // 208547
+        //    yield return powerList.Wizard_Passive_Paralysis; // 226348
+        //    yield return powerList.Wizard_Passive_PowerHungry; // 208478
+        //    yield return powerList.Wizard_Passive_Prodigy; // 208493
+        //    yield return powerList.Wizard_Passive_TemporalFlux; // 208477
+        //    yield return powerList.Wizard_Passive_UnstableAnomaly; // 208474
+        //    yield return powerList.Wizard_Passive_UnwaveringWill; // 298038
+        //}
 
         public static IEnumerable<ISnoPower> GenericPowers(this ISnoPowerList powerList)
         {

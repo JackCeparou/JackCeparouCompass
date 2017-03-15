@@ -4,67 +4,7 @@
 
     public static class LegendaryPowerInfoExtensions
     {
-        public static IEnumerable<IBuff> EquippedLegendaryPowers(this ILegendaryPowerInfo powerInfo)
-        {
-            foreach (var buff in powerInfo.EquippedLegendaryGemsBuffs())
-            {
-                yield return buff;
-            }
-            foreach (var buff in powerInfo.EquippedLegendaryItemsBuffs())
-            {
-                yield return buff;
-            }
-        }
-
-        public static IEnumerable<IBuff> EquippedLegendaryGemsBuffs(this ILegendaryPowerInfo powerInfo)
-        {
-            if (powerInfo.BaneOfThePowerfulPrimary != null) yield return powerInfo.BaneOfThePowerfulPrimary;
-            if (powerInfo.BaneOfThePowerfulSecondary != null) yield return powerInfo.BaneOfThePowerfulSecondary;
-            if (powerInfo.BaneOfTheStrickenPrimary != null) yield return powerInfo.BaneOfTheStrickenPrimary;
-            if (powerInfo.BaneOfTheStrickenSecondary != null) yield return powerInfo.BaneOfTheStrickenSecondary;
-            if (powerInfo.BaneOfTheTrappedPrimary != null) yield return powerInfo.BaneOfTheTrappedPrimary;
-            if (powerInfo.BaneOfTheTrappedSecondary != null) yield return powerInfo.BaneOfTheTrappedSecondary;
-            if (powerInfo.BoonOfTheHoarderPrimary != null) yield return powerInfo.BoonOfTheHoarderPrimary;
-            if (powerInfo.BoonOfTheHoarderSecondary != null) yield return powerInfo.BoonOfTheHoarderSecondary;
-            if (powerInfo.BoyarskysChipPrimary != null) yield return powerInfo.BoyarskysChipPrimary;
-            if (powerInfo.BoyarskysChipSecondary != null) yield return powerInfo.BoyarskysChipSecondary;
-            if (powerInfo.EnforcerPrimary != null) yield return powerInfo.EnforcerPrimary;
-            if (powerInfo.EnforcerSecondary != null) yield return powerInfo.EnforcerSecondary;
-            if (powerInfo.EsotericAlterationPrimary != null) yield return powerInfo.EsotericAlterationPrimary;
-            if (powerInfo.EsotericAlterationSecondary != null) yield return powerInfo.EsotericAlterationSecondary;
-            if (powerInfo.GemOfEasePrimary != null) yield return powerInfo.GemOfEasePrimary;
-            if (powerInfo.GemOfEaseSecondary != null) yield return powerInfo.GemOfEaseSecondary;
-            if (powerInfo.GemOfEfficaciousToxinPrimary != null) yield return powerInfo.GemOfEfficaciousToxinPrimary;
-            if (powerInfo.GemOfEfficaciousToxinSecondary != null) yield return powerInfo.GemOfEfficaciousToxinSecondary;
-            if (powerInfo.GogokOfSwiftnessPrimary != null) yield return powerInfo.GogokOfSwiftnessPrimary;
-            if (powerInfo.GogokOfSwiftnessSecondary != null) yield return powerInfo.GogokOfSwiftnessSecondary;
-            if (powerInfo.IceblinkPrimary != null) yield return powerInfo.IceblinkPrimary;
-            if (powerInfo.IceblinkSecondary != null) yield return powerInfo.IceblinkSecondary;
-            if (powerInfo.InvigoratingGemstonePrimary != null) yield return powerInfo.InvigoratingGemstonePrimary;
-            if (powerInfo.InvigoratingGemstoneSecondary != null) yield return powerInfo.InvigoratingGemstoneSecondary;
-            if (powerInfo.MirinaeTeardropOfTheStarweaverPrimary != null) yield return powerInfo.MirinaeTeardropOfTheStarweaverPrimary;
-            if (powerInfo.MirinaeTeardropOfTheStarweaverSecondary != null) yield return powerInfo.MirinaeTeardropOfTheStarweaverSecondary;
-            if (powerInfo.MoltenWildebeestsGizzardPrimary != null) yield return powerInfo.MoltenWildebeestsGizzardPrimary;
-            if (powerInfo.MoltenWildebeestsGizzardSecondary != null) yield return powerInfo.MoltenWildebeestsGizzardSecondary;
-            if (powerInfo.MoratoriumPrimary != null) yield return powerInfo.MoratoriumPrimary;
-            if (powerInfo.MoratoriumSecondary != null) yield return powerInfo.MoratoriumSecondary;
-            if (powerInfo.MutilationGuardPrimary != null) yield return powerInfo.MutilationGuardPrimary;
-            if (powerInfo.MutilationGuardSecondary != null) yield return powerInfo.MutilationGuardSecondary;
-            if (powerInfo.PainEnhancerPrimary != null) yield return powerInfo.PainEnhancerPrimary;
-            if (powerInfo.PainEnhancerSecondary != null) yield return powerInfo.PainEnhancerSecondary;
-            if (powerInfo.RedSoulShardPrimary != null) yield return powerInfo.RedSoulShardPrimary;
-            if (powerInfo.RedSoulShardSecondary != null) yield return powerInfo.RedSoulShardSecondary;
-            if (powerInfo.SimplicitysStrengthPrimary != null) yield return powerInfo.SimplicitysStrengthPrimary;
-            if (powerInfo.SimplicitysStrengthSecondary != null) yield return powerInfo.SimplicitysStrengthSecondary;
-            if (powerInfo.TaegukPrimary != null) yield return powerInfo.TaegukPrimary;
-            if (powerInfo.TaegukSecondary != null) yield return powerInfo.TaegukSecondary;
-            if (powerInfo.WreathOfLightningPrimary != null) yield return powerInfo.WreathOfLightningPrimary;
-            if (powerInfo.WreathOfLightningSecondary != null) yield return powerInfo.WreathOfLightningSecondary;
-            if (powerInfo.ZeisStoneOfVengeancePrimary != null) yield return powerInfo.ZeisStoneOfVengeancePrimary;
-            if (powerInfo.ZeisStoneOfVengeanceSecondary != null) yield return powerInfo.ZeisStoneOfVengeanceSecondary;
-        }
-
-        public static IEnumerable<IBuff> EquippedLegendaryItemsBuffs(this ILegendaryPowerInfo powerInfo)
+        public static IEnumerable<IBuff> AllLegendaryPowerBuffs(this ILegendaryPowerInfo powerInfo)
         {
             if (powerInfo.AetherWalker != null) yield return powerInfo.AetherWalker;
             if (powerInfo.AhavarionSpearOfLycander != null) yield return powerInfo.AhavarionSpearOfLycander;
