@@ -28,7 +28,7 @@ namespace Turbo.Plugins.Jack.Labs.Powers
         {
             if (clipState != ClipState.AfterClip) return;
 
-            var powers = Hud.Sno.SnoPowers.LegendaryGemsPowers();
+            var powers = Hud.Sno.SnoPowers.GetLegendaryGemPowers();
 
             painter.Paint(powers, 0, 0);
         }

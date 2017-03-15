@@ -31,7 +31,8 @@ namespace Turbo.Plugins.Jack.Labs.Texture
 
             textureList = new TextureList().TextureIds;
             blackBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0);
-            backgroundBrush = Hud.Render.CreateBrush(255, 255, 53, 197, 0);
+            //backgroundBrush = Hud.Render.CreateBrush(255, 255, 53, 197, 0);
+            backgroundBrush = Hud.Render.CreateBrush(255, 255, 255, 255, 0);
 
             client = new WebClient();
             client.DownloadStringCompleted += Client_DownloadStringCompleted;

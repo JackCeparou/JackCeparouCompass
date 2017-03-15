@@ -24,7 +24,7 @@ namespace Turbo.Plugins.Jack.Labs.Powers
         {
             if (clipState != ClipState.AfterClip) return;
 
-            var powers = Hud.Sno.SnoPowers.LegendaryItemsPowers();
+            var powers = Hud.Sno.SnoPowers.GetLegendaryItemPowers();
 
             painter.Paint(powers, 0, 0);
         }
