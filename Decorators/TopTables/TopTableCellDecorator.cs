@@ -23,7 +23,8 @@
 
             if (BackgroundBrush != null)
             {
-                BackgroundBrush.DrawRectangle(x, y, w, h);
+                //BackgroundBrush.DrawRectangle(x, y, w, h);
+                BackgroundBrush.DrawRectangleGridFit(x, y, w, h);
             }
 
             if (!string.IsNullOrEmpty(text))
@@ -48,7 +49,8 @@
 
             if (BorderBrush != null)
             {
-                BorderBrush.DrawRectangle(x, y, w, h);
+                //BorderBrush.DrawRectangle(x, y, w, h);
+                BorderBrush.DrawRectangleGridFit(x, y, w, h);
             }
         }
 

@@ -1,11 +1,18 @@
 ﻿namespace Turbo.Plugins.Jack.Labs
 {
+    using System;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Decorators.TopTables;
 
-    public class TopTableSamplePlugin : BasePlugin, IInGameTopPainter
+    public class TopTableSamplePlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler
     {
         public TopTable Table { get; set; }
+
+        // only used for the demo purpose
+        private Random rng;
+        private long lastTick;
+        private int lastLineIndex = -1;
+        private int lastColumnIndex;
 
         public TopTableSamplePlugin()
         {
@@ -17,9 +24,13 @@
         {
             base.Load(hud);
 
+            // only used for the demo purpose
+            rng = new Random(Hud.Game.CurrentGameTick);
+
+            // create the table with options
             Table = new TopTable(Hud)
             {
-                RatioPositionX = 0.25f,
+                RatioPositionX = 0.2f,
                 RatioPositionY = 0.3f,
                 HorizontalCenter = true,
                 VerticalCenter = false,
@@ -35,6 +46,12 @@
                     BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
                     TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, false, false, true),
                 },
+                DefaultHighlightDecorator = new TopTableCellDecorator(Hud)
+                {
+                    BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 242, 0),
+                    BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                    TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, false, false, true),
+                },
                 DefaultHeaderDecorator = new TopTableCellDecorator(Hud)
                 {
                     //BackgroundBrush = Hud.Render.CreateBrush(0, 0, 0, 0, 0),
@@ -43,72 +60,106 @@
                 }
             };
 
+            // define columns.. talk about useful comments ;p
             Table.DefineColumns(
-                new TopTableHeader(Hud)
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
                 {
                     RatioHeight = 22 / 1080f, // define only once on first column, value on others will be ignored
                     RatioWidth = 108 / 1080f,
-                    TextFunc = () => "Col 1",
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
                 },
-                new TopTableHeader(Hud)
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
                 {
                     RatioWidth = 0.1f,
-                    TextFunc = () => "Col 2",
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
                 },
-                new TopTableHeader(Hud)
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
                 {
                     RatioWidth = 0.1f,
-                    TextFunc = () => "Col 3",
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
+                },
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
+                {
+                    RatioWidth = 0.1f,
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
+                },
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
+                {
+                    RatioWidth = 0.1f,
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
+                },
+                new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Col"))
+                {
+                    RatioWidth = 0.1f,
+                    HighlightFunc = (pos, curPos) => lastColumnIndex == pos,
                 }
             );
 
-            Table.AddLine(
-                new TopTableHeader(Hud)
-                {
-                    RatioWidth = 108 / 1080f, // define only once on first line, value on other will be ignored
-                    RatioHeight = 22 / 1080f,
-                    TextFunc = () => "Line 1 ",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 1 / Col 1",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 1 / Col 2",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 1 / Col 3",
-                }
-            );
+            // add lines
+            for (var i = 0; i < 10; i++)
+            {
+                var r = rng.Next(0, 255);
+                var g = rng.Next(0, 255);
+                var b = rng.Next(0, 255);
 
-            Table.AddLine(
-                new TopTableHeader(Hud)
-                {
-                    //RatioWidth = 1f, // will be ignored because it's after the first line
-                    RatioHeight = 22 / 1080f,
-                    TextFunc = () => "Line 2",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 2 / Col 1",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 2 / Col 2",
-                },
-                new TopTableCell(Hud)
-                {
-                    TextFunc = () => "Line 2 / Col 3",
-                }
-            );
+                Table.AddLine(
+                    new TopTableHeader(Hud, (pos, curPos) => GetHeaderText(pos, curPos, "Line"))
+                    {
+                        RatioWidth = 62 / 1080f, // define only once on first line, value on other will be ignored
+                        RatioHeight = 22 / 1080f,
+                        HighlightFunc = (pos, curPos) => lastLineIndex == pos,
+                        HighlightDecorator = new TopTableCellDecorator(Hud)
+                        {
+                            BackgroundBrush = Hud.Render.CreateBrush(255, r, g, b, 0),
+                            BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                            TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
+                        },
+                        CellHighlightDecorator = new TopTableCellDecorator(Hud)
+                        {
+                            BackgroundBrush = Hud.Render.CreateBrush(255, r, g, b, 0),
+                            BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                            TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
+                        },
+                    },
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)),
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)),
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)),
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)),
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)),
+                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column))
+                );
+            }
         }
 
+        // well..
         public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.BeforeClip) return;
+
             Table.Paint();
+        }
+
+        // dumb method to demonstrate the usage
+        public string GetHeaderText(int pos, int curPos, string text)
+        {
+            return string.Format("{0} {1}", text, pos);
+        }
+
+        // dumb method to demonstrate the usage
+        public string GetCellText(int line, int column)
+        {
+            return string.Format("Line {0} / Col {1}", line, column);
+        }
+
+        // only used for the demo purpose
+        public void AfterCollect()
+        {
+            if (lastTick + 500 > Hud.Game.CurrentRealTimeMilliseconds && Hud.Game.CurrentRealTimeMilliseconds > lastTick) return;
+
+            lastTick = Hud.Game.CurrentRealTimeMilliseconds;
+
+            lastLineIndex = (lastLineIndex + 1) % Table.Lines.Count;
+            lastColumnIndex = (lastColumnIndex + 1) % Table.Columns.Count;
         }
     }
 }

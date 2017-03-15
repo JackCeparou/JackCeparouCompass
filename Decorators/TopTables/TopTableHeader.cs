@@ -14,38 +14,65 @@
         public float Height { get { return (float)Math.Floor(RatioHeight * Hud.Window.Size.Height); } }
         public float Width { get { return (float)Math.Floor(RatioWidth * Hud.Window.Size.Height); } }
 
-        public TopTable Table { get; set; }
-        public List<TopTableCell> Cells { get; set; }
-        private TopTableCellDecorator _decorator;
+        public int Position { get; set; }
+        public int CurrentPosition { get { return Siblings.FindIndex(x => x == this); } }
 
+        public TopTable Table { get; set; }
+        public List<TopTableHeader> Siblings { get; set; }
+        public List<TopTableCell> Cells { get; set; }
+
+        private TopTableCellDecorator _decorator;
         public TopTableCellDecorator Decorator
         {
             get { return _decorator ?? Table.DefaultHeaderDecorator; }
             set { _decorator = value; }
         }
 
-        private TopTableCellDecorator _cellDecorator;
+        private TopTableCellDecorator _hightLightDecorator;
+        public TopTableCellDecorator HighlightDecorator
+        {
+            get { return _hightLightDecorator ?? Table.DefaultHighlightDecorator; }
+            set { _hightLightDecorator = value; }
+        }
 
+        private TopTableCellDecorator _cellDecorator;
         public TopTableCellDecorator CellDecorator
         {
             get { return _cellDecorator; }
             set { _cellDecorator = value; }
         }
 
-        public Func<string> TextFunc { get; set; }
+        private TopTableCellDecorator _cellHightLightDecorator;
+        public TopTableCellDecorator CellHighlightDecorator
+        {
+            get { return _cellHightLightDecorator; }
+            set { _cellHightLightDecorator = value; }
+        }
 
-        public TopTableHeader(IController hud)
+        public Func<int, int, string> TextFunc { get; set; }
+        public Func<int, int, bool> HighlightFunc { get; set; }
+
+        public TopTableHeader(IController hud, Func<int, int, string> textFunc = null)
         {
             Hud = hud;
             Cells = new List<TopTableCell>();
-            TextFunc = () => string.Empty;
+            HighlightFunc = (pos, curPos) => false;
+
+            if (textFunc == null)
+                TextFunc = (pos, curPos) => string.Empty;
+            else
+                TextFunc = textFunc;
         }
 
         public void Paint(float x, float y, HorizontalAlign align = HorizontalAlign.Center)
         {
-            var decorator = Decorator ?? Table.DefaultCellDecorator;
+            var decorator = HighlightFunc(Position, CurrentPosition)
+                ? HighlightDecorator
+                : Decorator;
+            if (decorator == null) return;
 
-            decorator.Paint(x, y, Width, Height, TextFunc(), align);
+            var text = TextFunc(Position, CurrentPosition);
+            decorator.Paint(x, y, Width, Height, text, align);
         }
     }
 }

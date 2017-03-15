@@ -25,6 +25,7 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
         public bool ShowHeaderRight { get; set; }
 
         public TopTableCellDecorator DefaultCellDecorator { get; set; }
+        public TopTableCellDecorator DefaultHighlightDecorator { get; set; }
         public TopTableCellDecorator DefaultHeaderDecorator { get; set; }
 
         public List<TopTableHeader> Columns { get; private set; }
@@ -42,13 +43,16 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
 
         public void Paint()
         {
+            if (Columns.Count == 0) return;
+            if (Lines.Count == 0) return;
+
             var w = Columns.Select(c => c.Width).Sum() + (Columns.Count * SpacingAdjustmentInPixels) - SpacingAdjustmentInPixels;
             var h = Lines.Select(c => c.Height).Sum() + (Lines.Count * SpacingAdjustmentInPixels) - SpacingAdjustmentInPixels;
 
-            if (ShowHeaderLeft) w += Lines.First().Width - SpacingAdjustmentInPixels;
-            if (ShowHeaderRight) w += Lines.First().Width - SpacingAdjustmentInPixels;
-            if (ShowHeaderTop) h += Columns.First().Height - SpacingAdjustmentInPixels;
-            if (ShowHeaderBottom) h += Columns.First().Height - SpacingAdjustmentInPixels;
+            if (ShowHeaderLeft) w += Lines.First().Width + SpacingAdjustmentInPixels;
+            if (ShowHeaderRight) w += Lines.First().Width + SpacingAdjustmentInPixels;
+            if (ShowHeaderTop) h += Columns.First().Height + SpacingAdjustmentInPixels;
+            if (ShowHeaderBottom) h += Columns.First().Height + SpacingAdjustmentInPixels;
 
             var left = RatioPositionX * Hud.Window.Size.Width;
             var top = RatioPositionY * Hud.Window.Size.Height;
@@ -99,30 +103,18 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             if (ShowHeaderTop)
                 y += Columns.First().Height + SpacingAdjustmentInPixels;
 
-            //var _yCell = y;
-            //foreach (var line in Lines)
-            //{
-            //    var _x = x;
-            //    foreach (var cell in line.Cells)
-            //    {
-            //        cell.Paint(_x, _yCell);
-            //        _x += cell.Width + SpacingAdjustmentInPixels;
-            //    }
-            //    _yCell += line.Height + SpacingAdjustmentInPixels;
-            //}
-
             var _yCell = y;
-            for (var l = 0; l < Lines.Count; l++)
+            for (var line = 0; line < Lines.Count; line++)
             {
                 var _x = x;
-                foreach (var t in Columns)
+                for (var column = 0; column < Columns.Count; column++)
                 {
-                    if (l >= t.Cells.Count) continue;
+                    if (line >= Columns[column].Cells.Count) continue;
 
-                    t.Cells[l].Paint(_x, _yCell);
-                    _x += t.Cells[l].Width + SpacingAdjustmentInPixels;
+                    Columns[column].Cells[line].Paint(_x, _yCell, line, column);
+                    _x += Columns[column].Cells[line].Width + SpacingAdjustmentInPixels;
                 }
-                _yCell += Lines[l].Height + SpacingAdjustmentInPixels;
+                _yCell += Lines[line].Height + SpacingAdjustmentInPixels;
             }
 
             if (ShowHeaderRight)
@@ -162,7 +154,10 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             foreach (var column in columns)
             {
                 column.Table = this;
+                column.Siblings = Columns;
                 column.RatioHeight = ratioHeight;
+
+                column.Position = Columns.Count;
                 Columns.Add(column);
             }
         }
@@ -172,12 +167,16 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             if (cells == null) return;
 
             if (Columns.Count == 0)
-                throw new Exception("You can't add lines because there is no columns defined.");
+                throw new Exception("You can't add lines because there is no columns defined. Call DefineColumns() once before calling AddLine().");
+
+            if (cells.Length < Columns.Count)
+                throw new Exception(string.Format("Not enough columns!! Trying to insert {0} columns with {1} column headers defined.", cells.Length, Columns.Count));
 
             if (cells.Length > Columns.Count)
-                throw new Exception("Too much columns!!");
+                throw new Exception(string.Format("Too much columns!! Trying to insert {0} columns with only {1} column headers defined.", cells.Length, Columns.Count));
 
             line.Table = this;
+            line.Siblings = Lines;
             line.RatioWidth = Lines.Count == 0 ? line.RatioWidth : Lines.First().RatioWidth;
 
             for (var i = 0; i < cells.Length; i++)
@@ -190,6 +189,7 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
                 Columns[i].Cells.Add(cells[i]);
             }
 
+            line.Position = Lines.Count;
             Lines.Add(line);
         }
     }
