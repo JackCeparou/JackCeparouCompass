@@ -1,6 +1,7 @@
 ﻿namespace Turbo.Plugins.Jack.Decorators.TopTables
 {
     using System;
+    using Turbo.Plugins.Default;
 
     public class TopTableCell
     {
@@ -27,6 +28,7 @@
             set { _hightLightDecorator = value; }
         }
 
+        public HorizontalAlign? TextAlign { get; set; }
         public Func<int, int, int, int, string> TextFunc { get; set; }
         public Func<int, int, int, int, bool> HighlightFunc { get; set; }
 
@@ -67,7 +69,7 @@
             if (decorator == null) return;
 
             var text = TextFunc(Line.Position, Column.Position, line, column);
-            decorator.Paint(x, y, Width, Height, text);
+            decorator.Paint(x, y, Width, Height, text, TextAlign ?? HorizontalAlign.Center);
         }
     }
 }

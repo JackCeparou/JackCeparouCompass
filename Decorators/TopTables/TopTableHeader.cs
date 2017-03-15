@@ -49,6 +49,7 @@
             set { _cellHightLightDecorator = value; }
         }
 
+        public HorizontalAlign? TextAlign { get; set; }
         public Func<int, int, string> TextFunc { get; set; }
         public Func<int, int, bool> HighlightFunc { get; set; }
 
@@ -64,7 +65,7 @@
                 TextFunc = textFunc;
         }
 
-        public void Paint(float x, float y, HorizontalAlign align = HorizontalAlign.Center)
+        public void Paint(float x, float y, HorizontalAlign textAlign)
         {
             var decorator = HighlightFunc(Position, CurrentPosition)
                 ? HighlightDecorator
@@ -72,7 +73,7 @@
             if (decorator == null) return;
 
             var text = TextFunc(Position, CurrentPosition);
-            decorator.Paint(x, y, Width, Height, text, align);
+            decorator.Paint(x, y, Width, Height, text, TextAlign ?? textAlign);
         }
     }
 }

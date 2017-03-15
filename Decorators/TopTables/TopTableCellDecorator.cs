@@ -17,7 +17,7 @@
             Hud = hud;
         }
 
-        public void Paint(float x, float y, float w, float h, string text, HorizontalAlign align = HorizontalAlign.Center)
+        public void Paint(float x, float y, float w, float h, string text, HorizontalAlign align)
         {
             if (TextFont == null) return;
 

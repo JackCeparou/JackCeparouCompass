@@ -92,7 +92,7 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
 
                 foreach (var columnHeader in Columns)
                 {
-                    columnHeader.Paint(_x, y);
+                    columnHeader.Paint(_x, y, HorizontalAlign.Center);
                     _x += columnHeader.Width + SpacingAdjustmentInPixels;
                 }
             }
@@ -135,7 +135,7 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
 
                 foreach (var columnHeader in Columns)
                 {
-                    columnHeader.Paint(_x, _yCell);
+                    columnHeader.Paint(_x, _yCell, HorizontalAlign.Center);
                     _x += columnHeader.Width + SpacingAdjustmentInPixels;
                 }
             }
