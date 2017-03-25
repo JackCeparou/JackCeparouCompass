@@ -16,7 +16,7 @@ namespace Turbo.Plugins.Jack.Customize
         {
             Hud.RunOnPlugin<DoorsPlugin>(plugin => plugin.ShowInTown = true);
 
-            Hud.RunOnPlugin<DangerousAffixMonsterPlugin>(plugin => { plugin.Affixes.Clear(); });
+            //Hud.RunOnPlugin<DangerousAffixMonsterPlugin>(plugin => { plugin.Affixes.Clear(); });
 
             using (var alertListsConfigurator = new AlertListsConfigurator())
             {
