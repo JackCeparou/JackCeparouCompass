@@ -66,6 +66,7 @@ namespace Turbo.Plugins.Jack.Alerts
                     MessageFormat = "{0}",
                     Rule =
                     {
+						ShowInTown = true,
                         CustomCondition = (hud => true),
                     },
                     Label =
