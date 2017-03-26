@@ -311,7 +311,7 @@ namespace Turbo.Plugins.Jack.Extensions
                 { 318792, new List<uint>() { 3124240420 } }, 
                 { 447839, new List<uint>() { 3500939870, 1510927136 } }, 
                 { 318740, new List<uint>() { 414527806 } }, 
-                { 402411, new List<uint>() { 614385664, 4061835218, 746976661 } }, 
+                { 402411, new List<uint>() { 4061835218 } }, 
                 { 367008, new List<uint>() { 2306922430 } }, 
                 { 397783, new List<uint>() { 2335253198 } }, 
                 { 318385, new List<uint>() { 3454877751 } }, 
