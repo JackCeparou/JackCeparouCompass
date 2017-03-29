@@ -4,7 +4,7 @@
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class ItemDropSoundAlert : BasePlugin, ILootGeneratedHandler, IAfterCollectHandler
+    public class ItemDropSoundAlertPlugin : BasePlugin, ILootGeneratedHandler, IAfterCollectHandler
     {
         public bool Legendary { get; set; }
         public bool AncientLegendary { get; set; }
@@ -15,7 +15,7 @@
 
         public HashSet<uint> ItemSnos { get; set; }
 
-        public ItemDropSoundAlert()
+        public ItemDropSoundAlertPlugin()
         {
             Enabled = true;
 
