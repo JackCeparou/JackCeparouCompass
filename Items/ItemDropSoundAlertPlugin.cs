@@ -38,7 +38,7 @@
         {
             var item = Hud.Game.Items.FirstOrDefault(x => x.Location == ItemLocation.Floor && x.LastSpeak != null && x.LastSpeak.IsRunning);
             if (item == null || !Hud.LastSpeak.TimerTest(2000)) return;
-            Says.Debug(Hud.LastSpeak.ElapsedMilliseconds, item.SnoItem.NameLocalized);
+            //Says.Debug(Hud.LastSpeak.ElapsedMilliseconds, item.SnoItem.NameLocalized);
 
             item.LastSpeak.Stop();
             Hud.Speak(item.SnoItem.NameLocalized);
