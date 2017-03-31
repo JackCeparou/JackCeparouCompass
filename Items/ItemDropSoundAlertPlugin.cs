@@ -1,5 +1,6 @@
 ﻿namespace Turbo.Plugins.Jack.Items
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
@@ -13,7 +14,20 @@
         public bool AncientSet { get; set; }
         public bool PrimalAncientSet { get; set; }
 
+        public bool Gambled { get; set; }
+
+        public string AncientLegendaryNamePrefix { get; set; }
+        public string PrimalAncientLegendaryNamePrefix { get; set; }
+        public string AncientSetNamePrefix { get; set; }
+        public string PrimalAncientSetNamePrefix { get; set; }
+
+        public Func<IItem, string> NameFunc { get; set; }
+
         public HashSet<uint> ItemSnos { get; set; }
+        public HashSet<uint> AncientItemSnos { get; set; }
+        public HashSet<uint> PrimalAncientItemSnos { get; set; }
+
+        public Dictionary<uint, string> ItemCustomNames { get; set; }
 
         public ItemDropSoundAlertPlugin()
         {
@@ -26,29 +40,35 @@
             AncientSet = false;
             PrimalAncientSet = true;
 
-            ItemSnos = new HashSet<uint>();
-        }
+            Gambled = true;
 
-        public override void Load(IController hud)
-        {
-            base.Load(hud);
+            AncientLegendaryNamePrefix = string.Empty;
+            PrimalAncientLegendaryNamePrefix = string.Empty;
+            AncientSetNamePrefix = string.Empty;
+            PrimalAncientSetNamePrefix = string.Empty;
+
+            NameFunc = GetItemName;
+
+            ItemSnos = new HashSet<uint>();
+            AncientItemSnos = new HashSet<uint>();
+            PrimalAncientItemSnos = new HashSet<uint>();
+
+            ItemCustomNames = new Dictionary<uint, string>();
         }
 
         public void AfterCollect()
         {
-            var item = Hud.Game.Items.FirstOrDefault(x => x.Location == ItemLocation.Floor && x.LastSpeak != null && x.LastSpeak.IsRunning);
+            var item = Hud.Game.Items.FirstOrDefault(x => x.Location == ItemLocation.Floor && x.LastSpeak != null && !x.LastSpeak.IsRunning);
             if (item == null || !Hud.LastSpeak.TimerTest(2000)) return;
-            //Says.Debug(Hud.LastSpeak.ElapsedMilliseconds, item.SnoItem.NameLocalized);
 
-            item.LastSpeak.Stop();
-            Hud.Speak(item.SnoItem.NameLocalized);
+            Hud.Speak(GetItemName(item));
+            item.LastSpeak.Restart();
         }
 
         public void OnLootGenerated(IItem item, bool gambled)
         {
             if (item.LastSpeak != null) return;
-
-            //Says.Debug(item.SnoItem.Sno, item.SnoItem.NameEnglish);
+            if (gambled && !Gambled) return;
 
             if (item.SetSno != uint.MaxValue)
             {
@@ -85,7 +105,21 @@
                 }
             }
 
-            if (ItemSnos.Contains(item.SnoItem.Sno)) MarkSoundAlert(item);
+            if (ItemSnos.Contains(item.SnoItem.Sno))
+            {
+                MarkSoundAlert(item);
+                return;
+            }
+            if (item.AncientRank == 1 && AncientItemSnos.Contains(item.SnoItem.Sno))
+            {
+                MarkSoundAlert(item);
+                return;
+            }
+            if (item.AncientRank == 2 && PrimalAncientItemSnos.Contains(item.SnoItem.Sno))
+            {
+                MarkSoundAlert(item);
+                return;
+            }
         }
 
         private void MarkSoundAlert(IItem item)
@@ -93,7 +127,43 @@
             if (item.LastSpeak != null) return;
 
             item.LastSpeak = Hud.CreateWatch();
-            item.LastSpeak.Restart();
+            //item.LastSpeak.Restart();
+        }
+
+        private string GetItemName(IItem item)
+        {
+            var name = ItemCustomNames.Where(n => n.Key == item.SnoItem.Sno).Select(n => n.Value).FirstOrDefault() ?? item.SnoItem.NameLocalized;
+
+            if (item.AncientRank == 0) return name;
+
+            if (item.SetSno != uint.MaxValue)
+            {
+                switch (item.AncientRank)
+                {
+                    case 1:
+                        name = string.Join(" ", AncientSetNamePrefix, name);
+                        break;
+
+                    case 2:
+                        name = string.Join(" ", PrimalAncientSetNamePrefix, name);
+                        break;
+                }
+            }
+            else
+            {
+                switch (item.AncientRank)
+                {
+                    case 1:
+                        name = string.Join(" ", AncientLegendaryNamePrefix, name);
+                        break;
+
+                    case 2:
+                        name = string.Join(" ", PrimalAncientLegendaryNamePrefix, name);
+                        break;
+                }
+            }
+
+            return name;
         }
     }
 }
