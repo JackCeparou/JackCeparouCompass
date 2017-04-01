@@ -33,6 +33,18 @@ namespace Turbo.Plugins.Jack.Monsters
                 {
                     Radius = 10,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 2, DashStyle.Dash)
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 30,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 30,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 200, 200, 0),
+                    Radius = 30,
                 }));
 
             //<!-- add ground circle to RG AOE DOT Poison 10y (The Choker):
@@ -76,6 +88,18 @@ namespace Turbo.Plugins.Jack.Monsters
                 {
                     Radius = 11.5f,
                     Brush = Hud.Render.CreateBrush(120, 255, 255, 255, 5, DashStyle.Dash)
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 15,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 15,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 255, 255, 0),
+                    Radius = 30,
                 }));
 
             //<!-- add ground circle to RG Dangerous skills:
@@ -97,11 +121,23 @@ namespace Turbo.Plugins.Jack.Monsters
                     Radius = 20,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 2, DashStyle.Dash)
                 });
-            //SnoMapping.Add(93837, rgDangerousSkillDecorator);
             SnoMapping.Add(368453, rgDangerousSkillDecorator);
             SnoMapping.Add(374732, rgDangerousSkillDecorator);
             SnoMapping.Add(3026, rgDangerousSkillDecorator);
             SnoMapping.Add(378237, rgDangerousSkillDecorator);
+            SnoMapping.Add(93837, new WorldDecoratorCollection(
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 75,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 75,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 50, 50, 0),
+                    Radius = 30,
+                }));
 
             //<!-- add ground circle to RG Ice Circles 12y? (Rime):
             //359703	X1_Unique_Monster_Generic_AOE_DOT_Cold_10foot -->
@@ -182,6 +218,18 @@ namespace Turbo.Plugins.Jack.Monsters
                 {
                     Radius = 20,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 255, 2, DashStyle.Dash)
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 16,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 16,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 50, 50, 0),
+                    Radius = 30,
                 }));
 
             //<!-- add ground circle to Adria skills:
@@ -226,6 +274,67 @@ namespace Turbo.Plugins.Jack.Monsters
                     Radius = 2,
                     Brush = Hud.Render.CreateBrush(200, 255, 150, 255, 2, DashStyle.Dash)
                 }));
+
+            //credits to SeaDragon
+            //Geyser_Tethrys 315366 Duration=3 radius=15
+            //Sandmonster_Turret 434201 Duration=20 radius=-1
+            //Hamelin_Rat_Swarm 427170 radius=7.5 I don't remember the duration,Maybe 60
+            SnoMapping.Add(315366, new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Radius = 15,
+                    Brush = Hud.Render.CreateBrush(200, 255, 150, 255, 2, DashStyle.Dash)
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 3,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 3,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 150, 255, 0),
+                    Radius = 30,
+                }));
+            SnoMapping.Add(434201, new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(200, 255, 150, 255, 2, DashStyle.Dash)
+                },
+                new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 20,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                },
+                new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 20,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 150, 255, 0),
+                    Radius = 30,
+                }));
+            SnoMapping.Add(427170, new WorldDecoratorCollection(
+                new GroundCircleDecorator(Hud)
+                {
+                    Radius = 7.5f,
+                    Brush = Hud.Render.CreateBrush(200, 255, 150, 255, 2, DashStyle.Dash)
+                }
+                //,
+                //new GroundLabelDecorator(Hud)
+                //{
+                //    CountDownFrom = 3,
+                //    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 200, 200, true, false, 128, 0, 0, 0, true),
+                //},
+                //new GroundTimerDecorator(Hud)
+                //{
+                //    CountDownFrom = 3,
+                //    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                //    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 150, 255, 0),
+                //    Radius = 30,
+                //}
+                ));
 
             /////////////////
             // Key Wardens //
