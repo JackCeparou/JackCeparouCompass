@@ -37,7 +37,7 @@
             Fonts.Add(LogLevel.Info, Hud.Render.CreateFont(fontFamily, 7, 224, 64, 240, 64, true, false, false));
             Fonts.Add(LogLevel.Debug, Hud.Render.CreateFont(fontFamily, 7, 224, 240, 240, 64, true, false, false));
 
-            XFunc = () => Hud.Window.Size.Width * 0.2f;
+            XFunc = () => Hud.Window.Size.Width * 0.02f;
             YFunc = () => Hud.Window.Size.Height * 0.1042f;
         }
 
@@ -77,7 +77,6 @@
             }
             if (Says.Messages.Count == 0) return;
 
-            var screenSize = Hud.Window.Size;
             var x = XFunc();
             var y = YFunc();
 
