@@ -69,9 +69,9 @@ namespace Turbo.Plugins.Jack.Players
 
             var skills = player.Powers.SkillSlots;
             var passives = player.Powers.PassiveSlots;
-            var gems = player.Powers.UsedLegendaryPowers.EquippedLegendaryGemsBuffs().Where(x => x.Active);
-            var powers = player.Powers.UsedLegendaryPowers.EquippedLegendaryItemsBuffs().Where(x => x.Active);
-            var setBonusPowers = player.Powers.AllSetBonusBuffs().Where(x => x != null && x.Active);
+            //var gems = player.Powers.UsedLegendaryPowers.EquippedLegendaryGemsBuffs().Where(x => x.Active);
+            //var powers = player.Powers.UsedLegendaryPowers.EquippedLegendaryItemsBuffs().Where(x => x.Active);
+            //var setBonusPowers = player.Powers.AllSetBonusBuffs().Where(x => x != null && x.Active);
         }
     }
 }
