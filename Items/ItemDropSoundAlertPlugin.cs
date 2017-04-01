@@ -70,6 +70,8 @@
             if (item.LastSpeak != null) return;
             if (gambled && !Gambled) return;
 
+            //Says.Debug(item.SnoItem.Sno, item.SnoItem.NameEnglish);
+
             if (item.SetSno != uint.MaxValue)
             {
                 switch (item.AncientRank)
@@ -105,6 +107,7 @@
                 }
             }
 
+            Says.Debug(string.Join(",",ItemSnos.ToList()));
             if (ItemSnos.Contains(item.SnoItem.Sno))
             {
                 MarkSoundAlert(item);
