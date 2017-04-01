@@ -24,7 +24,7 @@ namespace Turbo.Plugins.Jack.Customize
                 {
                     deco.Add(new SoundAlertDecorator(Hud)
                     {
-                        //TextFunc = (actor) => "YATAAAA",
+                        TextFunc = (actor) => actor.SnoActor.NameLocalized,
                     });
                 }
             });

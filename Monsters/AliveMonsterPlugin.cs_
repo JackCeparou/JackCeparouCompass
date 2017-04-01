@@ -6,6 +6,11 @@
     {
         public WorldDecoratorCollection Decorator { get; set; }
 
+        public AliveMonsterPlugin()
+        {
+            Enabled = true;
+        }
+
         public override void Load(IController hud)
         {
             base.Load(hud);
