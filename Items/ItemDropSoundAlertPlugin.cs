@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.TextToSpeech;
 
-    public class ItemDropSoundAlertPlugin : BasePlugin, ILootGeneratedHandler, IAfterCollectHandler
+    public class ItemDropSoundAlertPlugin : BasePlugin, ILootGeneratedHandler//, IAfterCollectHandler
     {
         public bool Legendary { get; set; }
         public bool AncientLegendary { get; set; }
@@ -21,13 +22,13 @@
         public string AncientSetNamePrefix { get; set; }
         public string PrimalAncientSetNamePrefix { get; set; }
 
-        public Func<IItem, string> NameFunc { get; set; }
-
         public HashSet<uint> ItemSnos { get; set; }
         public HashSet<uint> AncientItemSnos { get; set; }
         public HashSet<uint> PrimalAncientItemSnos { get; set; }
 
         public Dictionary<uint, string> ItemCustomNames { get; set; }
+
+        public SoundAlert<IItem> SoundAlert { get; private set; }
 
         public ItemDropSoundAlertPlugin()
         {
@@ -47,22 +48,25 @@
             AncientSetNamePrefix = string.Empty;
             PrimalAncientSetNamePrefix = string.Empty;
 
-            NameFunc = GetItemName;
-
             ItemSnos = new HashSet<uint>();
             AncientItemSnos = new HashSet<uint>();
             PrimalAncientItemSnos = new HashSet<uint>();
 
             ItemCustomNames = new Dictionary<uint, string>();
+
+            SoundAlert = new SoundAlert<IItem>()
+            {
+                TextFunc = (item) => GetItemName(item),
+            };
         }
 
         public void AfterCollect()
         {
-            var item = Hud.Game.Items.FirstOrDefault(x => x.Location == ItemLocation.Floor && x.LastSpeak != null && !x.LastSpeak.IsRunning);
-            if (item == null || !Hud.LastSpeak.TimerTest(2000)) return;
+            //var item = Hud.Game.Items.FirstOrDefault(x => x.Location == ItemLocation.Floor && x.LastSpeak != null && !x.LastSpeak.IsRunning);
+            //if (item == null || !Hud.LastSpeak.TimerTest(2000)) return;
 
-            Hud.Speak(GetItemName(item));
-            item.LastSpeak.Restart();
+            //Hud.Speak(GetItemName(item));
+            //item.LastSpeak.Restart();
         }
 
         public void OnLootGenerated(IItem item, bool gambled)
@@ -124,15 +128,7 @@
             }
         }
 
-        private void MarkSoundAlert(IItem item)
-        {
-            if (item.LastSpeak != null) return;
-
-            item.LastSpeak = Hud.CreateWatch();
-            //item.LastSpeak.Restart();
-        }
-
-        private string GetItemName(IItem item)
+        public string GetItemName(IItem item)
         {
             var name = ItemCustomNames.Where(n => n.Key == item.SnoItem.Sno).Select(n => n.Value).FirstOrDefault() ?? item.SnoItem.NameLocalized;
 
@@ -166,6 +162,16 @@
             }
 
             return name;
+        }
+
+        private void MarkSoundAlert(IItem item)
+        {
+            //if (item.LastSpeak != null) return;
+            //item.LastSpeak = Hud.CreateWatch();
+
+            SoundAlertManagerPlugin.Register(item);
+            if (item.GetData<SoundAlert<IItem>>() == null)
+                item.SetData<SoundAlert<IItem>>(SoundAlert);
         }
     }
 }
