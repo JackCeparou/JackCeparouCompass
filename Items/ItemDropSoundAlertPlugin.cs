@@ -107,7 +107,6 @@
                 }
             }
 
-            Says.Debug(string.Join(",",ItemSnos.ToList()));
             if (ItemSnos.Contains(item.SnoItem.Sno))
             {
                 MarkSoundAlert(item);

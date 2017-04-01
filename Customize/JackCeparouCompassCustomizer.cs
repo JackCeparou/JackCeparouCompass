@@ -50,7 +50,7 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.PrimalAncientSet = true;
 
                 // alerts when gambling ?
-                plugin.Gambled = true;
+                plugin.Gambled = true; // this don't work : TODO : check why..
 
                 // ancient & primals prefixes
                 plugin.AncientLegendaryNamePrefix = "Ancient";

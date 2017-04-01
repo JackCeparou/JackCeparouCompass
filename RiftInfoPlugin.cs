@@ -113,10 +113,12 @@
             textBuilder = new StringBuilder();
         }
 
+        private IBrush brus;
         public override void Load(IController hud)
         {
             base.Load(hud);
 
+            brus = Hud.Render.CreateBrush(255, 0, 0, 0, 0);
             ShowClosingTimer = false;
             GreaterRiftCountdown = false;
             ShowGreaterRiftTimer = true;
@@ -126,6 +128,10 @@
             ObjectiveProgressSymbol = "\u2694"; //⚔
             GuardianAliveSymbol = "\uD83D\uDC7F"; //👿
             GuardianDeadSymbol = "\uD83D\uDC80"; //💀
+
+            ObjectiveProgressSymbol = "";
+            GuardianAliveSymbol = "\uD83D\uDC7F"; //??
+            GuardianDeadSymbol = "\uD83D\uDC80"; //??uDC80"; //??
 
             MinutesSecondsFormat = "{0:%m}:{0:ss}";
             SecondsFormat = "{0:%s}";
@@ -189,8 +195,11 @@
                 var layout = ObjectiveProgressFont.GetTextLayout(GetText(false));
                 var x = Hud.Render.MinimapUiElement.Rectangle.Right - layout.Metrics.Width - Hud.Window.Size.Height * 0.033f;
                 var y = Hud.Render.MinimapUiElement.Rectangle.Bottom + Hud.Window.Size.Height * 0.0033f;
-
+                //brus.DrawRectangle(x, y, 100, 100);
                 ObjectiveProgressFont.DrawText(layout, x, y);
+
+                var texture = Hud.Texture.GetTexture(IsNephalemRift ? 1528804216 : 3075014090);
+                texture.Draw(x - texture.Width * 0.75f, Hud.Render.MinimapUiElement.Rectangle.Bottom - texture.Height/4, texture.Width, texture.Height);
             }
         }
 
