@@ -6,7 +6,7 @@
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
 
-    public class ItemDropSoundAlertPlugin : BasePlugin, ILootGeneratedHandler
+    public class ItemDropSoundAlertPlugin : BasePlugin, ILootGeneratedHandler, IAfterCollectHandler
     {
         public bool Legendary { get; set; }
         public bool AncientLegendary { get; set; }
@@ -16,6 +16,7 @@
         public bool PrimalAncientSet { get; set; }
 
         public bool Gambled { get; set; }
+        public bool InTown { get; set; }
 
         public string AncientLegendaryNamePrefix { get; set; }
         public string PrimalAncientLegendaryNamePrefix { get; set; }
@@ -42,6 +43,7 @@
             PrimalAncientSet = true;
 
             Gambled = true;
+            InTown = true;
 
             AncientLegendaryNamePrefix = string.Empty;
             PrimalAncientLegendaryNamePrefix = string.Empty;
@@ -59,10 +61,28 @@
 
         public void OnLootGenerated(IItem item, bool gambled)
         {
-            if (item.LastSpeak != null) return;
-            if (gambled && !Gambled) return;
+            if (!gambled) return;
+            if (!Gambled) return;
 
-            //Says.Debug(item.SnoItem.Sno, item.SnoItem.NameEnglish);
+            CheckLoot(item, true);
+        }
+
+        public void AfterCollect()
+        {
+            if (!Hud.Game.IsInGame) return;
+
+            var items = Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.LastSpeak == null && item.GetData<IItem>() == null);
+            foreach (var item in items)
+            {
+                CheckLoot(item, false);
+                item.SetData<IItem>(item);
+            }
+        }
+
+        public void CheckLoot(IItem item, bool gambled)
+        {
+            if (item.LastSpeak != null) return;
+            if (Hud.Game.IsInTown && !InTown && !gambled) return;
 
             if (item.SetSno != uint.MaxValue)
             {
