@@ -17,7 +17,7 @@
 
         public void AfterCollect()
         {
-            var gifts = Hud.Game.Items.Where(item => item.SnoItem.Sno == 1844495708 && item.Location == ItemLocation.Floor && item.LastSpeak == null /*&& item.Unidentified/*.*/);
+            var gifts = Hud.Game.Items.Where(item => item.SnoItem.Sno == 1844495708 && item.Location == ItemLocation.Floor && item.LastSpeak == null && item.Unidentified/*.*/);
             foreach (var gift in gifts)
             {
                 SoundAlertManagerPlugin.Register<IItem>(gift, SoundAlert);

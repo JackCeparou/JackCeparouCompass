@@ -1,4 +1,6 @@
-﻿namespace Turbo.Plugins.Jack.Customize
+﻿using Turbo.Plugins.Jack.Items;
+
+namespace Turbo.Plugins.Jack.Customize
 {
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
@@ -34,6 +36,11 @@
             {
                 plugin.AllShrineDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => shrine.SnoActor.NameLocalized));
                 plugin.PoolOfReflectionDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => "pool"));
+            });
+
+            Hud.RunOnPlugin<RamaladniDropFixPlugin>(plugin =>
+            {
+                plugin.SoundAlert.TextFunc = (item) => "OMAGAD a gift";
             });
 
             Hud.RunOnPlugin<Jack.Items.ItemDropSoundAlertPlugin>(plugin =>
