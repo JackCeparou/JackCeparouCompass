@@ -33,8 +33,8 @@
 
             Hud.RunOnPlugin<ShrinePlugin>(plugin =>
             {
-                plugin.AllShrineDecorator.Add(new SoundAlertDecorator<IActor>(Hud));
-                plugin.PoolOfReflectionDecorator.Add(new SoundAlertDecorator<IActor>(Hud, new SoundAlert<IActor>() { TextFunc = (actor) => "pool" }));
+                plugin.AllShrineDecorator.Add(new SoundAlertDecorator<IShrine>(Hud, new SoundAlert<IShrine>() { TextFunc = (shrine) => shrine.SnoActor.NameLocalized }));
+                plugin.PoolOfReflectionDecorator.Add(new SoundAlertDecorator<IShrine>(Hud, new SoundAlert<IShrine>() { TextFunc = (actor) => "pool" }));
             });
 
             Hud.RunOnPlugin<Jack.Items.ItemDropSoundAlertPlugin>(plugin =>
@@ -76,8 +76,7 @@
                 //plugin.PrimalAncientItemSnos.Add(12354689);
 
                 // custom items names (if the item is not in one of the other list, this will do nothing)
-                // example for // 1844495708 - Ramaladni's Gift
-                plugin.ItemCustomNames.Add(1844495708, "OMAGAD a gift!"); // 1844495708 - Ramaladni's Gift
+                plugin.ItemCustomNames.Add(1844495708, "OMAGAD a gift"); // 1844495708 - Ramaladni's Gift
                 //plugin.ItemCustomNames.Add(2332226049, "health"); // health globe
             });
 

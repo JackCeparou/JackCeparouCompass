@@ -32,7 +32,7 @@
                     Hud.LastSpeak.Restart();
 
                 var data = monster.GetData<SoundAlert<IMonster>>();
-                var text = data.TextFunc == null ? data.LastText : data.TextFunc(monster);
+                var text = data.TextFunc == null ? string.Empty : data.TextFunc(monster);
                 monster.LastSpeak.Restart();
                 Hud.Speak(text);
                 return;
@@ -45,7 +45,7 @@
                     Hud.LastSpeak.Restart();
 
                 var data = actor.GetData<SoundAlert<IActor>>();
-                var text = data.TextFunc == null ? data.LastText : data.TextFunc(actor);
+                var text = data.TextFunc == null ? string.Empty : data.TextFunc(actor);
                 actor.LastSpeak.Restart();
                 Hud.Speak(text);
                 return;
@@ -58,8 +58,21 @@
                     Hud.LastSpeak.Restart();
 
                 var data = item.GetData<SoundAlert<IItem>>();
-                var text = data.TextFunc == null ? data.LastText : data.TextFunc(item);
+                var text = data.TextFunc == null ? string.Empty : data.TextFunc(item);
                 item.LastSpeak.Restart();
+                Hud.Speak(text);
+                return;
+            }
+
+            var shrine = Hud.Game.Shrines.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IShrine>>() != null);
+            if (shrine != null)
+            {
+                if (!Hud.LastSpeak.IsRunning)
+                    Hud.LastSpeak.Restart();
+
+                var data = shrine.GetData<SoundAlert<IShrine>>();
+                var text = data.TextFunc == null ? string.Empty : data.TextFunc(shrine);
+                shrine.LastSpeak.Restart();
                 Hud.Speak(text);
                 return;
             }
