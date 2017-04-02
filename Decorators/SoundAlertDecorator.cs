@@ -13,8 +13,6 @@
 
         public SoundAlert<T> SoundAlert { get; private set; }
 
-        private static IController _hud;
-
         public SoundAlertDecorator()
         {
             Enabled = true;
@@ -22,7 +20,7 @@
 
         public SoundAlertDecorator(IController hud)
         {
-            Hud = _hud = hud;
+            Hud = hud;
             Enabled = true;
             Layer = WorldLayer.Ground;
         }
