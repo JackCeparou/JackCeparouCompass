@@ -13,6 +13,8 @@
 
         public SoundAlert<T> SoundAlert { get; private set; }
 
+        private static IController _hud;
+
         public SoundAlertDecorator()
         {
             Enabled = true;
@@ -20,7 +22,7 @@
 
         public SoundAlertDecorator(IController hud)
         {
-            Hud = hud;
+            Hud = _hud = hud;
             Enabled = true;
             Layer = WorldLayer.Ground;
         }
@@ -28,26 +30,6 @@
         public SoundAlertDecorator(IController hud, SoundAlert<T> soundAlert = null) : this(hud)
         {
             SoundAlert = soundAlert ?? new SoundAlert<T>() { TextFunc = (actor) => actor.SnoActor.NameLocalized };
-
-            /*if (soundAlert != null)
-            {
-                SoundAlert = soundAlert;
-            }
-            else
-            {
-                if (typeof(IItem) == typeof(T))
-                {
-                    SoundAlert = new SoundAlert<T>() { TextFunc = (item) => item.SnoItem.NameLocalized };
-                }
-                else if (typeof(IMonster) == typeof(T))
-                {
-                    SoundAlert = new SoundAlert<T>() { TextFunc = (monster) => monster.SnoMonster.NameLocalized };
-                }
-                else
-                {
-                    SoundAlert = new SoundAlert<T>() { TextFunc = (actor) => actor.SnoActor.NameLocalized };
-                }
-            }/**/
         }
 
         public void Paint(IActor actor, IWorldCoordinate coord, string text)

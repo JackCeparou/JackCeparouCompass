@@ -1,7 +1,6 @@
 ﻿namespace Turbo.Plugins.Jack.Customize
 {
     using Turbo.Plugins.Default;
-    using Turbo.Plugins.Jack.Decorators;
     using Turbo.Plugins.Jack.TextToSpeech;
 
     public class SoundAlertCustomizer : BasePlugin, ICustomizer
@@ -19,22 +18,22 @@
 
                 foreach (var deco in plugin.AllGoblinDecorators())
                 {
-                    deco.Add(new SoundAlertDecorator<IMonster>(Hud, new SoundAlert<IMonster>() { TextFunc = (monster) => monster.SnoMonster.NameLocalized }));
+                    deco.Add(SoundAlertFactory.Create<IMonster>(Hud, (monster) => monster.SnoMonster.NameLocalized));
                 }
 
-                plugin.DefaultGoblinDecorator.Add(new SoundAlertDecorator<IActor>(Hud, new SoundAlert<IActor>() { TextFunc = (actor) => "goblin" }));
-                plugin.PortalDecorator.Add(new SoundAlertDecorator<IActor>(Hud, new SoundAlert<IActor>() { TextFunc = (actor) => "portal" }));
+                plugin.DefaultGoblinDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "goblin"));
+                plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
             });
 
             Hud.RunOnPlugin<StandardMonsterPlugin>(plugin =>
             {
-                plugin.BossDecorator.Add(new SoundAlertDecorator<IActor>(Hud));
+                plugin.BossDecorator.Add(SoundAlertFactory.Create<IActor>(Hud));
             });
 
             Hud.RunOnPlugin<ShrinePlugin>(plugin =>
             {
-                plugin.AllShrineDecorator.Add(new SoundAlertDecorator<IShrine>(Hud, new SoundAlert<IShrine>() { TextFunc = (shrine) => shrine.SnoActor.NameLocalized }));
-                plugin.PoolOfReflectionDecorator.Add(new SoundAlertDecorator<IShrine>(Hud, new SoundAlert<IShrine>() { TextFunc = (actor) => "pool" }));
+                plugin.AllShrineDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => shrine.SnoActor.NameLocalized));
+                plugin.PoolOfReflectionDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => "pool"));
             });
 
             Hud.RunOnPlugin<Jack.Items.ItemDropSoundAlertPlugin>(plugin =>

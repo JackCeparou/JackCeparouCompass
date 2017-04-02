@@ -54,10 +54,7 @@
 
             ItemCustomNames = new Dictionary<uint, string>();
 
-            SoundAlert = new SoundAlert<IItem>()
-            {
-                TextFunc = (item) => GetItemName(item),
-            };
+            SoundAlert = SoundAlertFactory.Create<IItem>((item) => GetItemName(item));
         }
 
         public void OnLootGenerated(IItem item, bool gambled)
@@ -157,9 +154,7 @@
 
         private void MarkSoundAlert(IItem item)
         {
-            SoundAlertManagerPlugin.Register(item);
-            if (item.GetData<SoundAlert<IItem>>() == null)
-                item.SetData<SoundAlert<IItem>>(SoundAlert);
+            SoundAlertManagerPlugin.Register(item, SoundAlert);
         }
     }
 }
