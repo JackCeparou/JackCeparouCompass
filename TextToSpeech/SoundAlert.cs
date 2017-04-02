@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class SoundAlert<T> where T : IActor
+    public sealed class SoundAlert<T> where T : IActor
     {
         public Func<T, string> TextFunc { get; set; }
     }
