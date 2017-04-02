@@ -22,7 +22,7 @@
         {
             Hud = hud;
             Enabled = true;
-            Layer = WorldLayer.Ground;
+            Layer = WorldLayer.Map;
         }
 
         public SoundAlertDecorator(IController hud, SoundAlert<T> soundAlert = null) : this(hud)
