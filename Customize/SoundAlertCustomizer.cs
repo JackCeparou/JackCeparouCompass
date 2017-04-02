@@ -14,19 +14,6 @@ namespace Turbo.Plugins.Jack.Customize
 
         public void Customize()
         {
-            Hud.RunOnPlugin<GoblinPlugin>(plugin =>
-            {
-                plugin.EnableSpeak = false; //just in case the default change
-
-                foreach (var deco in plugin.AllGoblinDecorators())
-                {
-                    deco.Add(SoundAlertFactory.Create<IMonster>(Hud, (monster) => monster.SnoMonster.NameLocalized));
-                }
-
-                plugin.DefaultGoblinDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "goblin"));
-                plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
-            });
-
             Hud.RunOnPlugin<StandardMonsterPlugin>(plugin =>
             {
                 plugin.BossDecorator.Add(SoundAlertFactory.Create<IActor>(Hud));
@@ -38,9 +25,27 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.PoolOfReflectionDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => "pool"));
             });
 
-            Hud.RunOnPlugin<RamaladniDropFixPlugin>(plugin =>
+            Hud.RunOnPlugin<GoblinPlugin>(plugin =>
             {
-                plugin.SoundAlert.TextFunc = (item) => "OMAGAD a gift";
+                plugin.EnableSpeak = false; //just in case the default change
+                plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
+            });
+
+            Hud.RunOnPlugin<Jack.Monsters.GoblinSoundAlertPlugin>(plugin =>
+            {
+                plugin.GoblinPack.TextFunc = (monster) => "goblin pack";
+
+                //plugin.DefaultGoblin = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.MalevolentTormentor = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.BloodThief = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.OdiousCollector = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.GemHoarder = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.Gelatinous = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.GildedBaron = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.InsufferableMiscreant = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.RainbowGoblin = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.MenageristGoblin = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
+                //plugin.TreasureFiendGoblin = SoundAlertFactory.Create<IMonster>((monster) => monster.SnoMonster.NameLocalized);
             });
 
             Hud.RunOnPlugin<Jack.Items.ItemDropSoundAlertPlugin>(plugin =>
@@ -54,7 +59,7 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.AncientSet = true;
                 plugin.PrimalAncientSet = true;
 
-                // alerts when gambling ?
+                // alerts when gambling at kadala ?
                 plugin.Gambled = true;
 
                 // ancient & primals prefixes
@@ -62,10 +67,6 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.PrimalAncientLegendaryNamePrefix = "Primal";
                 plugin.AncientSetNamePrefix = "Ancient";
                 plugin.PrimalAncientSetNamePrefix = "Primal";
-
-                // naming function
-                // can be overriden with an anonymous function (item) => { return "string"; }
-                //plugin.NameFunc = GetItemName;
 
                 // Exceptions on above rules :
                 // ---------------------------
@@ -85,6 +86,11 @@ namespace Turbo.Plugins.Jack.Customize
                 plugin.ItemCustomNames.Add(1844495708, "OMAGAD a gift"); // 1844495708 - Ramaladni's Gift
                 //plugin.ItemCustomNames.Add(2332226049, "health"); // health globe
             });
+
+            //Hud.RunOnPlugin<RamaladniDropFixPlugin>(plugin =>
+            //{
+            //    plugin.SoundAlert.TextFunc = (item) => "OMAGAD a gift";
+            //});
 
             //Hud.RunOnPlugin<MonsterRiftProgressionColoringPlugin>(plugin =>
             //{
