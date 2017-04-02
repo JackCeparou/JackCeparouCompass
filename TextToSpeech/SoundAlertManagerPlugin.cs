@@ -25,6 +25,19 @@
         {
             if (Hud.LastSpeak.ElapsedMilliseconds != 0 && !Hud.LastSpeak.TimerTest(SoundAlertMaxRate)) return;
 
+            var monster = Hud.Game.AliveMonsters.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IMonster>>() != null);
+            if (monster != null)
+            {
+                if (!Hud.LastSpeak.IsRunning)
+                    Hud.LastSpeak.Restart();
+
+                var data = monster.GetData<SoundAlert<IMonster>>();
+                var text = data.TextFunc == null ? data.LastText : data.TextFunc(monster);
+                monster.LastSpeak.Restart();
+                Hud.Speak(text);
+                return;
+            }
+
             var actor = Hud.Game.Actors.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IActor>>() != null);
             if (actor != null)
             {
@@ -57,7 +70,15 @@
             if (actor.LastSpeak != null) return;
 
             actor.LastSpeak = _hud.CreateWatch();
-            //actor.LastSpeak.Restart();
+        }
+
+        public static void Register<T>(IActor actor, SoundAlert<T> soundAlert) where T : IActor
+        {
+            if (actor.LastSpeak != null) return;
+            actor.LastSpeak = _hud.CreateWatch();
+
+            if (actor.GetData<SoundAlert<T>>() == null)
+                actor.SetData<SoundAlert<T>>(soundAlert);
         }
     }
 }

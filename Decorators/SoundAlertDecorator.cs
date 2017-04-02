@@ -5,22 +5,17 @@
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
 
-    public class SoundAlertDecorator : IWorldDecorator
+    public class SoundAlertDecorator<T> : IWorldDecorator where T : IActor
     {
         public bool Enabled { get; set; }
         public IController Hud { get; private set; }
         public WorldLayer Layer { get; private set; }
 
-        public SoundAlert<IActor> SoundAlert { get; private set; }
+        public SoundAlert<T> SoundAlert { get; private set; }
 
-        public Func<IActor, string> TextFunc {
-            get { return SoundAlert.TextFunc; }
-            set { SoundAlert.TextFunc = value; }
-        }
-        public string LastText
+        public SoundAlertDecorator()
         {
-            get { return SoundAlert.LastText; }
-            private set { SoundAlert.LastText = value; }
+            Enabled = true;
         }
 
         public SoundAlertDecorator(IController hud)
@@ -28,8 +23,31 @@
             Hud = hud;
             Enabled = true;
             Layer = WorldLayer.Ground;
+        }
 
-            SoundAlert = new SoundAlert<IActor>();
+        public SoundAlertDecorator(IController hud, SoundAlert<T> soundAlert = null) : this(hud)
+        {
+            SoundAlert = soundAlert ?? new SoundAlert<T>() { TextFunc = (actor) => actor.SnoActor.NameLocalized };
+
+            /*if (soundAlert != null)
+            {
+                SoundAlert = soundAlert;
+            }
+            else
+            {
+                if (typeof(IItem) == typeof(T))
+                {
+                    SoundAlert = new SoundAlert<T>() { TextFunc = (item) => item.SnoItem.NameLocalized };
+                }
+                else if (typeof(IMonster) == typeof(T))
+                {
+                    SoundAlert = new SoundAlert<T>() { TextFunc = (monster) => monster.SnoMonster.NameLocalized };
+                }
+                else
+                {
+                    SoundAlert = new SoundAlert<T>() { TextFunc = (actor) => actor.SnoActor.NameLocalized };
+                }
+            }/**/
         }
 
         public void Paint(IActor actor, IWorldCoordinate coord, string text)
@@ -37,14 +55,7 @@
             if (!Enabled) return;
             if (actor == null) return;
 
-            LastText = text;
-
-            //if (actor.LastSpeak != null) return;
-
-            // register for sound play
-            SoundAlertManagerPlugin.Register(actor);
-            if (actor.GetData<SoundAlert<IActor>>() == null)
-                actor.SetData<SoundAlert<IActor>>(SoundAlert);
+            SoundAlertManagerPlugin.Register<T>(actor, SoundAlert);
         }
 
         public IEnumerable<ITransparent> GetTransparents()
