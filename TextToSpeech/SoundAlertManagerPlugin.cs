@@ -85,13 +85,13 @@
             actor.LastSpeak = _hud.CreateWatch();
         }
 
-        public static void Register<T>(IActor actor, SoundAlert<T> soundAlert) where T : IActor
+        public static void Register<T>(IActor actor, SoundAlert<T> soundAlert = null) where T : IActor
         {
             if (actor.LastSpeak != null) return;
             actor.LastSpeak = _hud.CreateWatch();
 
             if (actor.GetData<SoundAlert<T>>() == null)
-                actor.SetData<SoundAlert<T>>(soundAlert);
+                actor.SetData<SoundAlert<T>>(soundAlert ?? SoundAlertFactory.Create<T>((a) => a.SnoActor.NameLocalized));
         }
     }
 }
