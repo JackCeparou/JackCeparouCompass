@@ -13,6 +13,20 @@
             {
                 plugin.LabelList.WidthFunc = () => Hud.Window.Size.Height * 0.0630f;
 
+                var dpsDecorator = plugin.LabelList.LabelDecorators[2];
+                dpsDecorator.TextFunc = () =>
+                {
+                    var dps = Hud.Game.Me.Offense.SheetDps * (Hud.Game.Me.Powers.BuffIsActive(246562, 1) ? 2 : 1);
+                    return BasePlugin.ValueToString(dps, ValueFormat.ShortNumber);
+                };
+
+                var apsDecorator = plugin.LabelList.LabelDecorators[3];
+                apsDecorator.TextFunc = () =>
+                {
+                    var aps = Hud.Game.Me.Offense.AttackSpeed * (Hud.Game.Me.Powers.BuffIsActive(246562, 1) ? 2 : 1);
+                    return aps.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) + "/s";
+                };
+
                 plugin.LabelList.LabelDecorators[9].TextFunc = () => Hud.Game.Me.Stats.MoveSpeed.ToString("#");
                 plugin.LabelList.LabelDecorators[9].HintFunc = () => string.Empty;
 
