@@ -107,12 +107,17 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             for (var line = 0; line < Lines.Count; line++)
             {
                 var _x = x;
+                //for (var column = 0; column < Columns.Count; column++)
+                //{
+                //    if (line >= Columns[column].Cells.Count) continue;
+
+                //    Columns[column].Cells[line].Paint(_x, _yCell, line, column);
+                //    _x += Columns[column].Cells[line].Width + SpacingAdjustmentInPixels;
+                //}
                 for (var column = 0; column < Columns.Count; column++)
                 {
-                    if (line >= Columns[column].Cells.Count) continue;
-
-                    Columns[column].Cells[line].Paint(_x, _yCell, line, column);
-                    _x += Columns[column].Cells[line].Width + SpacingAdjustmentInPixels;
+                    Lines[line].Cells[column].Paint(_x, _yCell, line, column);
+                    _x += Lines[line].Cells[column].Width + SpacingAdjustmentInPixels;
                 }
                 _yCell += Lines[line].Height + SpacingAdjustmentInPixels;
             }
@@ -191,6 +196,15 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
 
             line.Position = Lines.Count;
             Lines.Add(line);
+        }
+
+        public void SortLines(int column, bool descending = false)
+        {
+            Lines.Sort((a, b) =>
+            {
+                var compare = string.Compare(a.Cells[column].TextFunc(a.Position, column, 0, 0), b.Cells[column].TextFunc(b.Position, column, 0, 0), StringComparison.Ordinal);
+                return descending ? -compare : compare;
+            });
         }
     }
 }
