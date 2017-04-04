@@ -1,9 +1,9 @@
 using System.Linq;
 using Turbo.Plugins.Default;
 
-namespace Turbo.Plugins
+namespace Turbo.Plugins.Jack.Actors
 {
-    public class WitchDoctorPetsPlugin : BasePlugin
+    public class WitchDoctorPetsPlugin : BasePlugin, IInGameWorldPainter
     {
         public uint[] GargantuansIds { get; set; }
         public WorldDecoratorCollection GargantuansDecorators { get; set; }
@@ -52,6 +52,12 @@ namespace Turbo.Plugins
 
             var zombieDogBrush = Hud.Render.CreateBrush(178, 0, 255, 0, 2);
             ZombiesDogsDecorators = new WorldDecoratorCollection(
+                new GroundShapeDecorator(hud)
+                {
+                    Shape = GroundShape.X,
+                    Radius = 0.35f,
+                    Brush = gargantuanBrush,
+                },
                 new GroundCircleDecorator(hud)
                 {
                     Radius = 0.35f,
@@ -59,7 +65,7 @@ namespace Turbo.Plugins
                 },
                 new MapShapeDecorator(hud)
                 {
-                    ShapePainter = new CrossShapeFilter(hud),
+                    ShapePainter = new CrossShapePainter(hud),
                     Radius = 1f,
                     Brush = zombieDogBrush,
                 }
@@ -70,12 +76,7 @@ namespace Turbo.Plugins
             }
         }
 
-
-        public override void Customize()
-        {
-        }
-
-        public override void PaintWorld(WorldLayer layer)
+        public void PaintWorld(WorldLayer layer)
         {
             if (Hud.Render.UiHidden) return;
             if (Hud.Game.IsInTown) return;
