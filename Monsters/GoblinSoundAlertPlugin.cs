@@ -65,8 +65,12 @@
         {
             if (!Hud.Game.IsInGame) return;
             if (Hud.Game.IsInTown) return;
+//408679	MarkerLocation_GoblinPortalIn
+// 393030	p1_Greed_Portal
+// 405750	p1_Greed_PortalMonsterSummon	Invisible portal summoner
+//408679	MarkerLocation_GoblinPortalIn
 
-            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && SnoMapping.ContainsKey(x.SnoActor.Sno)); 
+            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && SnoMapping.ContainsKey(x.SnoActor.Sno));
             //Says.Debug(string.Join(" ", goblins.Select(g => g.SnoMonster.Sno)));
             if (goblins.Count() > 1)
             {
@@ -75,7 +79,7 @@
             else
             {
                 foreach (var goblin in goblins)
-                { 
+                {
                     SoundAlert<IMonster> soundAlert;
                     if (!SnoMapping.TryGetValue(goblin.SnoActor.Sno, out soundAlert))
                     {

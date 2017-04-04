@@ -71,7 +71,7 @@
         {
             if (!Hud.Game.IsInGame) return;
 
-            var items = Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.LastSpeak == null && item.GetData<IItem>() == null);
+            var items = Hud.Game.Items.Where(item => item.Location == ItemLocation.Floor && item.LastSpeak == null && item.GetData<IItem>() == null && (item.SnoItem.Sno == 1844495708 || item.Unidentified));
             foreach (var item in items)
             {
                 CheckLoot(item, false);

@@ -26,56 +26,35 @@
             if (Hud.LastSpeak.ElapsedMilliseconds != 0 && !Hud.LastSpeak.TimerTest(SoundAlertMaxRate)) return;
 
             var monster = Hud.Game.AliveMonsters.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IMonster>>() != null);
-            if (monster != null)
-            {
-                if (!Hud.LastSpeak.IsRunning)
-                    Hud.LastSpeak.Restart();
-
-                var data = monster.GetData<SoundAlert<IMonster>>();
-                var text = data.TextFunc == null ? string.Empty : data.TextFunc(monster);
-                monster.LastSpeak.Restart();
-                Hud.Speak(text);
+            if (Speak<IMonster>(monster))
                 return;
-            }
 
             var actor = Hud.Game.Actors.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IActor>>() != null);
-            if (actor != null)
-            {
-                if (!Hud.LastSpeak.IsRunning)
-                    Hud.LastSpeak.Restart();
-
-                var data = actor.GetData<SoundAlert<IActor>>();
-                var text = data.TextFunc == null ? string.Empty : data.TextFunc(actor);
-                actor.LastSpeak.Restart();
-                Hud.Speak(text);
+            if (Speak<IActor>(actor))
                 return;
-            }
 
             var item = Hud.Game.Items.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IItem>>() != null);
-            if (item != null)
-            {
-                if (!Hud.LastSpeak.IsRunning)
-                    Hud.LastSpeak.Restart();
-
-                var data = item.GetData<SoundAlert<IItem>>();
-                var text = data.TextFunc == null ? string.Empty : data.TextFunc(item);
-                item.LastSpeak.Restart();
-                Hud.Speak(text);
+            if (Speak<IItem>(item))
                 return;
-            }
 
             var shrine = Hud.Game.Shrines.FirstOrDefault(a => a.LastSpeak != null && !a.LastSpeak.IsRunning && a.GetData<SoundAlert<IShrine>>() != null);
-            if (shrine != null)
-            {
-                if (!Hud.LastSpeak.IsRunning)
-                    Hud.LastSpeak.Restart();
-
-                var data = shrine.GetData<SoundAlert<IShrine>>();
-                var text = data.TextFunc == null ? string.Empty : data.TextFunc(shrine);
-                shrine.LastSpeak.Restart();
-                Hud.Speak(text);
+            if (Speak<IShrine>(shrine))
                 return;
-            }
+        }
+
+        public bool Speak<T>(T actor) where T : IActor
+        {
+            if (actor == null)
+                return false;
+
+            if (!Hud.LastSpeak.IsRunning)
+                Hud.LastSpeak.Restart();
+
+            var data = actor.GetData<SoundAlert<T>>();
+            var text = data.TextFunc == null ? actor.SnoActor.NameLocalized : data.TextFunc(actor);
+            actor.LastSpeak.Restart();
+            Hud.Speak(text);
+            return true;
         }
 
         public static void Register(IActor actor)
