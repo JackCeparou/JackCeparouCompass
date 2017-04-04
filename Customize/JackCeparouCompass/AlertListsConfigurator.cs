@@ -1,4 +1,6 @@
-﻿namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
+﻿using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
 {
     using System.Collections.Generic;
     using System.Globalization;
@@ -135,9 +137,10 @@
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
-                plugin.AlertList.RatioX = 0.2f;
+                plugin.AlertList.RatioX = 0.02f;
                 plugin.AlertList.RatioY = 0.1f;
                 plugin.AlertList.VerticalCenter = false;
+                plugin.AlertList.TextAlign = HorizontalAlign.Left;
                 plugin.AlertList.RatioSpacerY = 0;
 
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
@@ -154,7 +157,10 @@
                                     buff.SnoPower.NameEnglish,
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
-                                    buff.Active));
+                                    buff.Active,
+                                    buff.TimeLeft(),
+                                    string.Join(", ", buff.TimeLeftSeconds)
+                                    ));
                     },
                     Label =
                     {
@@ -180,7 +186,10 @@
                                     " | ",
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
-                                    buff.Active));
+                                    buff.Active,
+                                    buff.TimeLeft(),
+                                    string.Join(", ", buff.TimeLeftSeconds)
+                                    ));
                     },
                     Label =
                     {
