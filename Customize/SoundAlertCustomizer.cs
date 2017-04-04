@@ -28,7 +28,7 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.RunOnPlugin<GoblinPlugin>(plugin =>
             {
                 plugin.EnableSpeak = false; //just in case the default change
-                plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
+                //plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
             });
 
             Hud.RunOnPlugin<Jack.Monsters.GoblinSoundAlertPlugin>(plugin =>
