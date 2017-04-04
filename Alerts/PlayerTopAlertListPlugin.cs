@@ -184,6 +184,20 @@
                     InactiveBuffs = new[] { new SnoPowerId(powers.DemonHunter_Vengeance.Sno) },
                 },
             });
+            // ShadowPower 130830
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.DemonHunter)
+            {
+                TextSnoId = powers.DemonHunter_ShadowPower.Sno,
+                MessageFormat = "\uD83D\uDE08 {0} \uD83D\uDE08",//��
+                Rule =
+                {
+                    ShowInTown = true,
+                    CheckSkillCooldowns = true,
+                    EquippedSkills = new [] { new SnoPowerId(powers.DemonHunter_ShadowPower.Sno) },
+                    ActiveBuffs = new [] { new SnoPowerId(318876) }, //318876	ItemPassive_Unique_Ring_680_x1		Shadow Power gains the effect of every rune and lasts forever.
+                    InactiveBuffs = new [] { new SnoPowerId(powers.DemonHunter_ShadowPower.Sno) },
+                },
+            });
 
             // ====
             // Monk
