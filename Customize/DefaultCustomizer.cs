@@ -72,21 +72,13 @@ namespace Turbo.Plugins.Jack.Customize
             //    plugin.CustomSpeakTable.Add(Hud.Inventory.GetSnoItem(1844495708), "OMAGAD a gift!"); 
             //});
 
-            Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
-            {
-                var dpsDecorator = plugin.LabelList.LabelDecorators[2];
-                dpsDecorator.TextFunc = () =>
-                {
-                    var dps = Hud.Game.Me.Offense.SheetDps * (Hud.Game.Me.Powers.BuffIsActive(246562, 1) ? 2 : 1);
-                    return ValueToString(dps, ValueFormat.ShortNumber);
-                };
-                var apsDecorator = plugin.LabelList.LabelDecorators[3];
-                apsDecorator.TextFunc = () =>
-                {
-                    var aps = Hud.Game.Me.Offense.AttackSpeed * (Hud.Game.Me.Powers.BuffIsActive(246562, 1) ? 2 : 1);
-                    return aps.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) + "/s";
-                };
-            });
+            //Hud.RunOnPlugin<DangerousMonsterPlugin>(plugin =>
+            //{
+            //    foreach (var name in new string[] { "Wood Wraith", "Highland Walker", "The Old Man", "Fallen Lunatic", "Deranged Fallen", "Fallen Maniac", "Frenzied Lunatic", "Herald of Pestilence", "Terror Demon", "Demented Fallen", "Savage Beast", "Tusked Bogan", "Punisher", "Anarch", "Corrupted Angel", "Winged Assassin", "Exarch" })
+            //    {
+            //        plugin.RemoveName(name);
+            //    }
+            //});
 
             //Hud.RunOnPlugin<ChestPlugin>(plugin =>
             //{
