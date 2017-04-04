@@ -206,5 +206,33 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
                 return descending ? -compare : compare;
             });
         }
+
+        public void RemoveLines()
+        {
+            Reset(true);
+        }
+
+        public void Reset(bool keepColumns = false)
+        {
+            if (keepColumns)
+            {
+                foreach (var column in Columns)
+                {
+                    column.Cells.Clear();
+                }
+            }
+            else
+            {
+                foreach (var column in Columns)
+                {
+                    column.Dispose();
+                }
+            }
+
+            foreach (var line in Lines)
+            {
+                line.Dispose();
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@
     using System;
     using Turbo.Plugins.Default;
 
-    public class TopTableCell
+    public class TopTableCell : IDisposable
     {
         public IController Hud { get; set; }
 
@@ -15,6 +15,7 @@
         public float Width { get { return Column.Width; } }
 
         private TopTableCellDecorator _decorator;
+
         public TopTableCellDecorator Decorator
         {
             get { return _decorator ?? Column.CellDecorator ?? Line.CellDecorator ?? Table.DefaultCellDecorator; }
@@ -22,6 +23,7 @@
         }
 
         private TopTableCellDecorator _hightLightDecorator;
+
         public TopTableCellDecorator HighlightDecorator
         {
             get { return _hightLightDecorator; }
@@ -70,6 +72,28 @@
 
             var text = TextFunc(Line.Position, Column.Position, line, column);
             decorator.Paint(x, y, Width, Height, text, TextAlign ?? HorizontalAlign.Center);
+        }
+
+        public void Dispose()
+        {
+            if (_decorator != null)
+            {
+                _decorator.Dispose();
+                _decorator = null;
+            }
+            if (_hightLightDecorator != null)
+            {
+                _hightLightDecorator.Dispose();
+                _hightLightDecorator = null;
+            }
+
+            Hud = null;
+            Table = null;
+            Column = null;
+            Line = null;
+            TextAlign = null;
+            TextFunc = null;
+            HighlightFunc = null;
         }
     }
 }

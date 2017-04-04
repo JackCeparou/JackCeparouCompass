@@ -1,9 +1,10 @@
 ﻿namespace Turbo.Plugins.Jack.Decorators.TopTables
 {
+    using System;
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
 
-    public class TopTableCellDecorator : ITransparentCollection
+    public class TopTableCellDecorator : ITransparentCollection, IDisposable
     {
         public IController Hud { get; set; }
 
@@ -59,6 +60,14 @@
             yield return TextFont;
             yield return BackgroundBrush;
             yield return BorderBrush;
+        }
+
+        public void Dispose()
+        {
+            Hud = null;
+            TextFont = null;
+            BackgroundBrush = null;
+            BorderBrush = null;
         }
     }
 }

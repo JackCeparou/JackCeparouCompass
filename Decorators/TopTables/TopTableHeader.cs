@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Turbo.Plugins.Default;
 
-    public class TopTableHeader
+    public class TopTableHeader : IDisposable
     {
         public IController Hud { get; set; }
 
@@ -22,6 +22,7 @@
         public List<TopTableCell> Cells { get; set; }
 
         private TopTableCellDecorator _decorator;
+
         public TopTableCellDecorator Decorator
         {
             get { return _decorator ?? Table.DefaultHeaderDecorator; }
@@ -29,6 +30,7 @@
         }
 
         private TopTableCellDecorator _hightLightDecorator;
+
         public TopTableCellDecorator HighlightDecorator
         {
             get { return _hightLightDecorator ?? Table.DefaultHighlightDecorator; }
@@ -36,6 +38,7 @@
         }
 
         private TopTableCellDecorator _cellDecorator;
+
         public TopTableCellDecorator CellDecorator
         {
             get { return _cellDecorator; }
@@ -43,6 +46,7 @@
         }
 
         private TopTableCellDecorator _cellHightLightDecorator;
+
         public TopTableCellDecorator CellHighlightDecorator
         {
             get { return _cellHightLightDecorator; }
@@ -74,6 +78,53 @@
 
             var text = TextFunc(Position, CurrentPosition);
             decorator.Paint(x, y, Width, Height, text, TextAlign ?? textAlign);
+        }
+
+        public void Dispose()
+        {
+            if (_decorator != null)
+            {
+                _decorator.Dispose();
+                _decorator = null;
+            }
+            if (_hightLightDecorator != null)
+            {
+                _hightLightDecorator.Dispose();
+                _hightLightDecorator = null;
+            }
+            if (_cellDecorator != null)
+            {
+                _cellDecorator.Dispose();
+                _cellDecorator = null;
+            }
+            if (_cellHightLightDecorator != null)
+            {
+                _cellHightLightDecorator.Dispose();
+                _cellHightLightDecorator = null;
+            }
+
+            Hud = null;
+
+            Table = null;
+            if (Siblings != null)
+            {
+                Siblings.Clear();
+                Siblings = null;
+            }
+            if (Cells != null)
+            {
+                foreach (var cell in Cells)
+                {
+                    cell.Dispose();
+                }
+
+                Cells.Clear();
+                Cells = null;
+            }
+
+            TextAlign = null;
+            TextFunc = null;
+            HighlightFunc = null;
         }
     }
 }
