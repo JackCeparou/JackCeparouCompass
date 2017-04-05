@@ -5,7 +5,7 @@
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
 
-    public class GoblinSoundAlertPlugin : BasePlugin, IAfterCollectHandler
+    public class GoblinSoundAlertPlugin : BasePlugin, IAfterCollectHandler, INewAreaHandler
     {
         public SoundAlert<IMonster> GoblinPack { get; set; }
 
@@ -22,6 +22,8 @@
         public SoundAlert<IMonster> TreasureFiendGoblin { get; set; }
 
         public Dictionary<uint, SoundAlert<IMonster>> SnoMapping { get; private set; }
+
+        private IWatch lastPack;
 
         public GoblinSoundAlertPlugin()
         {
@@ -59,22 +61,39 @@
             SnoMapping.Add(450993, MenageristGoblin);
             SnoMapping.Add(405186, RainbowGoblin);
             SnoMapping.Add(380657, TreasureFiendGoblin);
+
+            lastPack = Hud.CreateWatch();
+        }
+
+        public void OnNewArea(bool newGame, ISnoArea area)
+        {
+            if (lastPack.IsRunning)
+            {
+                lastPack.Stop();
+                lastPack.Reset();
+            }
         }
 
         public void AfterCollect()
         {
             if (!Hud.Game.IsInGame) return;
             if (Hud.Game.IsInTown) return;
-//408679	MarkerLocation_GoblinPortalIn
-// 393030	p1_Greed_Portal
-// 405750	p1_Greed_PortalMonsterSummon	Invisible portal summoner
-//408679	MarkerLocation_GoblinPortalIn
 
-            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && SnoMapping.ContainsKey(x.SnoActor.Sno));
+            // TODO : greed & whyrmshire portals
+            //408679	MarkerLocation_GoblinPortalIn
+            // 393030	p1_Greed_Portal
+            // 405750	p1_Greed_PortalMonsterSummon	Invisible portal summoner
+            //408679	MarkerLocation_GoblinPortalIn
+
+            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && x.SnoActor.Sno != 410572 && x.SnoActor.Sno != 410574);
             //Says.Debug(string.Join(" ", goblins.Select(g => g.SnoMonster.Sno)));
             if (goblins.Count() > 1)
             {
-                SoundAlertManagerPlugin.Register<IMonster>(goblins.First(), GoblinPack);
+                if (!lastPack.IsRunning || lastPack.TimerTest(180000)) // 3 minutes
+                {
+                    lastPack.Restart();
+                    SoundAlertManagerPlugin.Register<IMonster>(goblins.First(), GoblinPack);
+                }
             }
             else
             {
