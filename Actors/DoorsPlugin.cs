@@ -1,17 +1,31 @@
 ﻿namespace Turbo.Plugins.Jack.Actors
 {
+    using SharpDX.DirectInput;
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class DoorsPlugin : BasePlugin, IInGameWorldPainter
+    public class DoorsPlugin : BasePlugin, IInGameWorldPainter, IKeyEventHandler
     {
         public WorldDecoratorCollection DoorsDecorators { get; set; }
         public WorldDecoratorCollection BreakablesDoorsDecorators { get; set; }
         public WorldDecoratorCollection BridgesDecorators { get; set; }
 
+        public WorldDecoratorCollection DebugDecorators { get; set; }
+
+        public string GroundSymbol { get; set; }
+
         public bool ShowInTown { get; set; }
         public bool GroundLabelsOnScreen { get; set; }
+
+        public bool Debug { get; set; }
+        public IKeyEvent ToggleKeyEvent { get; private set; }
+
+        public Key HotKey
+        {
+            get { return ToggleKeyEvent.Key; }
+            set { ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, value, false, false, false); }
+        }
 
         private readonly HashSet<uint> bridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
         private readonly HashSet<uint> breakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, }; // 258064 };
@@ -50,8 +64,10 @@
         public DoorsPlugin()
         {
             Enabled = true;
+            Debug = false;
             ShowInTown = false;
             GroundLabelsOnScreen = false;
+            GroundSymbol = "\uD83D\uDEAA"; //🚪
         }
 
         public override void Load(IController hud)
@@ -61,6 +77,28 @@
             DoorsDecorators = CreateDecorators(255, 216, 0);
             BreakablesDoorsDecorators = CreateDecorators(250, 0, 0);
             BridgesDecorators = CreateDecorators(0, 195, 255);
+
+            HotKey = Key.End;
+            DebugDecorators = new WorldDecoratorCollection(
+                new GroundLabelDecorator(Hud)
+                {
+                    TextFont = Hud.Render.CreateFont("tahoma", 10, 242, 255, 255, 255, false, false, true),
+                    BackgroundBrush = Hud.Render.CreateBrush(200, 0, 0, 0, 0),
+                },
+                new MapShapeDecorator(Hud)
+                {
+                    ShapePainter = new DoorShapePainter(Hud),
+                    Radius = 6f,
+                    Brush = Hud.Render.CreateBrush(200, 255, 255, 255, 1),
+                });
+        }
+
+        public void OnKeyEvent(IKeyEvent keyEvent)
+        {
+            if (keyEvent.IsPressed && ToggleKeyEvent.Matches(keyEvent))
+            {
+                Debug = !Debug;
+            }
         }
 
         public void PaintWorld(WorldLayer layer)
@@ -106,7 +144,22 @@
             if (GroundLabelsOnScreen)
                 decorator.ToggleDecorators<GroundLabelDecorator>(!actor.IsOnScreen);
 
-            decorator.Paint(layer, actor, actor.FloorCoordinate, "\uD83D\uDEAA"); //🚪
+            if (Debug)
+            {
+                var text = string.Format("{0} : {1}\n{2} {3} {4} {5}\n{6}", 
+                    actor.SnoActor.Sno, 
+                    actor.SnoActor.NameLocalized, 
+                    actor.SnoActor.Kind, 
+                    actor.IsOperated ? "Operated" : "Not Operated", 
+                    actor.IsClickable ? "Clickable" : "Not Clickable", 
+                    actor.IsDisabled ? "Disabled" : "Not Disabled", 
+                    actor.SnoActor.Code);
+                DebugDecorators.Paint(layer, actor, actor.FloorCoordinate, text);
+            }
+            else
+            {
+                decorator.Paint(layer, actor, actor.FloorCoordinate, GroundSymbol);
+            }
         }
     }
 }
