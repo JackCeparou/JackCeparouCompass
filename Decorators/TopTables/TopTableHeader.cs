@@ -103,8 +103,6 @@
                 _cellHightLightDecorator = null;
             }
 
-            Hud = null;
-
             Table = null;
             if (Siblings != null)
             {
@@ -113,7 +111,7 @@
             }
             if (Cells != null)
             {
-                foreach (var cell in Cells)
+                foreach (var cell in Cells.ToArray())
                 {
                     cell.Dispose();
                 }
@@ -125,6 +123,8 @@
             TextAlign = null;
             TextFunc = null;
             HighlightFunc = null;
+
+            Hud = null;
         }
     }
 }

@@ -87,13 +87,13 @@
                 _hightLightDecorator = null;
             }
 
-            Hud = null;
             Table = null;
             Column = null;
             Line = null;
             TextAlign = null;
             TextFunc = null;
             HighlightFunc = null;
+            Hud = null;
         }
     }
 }

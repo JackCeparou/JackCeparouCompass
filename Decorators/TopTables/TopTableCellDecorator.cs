@@ -64,10 +64,10 @@
 
         public void Dispose()
         {
-            Hud = null;
             TextFont = null;
             BackgroundBrush = null;
             BorderBrush = null;
+            Hud = null;
         }
     }
 }
