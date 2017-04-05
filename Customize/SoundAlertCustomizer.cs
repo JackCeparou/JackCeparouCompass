@@ -51,11 +51,11 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.RunOnPlugin<Jack.Items.ItemDropSoundAlertPlugin>(plugin =>
             {
                 // legendaries
-                plugin.Legendary = true;
+                plugin.Legendary = false;
                 plugin.AncientLegendary = true;
                 plugin.PrimalAncientLegendary = true;
                 // sets
-                plugin.Set = true;
+                plugin.Set = false;
                 plugin.AncientSet = true;
                 plugin.PrimalAncientSet = true;
 
