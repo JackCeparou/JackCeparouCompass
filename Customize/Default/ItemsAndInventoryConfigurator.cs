@@ -12,20 +12,12 @@
             ///////////
             // ITEMS //
             ///////////
-            Hud.RunOnPlugin<ItemsPlugin>(plugin =>
-            {
-                //itemsPlugin.NormalKeepDecorator.Enabled = true;
-                //itemsPlugin.MagicKeepDecorator.Enabled = true;
-                //itemsPlugin.RareKeepDecorator.Enabled = true;
-                plugin.DeathsBreathDecorator.Add(new GroundCircleDecorator(Hud)
-                {
-                    Brush = Hud.Render.CreateBrush(192, 102, 202, 177, -2),
-                    Radius = 1.25f,
-                });
-            });
             Hud.RunOnPlugin<HoveredItemInfoPlugin>(plugin =>
             {
-                StringGeneratorFunc func = () => string.Format("{0}{1}", Hud.Inventory.HoveredItem.AncientRank > 0 ? "\uD83E\uDC1D " : string.Empty, Hud.Inventory.HoveredItem.SnoItem.NameLocalized);
+                StringGeneratorFunc func = () => string.Format("{0}{1}{2}", 
+                    Hud.Inventory.HoveredItem.AncientRank > 0 ? "\uD83E\uDC1D " : string.Empty, 
+                    Hud.Inventory.HoveredItem.AncientRank > 1 ? "\uD83E\uDC1D " : string.Empty, 
+                    Hud.Inventory.HoveredItem.SnoItem.NameLocalized);
                 plugin.LegendaryNameDecorator.TextFunc = func;
                 plugin.SetNameDecorator.TextFunc = func;
             });
@@ -51,11 +43,10 @@
                 plugin.CanCubedEnabled = false;
 
                 // ancient rank font
-                plugin.AncientRankFont = Hud.Render.CreateFont("arial", 8, 224, 255, 64, 64, true, false, false);
-                plugin.AncientRankFont.SetShadowBrush(224, 0, 0, 0, true);
+                plugin.AncientRankFont = Hud.Render.CreateFont("arial", 7, 255, 227, 153, 25, true, false, 220, 0, 0, 0, true);
+                plugin.PrimalRankFont = Hud.Render.CreateFont("arial", 7, 255, 255, 64, 64, true, false, 180, 0, 0, 0, true);
 
-                plugin.SocketedLegendaryGemRankFont = Hud.Render.CreateFont("arial", 7, 255, 240, 240, 64, true, false, false);
-                plugin.SocketedLegendaryGemRankFont.SetShadowBrush(128, 0, 0, 0, true);
+                plugin.SocketedLegendaryGemRankFont = Hud.Render.CreateFont("arial", 7, 255, 240, 240, 64, true, false, 128, 0, 0, 0, true);
 
                 // change darken brush to a lighter one
                 ////inventoryAndStashPlugin.DarkenBrush = Hud.Render.CreateBrush(120, 38, 38, 38, 0);
