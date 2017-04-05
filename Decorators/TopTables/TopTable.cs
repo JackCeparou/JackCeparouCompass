@@ -5,7 +5,7 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
     using System.Linq;
     using Turbo.Plugins.Default;
 
-    public class TopTable
+    public class TopTable : IDisposable
     {
         public IController Hud { get; private set; }
 
@@ -207,6 +207,21 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             });
         }
 
+        /*
+         table.SortLines(1, (column, a, b) =>
+            {
+                var val1 = getValue(column, a.Position);
+                var val2 = getValue(column, b.Position);
+
+                if (val1 == val2) return 0;
+                return val1 > val2 ? 1 : -1;
+            });
+        */
+        public void SortLines(int column, Func<int, TopTableHeader, TopTableHeader, int> sortFunc)
+        {
+            Lines.Sort((a, b) => sortFunc(column, a, b));
+        }
+
         public void RemoveLines()
         {
             Reset(true);
@@ -223,15 +238,34 @@ namespace Turbo.Plugins.Jack.Decorators.TopTables
             }
             else
             {
-                foreach (var column in Columns)
+                foreach (var column in Columns.ToArray())
                 {
                     column.Dispose();
                 }
+                Columns.Clear();
             }
 
-            foreach (var line in Lines)
+            foreach (var line in Lines.ToArray())
             {
                 line.Dispose();
+            }
+            Lines.Clear();
+        }
+
+        public void Dispose()
+        {
+            Reset();
+            if (DefaultCellDecorator != null)
+            {
+                DefaultCellDecorator.Dispose();
+            }
+            if (DefaultHighlightDecorator != null)
+            {
+                DefaultHighlightDecorator.Dispose();
+            }
+            if (DefaultHeaderDecorator != null)
+            {
+                DefaultHeaderDecorator.Dispose();
             }
         }
     }
