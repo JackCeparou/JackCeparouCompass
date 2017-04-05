@@ -32,7 +32,7 @@ namespace Turbo.Plugins.Jack.DevTool
 
             foreach (var actor in Hud.Game.Actors)
             {
-                var text = string.Format("{0} {1}", actor.SnoActor.Sno, actor.SnoActor.NameEnglish);
+                var text = string.Format("{0}\n{1}\n{2}", actor.SnoActor.Sno, actor.SnoActor.NameEnglish, actor.SnoActor.Code);
                 Decorator.Paint(actor, actor.FloorCoordinate, text);
             }
         }
