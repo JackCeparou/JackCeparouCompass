@@ -135,7 +135,7 @@ namespace Turbo.Plugins.Jack.Monsters
                 {
                     CountDownFrom = 75,
                     BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
-                    BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 50, 50, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(128, 160, 255, 160, 0),
                     Radius = 30,
                 }));
 
