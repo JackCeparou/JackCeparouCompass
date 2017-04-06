@@ -5,6 +5,8 @@
 // </auto-generated>
 //-----------------------------------------------------------------------------------------------
 
+using System;
+
 namespace Turbo.Plugins.Jack.Extensions
 {
     using System.Collections.Generic;
@@ -14,6 +16,8 @@ namespace Turbo.Plugins.Jack.Extensions
 
     public static class PowerTextureMapperExtensions
     {
+        public static IController Hud { get; set; }
+
         private static Dictionary<uint,List<uint>> itemSnoIds = new Dictionary<uint,List<uint>>() {
                 { 383014, new List<uint>() { 3248511367 } }, 
                 { 451157, new List<uint>() { 3248511367 } }, 
@@ -410,6 +414,33 @@ namespace Turbo.Plugins.Jack.Extensions
                 { 445798, new List<uint>() { 3757117742 } }, 
              };
 
+        public static IEnumerable<ISnoItem> GetItems(this ISnoPower power)
+        {
+            if (itemSnoIds.ContainsKey(power.Sno))
+            {
+                foreach (var id in itemSnoIds[power.Sno])
+                {
+                    yield return Hud.Inventory.GetSnoItem(id);
+                }
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+
+        public static ISnoItem GetItem(this ISnoPower power)
+        {
+            if (itemSnoIds.ContainsKey(power.Sno))
+            {
+                return Hud.Inventory.GetSnoItem(itemSnoIds[power.Sno].First());
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static IEnumerable<uint> GetItemSnos(this ISnoPower power)
         {
             if (itemSnoIds.ContainsKey(power.Sno))
@@ -435,6 +466,22 @@ namespace Turbo.Plugins.Jack.Extensions
             {
                 return 0;
             }
+        }
+    }
+
+    public class PowerTextureMapperExtensionsPlugin : BasePlugin
+    {
+        public PowerTextureMapperExtensionsPlugin()
+        {
+            Enabled = true;
+            Order = int.MinValue;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+            PowerTextureMapperExtensions.Hud = hud;
+            Enabled = false;
         }
     }
 }
