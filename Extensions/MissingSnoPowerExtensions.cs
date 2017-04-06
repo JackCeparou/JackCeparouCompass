@@ -643,6 +643,7 @@ namespace Turbo.Plugins.Jack.Extensions
         public MissingSnoPowerExtensionsPlugin()
         {
             Enabled = true;
+            Order = int.MinValue;
         }
 
         public override void Load(IController hud)
