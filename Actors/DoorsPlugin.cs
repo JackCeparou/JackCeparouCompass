@@ -77,20 +77,8 @@
             DoorsDecorators = CreateDecorators(255, 216, 0);
             BreakablesDoorsDecorators = CreateDecorators(250, 0, 0);
             BridgesDecorators = CreateDecorators(0, 195, 255);
-
+            DebugDecorators = CreateDecorators(255, 255, 255, 255, 10);
             HotKey = Key.End;
-            DebugDecorators = new WorldDecoratorCollection(
-                new GroundLabelDecorator(Hud)
-                {
-                    TextFont = Hud.Render.CreateFont("tahoma", 10, 242, 255, 255, 255, false, false, true),
-                    BackgroundBrush = Hud.Render.CreateBrush(200, 0, 0, 0, 0),
-                },
-                new MapShapeDecorator(Hud)
-                {
-                    ShapePainter = new DoorShapePainter(Hud),
-                    Radius = 6f,
-                    Brush = Hud.Render.CreateBrush(200, 255, 255, 255, 1),
-                });
         }
 
         public void OnKeyEvent(IKeyEvent keyEvent)
@@ -123,18 +111,18 @@
                 });
         }
 
-        public WorldDecoratorCollection CreateDecorators(int r, int g, int b)
+        public WorldDecoratorCollection CreateDecorators(int r, int g, int b, int a = 200, int size = 18)
         {
             return new WorldDecoratorCollection(
                 new GroundLabelDecorator(Hud)
                 {
-                    TextFont = Hud.Render.CreateFont("tahoma", 18, 200, r, g, b, false, false, true),
+                    TextFont = Hud.Render.CreateFont("tahoma", size, a, r, g, b, false, false, true),
                 },
                 new MapShapeDecorator(Hud)
                 {
                     ShapePainter = new DoorShapePainter(Hud),
                     Radius = 6f,
-                    Brush = Hud.Render.CreateBrush(200, r, g, b, 1),
+                    Brush = Hud.Render.CreateBrush(a, r, g, b, 1),
                 }
             );
         }
