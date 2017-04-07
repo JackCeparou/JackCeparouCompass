@@ -48,7 +48,17 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.RunOnPlugin<Jack.Players.PlayerSkillCooldownSoundAlertPlugin>(plugin =>
             {
                 plugin.InTown = true;
-                plugin.PowerSnos.Add(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk.Sno);
+                plugin.Add(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk);
+                //plugin.Add(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk, "Walk"); // custom name
+                //plugin.Add(106237); // by sno
+                //plugin.Add(106237, "Walk"); // by sno with custom name
+
+                // remove entries
+                //plugin.Remove(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk);
+                //plugin.Remove(106237);
+
+                // clear all
+                //plugin.Clear();
             });
 
             ///////////
