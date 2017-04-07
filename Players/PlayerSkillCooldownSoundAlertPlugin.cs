@@ -71,6 +71,8 @@
 
         public void Clear()
         {
+            PowerSnos.Clear();
+            PowerCustomNames.Clear();
         }
     }
 }
