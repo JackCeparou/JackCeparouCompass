@@ -20,6 +20,42 @@ namespace Turbo.Plugins.Jack.Alerts
 
         public void Customize()
         {
+            //// Vengeance
+            //Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
+            //{
+            //    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud, HeroClass.DemonHunter)
+            //    {
+            //        TextSnoId = Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno,
+            //        MessageFormat = "\u26A0 {0} \u26A0", //⚠
+            //        Rule =
+            //        {
+            //            CheckSkillCooldowns = true,
+            //            EquippedSkills = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
+            //            InactiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
+            //        },
+            //    });
+            //});
+
+            Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    MessageFormat = "!!! Goblin !!!",
+                    Rule =
+                    {
+                        CustomCondition = player =>
+                        {
+                            if (Hud.Game.Me.IsInTown) return false;
+                            return Hud.Game.AliveMonsters.Any(m => m.SnoMonster.Priority == MonsterPriority.goblin);
+                        },
+                    },
+                    Label =
+					{
+						TextFont = Hud.Render.CreateFont("tahoma", 12, 255, 30, 244, 30, false, false, 242, 0, 0, 0, true),
+					}
+                });
+            });
+
             Hud.RunOnPlugin<PlayerBottomAlertListPlugin>(plugin =>
             {
                 var list = plugin.AlertList;
@@ -27,22 +63,6 @@ namespace Turbo.Plugins.Jack.Alerts
                 list.RatioY = 0.6f;
                 list.RatioWidth = 0.2f; // based on screen height to preserve proportions
                 list.RatioX = 0.5f; // center horizontally
-
-				//// Vengeance
-				//Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
-				//{
-				//    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud, HeroClass.DemonHunter)
-				//    {
-				//        TextSnoId = Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno,
-				//        MessageFormat = "\u26A0 {0} \u26A0", //⚠
-				//        Rule =
-				//        {
-				//            CheckSkillCooldowns = true,
-				//            EquippedSkills = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
-				//            InactiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.DemonHunter_Vengeance.Sno) },
-				//        },
-				//    });
-				//});
 
                 // // Flying Dragon
                 // list.Alerts.Add(new Alert(Hud, HeroClass.Monk)
@@ -113,7 +133,7 @@ namespace Turbo.Plugins.Jack.Alerts
                 });
             });
 
-			//
+            //
             var itemsIds = new HashSet<uint>() { 1844495708 };
             Hud.RunOnPlugin<PlayerTopAlertListPlugin>(plugin =>
             {
@@ -137,7 +157,7 @@ namespace Turbo.Plugins.Jack.Alerts
                 });
             });
 
-			// loot list
+            // loot list
             Hud.RunOnPlugin<MinimapLeftAlertListPlugin>(plugin =>
             {
                 var ancientRank = -1;
