@@ -39,7 +39,7 @@
             210433, // A3 battlefields
             356879, 182636, 165415,
             432258,
-            341214, 
+            341214, 370187,
         };
 
         //170245
@@ -135,13 +135,13 @@
 
             if (Debug)
             {
-                var text = string.Format("{0} : {1}\n{2} {3} {4} {5}\n{6}", 
-                    actor.SnoActor.Sno, 
-                    actor.SnoActor.NameLocalized, 
-                    actor.SnoActor.Kind, 
-                    actor.IsOperated ? "Operated" : "Not Operated", 
-                    actor.IsClickable ? "Clickable" : "Not Clickable", 
-                    actor.IsDisabled ? "Disabled" : "Not Disabled", 
+                var text = string.Format("{0} : {1}\n{2} {3} {4} {5}\n{6}",
+                    actor.SnoActor.Sno,
+                    actor.SnoActor.NameLocalized,
+                    actor.SnoActor.Kind,
+                    actor.IsOperated ? "Operated" : "Not Operated",
+                    actor.IsClickable ? "Clickable" : "Not Clickable",
+                    actor.IsDisabled ? "Disabled" : "Not Disabled",
                     actor.SnoActor.Code);
                 DebugDecorators.Paint(layer, actor, actor.FloorCoordinate, text);
             }
