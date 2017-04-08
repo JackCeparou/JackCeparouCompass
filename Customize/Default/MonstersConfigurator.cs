@@ -13,6 +13,25 @@
             Hud.TogglePlugin<MonsterPackPlugin>(true);
             Hud.TogglePlugin<EliteMonsterAffixPlugin>(false);
 
+            /////////////////////
+            // MONSTERS SKILLS //
+            /////////////////////
+            Hud.RunOnPlugin<EliteMonsterSkillPlugin>(plugin =>
+            {
+                plugin.ArcaneDecorator.Add(new GroundLabelDecorator(Hud)
+                {
+                    CountDownFrom = 10,
+                    TextFont = Hud.Render.CreateFont("tahoma", 9, 255, 255, 255, 255, true, false, 128, 0, 0, 0, true),
+                });
+                plugin.ArcaneDecorator.Add(new GroundTimerDecorator(Hud)
+                {
+                    CountDownFrom = 10,
+                    BackgroundBrushEmpty = Hud.Render.CreateBrush(128, 0, 0, 0, 0),
+                    BackgroundBrushFill = Hud.Render.CreateBrush(200, 255, 32, 255, 0),
+                    Radius = 30,
+                });
+            });
+
             /////////////
             // GOBLINS //
             /////////////
