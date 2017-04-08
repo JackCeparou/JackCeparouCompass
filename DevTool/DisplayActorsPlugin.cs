@@ -9,11 +9,13 @@ namespace Turbo.Plugins.Jack.DevTool
 {
     public class DisplayActorsPlugin : BasePlugin, IInGameWorldPainter
     {
+        public Keys HotKey { get; set; }
         public GroundLabelDecorator Decorator { get; set; }
 
         public DisplayActorsPlugin()
         {
             Enabled = true;
+            HotKey = Keys.W;
         }
 
         public override void Load(IController hud)
@@ -28,7 +30,7 @@ namespace Turbo.Plugins.Jack.DevTool
 
         public void PaintWorld(WorldLayer layer)
         {
-            if (!Hud.Input.IsKeyDown(Keys.W) || layer != WorldLayer.Ground) return;
+            if (!Hud.Input.IsKeyDown(HotKey) || layer != WorldLayer.Ground) return;
 
             foreach (var actor in Hud.Game.Actors)
             {
