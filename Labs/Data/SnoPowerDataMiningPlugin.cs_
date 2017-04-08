@@ -46,10 +46,10 @@
 
         public void Customize()
         {
-            allLegendaryItemsPowers = Hud.Sno.SnoPowers.LegendaryItemsPowers().ToList();
-            allLegendaryGemsPowers = Hud.Sno.SnoPowers.LegendaryGemsPowers().ToList();
+            allLegendaryItemsPowers = Hud.Sno.SnoPowers.GetLegendaryGemPowers().ToList();
+            allLegendaryGemsPowers = Hud.Sno.SnoPowers.GetLegendaryGemPowers().ToList();
             allSetBonusPowers = Hud.Sno.SnoPowers.AllSetBonusPowers().ToList();
-            allPlayerPowers = Hud.Sno.SnoPowers.AllPlayerPowers().ToList();
+            allPlayerPowers = Hud.Sno.SnoPowers.GetClassSpecificPowers(HeroClass.None).ToList();
 
             itemList.Populate();
 
@@ -61,10 +61,12 @@
             //Hud.Debug(Hud.Inventory.GetSnoItem(1663326820).LegendaryPower.Sno.ToString());
         }
 
+		//private bool blacksmithSnoItemDone = false;
         public void PaintTopInGame(ClipState clipState)
         {
             try
             {
+				/*
                 if (!allLegendaryGemsPowersDone)
                 {
                     Step(allLegendaryGemsPowers, out allLegendaryGemsPowersDone);
@@ -80,7 +82,7 @@
                 else if (!allSetBonusPowersDone)
                 {
                     Step(allSetBonusPowers, out allSetBonusPowersDone);
-                }
+                }/**/
             }
             catch (Exception ex)
             {
@@ -149,7 +151,7 @@
                 }
                 else
                 {
-switch (power.Sno)
+				switch (power.Sno)
                 {
                     //P2_ItemPassive_Unique_Ring_051 // bul kathos
                     case 434377:

@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.Labs.Data
+{
+    public class BlacksmithItemPowersPlugin : BasePlugin
+    {
+        public BlacksmithItemPowersPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+            foreach (var snoItem in GetBlackSmithLegendaryItems())
+            {
+                Says.Debug(snoItem.Sno, snoItem.NameEnglish, snoItem.Code, snoItem.Level, snoItem.LegendaryPower == null ? 0 : snoItem.LegendaryPower.Sno);
+            }
+        }
+
+        public IEnumerable<ISnoItem> GetBlackSmithLegendaryItems()
+        {
+            yield return Hud.Sno.SnoItems.Unique_Shield_011; // 4230314848 - Wall of Bone
+            yield return Hud.Sno.SnoItems.Unique_Shield_011_104; // 1063852596 - Wall of Bone
+            yield return Hud.Sno.SnoItems.Unique_Shield_011_1xx; // 1063855040 - Wall of Bone
+            yield return Hud.Sno.SnoItems.Unique_Shield_011_x1; // 162390824 - Wall of Man
+            yield return Hud.Sno.SnoItems.Unique_Mace_2H_006_x1; // 59215970 - Sunder
+            yield return Hud.Sno.SnoItems.Unique_Bracer_103_x1; // 962318656 - Reaper's Wraps
+            yield return Hud.Sno.SnoItems.Unique_CruShield_101_x1; // 820499474 - Piro Marella
+            yield return Hud.Sno.SnoItems.Unique_Dagger_006; // 1111092661 - Blood-Magic Blade
+            yield return Hud.Sno.SnoItems.Unique_Dagger_006_104; // 2221453065 - Blood-Magic Blade
+            yield return Hud.Sno.SnoItems.Unique_Dagger_006_1xx; // 2221455509 - Blood-Magic Blade
+            yield return Hud.Sno.SnoItems.Unique_Dagger_006_x1; // 3321082205 - Blood-Magic Edge
+            yield return Hud.Sno.SnoItems.Unique_Mace_1H_009; // 713325116 - Earthshatter
+            yield return Hud.Sno.SnoItems.Unique_Mace_1H_009_104; // 1889806096 - Earthshatter
+            yield return Hud.Sno.SnoItems.Unique_Mace_1H_009_1xx; // 1889808540 - Earthshatter
+            yield return Hud.Sno.SnoItems.Unique_Axe_2H_010; // 4115055773 - Fire Brand
+            yield return Hud.Sno.SnoItems.Unique_Axe_2H_010_104; // 240564721 - Fire Brand
+            yield return Hud.Sno.SnoItems.Unique_Axe_2H_010_1xx; // 240567165 - Fire Brand
+            yield return Hud.Sno.SnoItems.Unique_Axe_2H_010_x1; // 2740453189 - Cinder Switch
+            yield return Hud.Sno.SnoItems.Unique_Orb_004_x1; // 2775850772 - Cosmic Strand
+            yield return Hud.Sno.SnoItems.Unique_Flail_1H_101_x1; // 2503771951 - Golden Scourgelden Scourge
+        }
+    }
+}
