@@ -19,7 +19,7 @@
         public bool GroundLabelsOnScreen { get; set; }
 
         public bool Debug { get; set; }
-        public IKeyEvent ToggleKeyEvent { get; private set; }
+        public IKeyEvent ToggleKeyEvent { get; set; }
 
         public Key HotKey
         {
