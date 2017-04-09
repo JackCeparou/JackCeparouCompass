@@ -43,7 +43,7 @@
             341214, 370187,
             178161, // check this one, maybe a bounty
             217285, // leoric manor
-
+            3462, 193248, // Holy Sanctum
         };
 
         //170245
