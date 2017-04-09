@@ -19,6 +19,7 @@
         public bool GroundLabelsOnScreen { get; set; }
 
         public bool Debug { get; set; }
+        public bool DebugEnabled { get; set; }
         public IKeyEvent ToggleKeyEvent { get; set; }
 
         public Key HotKey
@@ -69,6 +70,7 @@
         {
             Enabled = true;
             Debug = false;
+            DebugEnabled = true;
             ShowInTown = false;
             GroundLabelsOnScreen = false;
             GroundSymbol = "\uD83D\uDEAA"; //🚪
@@ -136,7 +138,7 @@
             if (GroundLabelsOnScreen)
                 decorator.ToggleDecorators<GroundLabelDecorator>(!actor.IsOnScreen);
 
-            if (Debug)
+            if (DebugEnabled && Debug)
             {
                 var text = string.Format("{0} : {1}\n{2} {3} {4} {5}\n{6}",
                     actor.SnoActor.Sno,
