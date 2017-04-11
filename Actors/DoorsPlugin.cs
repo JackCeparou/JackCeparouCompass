@@ -43,7 +43,8 @@
             341214, 370187,
             178161, // check this one, maybe a bounty
             217285, // leoric manor
-            3462, 193248, // Holy Sanctum
+            193248, // 3462,  Holy Sanctum
+            153752, // a3 catapult event
         };
 
         //170245
@@ -60,7 +61,6 @@
             4393,
             219702,
             250031,
-            153752,
             //102711
             343582,
             230324,
