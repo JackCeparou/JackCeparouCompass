@@ -45,6 +45,7 @@
             217285, // leoric manor
             193248, // 3462,  Holy Sanctum
             153752, // a3 catapult event
+            102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
         };
 
         //170245
