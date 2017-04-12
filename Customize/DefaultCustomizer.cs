@@ -1,4 +1,7 @@
-using Turbo.Plugins.Jack.Decorators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Turbo.Plugins.Jack.Extensions;
 
 namespace Turbo.Plugins.Jack.Customize
 {
@@ -59,6 +62,27 @@ namespace Turbo.Plugins.Jack.Customize
                 labelListsConfigurator.Configure(Hud);
             }
 
+            Hud.RunOnPlugin<AttributeLabelListPlugin>(plugin =>
+            {
+                var expandedHintFont = Hud.Render.CreateFont("tahoma", 7, 255, 200, 200, 200, false, false, true);
+                var expandedHintWidthMultiplier = 3;
+
+                var adLabel = plugin.LabelList.LabelDecorators[6];
+                adLabel.ExpandedHintFont = expandedHintFont;
+                adLabel.ExpandedHintWidthMultiplier = expandedHintWidthMultiplier;
+                adLabel.ExpandUpLabels = new List<TopLabelDecorator>
+                {
+                    CreateTopLabel(ItemLocation.RightHand, () => "Off hand"),
+                    CreateTopLabel(ItemLocation.LeftHand, () => "Main hand"),
+                    CreateTopLabel(ItemLocation.Shoulders, () => "Shoulders"),
+                    CreateTopLabel(ItemLocation.Hands, () => "Hands"),
+                    CreateTopLabel(ItemLocation.LeftRing, () => "Left ring"),
+                    CreateTopLabel(ItemLocation.RightRing, () => "Right ring"),
+                    CreateTopLabel(ItemLocation.Neck, () => "Neck"),
+                };
+
+            });
+
             //Hud.TogglePlugin<TopExperienceStatistics>(false);
             //Hud.TogglePlugin<PickupRangePlugin>(false);
             //Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
@@ -67,9 +91,9 @@ namespace Turbo.Plugins.Jack.Customize
             //Hud.RunOnPlugin<ItemsPlugin>(plugin =>
             //{
             //    plugin.EnableCustomSpeak = true;
-            //    plugin.CustomSpeakTable.Add(Hud.Sno.SnoItems.Consumable_Add_Sockets, "OMAGAD a gift!"); 
-            //    plugin.CustomSpeakTable.Add(Hud.Sno.SnoItems.Consumable_Add_Sockets_1, "OMAGAD a gift!"); 
-            //    plugin.CustomSpeakTable.Add(Hud.Inventory.GetSnoItem(1844495708), "OMAGAD a gift!"); 
+            //    plugin.CustomSpeakTable.Add(Hud.Sno.SnoItems.Consumable_Add_Sockets, "OMAGAD a gift!");
+            //    plugin.CustomSpeakTable.Add(Hud.Sno.SnoItems.Consumable_Add_Sockets_1, "OMAGAD a gift!");
+            //    plugin.CustomSpeakTable.Add(Hud.Inventory.GetSnoItem(1844495708), "OMAGAD a gift!");
             //});
 
             //Hud.RunOnPlugin<DangerousMonsterPlugin>(plugin =>
@@ -90,6 +114,24 @@ namespace Turbo.Plugins.Jack.Customize
             //});
 
             Enabled = false;
+        }
+
+        private TopLabelDecorator CreateTopLabel(ItemLocation location, StringGeneratorFunc hintFunc)
+        {
+            return new TopLabelDecorator(Hud)
+            {
+                TextFont = Hud.Render.CreateFont("tahoma", 7, 180, 255, 255, 255, false, false, true),
+                ExpandedHintFont = Hud.Render.CreateFont("tahoma", 7, 255, 200, 200, 200, false, false, true),
+                ExpandedHintWidthMultiplier = 3,
+                BackgroundTexture1 = Hud.Texture.ButtonTextureOrange,
+                BackgroundTexture2 = Hud.Texture.BackgroundTextureBlue,
+                BackgroundTextureOpacity2 = 0.75f,
+                TextFunc = () => Hud.Game.Items
+                    .Where(item => item.Location == location).Select(item => item.StatList.AreaDamage())
+                    .FirstOrDefault()
+                    .ToString("F0", System.Globalization.CultureInfo.InvariantCulture) + "%",
+                HintFunc = hintFunc,
+            };
         }
     }
 }

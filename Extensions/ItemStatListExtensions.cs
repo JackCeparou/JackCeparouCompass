@@ -42,5 +42,10 @@
         {
             return stats.Where(s => s.Id == "as_extr").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault() / 100f;
         }
+
+        public static float AreaDamage(this IEnumerable<IItemStat> stats)
+        {
+            return stats.Where(s => s.Id == "areadmg").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();
+        }
     }
 }

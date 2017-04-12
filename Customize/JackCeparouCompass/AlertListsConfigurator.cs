@@ -159,6 +159,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                                     buff.SnoPower.Code,
                                     buff.Active,
                                     buff.TimeLeft(),
+                                    string.Join(", ", buff.IconCounts),
                                     string.Join(", ", buff.TimeLeftSeconds)
                                     ));
                     },
@@ -188,6 +189,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                                     buff.SnoPower.Code,
                                     buff.Active,
                                     buff.TimeLeft(),
+                                    string.Join(", ", buff.IconCounts),
                                     string.Join(", ", buff.TimeLeftSeconds)
                                     ));
                     },
