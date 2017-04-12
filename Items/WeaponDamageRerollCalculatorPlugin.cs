@@ -25,7 +25,7 @@ namespace Turbo.Plugins.Jack.Items
         public IFormatProvider NumberFormat { get; set; }
 
         private readonly WeaponDamageInfo weaponInfo;
-        private IBrush brush;
+        
         public WeaponDamageRerollCalculatorPlugin()
         {
             Enabled = true;
@@ -50,7 +50,6 @@ namespace Turbo.Plugins.Jack.Items
             ActiveFont = Hud.Render.CreateFont("tahoma", 7, 255, 154, 105, 24, true, false, 128, 0, 0, 0, true);
             InactiveFont = Hud.Render.CreateFont("tahoma", 7, 128, 154, 105, 24, true, false, 128, 0, 0, 0, true);
             RerollMaxedFont = Hud.Render.CreateFont("tahoma", 7, 255, 24, 192, 24, true, false, 128, 0, 0, 0, true);
-            brush = Hud.Render.CreateBrush(255, 255, 0, 0, 1);
         }
 
         public void PaintTopInGame(ClipState clipState)
@@ -84,7 +83,7 @@ namespace Turbo.Plugins.Jack.Items
 
             var uicMain = Hud.Inventory.GetHoveredItemMainUiElement();
             var uicTop = Hud.Inventory.GetHoveredItemTopUiElement();
-            brush.DrawRectangle(uicMain.Rectangle); brush.DrawRectangle(uicTop.Rectangle);
+            
             var x = uicMain.Rectangle.X + uicMain.Rectangle.Width * 0.69f;
             var y = uicTop.Rectangle.Bottom + (75f / 1200.0f * Hud.Window.Size.Height);
 
