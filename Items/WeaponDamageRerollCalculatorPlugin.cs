@@ -24,8 +24,11 @@ namespace Turbo.Plugins.Jack.Items
 
         public IFormatProvider NumberFormat { get; set; }
 
+        public Func<float> LeftFunc { get; set; }
+        public Func<float> TopFunc { get; set; }
+
         private readonly WeaponDamageInfo weaponInfo;
-        
+
         public WeaponDamageRerollCalculatorPlugin()
         {
             Enabled = true;
@@ -50,6 +53,17 @@ namespace Turbo.Plugins.Jack.Items
             ActiveFont = Hud.Render.CreateFont("tahoma", 7, 255, 154, 105, 24, true, false, 128, 0, 0, 0, true);
             InactiveFont = Hud.Render.CreateFont("tahoma", 7, 128, 154, 105, 24, true, false, 128, 0, 0, 0, true);
             RerollMaxedFont = Hud.Render.CreateFont("tahoma", 7, 255, 24, 192, 24, true, false, 128, 0, 0, 0, true);
+
+            LeftFunc = () =>
+            {
+                var uicMain = Hud.Inventory.GetHoveredItemMainUiElement();
+                return uicMain.Rectangle.X + uicMain.Rectangle.Width * 0.69f;
+            };
+            TopFunc = () =>
+            {
+                var uicTop = Hud.Inventory.GetHoveredItemTopUiElement();
+                return uicTop.Rectangle.Bottom + (75f / 1200.0f * Hud.Window.Size.Height);
+            };
         }
 
         public void PaintTopInGame(ClipState clipState)
@@ -81,11 +95,8 @@ namespace Turbo.Plugins.Jack.Items
             var userRollAttackSpeedPercent = userBase * baseAps * bonusDamage * 1.07;
             var userPerfect = (baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f * baseAps * 1.1 * 1.07;
 
-            var uicMain = Hud.Inventory.GetHoveredItemMainUiElement();
-            var uicTop = Hud.Inventory.GetHoveredItemTopUiElement();
-            
-            var x = uicMain.Rectangle.X + uicMain.Rectangle.Width * 0.69f;
-            var y = uicTop.Rectangle.Bottom + (75f / 1200.0f * Hud.Window.Size.Height);
+            var x = LeftFunc();
+            var y = TopFunc();
 
             y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, true);
             y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat), WeaponDamageInfo.BaseDamageRangeAffixIds.Contains(item.EnchantedAffixNew));
