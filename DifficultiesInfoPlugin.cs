@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Turbo.Plugins.Default;
-using Turbo.Plugins.Jack.Decorators.TopTables;
-
-namespace Turbo.Plugins.Jack
+﻿namespace Turbo.Plugins.Jack
 {
+    using Turbo.Plugins.Default;
+    using Turbo.Plugins.Jack.Decorators.TopTables;
+
     public class DifficultiesInfoPlugin : BasePlugin, IInGameTopPainter
     {
         public TopTable Table { get; set; }
 
-        private string[,] difficultiesData = new string[,]
+        private readonly string[,] difficultiesData = new string[,]
         {
             {   "-",        "GR1",      "GR4",      "GR7",      "GR10",     "GR13",     "GR16",     "GR19",     "GR22",     "GR25",     "GR30",     "GR35",     "GR40",     "GR45",     "GR50",     "GR55",     "GR60",         },
             {   "100%",     "200%",     "320%",     "512%",     "819%",     "1 311%",   "2 097%",   "3 355%",   "5 369%",   "8 590%",   "18 985%",  "41 625%",  "91 260%",  "200 082%", "438 669%", "961 759%", "2 108 607%",   },
@@ -228,12 +224,16 @@ namespace Turbo.Plugins.Jack
             {
                 case 0:
                     return "Normal";
+
                 case 1:
                     return "Hard";
+
                 case 2:
                     return "Expert";
+
                 case 3:
                     return "Master";
+
                 default:
                     return string.Format("T{0}", pos - 3);
             }
@@ -245,39 +245,51 @@ namespace Turbo.Plugins.Jack
             {
                 case 0:
                     return "Greater Rift equivalent";
+
                 case 1:
                     return "Monster health";
+
                 case 2:
                     return "Monster damage";
+
                 case 3:
                     return "+ XP";
+
                 case 4:
                     return "+ Gold Find";
+
                 case 5:
                     return "Legendary drop";
+
                 case 6:
                     return "Legendary drop (rift)";
+
                 case 7:
                     return "Death's Breath";
+
                 case 8:
                     return "Greater Rift key";
+
                 case 9:
                     return "Horadric Cache materials";
+
                 case 10:
                     return "Horadric Cache legendaries";
+
                 case 11:
                     return "Keywarden Machine drop";
+
                 case 12:
                     return "Uber Organ drop";
+
                 default:
                     return "";
-
             }
         }
 
         private bool HighlightColumn(int pos)
         {
-            return (int) Hud.Game.GameDifficulty == pos;
+            return (int)Hud.Game.GameDifficulty == pos;
         }
 
         public void PaintTopInGame(ClipState clipState)
