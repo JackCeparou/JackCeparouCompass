@@ -185,7 +185,7 @@ namespace Turbo.Plugins.Jack.Monsters
             SnoMapping.Add(226350, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
-                    Radius = 3,
+                    Radius = 15,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 3, DashStyle.Dash)
                 }));
 
