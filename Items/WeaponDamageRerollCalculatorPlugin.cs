@@ -98,14 +98,23 @@ namespace Turbo.Plugins.Jack.Items
             var x = LeftFunc();
             var y = TopFunc();
 
-            y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, true);
-            y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat), WeaponDamageInfo.BaseDamageRangeAffixIds.Contains(item.EnchantedAffixNew));
-            y += DrawTextLine(item, x, y, DamagePercentLabel, userRollDamagePercent.ToString(DpsFormat), item.EnchantedAffixNew == WeaponDamageInfo.DamageBonusPercentId, bonusDamage == 1.1f);
-            y += DrawTextLine(item, x, y, AttackSpeedLabel, userRollAttackSpeedPercent.ToString(DpsFormat), item.EnchantedAffixNew == WeaponDamageInfo.AttackSpeedBonusPercentId, bonusAttackSpeed == 1.07f);
-            y += DrawTextLine(item, x, y, PerfectLabel, userPerfect.ToString(DpsFormat), false);
+            y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, true, false);
+            y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat), 
+                WeaponDamageInfo.BaseDamageRangeAffixIds.Contains(item.EnchantedAffixNew),
+                bonusMinMax == bonusMin && bonusMaxMax == bonusMax
+                );
+            y += DrawTextLine(item, x, y, DamagePercentLabel, userRollDamagePercent.ToString(DpsFormat), 
+                item.EnchantedAffixNew == WeaponDamageInfo.DamageBonusPercentId, 
+                bonusDamage == 1.1f
+                );
+            y += DrawTextLine(item, x, y, AttackSpeedLabel, userRollAttackSpeedPercent.ToString(DpsFormat), 
+                item.EnchantedAffixNew == WeaponDamageInfo.AttackSpeedBonusPercentId, 
+                bonusAttackSpeed == 1.07f
+                );
+            y += DrawTextLine(item, x, y, PerfectLabel, userPerfect.ToString(DpsFormat), false, false);
         }
 
-        private float DrawTextLine(IItem item, float x, float y, string label, string value, bool active, bool maxed = false)
+        private float DrawTextLine(IItem item, float x, float y, string label, string value, bool active, bool maxed)
         {
             IFont font;
             var text = string.Format(NumberFormat, LineFormat, label, value);
