@@ -47,26 +47,6 @@
             153752, // a3 catapult event
             102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
             447641, // cos_pet_mimic_01
-            102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
-        };
-
-        //170245
-        private readonly HashSet<uint> doorsDebugWhiteList = new HashSet<uint>() {
-            309222, 308241, 454, // ??
-            309812, // X1 ??
-            104888,
-            258595,
-            4267,
-            362651,
-            447673,
-            162386,
-            415665,
-            4393,
-            219702,
-            250031,
-            //102711
-            343582,
-            230324,
         };
 
         public DoorsPlugin()
@@ -160,3 +140,24 @@
         }
     }
 }
+
+/*
+
+        //170245
+        private readonly HashSet<uint> doorsDebugWhiteList = new HashSet<uint>() {
+            309222, 308241, 454, // ??
+            309812, // X1 ??
+            104888,
+            258595,
+            4267,
+            362651,
+            447673,
+            162386,
+            415665,
+            4393,
+            219702,
+            250031,
+            //102711
+            343582,
+            230324,
+        };*/
