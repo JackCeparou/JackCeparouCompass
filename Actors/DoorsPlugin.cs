@@ -28,10 +28,9 @@
             set { ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, value, false, false, false); }
         }
 
-        private readonly HashSet<uint> bridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
-        private readonly HashSet<uint> breakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, }; // 258064 };
-
-        private readonly HashSet<uint> doorsIdsBlackList = new HashSet<uint>() {
+        public readonly HashSet<uint> BridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
+        public readonly HashSet<uint> BreakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, }; // 258064 };
+        public readonly HashSet<uint> DoorsIdsBlackList = new HashSet<uint>() {
             197939, 169502, 214333, 181195, 190236, // A2 to belial
             167185, // A2 Alcarnus
             200371, 5503, // A2 City
@@ -47,6 +46,11 @@
             153752, // a3 catapult event
             102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
             447641, // cos_pet_mimic_01
+            5288, // shoulderPads_norm_base_flippy ???
+            291717, // x1_Abattoir_Barricade_Solid
+            365503, // X1_Fortress_FloatRubble_A
+            // 389569, // p1_TGoblin_Gate
+            // 392094, // p1_Tgoblin_Vault_Door
         };
 
         public DoorsPlugin()
@@ -86,13 +90,13 @@
                 .Where(a => a.GizmoType == GizmoType.Door || a.GizmoType == GizmoType.BreakableDoor)
                 .ForEach(door =>
                 {
-                    if (breakableDoorsIds.Contains(door.SnoActor.Sno))
+                    if (BreakableDoorsIds.Contains(door.SnoActor.Sno))
                     {
                         PaintActor(layer, door, BreakablesDoorsDecorators);
                     }
-                    else if (door.GizmoType == GizmoType.Door && door.DisplayOnOverlay && !doorsIdsBlackList.Contains(door.SnoActor.Sno))
+                    else if (door.GizmoType == GizmoType.Door && door.DisplayOnOverlay && !DoorsIdsBlackList.Contains(door.SnoActor.Sno))
                     {
-                        PaintActor(layer, door, bridgesIds.Contains(door.SnoActor.Sno) ? BridgesDecorators : DoorsDecorators);
+                        PaintActor(layer, door, BridgesIds.Contains(door.SnoActor.Sno) ? BridgesDecorators : DoorsDecorators);
                         //if (!doorsDebugWhiteList.Contains(door.SnoActor.Sno)) Says.Debug(string.Format("DOOR?? {0} {1} {2} {3} {4} {5} {6}", door.SnoActor.Sno, door.SnoActor.NameLocalized, door.IsOperated, door.IsClickable, door.IsDisabled, door.SnoActor.Kind, door.SnoActor.Code));/**/
                     }
 
