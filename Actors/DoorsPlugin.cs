@@ -50,6 +50,7 @@
             291717, // x1_Abattoir_Barricade_Solid
             365503, // X1_Fortress_FloatRubble_A
             211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
+            377253, // x1_Fortress_Crystal_Prison_Shield
         };
 
         public DoorsPlugin()
