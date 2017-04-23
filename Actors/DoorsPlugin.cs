@@ -49,8 +49,7 @@
             5288, // shoulderPads_norm_base_flippy ???
             291717, // x1_Abattoir_Barricade_Solid
             365503, // X1_Fortress_FloatRubble_A
-            // 389569, // p1_TGoblin_Gate
-            // 392094, // p1_Tgoblin_Vault_Door
+            211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
         };
 
         public DoorsPlugin()
