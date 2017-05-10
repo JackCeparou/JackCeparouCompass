@@ -33,19 +33,29 @@
             return result;
         }
 
+        public static float WeaponDamageBonusDamage(this IEnumerable<IItemStat> stats)
+        {
+            return stats.Where(s => s.Id == "dmg_pbonus").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();
+        }
         public static float WeaponDamageBonusDamagePercent(this IEnumerable<IItemStat> stats)
         {
-            return stats.Where(s => s.Id == "dmg_pbonus").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault() / 100f;
+            return stats.WeaponDamageBonusDamage() / 100f;
         }
 
+        public static float WeaponDamageBonusAttackSpeed(this IEnumerable<IItemStat> stats)
+        {
+            return stats.Where(s => s.Id == "as_extr").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();
+        }
         public static float WeaponDamageBonusAttackSpeedPercent(this IEnumerable<IItemStat> stats)
         {
-            return stats.Where(s => s.Id == "as_extr").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault() / 100f;
+            return stats.WeaponDamageBonusAttackSpeed() / 100f;
         }
 
         public static float AreaDamage(this IEnumerable<IItemStat> stats)
         {
             return stats.Where(s => s.Id == "areadmg").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();
         }
+
+
     }
 }
