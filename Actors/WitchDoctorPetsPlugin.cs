@@ -26,7 +26,7 @@ namespace Turbo.Plugins.Jack.Actors
             GargantuansDecorators = new WorldDecoratorCollection(
                 new GroundShapeDecorator(hud)
                 {
-                    Shape = GroundShape.X,
+                    ShapePainter = WorldStarShapePainter.NewCross(Hud),
                     Radius = 1f,
                     Brush = gargantuanBrush,
                 },
@@ -54,7 +54,7 @@ namespace Turbo.Plugins.Jack.Actors
             ZombiesDogsDecorators = new WorldDecoratorCollection(
                 new GroundShapeDecorator(hud)
                 {
-                    Shape = GroundShape.X,
+                    ShapePainter = WorldStarShapePainter.NewCross(Hud),
                     Radius = 0.35f,
                     Brush = gargantuanBrush,
                 },
