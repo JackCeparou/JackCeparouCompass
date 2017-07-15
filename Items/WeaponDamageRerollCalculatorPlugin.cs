@@ -77,17 +77,19 @@ namespace Turbo.Plugins.Jack.Items
 
             var baseMin = item.StatList.WeaponDamageBaseMin();
             var baseMax = item.StatList.WeaponDamageBaseMax();
-            var weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.BaseMin == baseMin && w.BaseMax == baseMax);
+            var attackSpeed = item.StatList.WeaponDamageAttackSpeed();
+            var bonusAttackSpeed = 1 + item.StatList.WeaponDamageBonusAttackSpeedPercent();
+            var baseAps = (float)decimal.Round((decimal)(attackSpeed / bonusAttackSpeed), 1);
+
+            var weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Aps == baseAps && w.BaseMin == baseMin && w.BaseMax == baseMax);
             if (weaponDamageDefinition == null) return;
 
             var bonusMinMax = item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMinMax : weaponDamageDefinition.BonusMinMax;
             var bonusMaxMax = item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMaxMax : weaponDamageDefinition.BonusMaxMax;
 
-            var baseAps = weaponDamageDefinition.Aps;
             var bonusMin = item.StatList.WeaponDamageBonusMin();
             var bonusMax = item.StatList.WeaponDamageBonusMax();
             var bonusDamage = 1 + item.StatList.WeaponDamageBonusDamagePercent();
-            var bonusAttackSpeed = 1 + item.StatList.WeaponDamageBonusAttackSpeedPercent();
 
             var userBase = (baseMin + bonusMin + baseMax + bonusMax) / 2f;
             var userRollBaseDamageRange = (baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f * baseAps * bonusDamage * bonusAttackSpeed;

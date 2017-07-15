@@ -42,6 +42,11 @@
             return stats.WeaponDamageBonusDamage() / 100f;
         }
 
+        public static float WeaponDamageAttackSpeed(this IEnumerable<IItemStat> stats)
+        {
+            return stats.Where(s => s.Id == "as_weap").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();
+        }
+
         public static float WeaponDamageBonusAttackSpeed(this IEnumerable<IItemStat> stats)
         {
             return stats.Where(s => s.Id == "as_extr").Select(s => float.Parse(s.Value.ToString())).FirstOrDefault();

@@ -63,17 +63,27 @@
                 new WeaponDamageDefinition() { Id = 12, Type = "Dagger", Aps = 1.5f, BaseMin = 107, BaseMax = 321, BonusMinMin = 858, BonusMinMax = 1049, BonusMaxMin = 1028, BonusMaxMax = 1304, BonusAncientMinMin = 1153, BonusAncientMinMax = 1365, BonusAncientMaxMin = 1305, BonusAncientMaxMax = 1700, },
 
                 new WeaponDamageDefinition() { Id = 13, Type = "Spear", Aps = 1.2f, BaseMin = 353, BaseMax = 585, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
-                new WeaponDamageDefinition() { Id = 13, Type = "Spear", Aps = 1.2f, BaseMin = 353, BaseMax = 526, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
+                new WeaponDamageDefinition() { Id = 113, Type = "Spear", Aps = 1.2f, BaseMin = 353, BaseMax = 526, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
 
                 new WeaponDamageDefinition() { Id = 14, Type = "One_Handed Mighty Weapon", Aps = 1.3f, BaseMin = 249, BaseMax = 461, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
                 new WeaponDamageDefinition() { Id = 15, Type = "Two_Handed Mighty Weapon", Aps = 1.1f, BaseMin = 1462, BaseMax = 1609, BonusMinMin = 1177, BonusMinMax = 1439, BonusMaxMin = 1410, BonusMaxMax = 1788, BonusAncientMinMin = 1582, BonusAncientMinMax = 1870, BonusAncientMaxMin = 1790, BonusAncientMaxMax = 2325, },
+
                 new WeaponDamageDefinition() { Id = 16, Type = "Ceremonial Knife", Aps = 1.4f, BaseMin = 117, BaseMax = 469, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
+                //barber v2..
+                new WeaponDamageDefinition() { Id = 116, Type = "Ceremonial Knife", Aps = 1.5f, BaseMin = 117, BaseMax = 469, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
+
                 new WeaponDamageDefinition() { Id = 17, Type = "Fist Weapon", Aps = 1.4f, BaseMin = 168, BaseMax = 392, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
                 new WeaponDamageDefinition() { Id = 18, Type = "Polearm", Aps = 1.05f, BaseMin = 1497, BaseMax = 1823, BonusMinMin = 1177, BonusMinMax = 1439, BonusMaxMin = 1410, BonusMaxMax = 1788, BonusAncientMinMin = 1582, BonusAncientMinMax = 1870, BonusAncientMaxMin = 1790, BonusAncientMaxMax = 2325, },
                 new WeaponDamageDefinition() { Id = 19, Type = "Staff", Aps = 1.1f, BaseMin = 1229, BaseMax = 1839, BonusMinMin = 1177, BonusMinMax = 1439, BonusMaxMin = 1410, BonusMaxMax = 1788, BonusAncientMinMin = 1582, BonusAncientMinMax = 1870, BonusAncientMaxMin = 1790, BonusAncientMaxMax = 2325, },
                 new WeaponDamageDefinition() { Id = 20, Type = "Crossbow", Aps = 1.1f, BaseMin = 779, BaseMax = 945, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
                 new WeaponDamageDefinition() { Id = 21, Type = "Wand", Aps = 1.4f, BaseMin = 193, BaseMax = 357, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
+
+                new WeaponDamageDefinition() { Id = 22, Type = "One_Handed Scythe", Aps = 1.3f, BaseMin = 249, BaseMax = 461, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1609, BonusAncientMaxMax = 1940, },
+                new WeaponDamageDefinition() { Id = 23, Type = "Two_Handed Scythe", Aps = 1.1f, BaseMin = 1461, BaseMax = 1607, BonusMinMin = 1177, BonusMinMax = 1439, BonusMaxMin = 1410, BonusMaxMax = 1788, BonusAncientMinMin = 1582, BonusAncientMinMax = 1870, BonusAncientMaxMin = 1790, BonusAncientMaxMax = 2325, },
+
             };
+
+            // TODO : find a way to avoid multiple entries (I look at you barber !)
         }
     }
 }
