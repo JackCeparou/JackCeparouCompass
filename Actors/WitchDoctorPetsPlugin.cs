@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Turbo.Plugins.Default;
 
@@ -5,18 +6,18 @@ namespace Turbo.Plugins.Jack.Actors
 {
     public class WitchDoctorPetsPlugin : BasePlugin, IInGameWorldPainter
     {
-        public uint[] GargantuansIds { get; set; }
+        public HashSet<uint> GargantuansIds { get; set; }
         public WorldDecoratorCollection GargantuansDecorators { get; set; }
 
-        public uint[] ZombiesDogsIds { get; set; }
+        public HashSet<uint> ZombiesDogsIds { get; set; }
         public WorldDecoratorCollection ZombiesDogsDecorators { get; set; }
 
 
         public WitchDoctorPetsPlugin()
         {
             Enabled = true;
-            GargantuansIds = new uint[] { 432690, 432691, 432692, 432693, 432694, 122305, 179776, 171491, 179778, 171501, 171502, 179780, 179779, 179772 };
-            ZombiesDogsIds = new uint[] { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 };
+            GargantuansIds = new HashSet<uint> { 432690, 432691, 432692, 432693, 432694, 122305, 179776, 171491, 179778, 171501, 171502, 179780, 179779, 179772 };
+            ZombiesDogsIds = new HashSet<uint> { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 };
         }
 
         public override void Load(IController hud)
