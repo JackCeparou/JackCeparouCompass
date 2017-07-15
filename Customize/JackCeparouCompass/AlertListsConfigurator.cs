@@ -1,4 +1,5 @@
 ﻿using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.Models;
 
 namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
 {
@@ -38,6 +39,23 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                 });
             });
 
+            // dh free vault with shadow set
+            Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
+            {
+                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+                {
+                    MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",
+                    AlertTextFunc = (id) =>
+                    {
+                        return "!! Free vault !!";
+                    },
+                    Rule =
+                    {
+                        ShowInTown = true,
+                        ActiveBuffs = new SnoPowerId[] { new SnoPowerId(445266, 1), }
+                    }
+                });
+            });
 
             //Hud.RunOnPlugin<Jack.Alerts.PlayerTopAlertListPlugin>(plugin =>
             //{

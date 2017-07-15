@@ -40,7 +40,7 @@
                 //inventoryAndStashPlugin.SellEnabled = true;
 
                 // shh, go away blinking cube!
-                plugin.CanCubedEnabled = false;
+                //plugin.CanCubedEnabled = false;
 
                 // ancient rank font
                 plugin.AncientRankFont = Hud.Render.CreateFont("arial", 7, 255, 227, 153, 25, true, false, 220, 0, 0, 0, true);
