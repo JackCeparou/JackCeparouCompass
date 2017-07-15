@@ -793,7 +793,7 @@ namespace Turbo.Plugins.Jack.Extensions
             yield return powerList.Generic_MonsterAffixElectrified; // 81420
             yield return powerList.Generic_MonsterAffixElectrifiedLRBossCustom; // 365083
             yield return powerList.Generic_MonsterAffixElectrifiedMinion; // 109899
-            yield return powerList.Generic_MonsterAffixElectrifiedMinionRakEvent; // 169461
+            //yield return powerList.Generic_MonsterAffixElectrifiedMinionRakEvent; // 169461
             yield return powerList.Generic_MonsterAffixExtraHealth; // 70650
             yield return powerList.Generic_MonsterAffixFast; // 70849
             yield return powerList.Generic_MonsterAffixFrozen; // 90144
@@ -1097,7 +1097,7 @@ namespace Turbo.Plugins.Jack.Extensions
             yield return powerList.Generic_QuestCanyonBridgePlayerRevealFootsteps; // 103337
             yield return powerList.Generic_QuillDemonProjectile; // 107729
             yield return powerList.Generic_QuillDemonProjectileFastAttack; // 364571
-            yield return powerList.Generic_RakCenterStoneelectrifiedMinion; // 169411
+            //yield return powerList.Generic_RakCenterStoneelectrifiedMinion; // 169411
             yield return powerList.Generic_RandomMovespeedScripted; // 367779
             yield return powerList.Generic_RangedEscortProjectile; // 30394
             yield return powerList.Generic_RatKingLifetimeBuff; // 440699
