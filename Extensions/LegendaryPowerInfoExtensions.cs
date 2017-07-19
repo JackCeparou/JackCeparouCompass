@@ -112,7 +112,7 @@
             if (powerInfo.HauntingGirdle != null) yield return powerInfo.HauntingGirdle;
             if (powerInfo.HauntOfVaxo != null) yield return powerInfo.HauntOfVaxo;
             if (powerInfo.HeartOfIron != null) yield return powerInfo.HeartOfIron;
-            //if (powerInfo.HellcatWaistguard != null) yield return powerInfo.HellcatWaistguard;
+            if (powerInfo.HellcatWaistguard != null) yield return powerInfo.HellcatWaistguard;
             if (powerInfo.HergbrashsBinding != null) yield return powerInfo.HergbrashsBinding;
             if (powerInfo.HexingPantsOfMrYan != null) yield return powerInfo.HexingPantsOfMrYan;
             if (powerInfo.HillenbrandsTrainingSword != null) yield return powerInfo.HillenbrandsTrainingSword;
