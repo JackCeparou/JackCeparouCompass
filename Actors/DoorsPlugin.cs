@@ -128,10 +128,11 @@
 
             if (DebugEnabled && Debug)
             {
-                var text = string.Format("{0} : {1}\n{2} {3} {4} {5}\n{6}",
+                var text = string.Format("{0} : {1} {2}\n{3} {4} {5} {6}\n{7}",
                     actor.SnoActor.Sno,
                     actor.SnoActor.NameLocalized,
                     actor.SnoActor.Kind,
+                    actor.GizmoType,
                     actor.IsOperated ? "Operated" : "Not Operated",
                     actor.IsClickable ? "Clickable" : "Not Clickable",
                     actor.IsDisabled ? "Disabled" : "Not Disabled",
