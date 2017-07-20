@@ -6,6 +6,7 @@ namespace Turbo.Plugins.Jack.Items
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Data;
     using Turbo.Plugins.Jack.Extensions;
+    using Turbo.Plugins.Jack.Models;
 
     public class WeaponDamageRerollCalculatorPlugin : BasePlugin, IInGameTopPainter
     {
@@ -81,7 +82,17 @@ namespace Turbo.Plugins.Jack.Items
             var bonusAttackSpeed = 1 + item.StatList.WeaponDamageBonusAttackSpeedPercent();
             var baseAps = (float)decimal.Round((decimal)(attackSpeed / bonusAttackSpeed), 2);
 
-            var weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Aps == baseAps && w.BaseMin == baseMin && w.BaseMax == baseMax);
+            WeaponDamageDefinition weaponDamageDefinition;
+            switch (item.SnoItem.Sno)
+            {
+                case 786688478: // barber v2..
+                    weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Id == 116);
+                    break;
+                default:
+                    weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Aps == baseAps && w.BaseMin == baseMin && w.BaseMax == baseMax);
+                    break;
+            }
+
             if (weaponDamageDefinition == null) return;
 
             var bonusMinMax = item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMinMax : weaponDamageDefinition.BonusMinMax;
@@ -101,16 +112,16 @@ namespace Turbo.Plugins.Jack.Items
             var y = TopFunc();
 
             y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, true, false);
-            y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat), 
+            y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat),
                 WeaponDamageInfo.BaseDamageRangeAffixIds.Contains(item.EnchantedAffixNew),
                 bonusMinMax == bonusMin && bonusMaxMax == bonusMax
                 );
-            y += DrawTextLine(item, x, y, DamagePercentLabel, userRollDamagePercent.ToString(DpsFormat), 
-                item.EnchantedAffixNew == WeaponDamageInfo.DamageBonusPercentId, 
+            y += DrawTextLine(item, x, y, DamagePercentLabel, userRollDamagePercent.ToString(DpsFormat),
+                item.EnchantedAffixNew == WeaponDamageInfo.DamageBonusPercentId,
                 bonusDamage == 1.1f
                 );
-            y += DrawTextLine(item, x, y, AttackSpeedLabel, userRollAttackSpeedPercent.ToString(DpsFormat), 
-                item.EnchantedAffixNew == WeaponDamageInfo.AttackSpeedBonusPercentId, 
+            y += DrawTextLine(item, x, y, AttackSpeedLabel, userRollAttackSpeedPercent.ToString(DpsFormat),
+                item.EnchantedAffixNew == WeaponDamageInfo.AttackSpeedBonusPercentId,
                 bonusAttackSpeed == 1.07f
                 );
             y += DrawTextLine(item, x, y, PerfectLabel, userPerfect.ToString(DpsFormat), false, false);

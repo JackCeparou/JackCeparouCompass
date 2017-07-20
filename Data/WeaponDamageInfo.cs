@@ -70,7 +70,7 @@
 
                 new WeaponDamageDefinition() { Id = 16, Type = "Ceremonial Knife", Aps = 1.4f, BaseMin = 117, BaseMax = 469, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
                 //barber v2..
-                new WeaponDamageDefinition() { Id = 116, Type = "Ceremonial Knife", Aps = 1.5f, BaseMin = 117, BaseMax = 469, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
+                new WeaponDamageDefinition() { Id = 116, Type = "Ceremonial Knife", Aps = 1.5f, BaseMin = 107, BaseMax = 321, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
 
                 new WeaponDamageDefinition() { Id = 17, Type = "Fist Weapon", Aps = 1.4f, BaseMin = 168, BaseMax = 392, BonusMinMin = 981, BonusMinMax = 1199, BonusMaxMin = 1175, BonusMaxMax = 1490, BonusAncientMinMin = 1318, BonusAncientMinMax = 1560, BonusAncientMaxMin = 1491, BonusAncientMaxMax = 1940, },
                 new WeaponDamageDefinition() { Id = 18, Type = "Polearm", Aps = 1.05f, BaseMin = 1497, BaseMax = 1823, BonusMinMin = 1177, BonusMinMax = 1439, BonusMaxMin = 1410, BonusMaxMax = 1788, BonusAncientMinMin = 1582, BonusAncientMinMax = 1870, BonusAncientMaxMin = 1790, BonusAncientMaxMax = 2325, },
