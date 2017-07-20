@@ -79,7 +79,7 @@ namespace Turbo.Plugins.Jack.Items
             var baseMax = item.StatList.WeaponDamageBaseMax();
             var attackSpeed = item.StatList.WeaponDamageAttackSpeed();
             var bonusAttackSpeed = 1 + item.StatList.WeaponDamageBonusAttackSpeedPercent();
-            var baseAps = (float)decimal.Round((decimal)(attackSpeed / bonusAttackSpeed), 1);
+            var baseAps = (float)decimal.Round((decimal)(attackSpeed / bonusAttackSpeed), 2);
 
             var weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Aps == baseAps && w.BaseMin == baseMin && w.BaseMax == baseMax);
             if (weaponDamageDefinition == null) return;
