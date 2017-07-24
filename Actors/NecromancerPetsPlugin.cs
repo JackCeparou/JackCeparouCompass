@@ -17,7 +17,7 @@ namespace Turbo.Plugins.Jack.Actors
         public NecromancerPetsPlugin()
         {
             Enabled = true;
-            SkeletonWarriorsIds = new HashSet<uint> { 473426 };
+            SkeletonWarriorsIds = new HashSet<uint> { 473147, 473420, 473426, 473418, 473428, 473417 }; // ty SR ;p
             SkeletonMagesIds = new HashSet<uint> { 472275, 472588, 472769,  472606, 472715 };
             SkeletonArchersIds = new HashSet<uint> { 472801 };
         }
