@@ -52,7 +52,9 @@
             211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
             377253, // x1_Fortress_Crystal_Prison_Shield
             319797, // x1_westm_Railing_A_01_piece1
-            289804, // x1_Pand_HexMaze_Corpse  Corpse
+            289804, // x1_Pand_HexMaze_Corpse  Corpse            
+            159098, // DH_Companion_RuneC
+            187436, // LootType2_tristramVillager_Male_C_Corpse_01 Dead Villager
         };
 
         public DoorsPlugin()
