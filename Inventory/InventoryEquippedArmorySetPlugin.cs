@@ -1,4 +1,4 @@
-﻿namespace Turbo.plugins.Jack.Inventory
+﻿namespace Turbo.Plugins.Jack.Inventory
 {
     using Plugins;
     using Plugins.Default;
