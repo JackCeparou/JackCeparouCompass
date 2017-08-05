@@ -198,7 +198,7 @@
                 //brus.DrawRectangle(x, y, 100, 100);
                 ObjectiveProgressFont.DrawText(layout, x, y);
 
-                var texture = Hud.Texture.GetTexture(IsNephalemRift ? 1528804216 : 3075014090);
+                var texture = Hud.Texture.GetTexture(currentRun == SpecialArea.Rift ? 1528804216 : 3075014090);
                 texture.Draw(x - texture.Width * 0.75f, Hud.Render.MinimapUiElement.Rectangle.Bottom - texture.Height/4, texture.Width, texture.Height);
             }
         }
