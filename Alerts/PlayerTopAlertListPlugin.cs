@@ -1,6 +1,7 @@
 ﻿namespace Turbo.Plugins.Jack.Alerts
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Extensions;
@@ -259,6 +260,30 @@
                         Radius = 5
                     }
                 ),
+            });
+
+            // ===========
+            // Necromancer
+            // ===========
+            // Bone Armor
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
+            {
+                TextSnoId = 466857,
+                MessageFormat = "!! {0} !!",
+                Rule =
+                {
+                    InactiveBuffs = new[] { new SnoPowerId(466857) },
+                },
+            });
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
+            {
+                TextSnoId = 466857,
+                MessageFormat = "\u23F0 {0} \u23F0", //⏰
+                AlertTextFunc = sno => string.Format(CultureInfo.InvariantCulture, "{0} {1:0.#}", Hud.GuessLocalizedName(sno), Hud.Game.Me.Powers.GetBuff(466857).TimeLeftSeconds[0]),
+                Rule =
+                {
+                    CustomCondition = player => player.Powers.BuffIsActive(466857) && player.Powers.GetBuff(466857).TimeLeftSeconds[0] <= 3,
+                },
             });
 
             // ===========
