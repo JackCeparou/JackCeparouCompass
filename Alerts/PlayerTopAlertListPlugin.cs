@@ -268,21 +268,23 @@
             // Bone Armor
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
             {
-                TextSnoId = 466857,
+                TextSnoId = Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno,
                 MessageFormat = "!! {0} !!",
                 Rule =
                 {
-                    InactiveBuffs = new[] { new SnoPowerId(466857) },
+                    EquippedSkills = new[] { new SnoPowerId(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno) },
+                    InactiveBuffs = new[] { new SnoPowerId(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno) },
                 },
             });
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
             {
-                TextSnoId = 466857,
+                TextSnoId = Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno,
                 MessageFormat = "\u23F0 {0} \u23F0", //⏰
-                AlertTextFunc = sno => string.Format(CultureInfo.InvariantCulture, "{0} {1:0.#}", Hud.GuessLocalizedName(sno), Hud.Game.Me.Powers.GetBuff(466857).TimeLeftSeconds[0]),
+                AlertTextFunc = sno => string.Format(CultureInfo.InvariantCulture, "{0} {1:0.#}", Hud.GuessLocalizedName(sno), Hud.Game.Me.Powers.GetBuff(sno).TimeLeftSeconds[0]),
                 Rule =
                 {
-                    CustomCondition = player => player.Powers.BuffIsActive(466857) && player.Powers.GetBuff(466857).TimeLeftSeconds[0] <= 3,
+                    EquippedSkills = new[] { new SnoPowerId(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno) },
+                    CustomCondition = player => player.Powers.BuffIsActive(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno) && player.Powers.GetBuff(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno).TimeLeftSeconds[0] <= 3,
                 },
             });
 
