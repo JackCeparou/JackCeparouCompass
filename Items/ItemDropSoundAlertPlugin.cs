@@ -174,7 +174,7 @@
 
         private void MarkSoundAlert(IItem item)
         {
-            SoundAlertManagerPlugin.Register(item, SoundAlert);
+            SoundAlertManagerPlugin.Register<IItem>(item, SoundAlert);
         }
     }
 }
