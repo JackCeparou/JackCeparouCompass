@@ -107,7 +107,7 @@ namespace Turbo.Plugins.Jack.Actors
         public void PaintWorld(WorldLayer layer)
         {
             if (Hud.Render.UiHidden) return;
-            //if (Hud.Game.IsInTown) return;
+            if (Hud.Game.IsInTown) return;
             if (Hud.Game.Me.HeroClassDefinition.HeroClass != HeroClass.Necromancer) return;
 
             var warriors = Hud.Game.Actors.Where(a => a.SummonerAcdDynamicId == Hud.Game.Me.SummonerId && SkeletonWarriorsIds.Contains(a.SnoActor.Sno));
