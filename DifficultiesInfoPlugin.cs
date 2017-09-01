@@ -296,8 +296,10 @@
         {
             if (!Hud.Game.IsInTown) return;
             if (clipState != ClipState.AfterClip) return;
+
             var uiRect = Hud.Render.GetUiElement("Root.NormalLayer.minimap_dialog_backgroundScreen.minimap_dialog_pve.BoostWrapper.BoostsDifficultyStackPanel.clock");
             if (!Hud.Window.CursorInsideRect(uiRect.Rectangle.X, uiRect.Rectangle.Y, uiRect.Rectangle.Width, uiRect.Rectangle.Height)) return;
+            // if (!Hud.Window.CursorInsideRect(Hud.Window.Size.Width * 0.9f, Hud.Window.Size.Height * 0.02f, Hud.Window.Size.Width * 0.1f, Hud.Window.Size.Height * 0.02f)) return;
 
             if (Table == null)
                 InitTable();
