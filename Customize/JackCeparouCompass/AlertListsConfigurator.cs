@@ -1,4 +1,5 @@
-﻿using Turbo.Plugins.Default;
+﻿using System.Windows.Forms;
+using Turbo.Plugins.Default;
 using Turbo.Plugins.Jack.Models;
 
 namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
@@ -151,7 +152,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                 });
             });
 
-            /* show all buffs *
+            /* show all buffs */
             Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
             {
                 plugin.AlertList.Up = false;
@@ -176,9 +177,9 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
                                     buff.Active,
-                                    buff.TimeLeft(),
-                                    string.Join(", ", buff.IconCounts),
-                                    string.Join(", ", buff.TimeLeftSeconds)
+                                    string.Format("{0:0.#}", buff.TimeLeft()),
+                                    string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
+                                    string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
                                     ));
                     },
                     Label =
@@ -188,7 +189,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (player) => Hud.Game.IsInTown,
+                        VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
                     }
                 });
 
@@ -199,16 +200,16 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                     {
                         return
                             Hud.Game.Me.Powers.AllBuffs
-                                .Where(buff => buff != null && buff.SnoPower != null && string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
+                                .Where(buff => buff != null && buff.SnoPower != null && /*buff.SnoPower.Sno == 430674 &&*/ string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
                                 .OrderBy(buff => buff.SnoPower.Sno)
                                 .Select(buff => string.Join(
                                     " | ",
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
                                     buff.Active,
-                                    buff.TimeLeft(),
-                                    string.Join(", ", buff.IconCounts),
-                                    string.Join(", ", buff.TimeLeftSeconds)
+                                    string.Format("{0:0.#}", buff.TimeLeft()), 
+                                    string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
+                                    string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
                                     ));
                     },
                     Label =
@@ -218,7 +219,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                     Rule =
                     {
                         ShowInTown = true,
-                        VisibleCondition = (player) => Hud.Game.IsInTown,
+                        VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
                     }
                 });
             });/*end*/

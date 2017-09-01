@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Turbo.Plugins.Jack.Extensions;
 
 namespace Turbo.Plugins.Jack.Customize
 {
@@ -29,6 +27,8 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<DebugPlugin>(true);
             Hud.TogglePlugin<MultiplayerExperienceRangePlugin>(false);
             Hud.TogglePlugin<PortraitBottomStatsPlugin>(false);
+            //Hud.TogglePlugin<TopExperienceStatistics>(false);
+            Hud.TogglePlugin<AttributeLabelListPlugin>(false);
             Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
             Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin => plugin.SkillPainter.EnableSkillDpsBar = false);
 
@@ -62,10 +62,60 @@ namespace Turbo.Plugins.Jack.Customize
                 labelListsConfigurator.Configure(Hud);
             }
 
-            //Hud.TogglePlugin<TopExperienceStatistics>(false);
-            //Hud.TogglePlugin<PickupRangePlugin>(false);
-            //Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
-            //Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin => plugin.SkillPainter.EnableSkillDpsBar = false);
+            Hud.RunOnPlugin<Turbo.Plugins.Default.OtherPlayersPlugin>(plugin =>
+            {
+                plugin.Order = int.MaxValue;
+
+                plugin.DecoratorByClass[HeroClass.Barbarian].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 250, 10, 10, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.Crusader].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 0, 200, 250, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.DemonHunter].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 0, 0, 200, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.Monk].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 120, 0, 200, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.Necromancer].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 175, 238, 238, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.WitchDoctor].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 0, 155, 125, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+                plugin.DecoratorByClass[HeroClass.Wizard].Decorators.Add(new MapShapeDecorator(Hud)
+                {
+                    Radius = -1,
+                    Brush = Hud.Render.CreateBrush(255, 250, 50, 180, 0),
+                    Enabled = true,
+                    ShapePainter = new CircleShapePainter(Hud),
+                });
+            });
 
             //Hud.RunOnPlugin<ItemsPlugin>(plugin =>
             //{

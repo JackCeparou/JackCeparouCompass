@@ -1,6 +1,4 @@
-﻿using Turbo.Plugins.Jack.Items;
-
-namespace Turbo.Plugins.Jack.Customize
+﻿namespace Turbo.Plugins.Jack.Customize
 {
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
@@ -14,18 +12,45 @@ namespace Turbo.Plugins.Jack.Customize
 
         public void Customize()
         {
-            Hud.RunOnPlugin<StandardMonsterPlugin>(plugin =>
+            Hud.RunOnPlugin<Plugins.Default.StandardMonsterPlugin>(plugin =>
             {
                 plugin.BossDecorator.Add(SoundAlertFactory.Create<IActor>(Hud));
             });
 
-            Hud.RunOnPlugin<ShrinePlugin>(plugin =>
+            Hud.RunOnPlugin<Plugins.Default.ShrinePlugin>(plugin =>
             {
-                plugin.AllShrineDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => shrine.SnoActor.NameLocalized));
+                //plugin.AllShrineDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => shrine.SnoActor.NameLocalized));
+                plugin.AllShrineDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => {
+                    var text = string.Empty;
+                    switch (shrine.Type)
+                    {
+                        case ShrineType.BanditShrine:
+                            text = shrine.SnoActor.NameLocalized;
+                            break;
+                        case ShrineType.BlessedShrine:
+                        case ShrineType.EnlightenedShrine:
+                        case ShrineType.FortuneShrine:
+                        case ShrineType.FrenziedShrine:
+                        case ShrineType.EmpoweredShrine:
+                        case ShrineType.FleetingShrine:
+                            text = shrine.SnoActor.NameLocalized.ToLower().Replace("shrine", "").Trim();
+                            break;
+                        case ShrineType.PowerPylon:
+                        case ShrineType.ConduitPylon:
+                        case ShrineType.ChannelingPylon:
+                        case ShrineType.ShieldPylon:
+                        case ShrineType.SpeedPylon:
+                            text = shrine.SnoActor.NameLocalized;
+                            break;
+                    }
+
+                    return text;
+                }));
+
                 plugin.PoolOfReflectionDecorator.Add(SoundAlertFactory.Create<IShrine>(Hud, (shrine) => "pool"));
             });
 
-            Hud.RunOnPlugin<GoblinPlugin>(plugin =>
+            Hud.RunOnPlugin<Plugins.Default.GoblinPlugin>(plugin =>
             {
                 plugin.EnableSpeak = false; //just in case the default change
                 //plugin.PortalDecorator.Add(SoundAlertFactory.Create<IActor>(Hud, (actor) => "portal"));
@@ -65,8 +90,8 @@ namespace Turbo.Plugins.Jack.Customize
                 // ancient & primals prefixes
                 plugin.AncientLegendaryNamePrefix = "Ancient";
                 plugin.PrimalAncientLegendaryNamePrefix = "Primal";
-                plugin.AncientSetNamePrefix = "Ancient";
-                plugin.PrimalAncientSetNamePrefix = "Primal";
+                plugin.AncientSetNamePrefix = "Ancient Set";
+                plugin.PrimalAncientSetNamePrefix = "Primal Set";
 
                 // Exceptions on above rules :
                 // ---------------------------
@@ -85,6 +110,28 @@ namespace Turbo.Plugins.Jack.Customize
                 // custom items names (if the item is not in one of the other list, this will do nothing)
                 plugin.ItemCustomNames.Add(1844495708, "OMAGAD a gift"); // 1844495708 - Ramaladni's Gift
                 //plugin.ItemCustomNames.Add(2332226049, "health"); // health globe
+            });
+
+            ////////////
+            // SKILLS //
+            ////////////
+            Hud.RunOnPlugin<Jack.Players.PlayerSkillCooldownSoundAlertPlugin>(plugin =>
+            {
+                plugin.InTown = true;
+                //plugin.Add(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk);
+                plugin.Add(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk, "Walk"); // custom name
+                //plugin.Add(106237); // by sno
+                //plugin.Add(106237, "Walk"); // by sno with custom name
+
+                // remove entries
+                //plugin.Remove(Hud.Sno.SnoPowers.WitchDoctor_SpiritWalk);
+                //plugin.Remove(106237);
+
+                // clear all
+                //plugin.Clear();
+
+                plugin.Add(Hud.Sno.SnoPowers.Wizard_BlackHole, false, true, null, "BH");
+                plugin.Add(Hud.Sno.SnoPowers.Wizard_Passive_UnstableAnomaly, true, true, "Cheat death", "ok"); // don't work on passive
             });
 
             //Hud.RunOnPlugin<RamaladniDropFixPlugin>(plugin =>
