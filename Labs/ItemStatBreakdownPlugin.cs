@@ -122,7 +122,7 @@ namespace Turbo.Plugins.Jack.Labs
 		    'spend': 'Increases [spender] damage by %',
 		    'sock' : 'Sockets',
 		    'edmg' : 'Increases Damage Against Elites by %',
-		    'erud' : 'Reduced damage from Elites',
+		    'erud' : 'Reduced damage from Elites', 
 		    'apoc' : 'Critical Hits grant X Arcane Power',
 		    'block': '% Chance to Block',
 		    'bleed': '% Chance to Inflict Bleed for X Weapon Damage over Y Seconds',
@@ -163,6 +163,7 @@ namespace Turbo.Plugins.Jack.Labs
             "Armor_Bonus_Item",
             "Resistance_All",
             "Resistance",
+	    "Damage_Percent_Reduction_From_Elites",
         };
 
         /*var secondaryAffixLabels = {
@@ -191,6 +192,7 @@ namespace Turbo.Plugins.Jack.Labs
             'dura'  : 'Ignores Durability Loss',
             'glob'  : 'Health globes and potions grant +X life',
             'lvlr'  : 'Level Requirement Reduced by X',
+	    'dmgb'  : '% Damage to beasts',
         };/**/
         /* MISSING */
         /*var secondaryAffixLabels = {
@@ -229,6 +231,8 @@ namespace Turbo.Plugins.Jack.Labs
             "On_Hit_Knockback_Proc_Chance",
             "On_Hit_Immobilize_Proc_Chance",
             "---------",
+	    "Damage_Percent_Bonus_Vs_Monster_Type  / 2"
+	    "---------",
             "Movement_Scalar",
             "Experience_Bonus",
             "Gold_Find",
