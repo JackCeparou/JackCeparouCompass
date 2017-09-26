@@ -231,7 +231,7 @@ namespace Turbo.Plugins.Jack.Labs
             "On_Hit_Knockback_Proc_Chance",
             "On_Hit_Immobilize_Proc_Chance",
             "---------",
-	    "Damage_Percent_Bonus_Vs_Monster_Type  / 2"
+	    "Damage_Percent_Bonus_Vs_Monster_Type  / 2",
 	    "---------",
             "Movement_Scalar",
             "Experience_Bonus",
