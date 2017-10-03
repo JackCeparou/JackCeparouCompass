@@ -1,4 +1,5 @@
-﻿namespace Turbo.Plugins.Jack.Extensions
+﻿//v2.6 update
+namespace Turbo.Plugins.Jack.Extensions
 {
     using System.Collections.Generic;
 
@@ -39,12 +40,16 @@
             if (powerInfo.BladeOfTheWarlord != null) yield return powerInfo.BladeOfTheWarlord;
             if (powerInfo.BlessedOfHaull != null) yield return powerInfo.BlessedOfHaull;
             if (powerInfo.BloodBrother != null) yield return powerInfo.BloodBrother;
+			if (powerInfo.BloodsongMail != null) yield return powerInfo.BloodsongMail;			// IBuff BloodsongMail { get; } // 476585 - P6_ItemPassive_Unique_Ring_064
+			if (powerInfo.BloodtideBlade != null) yield return powerInfo.BloodtideBlade;		// IBuff BloodtideBlade { get; } // 475251 - P6_ItemPassive_Unique_Ring_047
             if (powerInfo.BovineBardiche != null) yield return powerInfo.BovineBardiche;
             if (powerInfo.BracerOfFury != null) yield return powerInfo.BracerOfFury;
             if (powerInfo.BracersOfDestruction != null) yield return powerInfo.BracersOfDestruction;
             if (powerInfo.BracersOfTheFirstMen != null) yield return powerInfo.BracersOfTheFirstMen;
+			if (powerInfo.BriggsWrath != null) yield return powerInfo.BriggsWrath;				// IBuff BriggsWrath { get; } // 475252 - P6_ItemPassive_Unique_Ring_049
             if (powerInfo.BrokenCrown != null) yield return powerInfo.BrokenCrown;
             if (powerInfo.BrokenPromises != null) yield return powerInfo.BrokenPromises;
+			if (powerInfo.BrynersJourney != null) yield return powerInfo.BrynersJourney;		// IBuff BrynersJourney { get; } // 475245 - P6_ItemPassive_Unique_Ring_041
             if (powerInfo.BulKathossWeddingBand != null) yield return powerInfo.BulKathossWeddingBand;
             if (powerInfo.ButchersCarver != null) yield return powerInfo.ButchersCarver;
             if (powerInfo.CamsRebuttal != null) yield return powerInfo.CamsRebuttal;
@@ -56,9 +61,11 @@
             if (powerInfo.ChanonBolter != null) yield return powerInfo.ChanonBolter;
             if (powerInfo.ChilaniksChain != null) yield return powerInfo.ChilaniksChain;
             if (powerInfo.Cindercoat != null) yield return powerInfo.Cindercoat;
+			if (powerInfo.CircleOfNailujsEvol != null) yield return powerInfo.CircleOfNailujsEvol;	// IBuff CircleOfNailujsEvol { get; } // 475247 - P6_ItemPassive_Unique_Ring_043
             if (powerInfo.CoilsOfTheFirstSpider != null) yield return powerInfo.CoilsOfTheFirstSpider;
             if (powerInfo.ConventionOfElements != null) yield return powerInfo.ConventionOfElements;
             if (powerInfo.CordOfTheSherma != null) yield return powerInfo.CordOfTheSherma;
+			if (powerInfo.CorpsewhisperPauldrons != null) yield return powerInfo.CorpsewhisperPauldrons;	// IBuff CorpsewhisperPauldrons { get; } // 476580 - P6_ItemPassive_Unique_Ring_059
             if (powerInfo.CorruptedAshbringer != null) yield return powerInfo.CorruptedAshbringer;
             if (powerInfo.CountessJuliasCameo != null) yield return powerInfo.CountessJuliasCameo;
             if (powerInfo.CrashingRain != null) yield return powerInfo.CrashingRain;
@@ -67,10 +74,12 @@
             if (powerInfo.CusterianWristguards != null) yield return powerInfo.CusterianWristguards;
             if (powerInfo.Darklight != null) yield return powerInfo.Darklight;
             if (powerInfo.DarkMagesShade != null) yield return powerInfo.DarkMagesShade;
+			if (powerInfo.DaynteesBinding != null) yield return powerInfo.DaynteesBinding;		// IBuff DaynteesBinding { get; } // 476689 - P6_ItemPassive_Unique_Ring_072
             if (powerInfo.DeadlyRebirth != null) yield return powerInfo.DeadlyRebirth;
             if (powerInfo.DeathseersCowl != null) yield return powerInfo.DeathseersCowl;
             if (powerInfo.DeathWatchMantle != null) yield return powerInfo.DeathWatchMantle;
             if (powerInfo.Deathwish != null) yield return powerInfo.Deathwish;
+			if (powerInfo.DefilerCuisses != null) yield return powerInfo.DefilerCuisses;		// IBuff DefilerCuisses { get; } // 475249 - P6_ItemPassive_Unique_Ring_045
             if (powerInfo.DepthDiggers != null) yield return powerInfo.DepthDiggers;
             if (powerInfo.DishonoredLegacy != null) yield return powerInfo.DishonoredLegacy;
             if (powerInfo.DovuEnergyTrap != null) yield return powerInfo.DovuEnergyTrap;
@@ -83,6 +92,7 @@
             if (powerInfo.EyeOfPeshkov != null) yield return powerInfo.EyeOfPeshkov;
             if (powerInfo.FaithfulMemory != null) yield return powerInfo.FaithfulMemory;
             if (powerInfo.FateOfTheFell != null) yield return powerInfo.FateOfTheFell;
+			if (powerInfo.FatesVow != null) yield return powerInfo.FatesVow;					// IBuff FatesVow { get; } // 476582 - P6_ItemPassive_Unique_Ring_061
             if (powerInfo.FazulasImprobableChain != null) yield return powerInfo.FazulasImprobableChain;
             if (powerInfo.FireWalkers != null) yield return powerInfo.FireWalkers;
             if (powerInfo.FlailOfTheAscended != null) yield return powerInfo.FlailOfTheAscended;
@@ -92,6 +102,7 @@
             if (powerInfo.FragmentOfDestiny != null) yield return powerInfo.FragmentOfDestiny;
             if (powerInfo.Frostburn != null) yield return powerInfo.Frostburn;
             if (powerInfo.Fulminator != null) yield return powerInfo.Fulminator;
+			if (powerInfo.FuneraryPick != null) yield return powerInfo.FuneraryPick;			// IBuff FuneraryPick { get; } // 476050 - P6_ItemPassive_Unique_Ring_054
             if (powerInfo.FuryOfTheAncients != null) yield return powerInfo.FuryOfTheAncients;
             if (powerInfo.GabrielsVambraces != null) yield return powerInfo.GabrielsVambraces;
             if (powerInfo.Genzaniku != null) yield return powerInfo.Genzaniku;
@@ -100,6 +111,8 @@
             if (powerInfo.GladiatorGauntlets != null) yield return powerInfo.GladiatorGauntlets;
             if (powerInfo.GoldenFlense != null) yield return powerInfo.GoldenFlense;
             if (powerInfo.Goldwrap != null) yield return powerInfo.Goldwrap;
+			if (powerInfo.GolemskinBreeches != null) yield return powerInfo.GolemskinBreeches;	// IBuff GolemskinBreeches { get; } // 476588 - P6_ItemPassive_Unique_Ring_067
+			if (powerInfo.GraspsOfEssence != null) yield return powerInfo.GraspsOfEssence;		// IBuff GraspsOfEssence { get; } // 475248 - P6_ItemPassive_Unique_Ring_044
             if (powerInfo.GungdoGear != null) yield return powerInfo.GungdoGear;
             if (powerInfo.GyanaNaKashu != null) yield return powerInfo.GyanaNaKashu;
             if (powerInfo.GyrfalconsFoote != null) yield return powerInfo.GyrfalconsFoote;
@@ -109,6 +122,7 @@
             if (powerInfo.HammerJammers != null) yield return powerInfo.HammerJammers;
             if (powerInfo.HandOfTheProphet != null) yield return powerInfo.HandOfTheProphet;
             if (powerInfo.HarringtonWaistguard != null) yield return powerInfo.HarringtonWaistguard;
+			if (powerInfo.HauntedVisions != null) yield return powerInfo.HauntedVisions;		// IBuff HauntedVisions { get; } // 476590 - P6_ItemPassive_Unique_Ring_069
             if (powerInfo.HauntingGirdle != null) yield return powerInfo.HauntingGirdle;
             if (powerInfo.HauntOfVaxo != null) yield return powerInfo.HauntOfVaxo;
             if (powerInfo.HeartOfIron != null) yield return powerInfo.HeartOfIron;
@@ -138,6 +152,7 @@
             if (powerInfo.KrelmsBuffBelt != null) yield return powerInfo.KrelmsBuffBelt;
             if (powerInfo.KrelmsBuffBracers != null) yield return powerInfo.KrelmsBuffBracers;
             if (powerInfo.Kridershot != null) yield return powerInfo.Kridershot;
+			if (powerInfo.KrysbinsSentence != null) yield return powerInfo.KrysbinsSentence;	// IBuff KrysbinsSentence { get; } // 475241 - P6_ItemPassive_Unique_Ring_037
             if (powerInfo.KyoshirosBlade != null) yield return powerInfo.KyoshirosBlade;
             if (powerInfo.KyoshirosSoul != null) yield return powerInfo.KyoshirosSoul;
             if (powerInfo.LakumbasOrnament != null) yield return powerInfo.LakumbasOrnament;
@@ -148,17 +163,22 @@
             if (powerInfo.LiannasWings != null) yield return powerInfo.LiannasWings;
             if (powerInfo.LionsClaw != null) yield return powerInfo.LionsClaw;
             if (powerInfo.LordGreenstonesFan != null) yield return powerInfo.LordGreenstonesFan;
+			if (powerInfo.LornellesSunstone != null) yield return powerInfo.LornellesSunstone;	// IBuff LornellesSunstone { get; } // 475244 - P6_ItemPassive_Unique_Ring_040
             if (powerInfo.LutSocks != null) yield return powerInfo.LutSocks;
             if (powerInfo.MadawcsSorrow != null) yield return powerInfo.MadawcsSorrow;
             if (powerInfo.Madstone != null) yield return powerInfo.Madstone;
             if (powerInfo.Magefist != null) yield return powerInfo.Magefist;
             if (powerInfo.MalothsFocus != null) yield return powerInfo.MalothsFocus;
+			if (powerInfo.MaltoriusPetrifiedSpike != null) yield return powerInfo.MaltoriusPetrifiedSpike;	// IBuff MaltoriusPetrifiedSpike { get; } // 475246 - P6_ItemPassive_Unique_Ring_042
             if (powerInfo.ManaldHeal != null) yield return powerInfo.ManaldHeal;
             if (powerInfo.MantleOfChanneling != null) yield return powerInfo.MantleOfChanneling;
             if (powerInfo.MarasKaleidoscope != null) yield return powerInfo.MarasKaleidoscope;
             if (powerInfo.MaskOfJeram != null) yield return powerInfo.MaskOfJeram;
+			if (powerInfo.MaskOfScarletDeath != null) yield return powerInfo.MaskOfScarletDeath;	// IBuff MaskOfScarletDeath { get; } // 476581 - P6_ItemPassive_Unique_Ring_060
             if (powerInfo.MoonlightWard != null) yield return powerInfo.MoonlightWard;
             if (powerInfo.MordullusPromise != null) yield return powerInfo.MordullusPromise;
+			if (powerInfo.MoribundGauntlets != null) yield return powerInfo.MoribundGauntlets;	// IBuff MoribundGauntlets { get; } // 476589 - P6_ItemPassive_Unique_Ring_068
+			if (powerInfo.NayrsBlackDeath != null) yield return powerInfo.NayrsBlackDeath;		// IBuff NayrsBlackDeath { get; } // 476587 - P6_ItemPassive_Unique_Ring_066
             if (powerInfo.NemesisBracers != null) yield return powerInfo.NemesisBracers;
             if (powerInfo.NilfursBoast != null) yield return powerInfo.NilfursBoast;
             if (powerInfo.Oathkeeper != null) yield return powerInfo.Oathkeeper;
@@ -176,10 +196,13 @@
             if (powerInfo.RabidStrike != null) yield return powerInfo.RabidStrike;
             if (powerInfo.RakoffsGlassOfLife != null) yield return powerInfo.RakoffsGlassOfLife;
             if (powerInfo.RanslorsFolly != null) yield return powerInfo.RanslorsFolly;
+			if (powerInfo.RazethsVolition != null) yield return powerInfo.RazethsVolition;		// IBuff RazethsVolition { get; } // 476578 - P6_ItemPassive_Unique_Ring_057
             if (powerInfo.RazorStrop != null) yield return powerInfo.RazorStrop;
             if (powerInfo.RechelsRingOfLarceny != null) yield return powerInfo.RechelsRingOfLarceny;
+			if (powerInfo.ReilenasShadowhook != null) yield return powerInfo.ReilenasShadowhook;	// IBuff ReilenasShadowhook { get; } // 475253 - P6_ItemPassive_Unique_Ring_048
             if (powerInfo.RelicOfAkarat != null) yield return powerInfo.RelicOfAkarat;
             if (powerInfo.Remorseless != null) yield return powerInfo.Remorseless;
+			if (powerInfo.RequiemCereplate != null) yield return powerInfo.RequiemCereplate;	// IBuff RequiemCereplate { get; } // 476579 - P6_ItemPassive_Unique_Ring_058
             if (powerInfo.RhenhoFlayer != null) yield return powerInfo.RhenhoFlayer;
             if (powerInfo.RibaldEtchings != null) yield return powerInfo.RibaldEtchings;
             if (powerInfo.Rimeheart != null) yield return powerInfo.Rimeheart;
@@ -193,6 +216,7 @@
             if (powerInfo.Scarbringer != null) yield return powerInfo.Scarbringer;
             if (powerInfo.Scourge != null) yield return powerInfo.Scourge;
             if (powerInfo.Scrimshaw != null) yield return powerInfo.Scrimshaw;
+			if (powerInfo.ScytheOfTheCycle != null) yield return powerInfo.ScytheOfTheCycle;	// IBuff ScytheOfTheCycle { get; } // 476586 - P6_ItemPassive_Unique_Ring_065
             if (powerInfo.SeborsNightmare != null) yield return powerInfo.SeborsNightmare;
             if (powerInfo.SerpentsSparker != null) yield return powerInfo.SerpentsSparker;
             if (powerInfo.ShardOfHate != null) yield return powerInfo.ShardOfHate;
@@ -208,6 +232,7 @@
             if (powerInfo.SmokingThurible != null) yield return powerInfo.SmokingThurible;
             if (powerInfo.Solanium != null) yield return powerInfo.Solanium;
             if (powerInfo.SpauldersOfZakara != null) yield return powerInfo.SpauldersOfZakara;
+			if (powerInfo.SpearOfJairo != null) yield return powerInfo.SpearOfJairo;			// IBuff SpearOfJairo { get; } // 475254 - P6_ItemPassive_Unique_Ring_050
             if (powerInfo.SpiritGuards != null) yield return powerInfo.SpiritGuards;
             if (powerInfo.StaffOfChiroptera != null) yield return powerInfo.StaffOfChiroptera;
             if (powerInfo.StalgardsDecimator != null) yield return powerInfo.StalgardsDecimator;
@@ -215,6 +240,7 @@
             if (powerInfo.StArchewsGage != null) yield return powerInfo.StArchewsGage;
             if (powerInfo.Starfire != null) yield return powerInfo.Starfire;
             if (powerInfo.StarmetalKukri != null) yield return powerInfo.StarmetalKukri;
+			if (powerInfo.SteuartsGreaves != null) yield return powerInfo.SteuartsGreaves;		// IBuff SteuartsGreaves { get; } // 475243 - P6_ItemPassive_Unique_Ring_039
             if (powerInfo.StormCrow != null) yield return powerInfo.StormCrow;
             if (powerInfo.StringOfEars != null) yield return powerInfo.StringOfEars;
             if (powerInfo.StrongarmBracers != null) yield return powerInfo.StrongarmBracers;
@@ -239,6 +265,7 @@
             if (powerInfo.TheGidbinn != null) yield return powerInfo.TheGidbinn;
             if (powerInfo.TheGrandVizier != null) yield return powerInfo.TheGrandVizier;
             if (powerInfo.TheGrinReaper != null) yield return powerInfo.TheGrinReaper;
+			if (powerInfo.TheJohnstone != null) yield return powerInfo.TheJohnstone;			// IBuff TheJohnstone { get; } // 476583 - P6_ItemPassive_Unique_Ring_062
             if (powerInfo.TheLawsOfSeph != null) yield return powerInfo.TheLawsOfSeph;
             if (powerInfo.TheMagistrate != null) yield return powerInfo.TheMagistrate;
             if (powerInfo.TheMindsEye != null) yield return powerInfo.TheMindsEye;
@@ -258,6 +285,7 @@
             if (powerInfo.ThunderfuryBlessedBladeOfTheWindseeker != null) yield return powerInfo.ThunderfuryBlessedBladeOfTheWindseeker;
             if (powerInfo.TiklandianVisage != null) yield return powerInfo.TiklandianVisage;
             if (powerInfo.TragOulCoils != null) yield return powerInfo.TragOulCoils;
+			if (powerInfo.TragOulsCorrodedFang != null) yield return powerInfo.TragOulsCorrodedFang;	// IBuff TragOulsCorrodedFang { get; } // 475250 - P6_ItemPassive_Unique_Ring_046
             if (powerInfo.TzoKrinsGaze != null) yield return powerInfo.TzoKrinsGaze;
             if (powerInfo.UnstableScepter != null) yield return powerInfo.UnstableScepter;
             if (powerInfo.VadimsSurge != null) yield return powerInfo.VadimsSurge;
@@ -274,6 +302,7 @@
             if (powerInfo.WarhelmOfKassar != null) yield return powerInfo.WarhelmOfKassar;
             if (powerInfo.WarstaffOfGeneralQuang != null) yield return powerInfo.WarstaffOfGeneralQuang;
             if (powerInfo.WarzechianArmguards != null) yield return powerInfo.WarzechianArmguards;
+			if (powerInfo.WisdomOfKalan != null) yield return powerInfo.WisdomOfKalan;			// IBuff WisdomOfKalan { get; } // 476686 - P6_ItemPassive_Unique_Ring_071
             if (powerInfo.Wizardspike != null) yield return powerInfo.Wizardspike;
             if (powerInfo.WojahnniAssaulter != null) yield return powerInfo.WojahnniAssaulter;
             if (powerInfo.WrapsOfClarity != null) yield return powerInfo.WrapsOfClarity;
