@@ -94,7 +94,7 @@ namespace Turbo.Plugins.Jack.Game
             if (layer != WorldLayer.Ground) return;
             if (Hud.Game.Me.SnoArea.Sno != portalAreaSno) return;
 
-            foreach (var portal in Hud.Game.Portals.Where(a => uberPortalSnos.Contains(a.SnoActor.Sno)))
+            foreach (var portal in Hud.Game.Actors.Where(a => uberPortalSnos.Contains(a.SnoActor.Sno)))
             {
                 var encounterState = uberEncounterStates.Where(a => a.Value.PortalSno == portal.SnoActor.Sno).Select(a => a.Value).FirstOrDefault();
                 if (encounterState != null && encounterState.Visited)
