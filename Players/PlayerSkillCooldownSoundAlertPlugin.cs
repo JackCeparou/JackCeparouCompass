@@ -32,7 +32,7 @@
                     ? PowerCustomNames[snoPower.SnoPower.Sno]
                     : TextFunc(snoPower);
 
-                Hud.Speak(text);
+                Hud.Sound.Speak(text);
             }
 
             //Says.Debug(snoPower.SnoPower.Sno, snoPower.SnoPower.NameLocalized, expired);
