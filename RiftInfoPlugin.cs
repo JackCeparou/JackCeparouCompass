@@ -153,9 +153,9 @@
                 TitleFont = Hud.Render.CreateFont("tahoma", 6, 255, 180, 147, 109, true, false, false),
             };
 
-            pauseTimer = Hud.CreateWatch();
-            riftTimer = Hud.CreateWatch();
-            guardianTimer = Hud.CreateWatch();
+            pauseTimer = Hud.Time.CreateWatch();
+            riftTimer = Hud.Time.CreateWatch();
+            guardianTimer = Hud.Time.CreateWatch();
         }
 
         public void Customize()

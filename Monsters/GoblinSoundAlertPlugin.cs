@@ -62,7 +62,7 @@
             SnoMapping.Add(405186, RainbowGoblin);
             SnoMapping.Add(380657, TreasureFiendGoblin);
 
-            lastPack = Hud.CreateWatch();
+            lastPack = Hud.Time.CreateWatch();
         }
 
         public void OnNewArea(bool newGame, ISnoArea area)
@@ -85,7 +85,8 @@
             // 405750	p1_Greed_PortalMonsterSummon	Invisible portal summoner
             //408679	MarkerLocation_GoblinPortalIn
 
-            var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && x.SnoActor.Sno != 410572 && x.SnoActor.Sno != 410574);
+            //var goblins = Hud.Game.AliveMonsters.Where(x => x.SnoMonster.Priority == MonsterPriority.goblin && x.GetData<SoundAlert<IMonster>>() == null && x.SnoActor.Sno != 410572 && x.SnoActor.Sno != 410574);
+            var goblins = Hud.Game.AliveMonsters.Where(x => SnoMapping.ContainsKey(x.SnoMonster.Sno) && x.GetData<SoundAlert<IMonster>>() == null);
             //Says.Debug(string.Join(" ", goblins.Select(g => g.SnoMonster.Sno)));
             if (goblins.Count() > 1)
             {
