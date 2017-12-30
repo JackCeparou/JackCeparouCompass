@@ -1,63 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using SharpDX.Direct2D1;
 using Turbo.Plugins.Default;
 using Turbo.Plugins.Jack.DevTool.Logger;
 
 namespace Turbo.Plugins.Jack.Labs.Texture
 {
-    public class TextureGeneratorPlugin : BasePlugin, IInGameTopPainter, ICustomizer, IAfterCollectHandler
+    public class TextureGeneratorPlugin : BasePlugin, IAfterCollectHandler, IInGameTopPainter, ICustomizer
     {
-        private int index;
-        private List<uint> textureList;
-
+        private uint? currentId;
         private IBrush blackBrush;
         private IBrush backgroundBrush;
-
-        private static WebClient client;
+        private ITexture previousTexture;
+        private ITexture currentTexture;
+        private readonly WebClient client;
         private bool drawn;
-        private ITexture texture;
-        private uint id;
+        private IWatch watch;
+        private IWatch memoryWatch;
+        private IWatch startThrottle;
 
         public TextureGeneratorPlugin()
         {
             Enabled = true;
+            Order = int.MaxValue;
+            client = new WebClient();
         }
 
         public override void Load(IController hud)
         {
             base.Load(hud);
-
-            textureList = new TextureList().TextureIds;
+            watch = Hud.Time.CreateAndStartWatch();
+            memoryWatch = hud.Time.CreateWatch();
+            startThrottle = Hud.Time.CreateAndStartWatch();
             blackBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0);
-            //backgroundBrush = Hud.Render.CreateBrush(255, 255, 53, 197, 0);
             backgroundBrush = Hud.Render.CreateBrush(255, 255, 255, 255, 0);
-
-            client = new WebClient();
-            client.DownloadStringCompleted += Client_DownloadStringCompleted;
-        }
-
-        public void AfterCollect()
-        {
-            if (!drawn) return;
-            if (client.IsBusy) return;
-            if (id == 0) return;
-            if (texture == null) return;
-
-            var result = client.DownloadString(new Uri(string.Format("http://localhost:3420/{0}.png/{1}/{2}", id, texture.Width, texture.Height)));
-
-            if (result == "ok")
-            {
-                drawn = false;
-                index++;
-            }
-        }
-
-        private void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            Says.Debug("End..");
-            index++;
         }
 
         public void Customize()
@@ -65,42 +40,131 @@ namespace Turbo.Plugins.Jack.Labs.Texture
             Hud.RunOnPlugin<LogToScreenPlugin>(plugin => plugin.XFunc = () => Hud.Window.Size.Width * 0.7f);
         }
 
+        public void AfterCollect()
+        {
+            if (client.IsBusy) return;
+            if (!Hud.Game.Me.IsInTown) return;
+            if (!startThrottle.TimerTest(2000)) return;
+
+            switch (currentId)
+            {
+                case null:
+                case 0:
+                    currentId = GetNextId();
+                    return;
+
+                case uint.MaxValue:
+                    Says.Info("Finished !!");
+                    return;
+
+                default:
+                    if (!drawn) return;
+                    if (currentTexture == null) return;
+                    if (!watch.TimerTest(10)) return;
+                    if (!TextureCall("generate", currentId.Value, currentTexture)) return;
+                    drawn = false;
+                    currentId++;
+                    previousTexture = currentTexture;
+                    currentTexture = null;
+
+                    return;
+            }
+        }
+
         public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
             if (!Hud.Game.Me.IsInTown) return;
-            if (index == -1) return;
 
-            if (index >= textureList.Count)
+            blackBrush.DrawRectangle(0, 0, Hud.Window.Size.Width / 2f, Hud.Window.Size.Height);
+
+            if (!currentId.HasValue) return;
+            if (SetTexture())
+                Says.Debug(currentId, currentTexture.Width, currentTexture.Height);
+
+            var texture = currentTexture ?? previousTexture;
+            if (texture == null) return;
+
+            backgroundBrush.DrawRectangle(0, 0, texture.Width, texture.Height);
+            texture.Draw(0, 0, texture.Width, texture.Height);
+
+            if (currentTexture == null) return;
+
+            drawn = true;
+        }
+
+        private bool SetTexture()
+        {
+            if (currentTexture != null)
+                return false;
+            if ((GC.GetTotalMemory(false)/1024.0/1024.0) > 600)
             {
-                Says.Info("Finished !!");
-                index = -1;
-                return;
+                Says.Error("Too much memory used!");
+                if (!memoryWatch.IsRunning)
+                    memoryWatch.Restart();
+
+                if (!memoryWatch.TimerTest(1000))
+                    return false;
+
+                ServiceCall("restart");
+                memoryWatch.Restart();
+                return false;
+            }
+            if (memoryWatch.IsRunning)
+            {
+                memoryWatch.Reset();
+                memoryWatch.Stop();
             }
 
             try
             {
-                id = textureList[index];
-                texture = Hud.Texture.GetTexture(id);
-                if (texture == null)
+                var counter = 0;
+                while (currentTexture == null && counter < 5000)
                 {
-                    Says.Error("No texture here !! " + id);
-                }
-                else
-                {
-                    blackBrush.DrawRectangle(0, 0, Hud.Window.Size.Width / 2f, Hud.Window.Size.Height);
-                    backgroundBrush.DrawRectangle(0, 0, texture.Width, texture.Height);
-                    texture.Draw(0, 0, texture.Width, texture.Height);
-                    //Says.Debug(id, texture.Width, texture.Height);
-                    //Hud.Debug(id + "\t" + texture.Width + "\t" + texture.Height);
+                    currentTexture = Hud.Texture.GetTexture(currentId ?? 0);
+                    if (currentTexture != null)
+                    {
+                        watch.Restart();
+                        return true;
+                    }
 
-                    drawn = true;
+                    if (currentId%10000 == 0)
+                    {
+                        ServiceCall("last", currentId ?? 0);
+                        Says.Debug("No texture with id : {0}", currentId);
+                    }
+
+                    currentId++;
+                    counter++;
                 }
             }
             catch (Exception ex)
             {
                 Says.Error(ex.Message);
             }
+            return false;
+        }
+
+        private uint GetNextId()
+        {
+            uint result;
+            var stringContent = ServiceCall("maxid");
+            if (uint.TryParse(stringContent, out result)) return result + 1;
+
+            Says.Error("Can't parse id " + stringContent);
+            return 0;
+        }
+
+        private bool TextureCall(string action, uint id, ITexture texture)
+        {
+            var stringContent = ServiceCall(action, id, texture.Width, texture.Height);
+            return string.Equals("ok", stringContent, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string ServiceCall(params object[] routeShards)
+        {
+            var shards = string.Join("/", routeShards);
+            return client.DownloadString(new Uri(string.Format("http://localhost:3420/{0}", shards)));
         }
     }
 }
