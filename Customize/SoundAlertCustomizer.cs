@@ -130,8 +130,8 @@
                 // clear all
                 //plugin.Clear();
 
-                plugin.Add(Hud.Sno.SnoPowers.Wizard_BlackHole, false, true, null, "BH");
-                plugin.Add(Hud.Sno.SnoPowers.Wizard_Passive_UnstableAnomaly, true, true, "Cheat death", "ok"); // don't work on passive
+                //plugin.Add(Hud.Sno.SnoPowers.Wizard_BlackHole, false, true, null, "BH");
+                //plugin.Add(Hud.Sno.SnoPowers.Wizard_Passive_UnstableAnomaly, true, true, "Cheat death", "ok"); // don't work on passive
             });
 
             //Hud.RunOnPlugin<RamaladniDropFixPlugin>(plugin =>

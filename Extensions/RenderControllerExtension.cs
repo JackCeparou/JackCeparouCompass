@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Turbo.Plugins;
 
-namespace Turbo.plugins.Jack.Extensions
+namespace Turbo.Plugins.Jack.Extensions
 {
     public static class RenderControllerExtension
     {

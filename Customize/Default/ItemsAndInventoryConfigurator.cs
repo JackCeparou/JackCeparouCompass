@@ -37,7 +37,7 @@
             Hud.RunOnPlugin<InventoryAndStashPlugin>(plugin =>
             {
                 // enable sell darkening
-                //inventoryAndStashPlugin.SellEnabled = true;
+                //plugin.NotGoodDisplayEnabled = false;
 
                 // shh, go away blinking cube!
                 //plugin.CanCubedEnabled = false;
@@ -51,7 +51,7 @@
                 // change darken brush to a lighter one
                 ////inventoryAndStashPlugin.DarkenBrush = Hud.Render.CreateBrush(120, 38, 38, 38, 0);
 
-                plugin.NotGoodDisplayEnabled = true;
+                //plugin.NotGoodDisplayEnabled = true;
                 plugin.DefinitelyBadDisplayEnabled = true;
                 //plugin.LooksGoodDisplayEnabled = true;
             });

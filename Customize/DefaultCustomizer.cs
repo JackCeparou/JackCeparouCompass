@@ -27,6 +27,7 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<DebugPlugin>(true);
             Hud.TogglePlugin<MultiplayerExperienceRangePlugin>(false);
             Hud.TogglePlugin<PortraitBottomStatsPlugin>(false);
+            Hud.TogglePlugin<ParagonCapturePlugin>(false);
             //Hud.TogglePlugin<TopExperienceStatistics>(false);
             Hud.TogglePlugin<AttributeLabelListPlugin>(false);
             Hud.TogglePlugin<SkillRangeHelperPlugin>(false);

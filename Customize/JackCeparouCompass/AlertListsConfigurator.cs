@@ -177,7 +177,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
                                     buff.Active,
-                                    string.Format("{0:0.#}", buff.TimeLeft()),
+                                    //string.Format("{0:0.#}", buff.TimeLeft()),
                                     string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
                                     string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
                                     ));
@@ -207,7 +207,7 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                                     buff.SnoPower.Sno.ToString(),
                                     buff.SnoPower.Code,
                                     buff.Active,
-                                    string.Format("{0:0.#}", buff.TimeLeft()), 
+                                    //string.Format("{0:0.#}", buff.TimeLeft()), 
                                     string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
                                     string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
                                     ));

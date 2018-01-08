@@ -59,5 +59,10 @@
 
             return snoId.ToString();
         }
+
+        public static IPlugin GetPlugin(this IController hud, string pluginName)
+        {
+            return hud.AllPlugins.FirstOrDefault(p => string.Equals(p.GetType().Name, pluginName, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

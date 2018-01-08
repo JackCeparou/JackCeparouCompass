@@ -68,9 +68,12 @@ namespace Turbo.Plugins.Jack.Labs.Powers
         {
             var name = string.Empty;
             var items = power.GetItemSnos();
+            
             if (items.Any(xx => xx != 0) && string.IsNullOrWhiteSpace(power.NameEnglish))
             {
-                name = Hud.Inventory.GetSnoItem(items.First()).NameEnglish;
+                //name = Hud.Inventory.GetSnoItem(items.First()).NameEnglish;
+                var item = Hud.Inventory.GetSnoItem(items.First());
+                name = item == null ? power.Sno.ToString() : item.NameEnglish;
             }
             else
             {
@@ -82,7 +85,7 @@ namespace Turbo.Plugins.Jack.Labs.Powers
                 name = name.Substring(0, textLenght);
             }
 
-            var layout = TextFont.GetTextLayout(string.Format("{0,25} Icons: ", name));
+            var layout = TextFont.GetTextLayout(string.Format("{0,25} Ic:", name));
             var layoutSpacer = TextFont.GetTextLayout(":");
             TextFont.DrawText(layout, x, y);
 
@@ -126,7 +129,7 @@ namespace Turbo.Plugins.Jack.Labs.Powers
                 x += StandardIconSize + StandardIconSpacing;
             }
 
-            layout = TextFont.GetTextLayout(" Items: ");
+            layout = TextFont.GetTextLayout(" It:");
             TextFont.DrawText(layout, x, y);
             x += layout.Metrics.Width + layoutSpacer.Metrics.Width;
 

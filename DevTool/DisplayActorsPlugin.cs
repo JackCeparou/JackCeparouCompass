@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Turbo.Plugins.Default;
 
 namespace Turbo.Plugins.Jack.DevTool
 {
-    public class DisplayActorsPlugin : BasePlugin, IInGameWorldPainter
+    public class DisplayActorsPlugin : BasePlugin, IInGameTopPainter
     {
         public Keys HotKey { get; set; }
         public GroundLabelDecorator Decorator { get; set; }
@@ -28,9 +24,10 @@ namespace Turbo.Plugins.Jack.DevTool
             };
         }
 
-        public void PaintWorld(WorldLayer layer)
+        public void PaintTopInGame(ClipState clipState)
         {
-            if (!Hud.Input.IsKeyDown(HotKey) || layer != WorldLayer.Ground) return;
+            if (clipState != ClipState.AfterClip) return;
+            if (!Hud.Input.IsKeyDown(HotKey)) return;
 
             foreach (var actor in Hud.Game.Actors)
             {
