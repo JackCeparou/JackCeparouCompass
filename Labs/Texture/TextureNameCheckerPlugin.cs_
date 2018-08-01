@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.Labs.Texture
+{
+    public class TextureNameCheckerPlugin : BasePlugin, IInGameTopPainter
+    {
+        private int _batchSize;
+        private int _index;
+        private List<string> _nameListSource;
+        private List<string> _existingNames;
+
+        public TextureNameCheckerPlugin()
+        {
+            Enabled = true;
+            _existingNames = new List<string>();
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            _index = 0;
+            _batchSize = 100;
+            _nameListSource = new TextureNamesList().GetEnumerable().ToList();
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+            if (_index >= _nameListSource.Count)
+            {
+                //Jack.Says.Debug(string.Format("Done! {0}/{1}", _existingNames.Count, _nameListSource.Count));
+                return;
+            }
+
+            var start = _index;
+            var end = start + _batchSize;
+
+            if (end >= _nameListSource.Count)
+            {
+                end = _nameListSource.Count - 1;
+            }
+
+            for (var i = start; i < end; i++)
+            {
+                var name = _nameListSource[i];
+                var tex = Hud.Texture.GetTexture(name);
+                if (tex != null)
+                {
+                    Hud.Debug(name);
+                    Jack.Says.Debug(name);
+                    _existingNames.Add(name);
+                }
+            }
+
+            _index = end + 1;
+
+            Jack.Says.Debug(string.Format("index : {0} found : {1}", _index, _existingNames.Count));
+        }
+    }
+}
