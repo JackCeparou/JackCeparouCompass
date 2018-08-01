@@ -287,6 +287,28 @@
                     CustomCondition = player => player.Powers.BuffIsActive(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno) && player.Powers.GetBuff(Hud.Sno.SnoPowers.Necromancer_BoneArmor.Sno).TimeLeftSeconds[0] <= 3,
                 },
             });
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
+            {
+                TextSnoId = powers.Necromancer_CommandGolem.Sno,
+                MessageFormat = "\uD83D\uDEB6 {0} \uD83D\uDEB6", //🚶
+                Rule =
+                {
+                    ShowInTown = true,
+                    EquippedSkills = new[] { new SnoPowerId(powers.Necromancer_CommandGolem.Sno) },
+                    InvocationActorSnoIds = new HashSet<uint>() { 471646, 471647, 465239, 471619, 460042 } //missing some?
+                },
+            });
+            AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
+            {
+                TextSnoId = powers.Necromancer_CommandSkeletons.Sno,
+                MessageFormat = "\uD83D\uDEB6 {0} \uD83D\uDEB6", //🚶
+                Rule =
+                {
+                    ShowInTown = true,
+                    EquippedSkills = new[] { new SnoPowerId(powers.Necromancer_CommandSkeletons.Sno) },
+                    InvocationActorSnoIds = new HashSet<uint>() { 473147, 473428, 473426, 473420, 473417, 473418 } //missing some?
+                },
+            });
 
             // ===========
             // WitchDoctor
