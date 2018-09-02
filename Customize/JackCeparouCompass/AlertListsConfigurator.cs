@@ -46,6 +46,10 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
                 plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
                 {
                     MessageFormat = "\uD83C\uDF81 {0} \uD83C\uDF81",
+                    Label =
+                    {
+                        TextFont = Hud.Render.CreateFont("tahoma", 11, 255, 30, 244, 30, false, false, 242, 0, 0, 0, true)
+                    },
                     AlertTextFunc = (id) =>
                     {
                         return "!! Free vault !!";
@@ -153,76 +157,76 @@ namespace Turbo.Plugins.Jack.Customize.JackCeparouCompass
             });
 
             /* show all buffs */
-            Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
-            {
-                plugin.AlertList.Up = false;
-                plugin.AlertList.RatioX = 0.02f;
-                plugin.AlertList.RatioY = 0.1f;
-                plugin.AlertList.VerticalCenter = false;
-                plugin.AlertList.TextAlign = HorizontalAlign.Left;
-                plugin.AlertList.RatioSpacerY = 0;
+            //Hud.RunOnPlugin<Jack.Alerts.PlayerLeftAlertListPlugin>(plugin =>
+            //{
+            //    plugin.AlertList.Up = false;
+            //    plugin.AlertList.RatioX = 0.02f;
+            //    plugin.AlertList.RatioY = 0.1f;
+            //    plugin.AlertList.VerticalCenter = false;
+            //    plugin.AlertList.TextAlign = HorizontalAlign.Left;
+            //    plugin.AlertList.RatioSpacerY = 0;
 
-                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
-                {
-                    MultiLine = true,
-                    LinesFunc = () =>
-                    {
-                        return
-                            Hud.Game.Me.Powers.AllBuffs
-                                .Where(buff => buff != null && buff.SnoPower != null && !string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
-                                .OrderBy(buff => buff.SnoPower.Sno)
-                                .Select(buff => string.Join(
-                                    " | ",
-                                    buff.SnoPower.NameEnglish,
-                                    buff.SnoPower.Sno.ToString(),
-                                    buff.SnoPower.Code,
-                                    buff.Active,
-                                    //string.Format("{0:0.#}", buff.TimeLeft()),
-                                    string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
-                                    string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
-                                    ));
-                    },
-                    Label =
-                    {
-                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
-                    },
-                    Rule =
-                    {
-                        ShowInTown = true,
-                        VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
-                    }
-                });
+            //    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+            //    {
+            //        MultiLine = true,
+            //        LinesFunc = () =>
+            //        {
+            //            return
+            //                Hud.Game.Me.Powers.AllBuffs
+            //                    .Where(buff => buff != null && buff.SnoPower != null && !string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
+            //                    .OrderBy(buff => buff.SnoPower.Sno)
+            //                    .Select(buff => string.Join(
+            //                        " | ",
+            //                        buff.SnoPower.NameEnglish,
+            //                        buff.SnoPower.Sno.ToString(),
+            //                        buff.SnoPower.Code,
+            //                        buff.Active,
+            //                        //string.Format("{0:0.#}", buff.TimeLeft()),
+            //                        string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
+            //                        string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
+            //                        ));
+            //        },
+            //        Label =
+            //        {
+            //            TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
+            //        },
+            //        Rule =
+            //        {
+            //            ShowInTown = true,
+            //            VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
+            //        }
+            //    });
 
-                plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
-                {
-                    MultiLine = true,
-                    LinesFunc = () =>
-                    {
-                        return
-                            Hud.Game.Me.Powers.AllBuffs
-                                .Where(buff => buff != null && buff.SnoPower != null && /*buff.SnoPower.Sno == 430674 &&*/ string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
-                                .OrderBy(buff => buff.SnoPower.Sno)
-                                .Select(buff => string.Join(
-                                    " | ",
-                                    buff.SnoPower.Sno.ToString(),
-                                    buff.SnoPower.Code,
-                                    buff.Active,
-                                    //string.Format("{0:0.#}", buff.TimeLeft()), 
-                                    string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
-                                    string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
-                                    ));
-                    },
-                    Label =
-                    {
-                        TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
-                    },
-                    Rule =
-                    {
-                        ShowInTown = true,
-                        VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
-                    }
-                });
-            });/*end*/
+            //    plugin.AlertList.Alerts.Add(new Jack.Alerts.Alert(Hud)
+            //    {
+            //        MultiLine = true,
+            //        LinesFunc = () =>
+            //        {
+            //            return
+            //                Hud.Game.Me.Powers.AllBuffs
+            //                    .Where(buff => buff != null && buff.SnoPower != null && /*buff.SnoPower.Sno == 430674 &&*/ string.IsNullOrEmpty(buff.SnoPower.NameEnglish))
+            //                    .OrderBy(buff => buff.SnoPower.Sno)
+            //                    .Select(buff => string.Join(
+            //                        " | ",
+            //                        buff.SnoPower.Sno.ToString(),
+            //                        buff.SnoPower.Code,
+            //                        buff.Active,
+            //                        //string.Format("{0:0.#}", buff.TimeLeft()),
+            //                        string.Join(", ", buff.IconCounts.Select(i => string.Format("{0:0.#}", i))),
+            //                        string.Join(", ", buff.TimeLeftSeconds.Select(t => string.Format("{0:0.#}", t)))
+            //                        ));
+            //        },
+            //        Label =
+            //        {
+            //            TextFont = Hud.Render.CreateFont("tahoma", 7, 255, 0, 170, 0, false, false, true),
+            //        },
+            //        Rule =
+            //        {
+            //            ShowInTown = true,
+            //            VisibleCondition = (player) => /*Hud.Game.IsInTown &&*/ Hud.Input.IsKeyDown(Keys.B),
+            //        }
+            //    });
+            //});/*end*/
         }
     }
 }
