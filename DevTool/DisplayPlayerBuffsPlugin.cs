@@ -21,8 +21,6 @@ namespace Turbo.Plugins.Jack.DevTool
             Enabled = true;
             StartX = 20f;
             StartY = 50f;
-
-            _showList = true;
         }
 
         public override void Load(IController hud)
