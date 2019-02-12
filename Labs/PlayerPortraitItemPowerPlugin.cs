@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
-using Turbo.Plugins;
 using Turbo.Plugins.Default;
 
-namespace Turbo.Plugins.Jack.Labs
+namespace Turbo.Plugins.Jack
 {
     public class PlayerPortraitItemPowerPlugin : BasePlugin, IInGameTopPainter
     {

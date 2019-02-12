@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Turbo.Plugins.Jack.Interfaces;
+using Turbo.Plugins;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack.EventManager
+{
+    public class BuffDurationEventPlugin : BasePlugin, IInGameTopPainter, INewAreaHandler
+    {
+        private int screenHeight;
+        private int screenWidth;
+
+        private static readonly List<IOnBuffDurationHandler> registredPlugins = new List<IOnBuffDurationHandler>();
+        public List<IOnBuffDurationHandler> RegistredPlugins
+        {
+            get { return registredPlugins; }
+        }
+
+        public BuffDurationEventPlugin()
+        {
+            Enabled = true;
+            Order = int.MinValue;
+        }
+
+        public void OnNewArea(bool newGame, ISnoArea area)
+        {
+            if (newGame)
+                CheckSize();
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.BeforeClip) return;
+
+            CheckSize();
+        }
+
+        public static void Register(IOnBuffDurationHandler plugin)
+        {
+            registredPlugins.Add(plugin);
+        }
+
+        private void CheckSize()
+        {
+            var size = Hud.Window.Size;
+            if (screenHeight == size.Height && screenWidth == size.Width) return;
+
+            foreach (var plugin in registredPlugins)
+            {
+                plugin.OnBuffDuration(null, false);
+            }
+
+            screenHeight = size.Height;
+            screenWidth = size.Width;
+        }
+    }
+}

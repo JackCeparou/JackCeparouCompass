@@ -1,0 +1,168 @@
+﻿namespace Turbo.Plugins.Jack.Players
+{
+    using System;
+    using System.Collections.Generic;
+    using Turbo.Plugins.Default;
+
+    public class PlayerSkillCooldownSoundAlertPlugin : BasePlugin, ISkillCooldownHandler
+    {
+        public bool InTown { get; set; }
+        public Func<IPlayerSkill, string> TextFunc { get; set; }
+        public HashSet<uint> PowerSnos { get; set; }
+        public Dictionary<uint, string> PowerCooldownStart { get; set; }
+        public Dictionary<uint, string> PowerCooldownEnd { get; set; }
+        [Obsolete("Still there for backward customize compatibility but it's not used anymore.")]
+        public Dictionary<uint, string> PowerCustomNames { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerSkillCooldownSoundAlertPlugin"/> class.
+        /// </summary>
+        public PlayerSkillCooldownSoundAlertPlugin()
+        {
+            Enabled = true;
+            InTown = true;
+            PowerSnos = new HashSet<uint>();
+            PowerCooldownStart = new Dictionary<uint, string>();
+            PowerCooldownEnd = new Dictionary<uint, string>();
+            TextFunc = (power) => power.SnoPower.NameLocalized;
+            // will be removed later
+            PowerCustomNames = new Dictionary<uint, string>();
+        }
+
+        /// <summary>
+        /// Called when a used skill's cooldown is started or expired. This method is called during the data collection phase, which means no rendering is possible!
+        /// </summary>
+        /// <param name="snoPower"></param>
+        /// <param name="expired"></param>
+        public void OnCooldown(IPlayerSkill snoPower, bool expired)
+        {
+            if (Hud.Game.IsInTown && !InTown) return;
+            if (!snoPower.Player.IsMe) return;
+            //Says.Debug(snoPower.SnoPower.Sno);
+            var sno = snoPower.SnoPower.Sno;
+            if (!PowerSnos.Contains(sno)) return;
+
+            var dic = expired ? PowerCooldownEnd : PowerCooldownStart;
+            var text = dic.ContainsKey(sno) && dic[sno] != null
+                ? dic[sno]
+                : TextFunc(snoPower);
+
+            if (!expired && PowerCooldownStart.ContainsKey(sno))
+            {
+                Hud.Sound.Speak(text);
+            }
+            if (expired && PowerCooldownEnd.ContainsKey(sno))
+            {
+                Hud.Sound.Speak(text);
+            }
+
+            //Says.Debug(sno, snoPower.SnoPower.NameLocalized, expired);
+        }
+
+        /// <summary>
+        /// Adds the specified power cooldown end sound alert.
+        /// </summary>
+        /// <param name="power">The power.</param>
+        /// <param name="text">The text cooldown.</param>
+        public void Add(ISnoPower power, string text = null)
+        {
+            Add(power.Sno, false, true, null, text);
+        }
+
+        /// <summary>
+        /// Adds the specified power cooldown end sound alert.
+        /// </summary>
+        /// <param name="sno">The power sno.</param>
+        /// <param name="text">The text cooldown.</param>
+        public void Add(uint sno, string text = null)
+        {
+            Add(sno, false, true, null, text);
+        }
+
+        /// <summary>
+        /// Adds the specified power cooldown end sound alert.
+        /// </summary>
+        /// <param name="power">The power.</param>
+        /// <param name="onCooldownStart">if set to <c>true</c> [on cooldown start].</param>
+        /// <param name="onCooldownEnd">if set to <c>true</c> [on cooldown end].</param>
+        /// <param name="textStart">The text cooldown start.</param>
+        /// <param name="textEnd">The text cooldown end.</param>
+        public void Add(ISnoPower power, bool onCooldownStart, bool onCooldownEnd, string textStart = null, string textEnd = null)
+        {
+            Add(power.Sno, onCooldownStart, onCooldownEnd, textStart, textEnd);
+        }
+
+        /// <summary>
+        /// Adds the specified power cooldown end sound alert.
+        /// </summary>
+        /// <param name="power">The power sno.</param>
+        /// <param name="onCooldownStart">if set to <c>true</c> [on cooldown start].</param>
+        /// <param name="onCooldownEnd">if set to <c>true</c> [on cooldown end].</param>
+        /// <param name="textStart">The text cooldown start.</param>
+        /// <param name="textEnd">The text cooldown end.</param>
+        public void Add(uint sno, bool onCooldownStart, bool onCooldownEnd, string textStart = null, string textEnd = null)
+        {
+            if (!onCooldownStart && !onCooldownEnd) return;
+
+            PowerSnos.Add(sno);
+
+            if (onCooldownStart)
+            {
+                PowerCooldownStart.Add(sno, textStart);
+            }
+            if (onCooldownEnd)
+            {
+                PowerCooldownEnd.Add(sno, textEnd);
+            }
+
+            //if (!string.IsNullOrWhiteSpace(text) && !PowerCustomNames.ContainsKey(sno))
+            //{
+            //    PowerCustomNames.Add(sno, text);
+            //}
+        }
+
+        /// <summary>
+        /// Removes the specified power.
+        /// </summary>
+        /// <param name="power">The power.</param>
+        public void Remove(ISnoPower power)
+        {
+            Remove(power.Sno);
+        }
+
+        /// <summary>
+        /// Removes the specified power.
+        /// </summary>
+        /// <param name="power">The power sno.</param>
+        public void Remove(uint sno)
+        {
+            if (PowerSnos.Contains(sno))
+            {
+                PowerSnos.Remove(sno);
+            }
+            if (PowerCooldownStart.ContainsKey(sno))
+            {
+                PowerCooldownStart.Remove(sno);
+            }
+            if (PowerCooldownEnd.ContainsKey(sno))
+            {
+                PowerCooldownEnd.Remove(sno);
+            }
+            //if (PowerCustomNames.ContainsKey(sno))
+            //{
+            //    PowerCustomNames.Remove(sno);
+            //}
+        }
+
+        /// <summary>
+        /// Clears all cooldown sound alert.
+        /// </summary>
+        public void Clear()
+        {
+            PowerSnos.Clear();
+            PowerCooldownStart.Clear();
+            PowerCooldownEnd.Clear();
+            //PowerCustomNames.Clear();
+        }
+    }
+}

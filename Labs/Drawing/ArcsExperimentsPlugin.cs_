@@ -1,0 +1,198 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SharpDX;
+using SharpDX.Direct2D1;
+using Turbo.Plugins.Default;
+
+namespace Turbo.Plugins.Jack
+{
+    public class ArcsExperimentsPlugin : BasePlugin, IInGameTopPainter, IInGameWorldPainter
+    {
+        public WorldDecoratorCollection Decorators { get; set; }
+
+        private float distanceToCenterX
+        {
+            get { return (Hud.Window.Size.Width / 2f) - Hud.Window.CursorX; }
+        }
+        private float distanceToCenterY
+        {
+            get { return (Hud.Window.Size.Height / 2f) - Hud.Window.CursorY; }
+        }
+
+        private IBrush brush;
+
+        public ArcsExperimentsPlugin()
+        {
+            Enabled = true;
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            brush = Hud.Render.CreateBrush(242, 255, 0, 0, 0);
+
+            Decorators = new WorldDecoratorCollection(
+                new GroundArcDecorator(hud)
+                {
+                    Brush = Hud.Render.CreateBrush(128, 255, 255, 255, 2f),
+                    BackgroundBrush = Hud.Render.CreateBrush(64, 255, 255, 255, 0f),
+                    Radius = 4f,
+                    Stroke = 0.55f,
+                }
+                ,
+                new GroundArcDecorator(hud)
+                {
+                    Brush = Hud.Render.CreateBrush(242, 255, 0, 0, 0),
+                    Radius = 4f,
+                    Stroke = 0.5f,
+                    FilledPercentFunc = () => Hud.Game.Me.Defense.HealthPct,
+                }
+                ,
+                new GroundArcDecorator(hud)
+                {
+                    Brush = Hud.Render.CreateBrush(128, 0, 0, 0, 1f),
+                    BackgroundBrush = Hud.Render.CreateBrush(92, 0, 0, 0, 0),
+                    Radius = 4.7f,
+                    Stroke = 0.35f,
+                }
+                ,
+                new GroundArcDecorator(hud)
+                {
+                    Brush = Hud.Render.CreateBrush(128, 255, 255, 255, 0),
+                    Radius = 4.7f,
+                    Stroke = 0.3f,
+                    FilledPercentFunc = () => Hud.Game.Me.Stats.ResourcePctPri,
+                }
+            );
+        }
+
+        public void PaintWorld(WorldLayer layer)
+        {
+            if (layer != WorldLayer.Ground) return;
+
+            Decorators.Paint(layer, Hud.Game.Me, Hud.Game.Me.FloorCoordinate, string.Empty);
+
+            return;
+            using (var pg = Hud.Render.CreateGeometry())
+            {
+                using (var gs = pg.Open())
+                {
+                    var radius = 8f;
+                    var outerVectors = new List<Vector2>();
+
+                    for (var angle = 135f; angle < 315f; angle += 1)
+                    {
+                        //convert to radiant for ease of use, and set top == 0f, counter clockwise up to 360.
+                        var radians = angle  * Math.PI / 180.0f;
+                        var cos = (float)Math.Cos(radians);
+                        var sin = (float)Math.Sin(radians);
+
+                        //outer point
+                        var mx = radius * cos;
+                        var my = radius * sin;
+
+                        var vector = Hud.Game.Me.FloorCoordinate.ToVector2(mx, my, 0);
+                        outerVectors.Add(vector);
+                    }
+
+                    gs.BeginFigure(outerVectors.First(), FigureBegin.Filled);
+                    foreach (var v in outerVectors.Skip(1))
+                    {
+                        gs.AddLine(v);
+                    }
+                    gs.EndFigure(FigureEnd.Closed);
+                    gs.Close();
+
+                    brush.DrawGeometry(pg);
+                }
+            }
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+        }
+
+        //private void DrawTest()
+        //{
+        //    BrushBg.DrawRectangle(Hud.Window.GroundRectangle);
+
+        //    var me = Hud.Game.Me.FloorCoordinate;
+        //    var coordToScreen = me.ToScreenCoordinate();
+
+        //    var step = 1f;
+        //    var r = 5f;
+        //    for (var i = r; i < 30; i += step)
+        //    {
+        //        BrushFilled.DrawWorldEllipse(i, -1, me.X, me.Y, me.Z);
+        //    }
+
+        //    var rad = 6f;
+        //    for (var radius = rad; radius < 30; radius += step)
+        //    {
+        //        using (var pg = Hud.Render.CreateGeometry())
+        //        {
+        //            using (var gs = pg.Open())
+        //            {
+        //                var angleStep = 4;
+        //                gs.BeginFigure(new Vector2(coordToScreen.X, coordToScreen.Y), FigureBegin.Filled);
+        //                for (var angle = 0; angle <= 360; angle += angleStep)
+        //                {
+        //                    var radians = angle * Math.PI / 180.0f;
+        //                    var mx = radius * (float)Math.Cos(radians);
+        //                    var my = radius * (float)Math.Sin(radians);
+
+        //                    var vector = me.ToVector2(me.X + mx, me.Y + my);
+        //                    gs.AddLine(vector);
+        //                }
+        //                gs.EndFigure(FigureEnd.Closed);
+        //                gs.Close();
+        //            }
+        //            BrushOutline.DrawGeometry(pg);
+        //        }
+        //    }
+        //}
+    }
+}
+
+
+
+//Jack.Says.Debug(cX - Hud.Window.CursorX, cY - Hud.Window.CursorY);
+//Brush.DrawEllipse(cX, cY, 529, 317);
+
+//using (var pg = Hud.Render.CreateGeometry())
+//{
+//    using (var gs = pg.Open())
+//    {
+//        gs.BeginFigure(center, FigureBegin.Filled);
+
+//        var vect = new Vector2(s.Width, 0);
+//        var vect2 = new Vector2(s.Width, s.Height);
+//        gs.AddBezier(new BezierSegment()
+//        {
+//            Point1 = center,
+//            Point2 = vect,
+//            Point3 = vect2
+//        });
+
+//        //gs.AddLine(startPoint);
+
+//        gs.EndFigure(FigureEnd.Closed);
+//        gs.Close();
+//    }
+//    //Jack.Says.Debug(s.Width, s.Height);
+//    //Brush.DrawRectangle(s.Width - 50, s.Height - 50, 50, 50);
+//    Brush.DrawGeometry(pg);
+//    //Jack.Says.Debug(4242);
+//}
+
+///ROTATE
+//Jack.Says.Debug(cX - Hud.Window.CursorX);
+//var _angle = (cX - Hud.Window.CursorX) * Math.PI / 180.0f;
+//var _cos = (float)Math.Cos(_angle);
+//var _sin = (float)Math.Sin(_angle);
+//mx = mx * _cos - my * _sin;
+//my = mx * _sin + my * _cos;

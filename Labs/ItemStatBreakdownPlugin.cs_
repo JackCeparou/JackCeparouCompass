@@ -277,43 +277,27 @@ namespace Turbo.Plugins.Jack.Labs
             var x = uiInventory.Rectangle.Left;
             var y = topOffset + _columnHeaderWidth * 2;
 
-            foreach (var item in items)
+            DrawHeaderLine(x, topOffset, _columnHeaderWidth, items);
+
+            y += DrawStatBlock(primaryDamageAttributes, y, x, _columnHeaderWidth);
+            y += yOffset;
+            y += DrawStatBlock(ehpAttributes, y, x, _columnHeaderWidth);
+            y += yOffset;
+            y += DrawStatBlock(secondaryAttributes, y, x, _columnHeaderWidth);
+            y += yOffset;
+            y += DrawStatBlock(powersAttributes, y, x, _columnHeaderWidth);
+            y += yOffset;
+
+            // TODO : remove this, only useful while debugging to find missing stats
+            foreach (var attributeCode in attributes)
             {
-                var rect = Hud.Inventory.GetItemRect(item);
-                if (rect == RectangleF.Empty) continue;
+                if (primaryDamageAttributes.Contains(attributeCode)) continue;
+                if (ehpAttributes.Contains(attributeCode)) continue;
+                if (secondaryAttributes.Contains(attributeCode)) continue;
+                if (powersAttributes.Contains(attributeCode)) continue;
 
-                var text = string.Format("{0:0.#} %", item.Perfection);
-                var layout = TextFont.GetTextLayout(text);
-                var brushIndex = (int)Math.Round(item.Perfection / 100 * (float)(gradientBrushes.Count - 1));
-                if (brushIndex >= 0 && brushIndex < gradientBrushes.Count)
-                {
-                    gradientBrushes[brushIndex].DrawRectangle(rect.X, rect.Y - layout.Metrics.Height, _columnHeaderWidth, layout.Metrics.Height);
-                }
-
-                TextFont.DrawText(layout, rect.X + _columnHeaderWidth / 2 - layout.Metrics.Width / 2, rect.Y - layout.Metrics.Height);
+                y += DrawStatLine(attributeCode, x, y, _columnHeaderWidth);
             }
-
-            //DrawHeaderLine(x, topOffset, _columnHeaderWidth, items);
-
-            //y += DrawStatBlock(primaryDamageAttributes, y, x, _columnHeaderWidth);
-            //y += yOffset;
-            //y += DrawStatBlock(ehpAttributes, y, x, _columnHeaderWidth);
-            //y += yOffset;
-            //y += DrawStatBlock(secondaryAttributes, y, x, _columnHeaderWidth);
-            //y += yOffset;
-            //y += DrawStatBlock(powersAttributes, y, x, _columnHeaderWidth);
-            //y += yOffset;
-
-            //// TODO : remove this, only useful while debugging to find missing stats
-            //foreach (var attributeCode in attributes)
-            //{
-            //    if (primaryDamageAttributes.Contains(attributeCode)) continue;
-            //    if (ehpAttributes.Contains(attributeCode)) continue;
-            //    if (secondaryAttributes.Contains(attributeCode)) continue;
-            //    if (powersAttributes.Contains(attributeCode)) continue;
-
-            //    y += DrawStatLine(attributeCode, x, y, _columnHeaderWidth);
-            //}
         }
 
         private float DrawStatBlock(IEnumerable<string> groupAttributes, float y, float x, float _columnHeaderWidth)

@@ -37,7 +37,8 @@
             Hud.RunOnPlugin<InventoryAndStashPlugin>(plugin =>
             {
                 // enable sell darkening
-                //plugin.NotGoodDisplayEnabled = false;
+                plugin.NotGoodDisplayEnabled = false;
+                plugin.DefinitelyBadDisplayEnabled = false;
 
                 // shh, go away blinking cube!
                 //plugin.CanCubedEnabled = false;

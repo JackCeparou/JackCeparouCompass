@@ -1,4 +1,5 @@
-﻿using Turbo.Plugins.Default;
+﻿using System.Linq;
+using Turbo.Plugins.Default;
 using Turbo.Plugins.Jack.Extensions;
 
 namespace Turbo.Plugins.Jack.Labs.Powers
@@ -18,13 +19,22 @@ namespace Turbo.Plugins.Jack.Labs.Powers
 
             painter = new PowerPainter(Hud);
             painter.SizeMultiplier = 0.36f;
+            painter.ColumnWidthRatio = 0.15f;
         }
 
         public void PaintTopInGame(ClipState clipState)
         {
             if (clipState != ClipState.AfterClip) return;
 
-            var powers = Hud.Sno.SnoPowers.GetLegendaryItemPowers();
+            //var powers = Hud.Sno.SnoPowers.GetLegendaryItemPowers();
+            var powers = Hud.Sno.GetAllSnoItems()
+				.Where(x => x.LegendaryPower != null)
+				//.Where(x => x.LegendaryPower.Sno == 478488 || x.LegendaryPower.Sno == 430677)
+				.Select(x => x.LegendaryPower)
+				.Distinct()
+                .Skip(50)
+                //.Take(1)
+                .ToList();
 
             painter.Paint(powers, 0, 0);
         }

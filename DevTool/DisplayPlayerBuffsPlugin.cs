@@ -112,6 +112,7 @@ namespace Turbo.Plugins.Jack.DevTool
             var lines = Hud.Game.Me.Powers.AllBuffs
                     .Where(buff => buff != null && buff.SnoPower != null)
                     .OrderBy(buff => string.IsNullOrEmpty(buff.SnoPower.NameEnglish) ? 1 : 0)
+                    //.ThenBy(buff => IconCount(buff.IconCounts))
                     .ThenBy(buff => buff.SnoPower.Sno)
                     .Select(buff =>
                     {
@@ -123,11 +124,13 @@ namespace Turbo.Plugins.Jack.DevTool
                                 buff.SnoPower.Sno,
                                 string.IsNullOrEmpty(buff.SnoPower.NameEnglish)
                                     ? buff.SnoPower.Code
+                                        .Replace("ItemPassive_Unique", "*")
+                                        .Replace("Community_Event_Buff", "*")
                                     : buff.SnoPower.NameEnglish
                             ),
                             iconCount,
-                            string.Join(" ",
-                                buff.IconCounts.Take(iconCount).Select(i => string.Format("{0:0.#}", i))),
+                            //string.Join(" ",
+                            //    buff.IconCounts.Take(iconCount).Select(i => string.Format("{0:0.#}", i))),
                             string.Join(" ",
                                 buff.TimeLeftSeconds.Take(iconCount)
                                     .Select(t => string.Format("{0,3:0.0}", t)))

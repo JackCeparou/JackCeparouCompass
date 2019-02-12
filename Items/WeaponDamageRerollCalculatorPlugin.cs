@@ -74,6 +74,7 @@ namespace Turbo.Plugins.Jack.Items
             var item = Hud.Inventory.HoveredItem;
             if (item == null) return;
             if (!item.IsLegendary) return;
+            if (item.Unidentified) return;
             if (!item.SnoItem.HasGroupCode("weapons")) return;
 
             var baseMin = item.StatList.WeaponDamageBaseMin();
@@ -92,14 +93,14 @@ namespace Turbo.Plugins.Jack.Items
                     weaponDamageDefinition = weaponInfo.Weapons.FirstOrDefault(w => w.Aps == baseAps && w.BaseMin == baseMin && w.BaseMax == baseMax);
                     break;
             }
-
             if (weaponDamageDefinition == null) return;
 
-            var bonusMinMax = item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMinMax : weaponDamageDefinition.BonusMinMax;
-            var bonusMaxMax = item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMaxMax : weaponDamageDefinition.BonusMaxMax;
+            var bonusMinMax = item.Perfections.WeaponDamageBonusMinMax();
+            //Says.Debug(item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMaxMax : weaponDamageDefinition.BonusMaxMax, item.Perfections.WeaponDamageBonusMaxMax());
+            var bonusMaxMax = item.Perfections.WeaponDamageBonusMaxMax();
 
-            var bonusMin = item.StatList.WeaponDamageBonusMin();
-            var bonusMax = item.StatList.WeaponDamageBonusMax();
+            var bonusMin = item.Perfections.WeaponDamageBonusMin();
+            var bonusMax = item.Perfections.WeaponDamageBonusMax();
             var bonusDamage = 1 + item.StatList.WeaponDamageBonusDamagePercent();
 
             var userBase = (baseMin + bonusMin + baseMax + bonusMax) / 2f;

@@ -11,8 +11,8 @@ namespace Turbo.Plugins.Jack.Extensions
         public static IController Hud { get; private set; }
         public static ISnoItem DefaultItem { get; set; }
 
-        private static Dictionary<uint, List<uint>> itemSnoIds = new Dictionary<uint, List<uint>>();
-        private static HashSet<uint> blackList = new HashSet<uint>();
+        private static readonly Dictionary<uint, List<uint>> itemSnoIds = new Dictionary<uint, List<uint>>();
+        private static readonly HashSet<uint> blackList = new HashSet<uint>();
 
         public static void Init(IController hud, ISnoItem defaultItem)
         {

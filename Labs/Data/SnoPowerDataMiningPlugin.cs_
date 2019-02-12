@@ -7,7 +7,7 @@
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Extensions;
 
-    public class SnoPowerDataMiningPlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler, ICustomizer
+    public class SnoPowerDataMiningPlugin : BasePlugin, IInGameTopPainter, IAfterCollectHandler
     {
         private List<ISnoPower> allLegendaryItemsPowers;
         private List<ISnoPower> allLegendaryGemsPowers;
@@ -19,10 +19,12 @@
         private bool allSetBonusPowersDone;
         private bool allPlayerPowersDone;
 
+        private bool finished;
+
         private int index;
         private int stepCount;
 
-        private SnoItemList itemList;
+        private List<ISnoItem> itemList;
 
         public SnoPowerDataMiningPlugin()
         {
@@ -33,6 +35,8 @@
             allSetBonusPowersDone = false;
             allPlayerPowersDone = false;
 
+            finished = false;
+
             index = 0;
             stepCount = 1;
         }
@@ -41,19 +45,22 @@
         {
             base.Load(hud);
 
-            itemList = new SnoItemList(Hud);
-        }
+            itemList = new List<ISnoItem>();
 
-        public void Customize()
-        {
-            allLegendaryItemsPowers = Hud.Sno.SnoPowers.GetLegendaryGemPowers().ToList();
-            allLegendaryGemsPowers = Hud.Sno.SnoPowers.GetLegendaryGemPowers().ToList();
+            //allLegendaryItemsPowers = Hud.Sno.SnoPowers.GetLegendaryItemPowers().ToList();
+            allLegendaryItemsPowers = itemList.Where(x => x.LegendaryPower != null).Select(x => x.LegendaryPower).ToList();
+            //TODO : fix set mapping
             allSetBonusPowers = Hud.Sno.SnoPowers.AllSetBonusPowers().ToList();
-            allPlayerPowers = Hud.Sno.SnoPowers.GetClassSpecificPowers(HeroClass.None).ToList();
+            allLegendaryGemsPowers = Hud.Sno.SnoPowers.GetLegendaryGemPowers().ToList();
+            allPlayerPowers = new List<ISnoPower>();
+            foreach (HeroClass heroClass in Enum.GetValues(typeof(HeroClass)))
+            {
+                if (heroClass == HeroClass.None) continue;
+                allPlayerPowers.AddRange(Hud.Sno.SnoPowers.GetClassSpecificPowers(heroClass));
+            }
 
-            itemList.Populate();
-
-            //Hud.Debug("Date		Status	Sno	Code	NormalTextureId	Icons		ItemsSnos	ItemsCodes");
+            //itemList.Populate(); //before 2.6.1
+            itemList = Hud.Sno.GetAllSnoItems().ToList();
         }
 
         public void AfterCollect()
@@ -64,28 +71,51 @@
 		//private bool blacksmithSnoItemDone = false;
         public void PaintTopInGame(ClipState clipState)
         {
+            if (finished) return;
+            if (clipState != ClipState.BeforeClip) return;
+            /**/
+            if (Hud.Inventory.HoveredItem != null)
+            {
+                var h = Hud.Inventory.HoveredItem.SnoItem;
+                Says.Debug(h.Sno, h.NameEnglish, h.LegendaryPower != null ? h.LegendaryPower.Sno : 0);
+            }
+            /**/
+
+            return;
             try
             {
-				/*
+                //Jack.Says.Debug(allLegendaryGemsPowers.Count);
+				/**/
                 if (!allLegendaryGemsPowersDone)
                 {
                     Step(allLegendaryGemsPowers, out allLegendaryGemsPowersDone);
+                    return;
                 }
-                else if (!allLegendaryItemsPowersDone)
+
+                if (!allLegendaryItemsPowersDone)
                 {
                     Step(allLegendaryItemsPowers, out allLegendaryItemsPowersDone);
+                    return;
                 }
-                else if (!allPlayerPowersDone)
-                {
-                    Step(allPlayerPowers, out allPlayerPowersDone);
-                }
-                else if (!allSetBonusPowersDone)
+
+                if (!allSetBonusPowersDone)
                 {
                     Step(allSetBonusPowers, out allSetBonusPowersDone);
+                    return;
+                }
+
+                if (!allPlayerPowersDone)
+                {
+                    Step(allPlayerPowers, out allPlayerPowersDone);
+                    return;
                 }/**/
+
+                finished = true;
             }
             catch (Exception ex)
             {
+                Says.Debug("1:{0} 2:{1} 3:{2} 4:{3}", allLegendaryGemsPowersDone, allLegendaryItemsPowersDone, allPlayerPowersDone, allSetBonusPowersDone);
+                Says.Debug("index: {0}", index);
                 Says.Error(ex.Message);
             }
         }
@@ -111,11 +141,14 @@
                     }
                 }
 
-                if (items != null && (power.NormalIconTextureId == 0 && power.Icons.All(icon => icon.TextureId == 0) && !items.Any()))
+                if (items != null 
+                    && (power.Icons == null || (power.NormalIconTextureId == 0 && power.Icons.All(icon => icon.TextureId == 0))) 
+                    && !items.Any())
                 {
                     result = "NOK";
                 }
 
+                //if (result == "NOK")
                 WriteLine(
                     result,
                     power.Sno,
@@ -124,7 +157,8 @@
                     string.Join("|", power.Icons.Where(icon => icon.TextureId != 0).Select(icon => icon.TextureId.ToString()).Distinct()),
                     string.Join("|", power.IconIndexes.Where(icon => icon != 0).Select(icon => icon.ToString()).Distinct()),
                     string.Join("|", itemInfo),
-                    string.Join("|", itemInfo2)
+                    string.Join("|", itemInfo2),
+                    power.DescriptionEnglish
                     );
 
                 index++;
@@ -141,18 +175,19 @@
 
         private IEnumerable<ISnoItem> GetItems(ISnoPower power)
         {
-            var item = itemList.Items.Where(x => x.LegendaryPower != null && x.LegendaryPower.Sno == power.Sno);
+            var item = itemList.Where(x => x.LegendaryPower != null && x.LegendaryPower.Sno == power.Sno);
+            /**/
             if (!item.Any())
             {
                 if (power.Code.ToLower().Contains("unique_gem_"))
                 {
                     var code = power.Code.Replace("ItemPassive_", string.Empty).Replace("U_", "_");
-                    yield return itemList.Items.FirstOrDefault(x => x.Code == code);
+                    yield return itemList.FirstOrDefault(x => x.Code == code);
                 }
                 else
                 {
 				switch (power.Sno)
-                {
+                    {
                     //P2_ItemPassive_Unique_Ring_051 // bul kathos
                     case 434377:
                         yield return Hud.Inventory.GetSnoItem(1663326820);
@@ -160,7 +195,7 @@
                         break;
                     //ItemPassive_Unique_Ring_578_x1 // Immortal King's
                     case 318760:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Immortal King's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Immortal King's")))
                         {
                             yield return _item;
                         }
@@ -178,7 +213,7 @@
                         break;
                     //ItemPassive_Unique_Ring_718_x1
                     case 359563:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Raekor's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Raekor's")))
                         {
                             yield return _item;
                         }
@@ -187,14 +222,14 @@
                     //ItemPassive_Unique_Ring_737_x1
                     case 359584:
                     case 359585:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("of Akkhan")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("of Akkhan")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_518_x1
                     case 318380:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Danetta's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Danetta's")))
                         {
                             yield return _item;
                         }
@@ -205,21 +240,21 @@
                     case 359561:
                     case 359562:
                     case 318832:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Marauder's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Marauder's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_913_x1
                     case 402449:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Natalya's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Natalya's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_680_x1
                     case 318876:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("The Shadow's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("The Shadow's")))
                         {
                             yield return _item;
                         }
@@ -228,7 +263,7 @@
                     //ItemPassive_Unique_Mojo_010_x1_tooltipDummy_1
                     case 360491:
                     case 440744:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Manajuma")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Manajuma")))
                         {
                             yield return _item;
                         }
@@ -237,35 +272,35 @@
                     //ItemPassive_Unique_Ring_726_x1
                     case 434967:
                     case 359573:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Jade Harvester's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Jade Harvester's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_596_x1
                     case 318778:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Zunimassa's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Zunimassa's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_727_x1
                     case 359574:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Vyr's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Vyr's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_710_x1
                     case 359555:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Tal Rasha's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Tal Rasha's")))
                         {
                             yield return _item;
                         }
                         break;
                     //ItemPassive_Unique_Ring_713_x1
                     case 359558:
-                        foreach (var _item in itemList.Items.Where(x => x.NameEnglish.Contains("Asheara's")))
+                        foreach (var _item in itemList.Where(x => x.NameEnglish.Contains("Asheara's")))
                         {
                             yield return _item;
                         }
@@ -289,6 +324,7 @@
                     yield return _item;
                 }
             }
+            /**/
         }
 
         private void WriteLine(params object[] param)
@@ -297,14 +333,7 @@
             Says.Debug(text);
 
             text = "\t" + string.Join("\t", param);
-            Hud.Debug(text);
-        }
-
-        private void DrawTexture(uint tid, RectangleF r)
-        {
-            var t = Hud.Texture.GetTexture(tid);
-            if (t == null) return;
-            t.Draw(r, 1.0f);
+            Hud.TextLog.Log("SnoPowerDataMiningPlugin.out.tsv", text, true);
         }
     }
 }

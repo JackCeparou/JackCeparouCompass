@@ -17,6 +17,7 @@
         public LogToScreenPlugin()
         {
             Enabled = true;
+            Order = int.MaxValue;
             Fonts = new Dictionary<LogLevel, IFont>();
         }
 
@@ -43,7 +44,7 @@
 
         public void PaintTopInGame(ClipState clipState)
         {
-            if (clipState != ClipState.BeforeClip) return;
+            if (clipState != ClipState.AfterClip) return;
 
             // dumb test
             //Says.Error(Guid.NewGuid().ToString());

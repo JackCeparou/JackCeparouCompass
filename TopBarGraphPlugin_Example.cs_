@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Turbo.Plugins.Default;
+using Turbo.Plugins.Jack.Decorators.Graphs;
+
+namespace Turbo.Plugins.Jack
+{
+    public class TopBarGraphPlugin_Example : BasePlugin, IInGameTopPainter
+    {
+        private IList<ITopBarGraphDecorator> graphs;
+        private int lastTick;
+
+        public TopBarGraphPlugin_Example()
+        {
+            Enabled = true;
+            graphs = new List<ITopBarGraphDecorator>();
+        }
+
+        public override void Load(IController hud)
+        {
+            base.Load(hud);
+
+            graphs.Add(new TopBarGraphDecoratorFloat(hud)
+            {
+                BarBrush = Hud.Render.CreateBrush(124, 240, 0, 0, 0),
+                ForcedMax = 100,
+                Height = 50,
+                Width = 250,
+                X = Hud.Window.Size.Width * 630f / 1920f,
+                Y = 0,
+                GetData = () => 100 - Hud.Game.Me.Defense.HealthPct,
+            });
+            //graphs.Add(new TopBarGraphDecoratorFloat(hud)
+            //{
+            //    BarBrush = Hud.Render.CreateBrush(124, 0, 222, 0, 0),
+            //    ForcedMax = 150,
+            //    Height = 50,
+            //    Width = 250,
+            //    X = Hud.Window.Size.Width * 1040f / 1920f,
+            //    Y = 0,
+            //    GetData = () => Hud.Game.AliveMonsters.Count(),
+            //});
+            IWorldCoordinate lastPosition = null;
+            graphs.Add(new TopBarGraphDecoratorFloat(hud)
+            {
+                BarBrush = Hud.Render.CreateBrush(124, 0, 222, 0, 0),
+                ForcedMax = 25,
+                Height = 50,
+                Width = 250,
+                X = Hud.Window.Size.Width * 1040f / 1920f,
+                Y = 0,
+                GetData = () =>
+                {
+                    if (lastPosition == null)
+                    {
+                        lastPosition = Hud.Window.CreateWorldCoordinate(Hud.Game.Me.FloorCoordinate);
+                        return 0;
+                    }
+
+                    var currentPosition = Hud.Game.Me.FloorCoordinate;
+                    var distance = lastPosition.XYDistanceTo(currentPosition);
+                    lastPosition = Hud.Window.CreateWorldCoordinate(currentPosition);
+
+                    return distance;
+                },
+            });
+
+            lastTick = Hud.Game.CurrentGameTick;
+        }
+
+        public void PaintTopInGame(ClipState clipState)
+        {
+            if (clipState != ClipState.AfterClip) return;
+
+            if (lastTick + 6 <= Hud.Game.CurrentGameTick || lastTick > Hud.Game.CurrentGameTick)
+            {
+                foreach (var graph in graphs.Where(graph => graph.Enabled))
+                {
+                    graph.AddData();
+                }
+                lastTick = Hud.Game.CurrentGameTick;
+            }
+
+            foreach (var graph in graphs.Where(graph => graph.Enabled))
+            {
+                graph.Paint();
+            }
+
+            //SimonSays.Debug(Hud.CurrentInGameTick.ToString() + " " + Hud.Collections.Me.StatInfo.HealthPct);
+        }
+    }
+}

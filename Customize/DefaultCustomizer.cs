@@ -33,6 +33,24 @@ namespace Turbo.Plugins.Jack.Customize
             Hud.TogglePlugin<SkillRangeHelperPlugin>(false);
             Hud.RunOnPlugin<OriginalSkillBarPlugin>(plugin => plugin.SkillPainter.EnableSkillDpsBar = false);
 
+            /*Hud.RunOnPlugin<OtherPlayersPlugin>(plugin =>
+            {
+                var decorators = plugin.DecoratorByClass[HeroClass.Wizard].Decorators;
+                decorators.Insert(0, new MapShapeDecorator(Hud)
+                {
+                    Radius = 5.0f,
+                    ShapePainter = new CircleShapePainter(Hud),
+                    Brush = Hud.Render.CreateBrush(200, 200, 0, 255, 5),
+                });
+                decorators.Insert(0, new GroundCircleDecorator(Hud)
+                {
+                    Radius = 2.0f,
+                    Brush = Hud.Render.CreateBrush(200, 200, 0, 255, 5),
+                });
+            });/**/
+
+            Hud.SceneReveal.MinimapClip = false;
+
             using (var itemsAndInventoryConfigurator = new ItemsAndInventoryConfigurator())
             {
                 itemsAndInventoryConfigurator.Configure(Hud);
