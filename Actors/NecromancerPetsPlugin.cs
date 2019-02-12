@@ -6,20 +6,35 @@ namespace Turbo.Plugins.Jack.Actors
 {
     public class NecromancerPetsPlugin : BasePlugin, IInGameWorldPainter
     {
-        public HashSet<uint> SkeletonWarriorsIds { get; set; }
+        public HashSet<ActorSnoEnum> SkeletonWarriorsIds { get; set; }
         public WorldDecoratorCollection SkeletonWarriorsDecorators { get; set; }
-        public HashSet<uint> SkeletonMagesIds { get; set; }
+        public HashSet<ActorSnoEnum> SkeletonMagesIds { get; set; }
         public WorldDecoratorCollection SkeletonMagesDecorators { get; set; }
-        public HashSet<uint> SkeletonArchersIds { get; set; }
+        public HashSet<ActorSnoEnum> SkeletonArchersIds { get; set; }
         public WorldDecoratorCollection SkeletonArchersDecorators { get; set; }
 
 
         public NecromancerPetsPlugin()
         {
             Enabled = true;
-            SkeletonWarriorsIds = new HashSet<uint> { 473147, 473420, 473426, 473418, 473428, 473417 }; // ty SR ;p
-            SkeletonMagesIds = new HashSet<uint> { 472275, 472588, 472769,  472606, 472715 };
-            SkeletonArchersIds = new HashSet<uint> { 472801 };
+            SkeletonWarriorsIds = new HashSet<ActorSnoEnum>
+            {
+                ActorSnoEnum._p6_necro_commandskeletons_a, // = 473147,
+                ActorSnoEnum._p6_necro_commandskeletons_f, // = 473417,
+                ActorSnoEnum._p6_necro_commandskeletons_d, // = 473418,
+                ActorSnoEnum._p6_necro_commandskeletons_b, // = 473420,
+                ActorSnoEnum._p6_necro_commandskeletons_c, // = 473426,
+                ActorSnoEnum._p6_necro_commandskeletons_e, // = 473428,
+            }; // ty SR ;p
+            SkeletonMagesIds = new HashSet<ActorSnoEnum>
+            {
+                ActorSnoEnum._p6_necro_skeletonmage_a, // = 472275,
+                ActorSnoEnum._p6_necro_skeletonmage_b, // = 472588,
+                ActorSnoEnum._p6_necro_skeletonmage_c, // = 472606,
+                ActorSnoEnum._p6_necro_skeletonmage_d, // = 472715,
+                ActorSnoEnum._p6_necro_skeletonmage_e, // = 472769,
+            };
+            SkeletonArchersIds = new HashSet<ActorSnoEnum> { ActorSnoEnum._p6_necro_skeletonmage_f_archer /*472801*/ };
         }
 
         public override void Load(IController hud)

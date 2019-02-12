@@ -32,7 +32,13 @@
             // ALL
             // ===
             // Molten explosions
-            var moltenIds = new HashSet<uint>() { 4803, 4804, 224225, 247987 };
+            var moltenIds = new HashSet<ActorSnoEnum>()
+            {
+                ActorSnoEnum._monsteraffix_molten_deathstart_proxy, //4803,
+                ActorSnoEnum._monsteraffix_molten_deathexplosion_proxy, //4804,
+                ActorSnoEnum._monsteraffix_molten_firering, //224225,
+                // TODO : missing!!! ActorSnoEnum.???, //247987,
+            };
             AlertList.Alerts.Add(new Alert(Hud)
             {
                 MessageFormat = "\uD83D\uDCA3 \uD83D\uDCA5 \uD83D\uDCA3", //💣 💥 💣
@@ -50,10 +56,28 @@
                 }
             });
             // Grotesque & Fast Mummy explosions
-            var explosiveMonsterIds = new HashSet<uint>()
+            var explosiveMonsterIds = new HashSet<ActorSnoEnum>()
             {
-                4104, 4105, 4106, // Fast Mummy
-                3847, 218307, 218308, 365450, 3848, 218405, 3849, 113994, 3850, 195639, 365465, 191592, // Grotesque
+                // Fast Mummy
+                ActorSnoEnum._fastmummy_a, // = 4104,
+                ActorSnoEnum._fastmummy_b, // = 4105,
+                ActorSnoEnum._fastmummy_c, // = 4106,
+                // Grotesque
+                ActorSnoEnum._corpulent_a, // = 3847,
+                ActorSnoEnum._corpulent_b, // = 3848,
+                ActorSnoEnum._corpulent_c, // = 3849,
+                ActorSnoEnum._corpulent_d, // = 3850,
+                //_corpulent_suicide_spiders = 137122,
+                //_corpulent_suicide_frost = 191602,
+                //_corpulent_suicide_imps = 220536,
+                ActorSnoEnum._corpulent_c_oasisambush_unique, //  113994,
+                ActorSnoEnum._corpulent_frost_a, //  191592,
+                ActorSnoEnum._corpulent_d_cultistsurvivor_unique, //  195639,
+                ActorSnoEnum._corpulent_a_unique_01, //  218307,
+                ActorSnoEnum._corpulent_a_unique_02, //  218308,
+                ActorSnoEnum._corpulent_b_unique_01, //  218405,
+                ActorSnoEnum._corpulent_a_unique_03, //  365450,
+                ActorSnoEnum._corpulent_d_unique_spec_01, //  365465,
             };
             AlertList.Alerts.Add(new Alert(Hud)
             {
@@ -137,7 +161,12 @@
                 {
                     EquippedSkills = new[] { new SnoPowerId(powers.Barbarian_CallOfTheAncients.Sno) },
                     ActiveBuffs = new[] { new SnoPowerId(318760) }, // only when wearing IK 4pc
-                    InvocationActorSnoIds = new HashSet<uint>() { 90443, 90535, 90536 }
+                    InvocationActorSnoIds = new HashSet<ActorSnoEnum>()
+                    {
+                        ActorSnoEnum._barbarian_calloftheancients_1, // = 90443,
+                        ActorSnoEnum._barbarian_calloftheancients_2, // = 90535,
+                        ActorSnoEnum._barbarian_calloftheancients_3, // = 90536,
+                    }
                 },
             });
 
@@ -295,7 +324,14 @@
                 {
                     ShowInTown = true,
                     EquippedSkills = new[] { new SnoPowerId(powers.Necromancer_CommandGolem.Sno) },
-                    InvocationActorSnoIds = new HashSet<uint>() { 471646, 471647, 465239, 471619, 460042 } //missing some?
+                    InvocationActorSnoIds = new HashSet<ActorSnoEnum>()
+                    {
+                        (ActorSnoEnum)471646,
+                        (ActorSnoEnum)471647,
+                        (ActorSnoEnum)465239,
+                        (ActorSnoEnum)471619,
+                        (ActorSnoEnum)460042,
+                    } //missing some?
                 },
             });
             AlertList.Alerts.Add(new Alert(Hud, HeroClass.Necromancer)
@@ -306,7 +342,15 @@
                 {
                     ShowInTown = true,
                     EquippedSkills = new[] { new SnoPowerId(powers.Necromancer_CommandSkeletons.Sno) },
-                    InvocationActorSnoIds = new HashSet<uint>() { 473147, 473428, 473426, 473420, 473417, 473418 } //missing some?
+                    InvocationActorSnoIds = new HashSet<ActorSnoEnum>()
+                    {
+                        (ActorSnoEnum)473147,
+                        (ActorSnoEnum)473428,
+                        (ActorSnoEnum)473426,
+                        (ActorSnoEnum)473420,
+                        (ActorSnoEnum)473417,
+                        (ActorSnoEnum)473418
+                    } //missing some?
                 },
             });
 
@@ -322,7 +366,23 @@
                 {
                     ShowInTown = true,
                     EquippedSkills = new[] { new SnoPowerId(powers.WitchDoctor_Gargantuan.Sno) },
-                    InvocationActorSnoIds = new HashSet<uint>() { 432690, 432691, 432692, 432693, 432694, 122305, 179776, 171491, 179778, 171501, 171502, 179780, 179779, 179772 }
+                    InvocationActorSnoIds = new HashSet<ActorSnoEnum>()
+                    {
+                        (ActorSnoEnum)432690,
+                        (ActorSnoEnum)432691,
+                        (ActorSnoEnum)432692,
+                        (ActorSnoEnum)432693,
+                        (ActorSnoEnum)432694,
+                        (ActorSnoEnum)122305,
+                        (ActorSnoEnum)179776,
+                        (ActorSnoEnum)171491,
+                        (ActorSnoEnum)179778,
+                        (ActorSnoEnum)171501,
+                        (ActorSnoEnum)171502,
+                        (ActorSnoEnum)179780,
+                        (ActorSnoEnum)179779,
+                        (ActorSnoEnum)179772
+                    }
                 },
             });
             // zombie dogs
@@ -334,7 +394,23 @@
                 {
                     ShowInTown = true,
                     EquippedSkills = new[] { new SnoPowerId(powers.WitchDoctor_SummonZombieDog.Sno) },
-                    InvocationActorSnoIds = new HashSet<uint>() { 51353, 108536, 103215, 108543, 104079, 105763, 108560, 110959, 105772, 103235, 108550, 103217, 108556, 105606 }
+                    InvocationActorSnoIds = new HashSet<ActorSnoEnum>()
+                    {
+                        (ActorSnoEnum)51353,
+                        (ActorSnoEnum)108536,
+                        (ActorSnoEnum)103215,
+                        (ActorSnoEnum)108543,
+                        (ActorSnoEnum)104079,
+                        (ActorSnoEnum)105763,
+                        (ActorSnoEnum)108560,
+                        (ActorSnoEnum)110959,
+                        (ActorSnoEnum)105772,
+                        (ActorSnoEnum)103235,
+                        (ActorSnoEnum)108550,
+                        (ActorSnoEnum)103217,
+                        (ActorSnoEnum)108556,
+                        (ActorSnoEnum)105606
+                    }
                 },
             });
             // Hex

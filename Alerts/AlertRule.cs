@@ -29,8 +29,8 @@
         public SnoPowerId[] InactiveBuffs { get; set; }
         public uint[] EquippedPassives { get; set; }
         public uint[] MissingPassives { get; set; }
-        public HashSet<uint> ActorSnoIds { get; set; }
-        public HashSet<uint> InvocationActorSnoIds { get; set; }
+        public HashSet<ActorSnoEnum> ActorSnoIds { get; set; }
+        public HashSet<ActorSnoEnum> InvocationActorSnoIds { get; set; }
 
         public AlertRule(IController hud, HeroClass heroClass = HeroClass.None)
         {
