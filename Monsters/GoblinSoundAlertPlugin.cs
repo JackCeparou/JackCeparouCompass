@@ -1,10 +1,12 @@
 ﻿namespace Turbo.Plugins.Jack.Monsters
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.TextToSpeech;
 
+    [Obsolete]
     public class GoblinSoundAlertPlugin : BasePlugin, IAfterCollectHandler, INewAreaHandler
     {
         public SoundAlert<IMonster> GoblinPack { get; set; }
@@ -101,7 +103,7 @@
                 foreach (var goblin in goblins)
                 {
                     SoundAlert<IMonster> soundAlert;
-                    if (!SnoMapping.TryGetValue(goblin.SnoActor.Sno, out soundAlert))
+                    if (!SnoMapping.TryGetValue(goblin.SnoMonster.Sno /*.SnoActor.Sno*/, out soundAlert))
                     {
                         soundAlert = DefaultGoblin;
                     }

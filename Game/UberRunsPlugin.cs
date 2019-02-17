@@ -19,15 +19,15 @@ namespace Turbo.Plugins.Jack.Game
         public string Portal4Label { get { return uberEncounterStates[areaSno4].Label; } set { uberEncounterStates[areaSno4].Label = value; } }
 
         private Dictionary<uint, UberAreaDefinition> uberEncounterStates;
-        private HashSet<uint> uberPortalSnos;
+        private HashSet<ActorSnoEnum> uberPortalSnos;
         private int gameRunCompletedCounter;
         private bool gameRunCompleted;
 
         private const uint portalAreaSno = 257116;
-        private const uint portalSno1 = 258384;
-        private const uint portalSno2 = 258385;
-        private const uint portalSno3 = 258386;
-        private const uint portalSno4 = 366533;
+        private const ActorSnoEnum portalSno1 = (ActorSnoEnum)258384;
+        private const ActorSnoEnum portalSno2 = (ActorSnoEnum)258385;
+        private const ActorSnoEnum portalSno3 = (ActorSnoEnum)258386;
+        private const ActorSnoEnum portalSno4 = (ActorSnoEnum)366533;
         private const uint areaSno1 = 256767;
         private const uint areaSno2 = 256106;
         private const uint areaSno3 = 256742;
@@ -61,7 +61,7 @@ namespace Turbo.Plugins.Jack.Game
             uberEncounterStates.Add(areaSno3, new UberAreaDefinition(areaSno3, portalSno3, "A3 done"));
             uberEncounterStates.Add(areaSno4, new UberAreaDefinition(areaSno4, portalSno4, "A4 done"));
 
-            uberPortalSnos = new HashSet<uint>(uberEncounterStates.Select(a => a.Value.PortalSno));
+            uberPortalSnos = new HashSet<ActorSnoEnum>(uberEncounterStates.Select(a => a.Value.PortalSno));
         }
 
         public void OnNewArea(bool newGame, ISnoArea area)
@@ -126,9 +126,9 @@ namespace Turbo.Plugins.Jack.Game
             public bool Visited { get; set; }
             public string Label { get; set; }
             public uint AreaSno { get; private set; }
-            public uint PortalSno { get; private set; }
+            public ActorSnoEnum PortalSno { get; private set; }
 
-            public UberAreaDefinition(uint areaSno, uint portalSno, string label)
+            public UberAreaDefinition(uint areaSno, ActorSnoEnum portalSno, string label)
             {
                 Label = label;
                 AreaSno = areaSno;

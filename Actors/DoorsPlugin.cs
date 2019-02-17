@@ -28,33 +28,49 @@
             set { ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, value, false, false, false); }
         }
 
-        public readonly HashSet<uint> BridgesIds = new HashSet<uint> { 309432, 54850, 404043, 198125 };
-        public readonly HashSet<uint> BreakableDoorsIds = new HashSet<uint> { 55325, 427495, 5792, 95481, 379048, 95481, 230324, }; // 258064 };
-        public readonly HashSet<uint> DoorsIdsBlackList = new HashSet<uint>() {
-            197939, 169502, 214333, 181195, 190236, // A2 to belial
-            167185, // A2 Alcarnus
-            200371, 5503, // A2 City
-            198977, 52685, // A3 rakkis crossing
-            112316, // A3 stonefort
-            210433, // A3 battlefields
-            356879, 182636, 165415,
-            432258,
-            341214, 370187,
-            178161, // check this one, maybe a bounty
-            217285, // leoric manor
-            193248, // 3462,  Holy Sanctum
-            153752, // a3 catapult event
-            102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
-            447641, // cos_pet_mimic_01
-            5288, // shoulderPads_norm_base_flippy ???
-            291717, // x1_Abattoir_Barricade_Solid
-            365503, // X1_Fortress_FloatRubble_A
-            211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
-            377253, // x1_Fortress_Crystal_Prison_Shield
-            319797, // x1_westm_Railing_A_01_piece1
-            289804, // x1_Pand_HexMaze_Corpse  Corpse            
-            159098, // DH_Companion_RuneC
-            187436, // LootType2_tristramVillager_Male_C_Corpse_01 Dead Villager
+        // TODO: replace with the real enum value (no cast)
+        public readonly HashSet<ActorSnoEnum> BridgesIds = new HashSet<ActorSnoEnum>
+        {
+            (ActorSnoEnum)309432,
+            (ActorSnoEnum)54850,
+            (ActorSnoEnum)404043,
+            (ActorSnoEnum)198125
+        };
+        public readonly HashSet<ActorSnoEnum> BreakableDoorsIds = new HashSet<ActorSnoEnum>
+        {
+            (ActorSnoEnum)55325,
+            (ActorSnoEnum)427495,
+            (ActorSnoEnum)5792,
+            (ActorSnoEnum)95481,
+            (ActorSnoEnum)379048,
+            (ActorSnoEnum)95481,
+            (ActorSnoEnum)230324,
+        }; // 258064 };
+        public readonly HashSet<ActorSnoEnum> DoorsIdsBlackList = new HashSet<ActorSnoEnum>() {
+            (ActorSnoEnum)197939, (ActorSnoEnum)169502, (ActorSnoEnum)214333, (ActorSnoEnum)181195, (ActorSnoEnum)190236, // A2 to belial
+            (ActorSnoEnum)167185, // A2 Alcarnus
+            (ActorSnoEnum)200371, (ActorSnoEnum)5503, // A2 City
+            (ActorSnoEnum)198977, (ActorSnoEnum)52685, // A3 rakkis crossing
+            (ActorSnoEnum)112316, // A3 stonefort
+            (ActorSnoEnum)210433, // A3 battlefields
+            (ActorSnoEnum)356879, (ActorSnoEnum)182636, (ActorSnoEnum)165415,
+            (ActorSnoEnum)432258,
+            (ActorSnoEnum)341214, (ActorSnoEnum)370187,
+            (ActorSnoEnum)178161, // check this one, maybe a bounty
+            (ActorSnoEnum)217285, // leoric manor
+            (ActorSnoEnum)193248, // 3462,  Holy Sanctum
+            (ActorSnoEnum)153752, // a3 catapult event
+            (ActorSnoEnum)102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
+            (ActorSnoEnum)447641, // cos_pet_mimic_01
+            (ActorSnoEnum)5288, // shoulderPads_norm_base_flippy ???
+            (ActorSnoEnum)291717, // x1_Abattoir_Barricade_Solid
+            (ActorSnoEnum)365503, // X1_Fortress_FloatRubble_A
+            (ActorSnoEnum)211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
+            (ActorSnoEnum)377253, // x1_Fortress_Crystal_Prison_Shield
+            (ActorSnoEnum)319797, // x1_westm_Railing_A_01_piece1
+            (ActorSnoEnum)289804, // x1_Pand_HexMaze_Corpse  Corpse
+            (ActorSnoEnum)159098, // DH_Companion_RuneC
+            (ActorSnoEnum)187436, // LootType2_tristramVillager_Male_C_Corpse_01 Dead Villager
         };
 
         public DoorsPlugin()

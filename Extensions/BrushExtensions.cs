@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SharpDX;
 using SharpDX.Direct2D1;
 using Turbo.Plugins.Default;
-using Turbo.Plugins.Resu;
 
 namespace Turbo.Plugins.Jack
 {
