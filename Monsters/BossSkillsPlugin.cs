@@ -1,4 +1,5 @@
 ﻿// adaptation of StormReaver v6 xml theme
+// ActorSnoEnum conversion by DysfunctionaI
 namespace Turbo.Plugins.Jack.Monsters
 {
     using SharpDX.Direct2D1;
@@ -28,7 +29,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_Tornado_ET enabled="1" keywords="snos=139741">
             //  <ground_circle enabled="1" radius="10" stroke="2" dash="Dash" color="160,255,50,50" />
             //</RG_Tornado_ET>
-            SnoMapping.Add((ActorSnoEnum)139741, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._zoltunkulle_energytwister, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 10,
@@ -52,7 +53,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_AOE_Poison_1 enabled="1" keywords="snos=360046">
             // <ground_circle enabled="1" radius="10" stroke="2" dash="Dash" color="160,255,50,50" />
             //</RG_AOE_Poison_1>
-            SnoMapping.Add((ActorSnoEnum)360046, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_aoe_dot_poison_10foot, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 10,
@@ -64,7 +65,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_AOE_Poison_2 enabled="1" keywords="snos=363358">
             // <ground_circle enabled="1" radius="20" stroke="2" dash="Dash" color="160,255,50,50" />
             //</RG_AOE_Poison_2>
-            SnoMapping.Add((ActorSnoEnum)363358, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_aoe_dot_poison_20foot, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 20,
@@ -77,13 +78,13 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_Fire_Pentagram enabled="1" keywords="snos=159163|359693">
             // <ground_circle enabled="1" radius="11.5" stroke="5" dash="Dash" color="120,255,255,255" />
             //</RG_Fire_Pentagram>
-            SnoMapping.Add((ActorSnoEnum)159163, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._g_monster_projectile_fire_impact, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 11.5f,
                     Brush = Hud.Render.CreateBrush(120, 255, 255, 255, 5, DashStyle.Dash)
                 }));
-            SnoMapping.Add((ActorSnoEnum)359693, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_aoe_dot_fire_10foot, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 11.5f,
@@ -121,11 +122,10 @@ namespace Turbo.Plugins.Jack.Monsters
                     Radius = 20,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 2, DashStyle.Dash)
                 });
-            SnoMapping.Add((ActorSnoEnum)368453, rgDangerousSkillDecorator);
-            SnoMapping.Add((ActorSnoEnum)374732, rgDangerousSkillDecorator);
-            SnoMapping.Add((ActorSnoEnum)3026, rgDangerousSkillDecorator);
-            SnoMapping.Add((ActorSnoEnum)378237, rgDangerousSkillDecorator);
-            SnoMapping.Add((ActorSnoEnum)93837, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_lr_boss_malletdemon_fallingrocks, rgDangerousSkillDecorator);
+            SnoMapping.Add(ActorSnoEnum._x1_pand_cellar_fallingrock, rgDangerousSkillDecorator);
+            SnoMapping.Add(ActorSnoEnum._a2dun_zolt_random_fallingrocks_c, rgDangerousSkillDecorator);
+            SnoMapping.Add(ActorSnoEnum._gluttony_gascloud_proxy, new WorldDecoratorCollection(
                 new GroundLabelDecorator(Hud)
                 {
                     CountDownFrom = 75,
@@ -144,7 +144,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_Rime_Ice1 enabled="1" keywords="snos=359703">
             // <ground_circle enabled="1" radius="12" color="100,150,150,150" stroke="2" dash="Dash" />
             //</RG_Rime_Ice1>
-            SnoMapping.Add((ActorSnoEnum)359703, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_aoe_dot_cold_10foot, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 12,
@@ -156,7 +156,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_Rime_Ice2 enabled="1" keywords="snos=363356">
             // <ground_circle enabled="1" radius="22" color="100,150,150,150" stroke="2" dash="Dash" />
             //</RG_Rime_Ice2>
-            SnoMapping.Add((ActorSnoEnum)363356, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_aoe_dot_cold_20foot, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 22,
@@ -168,7 +168,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<RG_Rime_Ice_Projectiles enabled="1" keywords="snos=377087">
             // <ground_circle enabled="1" radius="3" color="100,150,150,150" stroke="2" dash="Dash" />
             //</RG_Rime_Ice_Projectiles>
-            SnoMapping.Add((ActorSnoEnum)377087, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_unique_monster_generic_projectile_cold, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 3,
@@ -182,7 +182,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<Diablo_Ring_of_Fire enabled="1" keywords="snos=226350">
             // <ground_circle enabled="1" radius="15" stroke="3" dash="Dash" color="160,255,50,50" />
             //</Diablo_Ring_of_Fire>
-            SnoMapping.Add((ActorSnoEnum)226350, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._diablo_ringoffire_damagearea, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 15,
@@ -195,13 +195,13 @@ namespace Turbo.Plugins.Jack.Monsters
             //<Maghda_Punish_Projectile enabled="1" keywords="snos=166686|278340">
             // <ground_circle enabled="1" radius="3" stroke="2" dash="Dash" color="160,255,50,50" />
             //</Maghda_Punish_Projectile>
-            SnoMapping.Add((ActorSnoEnum)166686, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._maghda_punish_projectile, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 3,
                     Brush = Hud.Render.CreateBrush(160, 255, 50, 50, 2, DashStyle.Dash)
                 }));
-            SnoMapping.Add((ActorSnoEnum)278340, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._ubermaghda_punish_projectile, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 3,
@@ -213,7 +213,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<Zoltun_Kulle_SlowTime_Bubble enabled="1" keywords="snos=185924">
             // <ground_circle enabled="1" radius="20" stroke="2" dash="Dash" color="160,255,50,255" />
             //</Zoltun_Kulle_SlowTime_Bubble>
-            SnoMapping.Add((ActorSnoEnum)185924, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._zoltunkulle_slowtime_bubble, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 20,
@@ -245,14 +245,14 @@ namespace Turbo.Plugins.Jack.Monsters
                     Radius = 6,
                     Brush = Hud.Render.CreateBrush(180, 255, 50, 255, 2, DashStyle.Dash)
                 });
-            SnoMapping.Add((ActorSnoEnum)360738, adriaArcanePool);
-            SnoMapping.Add((ActorSnoEnum)292507, adriaArcanePool);
-            SnoMapping.Add((ActorSnoEnum)292508, adriaArcanePool);
+            SnoMapping.Add(ActorSnoEnum._x1_adria_arcanepool, adriaArcanePool);
+            SnoMapping.Add(ActorSnoEnum._x1_adria_arena_floorpanel_active, adriaArcanePool);
+            SnoMapping.Add(ActorSnoEnum._x1_adria_arena_floorpanel_telegraph, adriaArcanePool);
 
             //<Adria_Blood_Pool enabled="1" keywords="snos=358404">
             // <ground_circle enabled="1" radius="12" stroke="1" dash="Dash" color="200,255,0,150" />
             //</Adria_Blood_Pool>
-            SnoMapping.Add((ActorSnoEnum)358404, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_adria_blood_large, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 12,
@@ -262,13 +262,13 @@ namespace Turbo.Plugins.Jack.Monsters
             //<Adria_Blood_Drops enabled="1" keywords="snos=363873|338889">
             // <ground_circle enabled="1" radius="2" stroke="2" dash="Dash" color="200,255,150,255" />
             //</Adria_Blood_Drops>
-            SnoMapping.Add((ActorSnoEnum)363873, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_adria_cauldron_spawn_projectile, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 2,
                     Brush = Hud.Render.CreateBrush(200, 255, 150, 255, 2, DashStyle.Dash)
                 }));
-            SnoMapping.Add((ActorSnoEnum)338889, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_adria_bouncingprojectile, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 2,
@@ -279,7 +279,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //Geyser_Tethrys 315366 Duration=3 radius=15
             //Sandmonster_Turret 434201 Duration=20 radius=-1
             //Hamelin_Rat_Swarm 427170 radius=7.5 I don't remember the duration,Maybe 60
-            SnoMapping.Add((ActorSnoEnum)315366, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._x1_adria_geyser, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 15,
@@ -297,7 +297,7 @@ namespace Turbo.Plugins.Jack.Monsters
                     BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 150, 255, 0),
                     Radius = 30,
                 }));
-            SnoMapping.Add((ActorSnoEnum)434201, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._p4_lr_boss_sandmonster_turret, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = -1,
@@ -315,7 +315,7 @@ namespace Turbo.Plugins.Jack.Monsters
                     BackgroundBrushFill = Hud.Render.CreateBrush(230, 255, 150, 255, 0),
                     Radius = 30,
                 }));
-            SnoMapping.Add((ActorSnoEnum)427170, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._p4_ratking_ratballmonster, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 7.5f,
@@ -344,7 +344,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<XahRith_Skills1 enabled="1" keywords="snos=260762">
             //    <ground_circle enabled="1" radius="12" stroke="2" dash="Dash" color="200,255,50,255" />
             //</XahRith_Skills1>
-            SnoMapping.Add((ActorSnoEnum)260762, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._uber_morlu_groundbomb_pending, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 12,
@@ -356,7 +356,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<XahRith_Skills2 enabled="1" keywords="snos=260761">
             //    <ground_circle enabled="1" radius="12" stroke="2" dash="Dash" color="200,255,50,100" />
             //</XahRith_Skills2>
-            SnoMapping.Add((ActorSnoEnum)260761, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._uber_morlu_frozenzombie_proxyactor, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 12,
@@ -368,7 +368,7 @@ namespace Turbo.Plugins.Jack.Monsters
             //<XahRith_Skills3 enabled="1" keywords="snos=260812">
             //    <ground_circle enabled="1" radius="12" stroke="2" dash="Dash" color="200,255,0,0" />
             //</XahRith_Skills3>
-            SnoMapping.Add((ActorSnoEnum)260812, new WorldDecoratorCollection(
+            SnoMapping.Add(ActorSnoEnum._unique_monster_icetrail, new WorldDecoratorCollection(
                 new GroundCircleDecorator(Hud)
                 {
                     Radius = 12,
