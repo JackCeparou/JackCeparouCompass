@@ -1,4 +1,5 @@
-﻿namespace Turbo.Plugins.Jack.Actors
+﻿// ActorSnoEnum conversion by DysfunctionaI
+namespace Turbo.Plugins.Jack.Actors
 {
     using SharpDX.DirectInput;
     using System.Collections.Generic;
@@ -24,53 +25,72 @@
 
         public Key HotKey
         {
-            get { return ToggleKeyEvent.Key; }
-            set { ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, value, false, false, false); }
+            get => ToggleKeyEvent.Key;
+            set => ToggleKeyEvent = Hud.Input.CreateKeyEvent(true, value, false, false, false);
         }
 
-        // TODO: replace with the real enum value (no cast)
         public readonly HashSet<ActorSnoEnum> BridgesIds = new HashSet<ActorSnoEnum>
         {
-            (ActorSnoEnum)309432,
-            (ActorSnoEnum)54850,
-            (ActorSnoEnum)404043,
-            (ActorSnoEnum)198125
+            ActorSnoEnum._x1_westm_bridge,
+            ActorSnoEnum._a3dun_keep_siegetowerdoor_a,
+            ActorSnoEnum._x1_westm_bridge_scoundrel,
+            ActorSnoEnum._a3dun_keep_bridge_icy
         };
         public readonly HashSet<ActorSnoEnum> BreakableDoorsIds = new HashSet<ActorSnoEnum>
         {
-            (ActorSnoEnum)55325,
-            (ActorSnoEnum)427495,
-            (ActorSnoEnum)5792,
-            (ActorSnoEnum)95481,
-            (ActorSnoEnum)379048,
-            (ActorSnoEnum)95481,
-            (ActorSnoEnum)230324,
-        }; // 258064 };
+            ActorSnoEnum._a3dun_keep_door_destructable,
+            ActorSnoEnum._p4_ruins_frost_breakable_door,
+            ActorSnoEnum._trdun_cath_wooddoor_a_barricaded,
+            ActorSnoEnum._a1dun_leor_jail_door_breakable_a,
+            ActorSnoEnum._p1_cesspools_door_breakable,
+            ActorSnoEnum._a1dun_leor_jail_door_breakable_a,
+            ActorSnoEnum._cemetary_gate_trout_wilderness_no_lock,
+        }; // ActorSnoEnum._uber_bossportal_door };
         public readonly HashSet<ActorSnoEnum> DoorsIdsBlackList = new HashSet<ActorSnoEnum>() {
-            (ActorSnoEnum)197939, (ActorSnoEnum)169502, (ActorSnoEnum)214333, (ActorSnoEnum)181195, (ActorSnoEnum)190236, // A2 to belial
-            (ActorSnoEnum)167185, // A2 Alcarnus
-            (ActorSnoEnum)200371, (ActorSnoEnum)5503, // A2 City
-            (ActorSnoEnum)198977, (ActorSnoEnum)52685, // A3 rakkis crossing
-            (ActorSnoEnum)112316, // A3 stonefort
-            (ActorSnoEnum)210433, // A3 battlefields
-            (ActorSnoEnum)356879, (ActorSnoEnum)182636, (ActorSnoEnum)165415,
-            (ActorSnoEnum)432258,
-            (ActorSnoEnum)341214, (ActorSnoEnum)370187,
-            (ActorSnoEnum)178161, // check this one, maybe a bounty
-            (ActorSnoEnum)217285, // leoric manor
-            (ActorSnoEnum)193248, // 3462,  Holy Sanctum
-            (ActorSnoEnum)153752, // a3 catapult event
-            (ActorSnoEnum)102711, // a1dun_Leor_Jail_Door_SuperLocked_A_Fake
-            (ActorSnoEnum)447641, // cos_pet_mimic_01
-            (ActorSnoEnum)5288, // shoulderPads_norm_base_flippy ???
-            (ActorSnoEnum)291717, // x1_Abattoir_Barricade_Solid
-            (ActorSnoEnum)365503, // X1_Fortress_FloatRubble_A
-            (ActorSnoEnum)211456, // a3dun_Keep_Barrel_Snow_No_Skirt	Sturdy Barrel
-            (ActorSnoEnum)377253, // x1_Fortress_Crystal_Prison_Shield
-            (ActorSnoEnum)319797, // x1_westm_Railing_A_01_piece1
-            (ActorSnoEnum)289804, // x1_Pand_HexMaze_Corpse  Corpse
-            (ActorSnoEnum)159098, // DH_Companion_RuneC
-            (ActorSnoEnum)187436, // LootType2_tristramVillager_Male_C_Corpse_01 Dead Villager
+            ActorSnoEnum._cald_merchant_cart, // A2 to belial
+			ActorSnoEnum._a2dun_cald_exit_gate, // A2 to belial
+			ActorSnoEnum._a2dunswr_gates_causeway_gates_non_op, // A2 to belial
+			ActorSnoEnum._a2dun_cald_belial_acid_attack, // A2 to belial
+			ActorSnoEnum._a2dun_cald_belial_room_gate_a, // A2 to belial
+            ActorSnoEnum._trout_cultists_summoning_portal_b, // A2 Alcarnus
+            ActorSnoEnum._caout_target_dummy, // A2 City
+			ActorSnoEnum._start_location_team_0, // A2 City
+            ActorSnoEnum._a3dun_crater_st_demon_chainpylon_fire_azmodan, // A3 rakkis crossing
+			ActorSnoEnum._a3dun_keep_bridge, // A3 rakkis crossing
+            ActorSnoEnum._a3dun_rmpt_frozendoor_a, // A3 stonefort
+            ActorSnoEnum._catapult_a3dunkeep_warmachines_snow_firing, // A3 battlefields
+            ActorSnoEnum._x1_crusader_trebuchet_pending_tar,
+            ActorSnoEnum._event_1000monster_portal,
+            ActorSnoEnum._a2dun_zolt_sandbridgebase_bossfight,
+            ActorSnoEnum._px_highlands_camp_resurgentcult_portal,
+            ActorSnoEnum._x1_bog_catacombsportal_beaconloc,
+            ActorSnoEnum._x1_malthael_boss_orb_collapse, // malthael fight
+            ActorSnoEnum._caout_oasis_mine_entrance_a, // check this one, maybe a bounty
+            ActorSnoEnum._trout_leor_painting, // leoric manor
+            ActorSnoEnum._a4dun_sigil_room_platform_a, // Holy Sanctum
+            ActorSnoEnum._a3dun_rmpt_catapult_follower_event_gate, // a3 catapult event
+            ActorSnoEnum._a1dun_leor_jail_door_superlocked_a_fake,
+            ActorSnoEnum._cos_pet_mimic_01,
+            ActorSnoEnum._shoulderpads_norm_base_flippy, // ???
+            ActorSnoEnum._x1_abattoir_barricade_solid,
+            ActorSnoEnum._x1_fortress_floatrubble_a,
+            ActorSnoEnum._a3dun_keep_barrel_snow_no_skirt, // Sturdy Barrel
+            ActorSnoEnum._x1_fortress_crystal_prison_shield,
+            ActorSnoEnum._x1_westm_railing_a_01_piece1,
+            ActorSnoEnum._x1_pand_hexmaze_corpse, // Corpse
+            ActorSnoEnum._dh_companion_runec,
+            ActorSnoEnum._loottype2_tristramvillager_male_c_corpse_01, // Dead Villager
+            ActorSnoEnum._uber_bossworld3_st_demon_chainpylon_fire_azmodan, // uber realm
+            ActorSnoEnum._trdun_crypt_skeleton_king_throne_parts, // uber realm
+            ActorSnoEnum._double_crane_a_caout_miningevent_chest_minievent, // A2 howling plateau event
+            ActorSnoEnum._p6_church_bloodchannel_a, // A2 Temple of Unborn 1
+            ActorSnoEnum._a4dun_sigil_tile_invis_wall, // A4 Bounty "Watch Your Step"
+            ActorSnoEnum._p1_tgoblin_gate, // Greed door
+            ActorSnoEnum._p1_tgoblin_vault_door, // Vault door
+            ActorSnoEnum._x1_urzael_soundspawner, // Urzael fight
+            ActorSnoEnum._x1_urzael_soundspawner_02, // Urzael fight
+            ActorSnoEnum._x1_urzael_soundspawner_03, // Urzael fight
+            ActorSnoEnum._x1_urzael_soundspawner_04, // Urzael fight
         };
 
         public DoorsPlugin()
