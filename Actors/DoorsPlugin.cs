@@ -91,6 +91,8 @@ namespace Turbo.Plugins.Jack.Actors
             ActorSnoEnum._x1_urzael_soundspawner_02, // Urzael fight
             ActorSnoEnum._x1_urzael_soundspawner_03, // Urzael fight
             ActorSnoEnum._x1_urzael_soundspawner_04, // Urzael fight
+            ActorSnoEnum._x1_westm_ex,
+            ActorSnoEnum._trout_cath_entrance_door,
         };
 
         public DoorsPlugin()
