@@ -1,27 +1,87 @@
 ﻿namespace Turbo.Plugins.Jack
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Turbo.Plugins.Default;
     using Turbo.Plugins.Jack.Decorators.TopTables;
 
     public class DifficultiesInfoPlugin : BasePlugin, IInGameTopPainter
     {
-        public TopTable Table { get; set; }
+        public Func<int, string> TormentLabelFunc { get; set; } = (pos) => string.Format("T{0}", pos - 3);
+        public Dictionary<int, string> LowerDifficultiesLabels { get; set; } = new Dictionary<int, string>() {
+            { 0, "Normal" },
+            { 1, "Hard" },
+            { 2, "Expert" },
+            { 3, "Master" },
+        };
+        public Dictionary<int, string> LineHeaders { get; set; } = new Dictionary<int, string>()
+        {
+            { 0, "Greater Rift equivalent" },
+            { 1, "Monster health" },
+            { 2, "Monster damage" },
+            { 3, "+ XP" },
+            { 4, "+ Gold Find" },
+            { 5, "Legendary drop" },
+            { 6, "Legendary drop (rift)" },
+            { 7, "Death's Breath" },
+            { 8, "Greater Rift key" },
+            { 9, "Horadric Cache materials" },
+            { 10, "Horadric Cache legendaries" },
+            { 11, "Keywarden Machine drop" },
+            { 12, "Uber Organ drop" },
+        };
 
+        public TopTable Table { get; private set; }
+
+        // updated by Silkdog569 for T14-T16 data
         private readonly string[,] difficultiesData = new string[,]
         {
-            {   "-",        "GR1",      "GR4",      "GR7",      "GR10",     "GR13",     "GR16",     "GR19",     "GR22",     "GR25",     "GR30",     "GR35",     "GR40",     "GR45",     "GR50",     "GR55",     "GR60",         },
-            {   "100%",     "200%",     "320%",     "512%",     "819%",     "1 311%",   "2 097%",   "3 355%",   "5 369%",   "8 590%",   "18 985%",  "41 625%",  "91 260%",  "200 082%", "438 669%", "961 759%", "2 108 607%",   },
-            {   "100%",     "130",      "189%",     "273%",     "396%",     "575%",     "833%",     "1 208%",   "1 752%",   "2 540%",   "3 604%",   "5 097%",   "7 208%",   "10 194%",  "14 416%",  "20 387%",  "28 832%",      },
-            {   "0%",       "75%",      "100%",     "200%",     "300%",     "400%",     "550%",     "8",        "1 150%",   "1 600%",   "1 900%",   "2 425%",   "3 100%",   "4 000%",   "5 000%",   "6 400%",   "8 200%",       },
-            {   "0%",       "75%",      "100%",     "200%",     "300%",     "400%",     "550%",     "8",        "1 150%",   "1 600%",   "1 850%",   "2 150%",   "2 500%",   "2 900%",   "3 350%",   "3 900%",   "4 500%",       },
-            {   "0%",       "0%",       "0%",       "0%",       "15%",      "32%",      "52%",      "75%",      "101%",     "131%",     "164%",     "205%",     "256%",     "320%",     "400%",     "500%",     "625%",         },
-            {   "25%",      "25%",      "25%",      "25%",      "44%",      "65%",      "90%",      "119%",     "151%",     "189%",     "236%",     "295%",     "369%",     "461%",     "577%",     "721%",     "901%",         },
-            {   "15%",      "18%",      "21%",      "25%",      "31%",      "37%",      "44%",      "53%",      "64%",      "75%",      "90%",      "2nd 15%",  "2nd 25%",  "2nd 50%",  "2nd 90%",  "3rd 12%",  "3rd 25%",      },
-            {   "1",        "2nd 5%",   "2nd 10%",  "2nd 15%",  "2nd 20%",  "2nd 25%",  "2nd 31%",  "2nd 38%",  "2nd 44%",  "2nd 51%",  "2nd 60%",  "2nd 70%",  "2nd 80%",  "2nd 90%",  "2",        "3rd 12%",  "3rd 25%",      },
-            {   "3",        "3",        "3",        "3",        "6",        "6",        "6",        "6",        "6",        "6",        "8",        "8",        "8",        "10",       "12",       "14",       "16",           },
-            {   "10%",      "10%",      "10%",      "10%",      "10%",      "50%",      "60%",      "75%",      "90%",      "100%",     "2nd 5%",   "2nd 15%",  "2nd 25%",  "2nd 50%",  "2nd 65%",  "2nd 80%",  "2",            },
-            {   "-",        "-",        "-",        "-",        "50%",      "75%",      "90%",      "100%",     "2nd 10%",  "2nd 20%",  "2nd 30%",  "2nd 40%",  "2nd 50%",  "2nd 60%",  "2nd 70%",  "2nd 80%",  "2nd 90%",      },
-            {   "-",        "-",        "-",        "-",        "1",        "2nd 10%",  "2nd 25%",  "2nd 50%",  "2nd 75%",  "2nd 90%",  "200%",     "3rd 10%",  "3rd 25%",  "3rd 50%",  "3rd 75%",  "3rd 90%",  "3",            },
+            {   "-",        "GR1",      "GR4",      "GR7",      "GR10",     "GR13",     "GR16",     "GR19",     "GR22",     "GR25",     "GR30",     "GR35",     "GR40",     "GR45",     "GR50",     "GR55",     "GR60",        "GR65",        "GR70",          "GR75",         },
+            {   "100%",     "200%",     "320%",     "512%",     "819%",     "1311%",    "2097%",    "3355%",    "5369%",    "8590%",    "18985%",   "41625%",   "91260%",   "200082%",  "438669%",  "961759%",  "2108607%",    "2889383%",    "6334823%",      "13888770%",    },
+            {   "100%",     "130",      "189%",     "273%",     "396%",     "575%",     "833%",     "1208%",    "1752%",    "2540%",    "3604%",    "5097%",    "7208%",    "10194%",   "14416%",   "20387%",   "28832%",      "40774%" ,     "57664%",        "64725%",       },
+            {   "0%",       "75%",      "100%",     "200%",     "300%",     "400%",     "550%",     "800%",     "1150%",    "1600%",    "1900%",    "2425%",    "3100%",    "4000%",    "5000%",    "6400%",    "8200%",       "10500%",      "13400%",        "17000%",       },
+            {   "0%",       "75%",      "100%",     "200%",     "300%",     "400%",     "550%",     "800%",     "1150%",    "1600%",    "1850%",    "2150%",    "2500%",    "2900%",    "3350%",    "3900%",    "4500%",       "5200%",       "6050%",         "7000%",        },
+            {   "0%",       "0%",       "0%",       "0%",       "15%",      "32%",      "52%",      "75%",      "101%",     "131%",     "164%",     "205%",     "256%",     "320%",     "400%",     "500%",     "625%",        "781%",        "977%",          "1221%",        },
+            {   "25%",      "25%",      "25%",      "25%",      "44%",      "65%",      "90%",      "119%",     "151%",     "189%",     "236%",     "295%",     "369%",     "461%",     "577%",     "721%",     "901%",        "1126%",       "1408%",         "1760%",        },
+            {   "15%",      "18%",      "21%",      "25%",      "31%",      "37%",      "44%",      "53%",      "64%",      "75%",      "90%",      "2nd 15%",  "2nd 25%",  "2nd 50%",  "2nd 90%",  "3rd 12%",  "3rd 25%",     "3rd 60%",     "3",             "4th 50%",      },
+            {   "1",        "2nd 5%",   "2nd 10%",  "2nd 15%",  "2nd 20%",  "2nd 25%",  "2nd 31%",  "2nd 38%",  "2nd 44%",  "2nd 51%",  "2nd 60%",  "2nd 70%",  "2nd 80%",  "2nd 90%",  "2",        "3rd 12%",  "3rd 25%",     "3rd 38%",     "3rd 51%",       "3rd 66%",      },
+            {   "3",        "3",        "3",        "3",        "6",        "6",        "6",        "6",        "6",        "6",        "8",        "8",        "8",        "10",       "12",       "14",       "16",          "18",          "20",            "22",           },
+            {   "10%",      "10%",      "10%",      "10%",      "10%",      "50%",      "60%",      "75%",      "90%",      "100%",     "2nd 5%",   "2nd 15%",  "2nd 25%",  "2nd 50%",  "2nd 65%",  "2nd 80%",  "2",           "3rd 25%",     "3rd 50%",       "3rd 80%",      },
+            {   "-",        "-",        "-",        "-",        "50%",      "75%",      "90%",      "100%",     "2nd 10%",  "2nd 20%",  "2nd 30%",  "2nd 40%",  "2nd 50%",  "2nd 60%",  "2nd 70%",  "2nd 80%",  "2nd 90%",     "2",           "3rd 10%",       "3rd 20%",      },
+            {   "-",        "-",        "-",        "-",        "1",        "2nd 10%",  "2nd 25%",  "2nd 50%",  "2nd 75%",  "2nd 90%",  "200%",     "3rd 10%",  "3rd 25%",  "3rd 50%",  "3rd 75%",  "3rd 90%",  "3",           "4th 12%",     "4th 25%",       "4th 50%",      },
+        };
+
+        private TopTableHeader HeaderTemplate => new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
+        {
+            RatioHeight = 22 / 1080f,
+            RatioWidth = 0.075f,
+            HighlightFunc = (pos, curPos) => (int)Hud.Game.GameDifficulty == pos,
+            TextAlign = HorizontalAlign.Center,
+        };
+
+        private TopTableCell[] LineCellsTemplate => Enumerable
+            .Range(0, difficultiesData.GetLength(1))
+            .Select(x => new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => difficultiesData[line, column]) { TextAlign = HorizontalAlign.Center }).ToArray();
+
+        private TopTableHeader LineHeaderTemplate => new TopTableHeader(Hud, (pos, curPos) => GetLineHeaderText(pos))
+        {
+            RatioWidth = 62 / 1080f, // define only once on first line, value on other will be ignored
+            RatioHeight = 22 / 1080f,
+            HighlightFunc = (pos, curPos) => false,
+            TextAlign = HorizontalAlign.Right,
+            HighlightDecorator = new TopTableCellDecorator(Hud)
+            {
+                BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0),
+                BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
+            },
+            CellHighlightDecorator = new TopTableCellDecorator(Hud)
+            {
+                BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0),
+                BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
+                TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
+            },
         };
 
         public DifficultiesInfoPlugin()
@@ -64,232 +124,34 @@
                 }
             };
 
-            Table.DefineColumns(
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioHeight = 22 / 1080f, // define only once on first column, value on others will be ignored
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                },
-                new TopTableHeader(Hud, (pos, curPos) => GetColumnHeaderText(pos))
-                {
-                    RatioWidth = 0.075f,
-                    HighlightFunc = (pos, curPos) => HighlightColumn(pos),
-                    TextAlign = HorizontalAlign.Center,
-                }
-            );
+            var columnCount = difficultiesData.GetLength(1);
+            var headers = Enumerable.Range(0, columnCount).Select(x => HeaderTemplate).ToArray();
+            Table.DefineColumns(headers);
 
-            for (var i = 0; i < 13; i++)
+            var lineCount = difficultiesData.GetLength(0);
+            for (var i = 0; i < lineCount; i++)
             {
                 Table.AddLine(
-                    new TopTableHeader(Hud, (pos, curPos) => GetLineHeaderText(pos))
-                    {
-                        RatioWidth = 62 / 1080f, // define only once on first line, value on other will be ignored
-                        RatioHeight = 22 / 1080f,
-                        HighlightFunc = (pos, curPos) => false,
-                        TextAlign = HorizontalAlign.Right,
-                        HighlightDecorator = new TopTableCellDecorator(Hud)
-                        {
-                            BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0),
-                            BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
-                            TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
-                        },
-                        CellHighlightDecorator = new TopTableCellDecorator(Hud)
-                        {
-                            BackgroundBrush = Hud.Render.CreateBrush(255, 0, 0, 0, 0),
-                            BorderBrush = Hud.Render.CreateBrush(255, 255, 255, 255, -1),
-                            TextFont = Hud.Render.CreateFont("tahoma", 8, 255, 255, 255, 255, true, false, true),
-                        },
-                    },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center },
-                    new TopTableCell(Hud, (line, column, lineSorted, columnSorted) => GetCellText(line, column)) { TextAlign = HorizontalAlign.Center }
+                    LineHeaderTemplate,
+                    LineCellsTemplate
                 );
             }
         }
 
-        private string GetCellText(int line, int column)
-        {
-            return difficultiesData[line, column];
-        }
-
         private string GetColumnHeaderText(int pos)
         {
-            switch (pos)
-            {
-                case 0:
-                    return "Normal";
+            if (LowerDifficultiesLabels.ContainsKey(pos))
+                return LowerDifficultiesLabels[pos];
 
-                case 1:
-                    return "Hard";
-
-                case 2:
-                    return "Expert";
-
-                case 3:
-                    return "Master";
-
-                default:
-                    return string.Format("T{0}", pos - 3);
-            }
+            return TormentLabelFunc?.Invoke(pos) ?? "???";
         }
 
         private string GetLineHeaderText(int pos)
         {
-            switch (pos)
-            {
-                case 0:
-                    return "Greater Rift equivalent";
+            if (LineHeaders.ContainsKey(pos))
+                return LineHeaders[pos];
 
-                case 1:
-                    return "Monster health";
-
-                case 2:
-                    return "Monster damage";
-
-                case 3:
-                    return "+ XP";
-
-                case 4:
-                    return "+ Gold Find";
-
-                case 5:
-                    return "Legendary drop";
-
-                case 6:
-                    return "Legendary drop (rift)";
-
-                case 7:
-                    return "Death's Breath";
-
-                case 8:
-                    return "Greater Rift key";
-
-                case 9:
-                    return "Horadric Cache materials";
-
-                case 10:
-                    return "Horadric Cache legendaries";
-
-                case 11:
-                    return "Keywarden Machine drop";
-
-                case 12:
-                    return "Uber Organ drop";
-
-                default:
-                    return "";
-            }
-        }
-
-        private bool HighlightColumn(int pos)
-        {
-            return (int)Hud.Game.GameDifficulty == pos;
+            return string.Empty;
         }
 
         public void PaintTopInGame(ClipState clipState)
