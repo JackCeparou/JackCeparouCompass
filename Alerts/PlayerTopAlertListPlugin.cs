@@ -510,8 +510,8 @@
                 Rule =
                 {
                     //CheckSkillCooldowns = false,
-                    //EquippedSkills = new[] { new SnoPowerId(134872), },
-                    ActiveBuffs = new[] { new SnoPowerId(134872, 2), },
+                    EquippedSkills = new[] { new SnoPowerId(134872, 1), },
+                    ActiveBuffs = new[] { new SnoPowerId(134872), },
                     InactiveBuffs = new[] { new SnoPowerId(135663), }
                 },
             });
