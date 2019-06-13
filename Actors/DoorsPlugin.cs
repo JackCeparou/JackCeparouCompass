@@ -93,6 +93,9 @@ namespace Turbo.Plugins.Jack.Actors
             ActorSnoEnum._x1_urzael_soundspawner_04, // Urzael fight
             ActorSnoEnum._x1_westm_ex,
             ActorSnoEnum._trout_cath_entrance_door,
+            ActorSnoEnum._x1_westm_shacklebar, // quest (Act V) The Templar's Reckoning
+            ActorSnoEnum._x1_westm_shacklebar_b, // quest (Act V) The Templar's Reckoning
+            ActorSnoEnum._x1_westm_stock, // quest (Act V) The Templar's Reckoning
         };
 
         public DoorsPlugin()
