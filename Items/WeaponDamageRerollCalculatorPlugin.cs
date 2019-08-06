@@ -1,4 +1,4 @@
-namespace Turbo.Plugins.Jack.Items
+﻿namespace Turbo.Plugins.Jack.Items
 {
     using System;
     using System.Globalization;
@@ -28,12 +28,12 @@ namespace Turbo.Plugins.Jack.Items
         public Func<float> LeftFunc { get; set; }
         public Func<float> TopFunc { get; set; }
 
-        private readonly WeaponDamageInfo weaponInfo;
+        //private readonly WeaponDamageInfo weaponInfo;
 
         public WeaponDamageRerollCalculatorPlugin()
         {
             Enabled = true;
-            weaponInfo = new WeaponDamageInfo();
+            //weaponInfo = new WeaponDamageInfo();
         }
 
         public override void Load(IController hud)
@@ -58,7 +58,7 @@ namespace Turbo.Plugins.Jack.Items
             LeftFunc = () =>
             {
                 var uicMain = Hud.Inventory.GetHoveredItemMainUiElement();
-                return uicMain.Rectangle.X + uicMain.Rectangle.Width * 0.69f;
+                return uicMain.Rectangle.X + (uicMain.Rectangle.Width * 0.68f);
             };
             TopFunc = () =>
             {
@@ -83,6 +83,21 @@ namespace Turbo.Plugins.Jack.Items
             var bonusAttackSpeed = 1 + item.StatList.WeaponDamageBonusAttackSpeedPercent();
             var baseAps = (float)decimal.Round((decimal)(attackSpeed / bonusAttackSpeed), 2);
 
+            //var stats =
+            //        item.StatList
+            //        //.Where(s => s.Id.StartsWith("Damage_Weapon_Max"))
+            //        .Where(s => s.Id.StartsWith("Damage"))
+            //        .Where(s => !s.Id.Contains("Total"))
+            //        //item.StatList.Where(s => s.DoubleValue >= 1940 && s.DoubleValue <= 1989)
+            //        .OrderBy(s => s.Id)
+            //    ;
+            //foreach (var stat in stats)
+            //{
+            //    Jack.Says.Debug("{0,-20} {1,-12} {2}", stat.Id, stat.Attribute?.Code, stat.DoubleValue);
+            //}
+            //Jack.Says.Debug();
+
+            /*//
             WeaponDamageDefinition weaponDamageDefinition;
             switch (item.SnoItem.Sno)
             {
@@ -94,9 +109,9 @@ namespace Turbo.Plugins.Jack.Items
                     break;
             }
             if (weaponDamageDefinition == null) return;
+            /**/
 
             var bonusMinMax = item.Perfections.WeaponDamageBonusMinMax();
-            //Says.Debug(item.AncientRank > 0 ? weaponDamageDefinition.BonusAncientMaxMax : weaponDamageDefinition.BonusMaxMax, item.Perfections.WeaponDamageBonusMaxMax());
             var bonusMaxMax = item.Perfections.WeaponDamageBonusMaxMax();
 
             var bonusMin = item.Perfections.WeaponDamageBonusMin();
@@ -112,10 +127,28 @@ namespace Turbo.Plugins.Jack.Items
             var x = LeftFunc();
             var y = TopFunc();
 
-            y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, true, false);
+            //Jack.Says.Debug("bonusMinMax, bonusMin, bonusMaxMax, bonusMax");
+            //Jack.Says.Debug(bonusMinMax, bonusMin, bonusMaxMax, bonusMax);
+            //Jack.Says.Debug("baseMin, bonusMinMax, baseMax, bonusMaxMax");
+            //Jack.Says.Debug(baseMin, bonusMinMax, baseMax, bonusMaxMax);
+            //Jack.Says.Debug("baseMin + bonusMinMax + baseMax + bonusMaxMax");
+            //Jack.Says.Debug(baseMin + bonusMinMax + baseMax + bonusMaxMax);
+            //Jack.Says.Debug("(baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f");
+            //Jack.Says.Debug((baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f);
+            //Jack.Says.Debug("baseAps, bonusDamage, bonusAttackSpeed");
+            //Jack.Says.Debug(baseAps, bonusDamage, bonusAttackSpeed);
+            //Jack.Says.Debug("baseAps * bonusDamage * bonusAttackSpeed");
+            //Jack.Says.Debug(baseAps * bonusDamage * bonusAttackSpeed);
+            //Jack.Says.Debug("(baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f * baseAps * bonusDamage * bonusAttackSpeed");
+            //Jack.Says.Debug((baseMin + bonusMinMax + baseMax + bonusMaxMax) / 2f * baseAps * bonusDamage * bonusAttackSpeed);
+            //Jack.Says.Debug();
+            //Jack.Says.Debug();
+
+            y += DrawTextLine(item, x, y, RerollLabel, DpsLabel, false, false, true);
             y += DrawTextLine(item, x, y, RangeLabel, userRollBaseDamageRange.ToString(DpsFormat),
                 WeaponDamageInfo.BaseDamageRangeAffixIds.Contains(item.EnchantedAffixNew),
-                bonusMinMax == bonusMin && bonusMaxMax == bonusMax
+                //bonusMinMax == bonusMin && bonusMaxMax == bonusMax
+                item.Perfections.WeaponDamageRangeMaxxed()
                 );
             y += DrawTextLine(item, x, y, DamagePercentLabel, userRollDamagePercent.ToString(DpsFormat),
                 item.EnchantedAffixNew == WeaponDamageInfo.DamageBonusPercentId,
@@ -128,18 +161,24 @@ namespace Turbo.Plugins.Jack.Items
             y += DrawTextLine(item, x, y, PerfectLabel, userPerfect.ToString(DpsFormat), false, false);
         }
 
-        private float DrawTextLine(IItem item, float x, float y, string label, string value, bool active, bool maxed)
+        private float DrawTextLine(IItem item, float x, float y, string label, string value, bool active, bool maxed, bool header = false)
         {
-            IFont font;
-            var text = string.Format(NumberFormat, LineFormat, label, value);
+            var font = InactiveFont;
+            var lineFormat = LineFormat;
+
+            if (header)
+                font = ActiveFont;
+
+            if (maxed)
+                font = RerollMaxedFont;
+
             if (active)
             {
+                lineFormat += " \uD83D\uDDD8"; //🗘
                 font = maxed && item.EnchantedAffixCounter > 0 ? RerollMaxedFont : ActiveFont;
             }
-            else
-            {
-                font = InactiveFont;
-            }
+
+            var text = string.Format(NumberFormat, lineFormat, label, value);
             var layout = font.GetTextLayout(text);
             font.DrawText(layout, x, y);
 
