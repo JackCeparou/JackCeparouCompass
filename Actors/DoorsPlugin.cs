@@ -105,7 +105,7 @@ namespace Turbo.Plugins.Jack.Actors
             DebugEnabled = true;
             ShowInTown = false;
             GroundLabelsOnScreen = false;
-            GroundSymbol = "\uD83D\uDEAA"; //🚪
+            GroundSymbol = "🚪"; //🚪
         }
 
         public override void Load(IController hud)
